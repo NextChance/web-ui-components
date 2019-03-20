@@ -66,7 +66,7 @@ export default {
   justify-content: center;
 
   &.veil {
-    background:#FFF;
+    background: #fff;
   }
 
   .nc-spinner__container {
