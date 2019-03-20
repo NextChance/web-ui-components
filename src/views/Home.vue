@@ -1,8 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Dumb/>
+    <h1>DUMB COMPONENT</h1>
+    <Dumb />
+    <hr />
+    <br />
+    <h1>NC-SPINNER COMPONENT</h1>
+    <div class="test"><nc-spinner /></div>
   </div>
 </template>
 
@@ -10,11 +13,20 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Dumb from "@/components/Dumb.vue";
+import ncSpinner from "@/components/nc-spinner.vue";
 
 export default {
   name: "home",
   components: {
-    Dumb
+    Dumb,
+    ncSpinner
   }
 };
 </script>
+
+<style>
+.test {
+  width: 100%;
+  height: 250px;
+}
+</style>
