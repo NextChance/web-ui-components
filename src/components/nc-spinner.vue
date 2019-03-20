@@ -36,21 +36,21 @@ export default {
      */
     active: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * text state true if it is displayed
      */
     hasText: {
       type: Boolean,
-      default: false
+      default: true
     },
     /**
      * veil state true if it is displayed
      */
     hasVeil: {
       type: Boolean,
-      default: false
+      default: true
     }
   }
 };
