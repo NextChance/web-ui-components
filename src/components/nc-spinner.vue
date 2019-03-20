@@ -1,7 +1,7 @@
 <template>
-  <div v-show="active" :class="{ veil: hasVeil }" class="nc-spinner-container">
-    <div class="nc-spinner-content">
-      <div class="nc-spinner-spinner">
+  <div v-show="active" :class="{ veil: hasVeil }" class="nc-spinner">
+    <div class="nc-spinner__container">
+      <div class="nc-spinner__icon">
         <div></div>
         <div></div>
         <div></div>
@@ -15,7 +15,7 @@
         <div></div>
         <div></div>
       </div>
-      <div v-show="hasText" class="nc-spinner-text">{{ text }}</div>
+      <div v-show="hasText" class="nc-spinner__text">{{ text }}</div>
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.nc-spinner-container {
+.nc-spinner {
   width: 100%;
   text-align: center;
   height: 100%;
@@ -69,9 +69,9 @@ export default {
     background:#FFF;
   }
 
-  .nc-spinner-content {
-    .nc-spinner-spinner {
-      color: official;
+  .nc-spinner__container {
+    .nc-spinner__icon {
+      color: #272727;
       display: inline-block;
       position: relative;
       width: 64px;
@@ -79,7 +79,7 @@ export default {
 
       div {
         transform-origin: 32px 32px;
-        animation: nc-spinner-spinner 1.2s linear infinite;
+        animation: nc-spinner__icon 1.2s linear infinite;
         &:after {
           content: " ";
           display: block;
@@ -142,7 +142,7 @@ export default {
         animation-delay: 0s;
       }
 
-      @keyframes nc-spinner-spinner {
+      @keyframes nc-spinner__icon {
         0% {
           opacity: 1;
         }
@@ -152,7 +152,8 @@ export default {
       }
     }
 
-    .nc-spinner-text {
+    .nc-spinner__text {
+      margin-top: 20px;
       color: #272727;
       font-size: 12px;
     }
