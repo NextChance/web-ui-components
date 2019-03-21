@@ -1,7 +1,11 @@
 <template>
-  <div v-show="active" :class="{ veil: hasVeil }" class="nc-spinner">
-    <div class="nc-spinner__container">
-      <div class="nc-spinner__icon">
+  <div
+    v-show="active"
+    class="nc-loader"
+    :style="[hasVeil ? { background: veilColor } : '']"
+  >
+    <div class="nc-loader__container">
+      <div class="nc-loader__icon" :style="{ color: iconColor }">
         <div></div>
         <div></div>
         <div></div>
@@ -15,49 +19,75 @@
         <div></div>
         <div></div>
       </div>
-      <div v-show="hasText" class="nc-spinner__text">{{ text }}</div>
+      <div
+        v-show="hasText"
+        class="nc-loader__text"
+        :style="{ color: textColor }"
+      >
+        {{ text }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "nc-spinner",
+  name: "nc-loader",
   props: {
     /**
      * Text to display  below spinner
      */
     text: {
-      type: String,
-      default: "loading"
+      type: String
     },
     /**
      * loading state, true if it is displayed
      */
     active: {
       type: Boolean,
-      default: true
+      default: false
     },
     /**
      * text state true if it is displayed
      */
     hasText: {
       type: Boolean,
-      default: true
+      default: false
     },
     /**
      * veil state true if it is displayed
      */
     hasVeil: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    /**
+     * custom veil color
+     */
+    veilColor: {
+      type: String,
+      default: "#FFF"
+    },
+    /**
+     * custom text color
+     */
+    textColor: {
+      type: String,
+      default: "#272727"
+    },
+    /**
+     * custom icon color
+     */
+    iconColor: {
+      type: String,
+      default: "#272727"
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-.nc-spinner {
+.nc-loader {
   width: 100%;
   text-align: center;
   height: 100%;
@@ -65,13 +95,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  &.veil {
-    background: #fff;
-  }
-
-  .nc-spinner__container {
-    .nc-spinner__icon {
-      color: #272727;
+  &__container {
+    .nc-loader__icon {
       display: inline-block;
       position: relative;
       width: 64px;
@@ -79,7 +104,8 @@ export default {
 
       div {
         transform-origin: 32px 32px;
-        animation: nc-spinner__icon 1.2s linear infinite;
+        animation: nc-loader__icon 1.2s linear infinite;
+        color: "#272727";
         &:after {
           content: " ";
           display: block;
@@ -89,7 +115,7 @@ export default {
           width: 5px;
           height: 14px;
           border-radius: 20%;
-          background: #272727;
+          background-color: currentColor;
         }
         &:nth-child(1) {
           transform: rotate(0deg);
@@ -142,7 +168,7 @@ export default {
         animation-delay: 0s;
       }
 
-      @keyframes nc-spinner__icon {
+      @keyframes nc-loader__icon {
         0% {
           opacity: 1;
         }
@@ -152,7 +178,7 @@ export default {
       }
     }
 
-    .nc-spinner__text {
+    .nc-loader__text {
       margin-top: 20px;
       color: #272727;
       font-size: 12px;

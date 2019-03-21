@@ -5,7 +5,17 @@
     <hr />
     <br />
     <h1>NC-SPINNER COMPONENT</h1>
-    <div class="test"><nc-spinner /></div>
+    <div class="test">
+      <nc-loader
+        :has-text="true"
+        :has-veil="true"
+        :active="true"
+        icon-color="#272727"
+        text-color="#272727"
+        veil-color="#FFF"
+        :text="$t('lang.loading.msg')"
+      />
+    </div>
   </div>
 </template>
 
@@ -13,13 +23,13 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Dumb from "@/components/Dumb.vue";
-import ncSpinner from "@/components/nc-spinner.vue";
+import ncLoader from "@/components/nc-loader.vue";
 
 export default {
   name: "home",
   components: {
     Dumb,
-    ncSpinner
+    ncLoader
   }
 };
 </script>

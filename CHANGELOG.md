@@ -17,15 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [UNREALEASED]
+## [UNRELEASED]
 
 ### Added
-
 - New component nc-spinner
-- Added nc-spinner in Home.vue
-
-### Removed
-- Removed img in Home.vue
-
-### Fixed
-- Fixed lint 
