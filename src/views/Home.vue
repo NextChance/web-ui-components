@@ -4,7 +4,7 @@
     <Dumb />
     <hr />
     <br />
-    <h1>NC-SPINNER COMPONENT</h1>
+    <h1>NC-LOADER COMPONENT</h1>
     <div class="test">
       <nc-loader
         :has-text="true"
