@@ -22,16 +22,16 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import Dumb from "@/components/Dumb.vue";
-import ncLoader from "@/components/nc-loader.vue";
+import Dumb from '@/components/Dumb.vue'
+import ncLoader from '@/components/nc-loader.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     Dumb,
     ncLoader
   }
-};
+}
 </script>
 
 <style>
