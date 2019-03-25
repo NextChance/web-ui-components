@@ -28,12 +28,13 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import Dumb from "@/components/Dumb.vue";
-import ncLoader from "@/components/nc-loader.vue";
-import ncModal from "@/components/nc-modal.vue";
+
+import Dumb from '@/components/Dumb.vue'
+import ncLoader from '@/components/nc-loader.vue';
+import ncModal from '@/components/nc-modal.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     Dumb,
     ncLoader,
@@ -44,7 +45,7 @@ export default {
       opened: false
     }
   }
-};
+}
 </script>
 
 <style>

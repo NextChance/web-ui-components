@@ -14,10 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-
-
-
 ## [UNRELEASED]
 
 ### Added
-- New component nc-loader #6
+
+- Added package.json configuration #8
+
