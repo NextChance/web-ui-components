@@ -16,6 +16,12 @@
         :text="$t('lang.loading.msg')"
       />
     </div>
+    <h1>NC_MODAL</h1>
+    <nc-modal 
+      :opened = true 
+      @close = "opened = false"
+    />
+    <button  @click="opened = true">Show Modal</button>
   </div>
 </template>
 
@@ -24,12 +30,19 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Dumb from "@/components/Dumb.vue";
 import ncLoader from "@/components/nc-loader.vue";
+import ncModal from "@/components/nc-modal.vue";
 
 export default {
   name: "home",
   components: {
     Dumb,
-    ncLoader
+    ncLoader,
+    ncModal
+  },
+  data() {
+    return {
+      opened: false
+    }
   }
 };
 </script>
