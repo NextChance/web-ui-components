@@ -28,12 +28,12 @@
 
 <script>
 // @ is an alias to /src
-import Dumb from "@/components/Dumb.vue";
-import ncLoader from "@/components/nc-loader.vue";
-import ncList from "@/components/nc-list.vue";
+import Dumb from '@/components/Dumb.vue'
+import ncLoader from '@/components/nc-loader.vue'
+import ncList from '@/components/nc-list.vue'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     Dumb,
     ncLoader,
@@ -43,23 +43,23 @@ export default {
     return {
       items: [
         {
-          country: "Spain",
-          code: "+34"
+          country: 'Spain',
+          code: '+34'
         },
         {
-          country: "Sri Lanka",
-          code: "+94"
+          country: 'Sri Lanka',
+          code: '+94'
         }
       ]
-    };
+    }
   },
   methods: {
     selectItem(e) {
       // eslint-disable-next-line no-console
-      console.log(e);
+      console.log(e)
     }
   }
-};
+}
 </script>
 
 <style>
