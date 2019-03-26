@@ -14,7 +14,7 @@ describe('ncLoader', () => {
     }
   ];
   const item = items[0]
-  let wrapper;
+  let wrapper
 
   beforeEach(() => {
     wrapper = shallowMount(ncList, {
