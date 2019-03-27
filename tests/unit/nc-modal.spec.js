@@ -3,14 +3,17 @@ import { mount } from '@vue/test-utils'
 import ncModal from '@/components/nc-modal.vue'
 
 describe('ncModal set 1', () => {
+  const calculateContentHeight = jest.fn()
+  const resizeModal = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = false
+  const hideHeader = true
   const hideFooter = false
   const padding = '50px'
   const marginTop = '0'
-  const width = '200'
+  const width = '200px'
   const noVerticallyAligned = false
+  const height = '630px'
   let wrapper
   beforeEach(() => {
     wrapper = mount(ncModal, {
@@ -22,7 +25,12 @@ describe('ncModal set 1', () => {
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
-        width: width
+        width: width,
+        height: height
+      },
+      methods: {
+        calculateContentHeight,
+        resizeModal
       }
     })
   })
@@ -35,6 +43,7 @@ describe('ncModal set 1', () => {
     expect(wrapper.props().marginTop).toBe(marginTop)
     expect(wrapper.props().noVerticallyAligned).toBe(noVerticallyAligned)
     expect(wrapper.props().width).toBe(width)
+    expect(wrapper.props().height).toBe(height)
   })
 
   it('changes props in mounted method', () => {
@@ -71,14 +80,17 @@ describe('ncModal set 1', () => {
 })
 
 describe('ncModal set 2 (not vertically aligned)', () => {
+  const calculateContentHeight = jest.fn()
+  const resizeModal = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = false
+  const hideHeader = true
   const hideFooter = false
   const padding = '50px'
   const marginTop = '0'
-  const width = '200'
-  const noVerticallyAligned = true
+  const width = '200px'
+  const noVerticallyAligned = false
+  const height = '630px'
   let wrapper
   beforeEach(() => {
     wrapper = mount(ncModal, {
@@ -90,7 +102,12 @@ describe('ncModal set 2 (not vertically aligned)', () => {
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
-        width: width
+        width: width,
+        height: height
+      },
+      methods: {
+        calculateContentHeight,
+        resizeModal
       }
     })
   })
@@ -100,5 +117,83 @@ describe('ncModal set 2 (not vertically aligned)', () => {
     let transform = 'translate(-50%, 0)'
     expect(wrapper.vm.top).toBe(top)
     expect(wrapper.vm.transform).toBe(transform)
+  })
+})
+
+describe('ncModal set 3 testing resizeModal methods', () => {
+  const calculateContentHeight = jest.fn()
+  const showCloseIcon = true
+  const opened = true
+  const hideHeader = true
+  const hideFooter = false
+  const padding = '50px'
+  const marginTop = '0'
+  const width = '200px'
+  const noVerticallyAligned = false
+  const height = '630px'
+  let wrapper
+  beforeEach(() => {
+    wrapper = mount(ncModal, {
+      propsData: {
+        showCloseIcon: showCloseIcon,
+        opened: opened,
+        hideHeader: hideHeader,
+        hideFooter: hideFooter,
+        padding: padding,
+        marginTop: marginTop,
+        noVerticallyAligned: noVerticallyAligned,
+        width: width,
+        height: height
+      },
+      methods: {
+        calculateContentHeight
+      }
+    })
+  })
+
+  it('resizeModal method calls getWindowWidth method', () => {
+    let stub = jest.fn()
+    wrapper.setMethods({ getWindowWidth: stub })
+    wrapper.vm.resizeModal()
+    expect(stub).toBeCalled()
+  })
+
+  it('resizeModal method calls getDesktopDevice method', () => {
+    let stub = jest.fn()
+    wrapper.setMethods({ getDesktopDevice: stub })
+    wrapper.vm.resizeModal()
+    expect(stub).toBeCalled()
+  })
+
+  it('resizeModal method calls calculateContentHeight method', () => {
+    let stub = jest.fn()
+    const getDesktopDevice = jest.fn()
+    getDesktopDevice.mockReturnValue(true)
+    wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
+    wrapper.setMethods({ calculateContentHeight: stub })
+    wrapper.vm.resizeModal()
+    expect(stub).toBeCalled()
+  })
+
+  it('resizeModal method changes props if component is displayed in desktop ', () => {
+    const getDesktopDevice = jest.fn()
+    const top = '0'
+    const left = '0'
+    const transform = 'translate(0, 0)'
+    const changedTop = '50%'
+    const changedLeft = '50%'
+    const changedTransform = 'translate(-50%, -50%)'
+    getDesktopDevice.mockReturnValue(false)
+    wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
+    wrapper.setProps({ padding: padding })
+    wrapper.setProps({ top: top })
+    wrapper.setProps({ left: left })
+    wrapper.vm.resizeModal()
+    expect(wrapper.vm.transform).toBe(changedTransform)
+    expect(wrapper.vm.top).toBe(changedTop)
+    expect(wrapper.vm.left).toBe(changedLeft)
+    expect(wrapper.vm.transform).toBe(transform)
+    expect(wrapper.vm.widthByDevice).toBe(width)
+    expect(wrapper.vm.heightByDevice).toBe(height)
   })
 })
