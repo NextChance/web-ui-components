@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import ncList from '@/components/nc-list.vue'
 
-describe('ncLoader', () => {
+describe('ncList', () => {
   let hasSearch = true
   const items = [
     {
