@@ -84,7 +84,6 @@ export default {
     },
 
     calculateContentHeight() {
-			debugger;
       let headerHeight = document.querySelector('.header').offsetHeight
       let padding = parseInt(
         document.querySelector('.nc-modal__container').style.padding
