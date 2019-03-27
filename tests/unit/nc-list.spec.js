@@ -48,7 +48,7 @@ describe('ncList', () => {
   it('display li element with country value SRI LANKA in items array if search value is k', () => {
     expect(wrapper.findAll('.nc-list__item').length).toBe(2)
     wrapper.find('.nc-list__search').setValue('k')
-    expect(wrapper.find('.item-country').text()).toBe('SRI LANKA')
+    expect(wrapper.find('.item-on-left').text()).toBe('SRI LANKA')
   });
 
   it('calls itemSelected when an item is clicked', () => {
