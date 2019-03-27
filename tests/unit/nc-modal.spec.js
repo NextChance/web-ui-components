@@ -89,7 +89,7 @@ describe('ncModal set 2 (not vertically aligned)', () => {
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
-  const noVerticallyAligned = false
+  const noVerticallyAligned = true
   const height = '630px'
   let wrapper
   beforeEach(() => {
@@ -120,7 +120,7 @@ describe('ncModal set 2 (not vertically aligned)', () => {
   })
 })
 
-describe('ncModal set 3 testing resizeModal methods', () => {
+describe('ncModal set 3 testing resizeModal method', () => {
   const calculateContentHeight = jest.fn()
   const showCloseIcon = true
   const opened = true
@@ -175,25 +175,116 @@ describe('ncModal set 3 testing resizeModal methods', () => {
     expect(stub).toBeCalled()
   })
 
-  it('resizeModal method changes props if component is displayed in desktop ', () => {
-    const getDesktopDevice = jest.fn()
+  it('resizeModal method changes props if component is displayed in mobile ', () => {
     const top = '0'
     const left = '0'
     const transform = 'translate(0, 0)'
-    const changedTop = '50%'
-    const changedLeft = '50%'
-    const changedTransform = 'translate(-50%, -50%)'
+    const width = 'calc(100vw - 100px)'
+    const height = '100%'
+    const contentHeight = 'auto'
+    const getDesktopDevice = jest.fn()
     getDesktopDevice.mockReturnValue(false)
     wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
-    wrapper.setProps({ padding: padding })
-    wrapper.setProps({ top: top })
-    wrapper.setProps({ left: left })
     wrapper.vm.resizeModal()
-    expect(wrapper.vm.transform).toBe(changedTransform)
-    expect(wrapper.vm.top).toBe(changedTop)
-    expect(wrapper.vm.left).toBe(changedLeft)
     expect(wrapper.vm.transform).toBe(transform)
+    expect(wrapper.vm.top).toBe(top)
+    expect(wrapper.vm.left).toBe(left)
     expect(wrapper.vm.widthByDevice).toBe(width)
     expect(wrapper.vm.heightByDevice).toBe(height)
+    expect(wrapper.vm.contentHeight).toBe(contentHeight)
+  })
+
+  it('resizeModal method changes props if component is displayed in desktop ', () => {
+    const top = '50%'
+    const left = '50%'
+    const transform = 'translate(-50%, -50%)'
+    const getDesktopDevice = jest.fn()
+    getDesktopDevice.mockReturnValue(true)
+    wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
+    wrapper.vm.resizeModal()
+    expect(wrapper.vm.transform).toBe(transform)
+    expect(wrapper.vm.top).toBe(top)
+    expect(wrapper.vm.left).toBe(left)
+    expect(wrapper.vm.widthByDevice).toBe(width)
+    expect(wrapper.vm.heightByDevice).toBe(height)
+  })
+})
+
+describe('ncModal set 4 testing getDesktopDevice method', () => {
+  const calculateContentHeight = jest.fn()
+  const showCloseIcon = true
+  const opened = true
+  const hideHeader = true
+  const hideFooter = false
+  const padding = '50px'
+  const marginTop = '0'
+  const width = '200px'
+  const noVerticallyAligned = false
+  const height = '630px'
+  let wrapper
+  beforeEach(() => {
+    wrapper = mount(ncModal, {
+      propsData: {
+        showCloseIcon: showCloseIcon,
+        opened: opened,
+        hideHeader: hideHeader,
+        hideFooter: hideFooter,
+        padding: padding,
+        marginTop: marginTop,
+        noVerticallyAligned: noVerticallyAligned,
+        width: width,
+        height: height
+      },
+      methods: {
+        calculateContentHeight
+      }
+    })
+  })
+
+  it('should be true if windowWidth is bigger than 769', () => {
+    wrapper.setData({ windowWidth: 769 })
+    expect(wrapper.vm.getDesktopDevice()).toBe(true)
+  })
+
+  it('should be true if windowWidth is samller than 769', () => {
+    wrapper.setData({ windowWidth: 768 })
+    expect(wrapper.vm.getDesktopDevice()).toBe(false)
+  })
+})
+
+describe('ncModal set 5 testing getWindowWidth method', () => {
+  const calculateContentHeight = jest.fn()
+  const showCloseIcon = true
+  const opened = true
+  const hideHeader = true
+  const hideFooter = false
+  const padding = '50px'
+  const marginTop = '0'
+  const width = '200px'
+  const noVerticallyAligned = false
+  const height = '630px'
+  let wrapper
+  beforeEach(() => {
+    wrapper = mount(ncModal, {
+      propsData: {
+        showCloseIcon: showCloseIcon,
+        opened: opened,
+        hideHeader: hideHeader,
+        hideFooter: hideFooter,
+        padding: padding,
+        marginTop: marginTop,
+        noVerticallyAligned: noVerticallyAligned,
+        width: width,
+        height: height
+      },
+      methods: {
+        calculateContentHeight
+      }
+    })
+  })
+
+  it('should be equal as screen window', () => {
+    let windowWidth = document.documentElement.clientWidth
+    expect(wrapper.vm.windowWidth).toBe(windowWidth)
   })
 })
