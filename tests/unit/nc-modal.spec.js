@@ -13,7 +13,9 @@ describe('ncModal set 1', () => {
   const marginTop = '0'
   const width = '200px'
   const noVerticallyAligned = false
-  const height = '630px'
+  const height = '630px',
+  const backgroundColor = '#fff'
+
   let wrapper
   beforeEach(() => {
     wrapper = mount(ncModal, {
@@ -44,6 +46,7 @@ describe('ncModal set 1', () => {
     expect(wrapper.props().noVerticallyAligned).toBe(noVerticallyAligned)
     expect(wrapper.props().width).toBe(width)
     expect(wrapper.props().height).toBe(height)
+    expect(wrapper.props().backgroundColor).toBe(backgroundColor)
   })
 
   it('changes props in mounted method', () => {

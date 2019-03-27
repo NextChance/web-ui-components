@@ -3,7 +3,7 @@
     <div class="nc-modal__overlay">
       <div
         class="nc-modal__container"
-        :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform}"
+        :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform, 'background-color': backgroundColor}"
       >
         <i v-if="showCloseIcon" class="nc-modal__close-icon fa" @click="close"></i>
         <div class="header" v-if="!hideHeader">
@@ -64,7 +64,11 @@ export default {
     noVerticallyAligned: {
       type: Boolean,
       default: false
-    }
+		},
+		backgroundColor: {
+			type: String,
+			default: '#fff'
+		}
   },
 
   data() {
@@ -183,7 +187,6 @@ $break-desktop: 769px;
     left: 0;
     transform: translate('0', '0');
     position: relative;
-    background-color: #fff;
     font-family: Helvetica, Arial, sans-serif;
 		overflow: auto;
 		/* desktop, specific styles */
@@ -195,6 +198,8 @@ $break-desktop: 769px;
 			overflow: hidden;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  		-webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    	-moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
       transition: all 0.3s ease;
 			& .content {
 				overflow-y: auto;
