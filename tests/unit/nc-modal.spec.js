@@ -89,7 +89,7 @@ describe('ncModal set 2 (not vertically aligned)', () => {
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
-  const noVerticallyAligned = false
+  const noVerticallyAligned = true
   const height = '630px'
   let wrapper
   beforeEach(() => {
