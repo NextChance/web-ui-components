@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <h1>DUMB COMPONENT</h1>
+    <h1>COMPONENTS</h1>
+    <h2>DUMB COMPONENT</h2>
     <Dumb />
     <hr />
     <br />
-    <h1>NC-LOADER COMPONENT</h1>
+    <h2>NC-LOADER COMPONENT</h2>
     <div class="test">
       <nc-loader
         :has-text="true"
@@ -16,20 +17,47 @@
         :text="$t('lang.loading.msg')"
       />
     </div>
+    <hr />
+    <br />
+    <h2>NC-LIST COMPONENT</h2>
+    <div class="test">
+      <nc-list :has-search="true" :items="items" @item-selected="selectItem" />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 import Dumb from '@/components/Dumb.vue'
-import ncLoader from '@/components/nc-loader.vue';
+import ncLoader from '@/components/nc-loader.vue'
+import ncList from '@/components/nc-list.vue'
 
 export default {
   name: 'home',
   components: {
     Dumb,
-    ncLoader
+    ncLoader,
+    ncList
+  },
+  data() {
+    return {
+      items: [
+        {
+          country: 'Spain',
+          code: '+34'
+        },
+        {
+          country: 'Sri Lanka',
+          code: '+94'
+        }
+      ]
+    }
+  },
+  methods: {
+    selectItem(e) {
+      // eslint-disable-next-line no-console
+      console.log(e)
+    }
   }
 }
 </script>
