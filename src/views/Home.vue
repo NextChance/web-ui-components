@@ -52,6 +52,7 @@
         </template>
         <template v-slot:footer>
           <button>Copiar código</button>
+          <p>dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sut aliquid ex ea</p>
         </template>
       </nc-modal>
     <button  @click="opened = true">Show Modal</button>
@@ -74,9 +75,9 @@ export default {
   data() {
     return {
       showCloseIcon: true,
-      opened: true,
       hideHeader: false,
       hideFooter: false,
+      opened: false,
       padding: '50px',
       marginTop: '0',
       width: '588px',

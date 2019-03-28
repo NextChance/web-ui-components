@@ -105,7 +105,7 @@ export default {
       div {
         transform-origin: 32px 32px;
         animation: nc-loader__icon 1.2s linear infinite;
-        color: '#272727';
+        color: #272727;
         &:after {
           content: ' ';
           display: block;

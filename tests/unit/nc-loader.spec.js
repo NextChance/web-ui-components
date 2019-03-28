@@ -10,23 +10,18 @@ describe('ncLoader', () => {
     const veilColor = '#272727'
     const textColor = '#272728'
     const iconColor = '#272729'
+    const propsData = {
+      text: text,
+      active: active,
+      hasText: hasText,
+      hasVeil: hasVeil,
+      veilColor: veilColor,
+      textColor: textColor,
+      iconColor: iconColor
+    }
     const wrapper = shallowMount(ncLoader, {
-      propsData: {
-        text: text,
-        active: active,
-        hasText: hasText,
-        hasVeil: hasVeil,
-        veilColor: veilColor,
-        textColor: textColor,
-        iconColor: iconColor
-      }
+      propsData: propsData
     })
-    expect(wrapper.props().text).toMatch(text)
-    expect(wrapper.props().active).toBe(active)
-    expect(wrapper.props().hasText).toBe(hasText)
-    expect(wrapper.props().hasVeil).toBe(hasVeil)
-    expect(wrapper.props().veilColor).toBe(veilColor)
-    expect(wrapper.props().textColor).toBe(textColor)
-    expect(wrapper.props().iconColor).toBe(iconColor)
+    expect(wrapper.props()).toStrictEqual(propsData)
   })
 })
