@@ -169,7 +169,7 @@ $break-desktop: 769px;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, .5);
-    transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
     position: fixed;
   }
   &__close-icon {
