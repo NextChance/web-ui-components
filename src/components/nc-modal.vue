@@ -204,7 +204,7 @@ $break-desktop: 769px;
       position: fixed;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-      -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
       transition: all .3s ease;
     }
