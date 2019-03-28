@@ -173,7 +173,7 @@ $break-desktop: 769px;
     position: fixed;
   }
   &__close-icon {
-    opacity: 0.8;
+    opacity: .8;
     position: absolute;
     cursor: pointer;
     top: 21px;
