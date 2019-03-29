@@ -1,12 +1,12 @@
-import Vue from "vue";
-import VueI18n from "vue-i18n";
-import en from "./locals/en_US";
-import es from "./locals/es_ES";
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+import en from './locals/en_US'
+import es from './locals/es_ES'
 
-Vue.use(VueI18n);
+Vue.use(VueI18n)
 
 export default new VueI18n({
-  locale: "es",
+  locale: 'es',
   messages: {
     en: {
       lang: en
@@ -15,4 +15,4 @@ export default new VueI18n({
       lang: es
     }
   }
-});
+})

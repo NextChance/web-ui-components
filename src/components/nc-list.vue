@@ -23,38 +23,37 @@
 </template>
 
 <script>
-    export default {
-      name: "nc-list",
-      props: {
-        hasSearch: {
-          type: Boolean,
-          default: false
-        },
-        items: Array
-      },
-      data() {
-        return {
-          search: ''
-        }
-      },
-      computed: {
-        filteredList() {
-          if (!this.search) return this.items
-          let searchValue = this.search.toLowerCase()
-          let filter = item =>
-            item.country.toLowerCase().includes(searchValue)
-            || item.code.includes(searchValue)
-
-
-          return this.items.filter(filter)
-        }
-      },
-      methods: {
-        itemSelected(item) {
-          this.$emit('item-selected', item)
-        }
-      }
+export default {
+  name: 'nc-list',
+  props: {
+    hasSearch: {
+      type: Boolean,
+      default: false
+    },
+    items: Array
+  },
+  data() {
+    return {
+      search: ''
     }
+  },
+  computed: {
+    filteredList() {
+      if (!this.search) return this.items
+      let searchValue = this.search.toLowerCase()
+      let filter = item =>
+        item.country.toLowerCase().includes(searchValue) ||
+        item.code.includes(searchValue)
+
+      return this.items.filter(filter)
+    }
+  },
+  methods: {
+    itemSelected(item) {
+      this.$emit('item-selected', item)
+    }
+  }
+}
 </script>
 
 <style lang="scss">

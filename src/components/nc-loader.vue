@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "nc-loader",
+  name: 'nc-loader',
   props: {
     /**
      * Text to display  below spinner
@@ -66,24 +66,24 @@ export default {
      */
     veilColor: {
       type: String,
-      default: "#FFF"
+      default: '#FFF'
     },
     /**
      * custom text color
      */
     textColor: {
       type: String,
-      default: "#272727"
+      default: '#272727'
     },
     /**
      * custom icon color
      */
     iconColor: {
       type: String,
-      default: "#272727"
+      default: '#272727'
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -105,9 +105,9 @@ export default {
       div {
         transform-origin: 32px 32px;
         animation: nc-loader__icon 1.2s linear infinite;
-        color: "#272727";
+        color: #272727;
         &:after {
-          content: " ";
+          content: ' ';
           display: block;
           position: absolute;
           top: 3px;

@@ -23,21 +23,53 @@
     <div class="test">
       <nc-list :has-search="true" :items="items" @item-selected="selectItem" />
     </div>
+    <hr />
+    <br />
+    <h1>NC_MODAL</h1>
+    <nc-modal 
+      :opened = opened 
+      @close = "opened = false"
+      :showCloseIcon = "showCloseIcon"
+      :hideHeader = "hideHeader"
+      :hideFooter = "hideFooter"
+      :padding="padding"
+      :marginTop="marginTop"
+      :noVerticallyAligned="noVerticallyAligned"
+      :width="width"
+      :height="height"
+      >
+        <template v-slot:header>
+          <h1>Comparte los beneficios de Billionhands</h1>
+        </template>
+        <template v-slot:content>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>12NYS5</p>
+        </template>
+        <template v-slot:footer>
+          <button>Copiar código</button>
+        </template>
+      </nc-modal>
+    <button  @click="opened = true">Show Modal</button>
   </div>
 </template>
+
 
 <script>
 // @ is an alias to /src
 import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
+import ncModal from '@/components/nc-modal.vue'
 
 export default {
   name: 'home',
   components: {
     Dumb,
     ncLoader,
-    ncList
+    ncList,
+    ncModal
   },
   data() {
     return {
@@ -50,7 +82,16 @@ export default {
           country: 'Sri Lanka',
           code: '+94'
         }
-      ]
+      ],
+      showCloseIcon: true,
+      hideHeader: false,
+      hideFooter: false,
+      opened: false,
+      padding: '50px',
+      marginTop: '0',
+      width: '588px',
+      height: '630px',
+      noVerticallyAligned: false
     }
   },
   methods: {
