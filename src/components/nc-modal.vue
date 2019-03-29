@@ -93,8 +93,10 @@ export default {
       let padding = parseInt(
         document.querySelector('.nc-modal__container').style.padding
       )
+      padding = padding * 2
       let modalHeight = parseInt(this.heightByDevice)
-      this.contentHeight = modalHeight - (padding + headerHeight + footerHeight) + 'px'
+      this.contentHeight =
+        modalHeight - (padding + headerHeight + footerHeight) + 'px'
     },
 
     updateWindowWidth() {
@@ -113,7 +115,8 @@ export default {
         this.left = '0'
         this.transform = 'translate(0, 0)'
         this.widthByDevice = `calc(100vw - ${padding}px)`
-        this.heightByDevice = document.documentElement.clientHeight - parseInt(this.padding) + 'px'
+        this.heightByDevice =
+          document.documentElement.clientHeight - parseInt(padding) + 'px'
         this.calculateContentHeight()
       } else {
         this.top = '50%'
@@ -132,7 +135,7 @@ export default {
     display() {
       return this.opened ? 'block' : 'none'
     }
-  }, 
+  },
   mounted() {
     this.$nextTick(function() {
       window.addEventListener('resize', this.resizeModal)
@@ -149,7 +152,7 @@ export default {
       }
     })
   },
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('resize', this.resizeModal)
   }
 }
@@ -167,13 +170,14 @@ $break-desktop: 769px;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    transition: opacity .3s ease;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
     position: fixed;
+    overflow: hidden;
   }
   &__close-icon {
-    opacity: .8;
+    opacity: 0.8;
     position: absolute;
     cursor: pointer;
     top: 21px;
@@ -203,10 +207,10 @@ $break-desktop: 769px;
       transform: translate('-50%', '-50');
       position: fixed;
       border-radius: 2px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-      -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-      -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-      transition: all .3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+      transition: all 0.3s ease;
     }
     & .content {
       overflow-y: auto;

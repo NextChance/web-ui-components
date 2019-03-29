@@ -169,8 +169,9 @@ describe('ncModal set 3 testing resizeModal method', () => {
     const left = '0'
     const transform = 'translate(0, 0)'
     const width = 'calc(100vw - 100px)'
-    let height =
-      document.documentElement.clientHeight - parseInt(padding) + 'px'
+    let calculatePadding = parseInt(padding)
+    calculatePadding = calculatePadding * 2
+    let height = document.documentElement.clientHeight - calculatePadding + 'px'
     const getDesktopDevice = jest.fn()
     getDesktopDevice.mockReturnValue(false)
     wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
