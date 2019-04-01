@@ -25,7 +25,8 @@ describe('ncModal set 1', () => {
     noVerticallyAligned: noVerticallyAligned,
     width: width,
     height: height,
-    backgroundColor: backgroundColor
+    backgroundColor: backgroundColor,
+    overlayStyle: undefined
   }
   let wrapper
   beforeEach(() => {

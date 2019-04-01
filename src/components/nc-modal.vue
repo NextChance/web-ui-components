@@ -1,6 +1,6 @@
 <template>
   <div class="nc-modal" :style="{visibility, display}">
-    <div class="nc-modal__overlay">
+    <div class="nc-modal__overlay" :style="overlayStyle">
       <div
         class="nc-modal__container"
         :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform, 'background-color': backgroundColor}"
@@ -68,6 +68,9 @@ export default {
     backgroundColor: {
       type: String,
       default: '#fff'
+    },
+    overlayStyle: {
+      type: Object
     }
   },
 
@@ -171,13 +174,13 @@ $break-desktop: 769px;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, .5);
+    transition: opacity .3s ease;
     position: fixed;
     overflow: hidden;
   }
   &__close-icon {
-    opacity: 0.8;
+    opacity: .8;
     position: absolute;
     cursor: pointer;
     top: 21px;
@@ -207,10 +210,10 @@ $break-desktop: 769px;
       transform: translate('-50%', '-50');
       position: fixed;
       border-radius: 2px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-      -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-      -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-      transition: all 0.3s ease;
+      box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
+      -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
+      -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
+      transition: all .3s ease;
     }
     & .content {
       overflow-y: auto;
