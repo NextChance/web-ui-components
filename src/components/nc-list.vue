@@ -38,7 +38,6 @@ export default {
   },
   computed: {
     filteredList() {
-      debugger
       if (!this.search) return this.items
       let searchValue = this.search.toLowerCase()
       let filter = item =>

@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils'
 import ncList from '@/components/nc-list.vue'
 
 describe('ncList', () => {
-  describe('When it is render', () => {
+  describe('When it is rendering', () => {
     let hasSearch = true
     const items = [
       {
@@ -34,7 +34,7 @@ describe('ncList', () => {
     })
   })
 
-  describe('When  calls itemSelected', () => {
+  describe('When calls itemSelected', () => {
     let hasSearch = true
     const items = [
       {
