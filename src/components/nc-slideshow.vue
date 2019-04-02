@@ -19,7 +19,7 @@
           :class="[ slideIndex === index ? paginationActiveClass : '']" 
           role="tab"
           :aria-label="ariaObject.itemIndex + (index + 1)"
-          :aria-controls="ariaObject.tabPanel+(index + 1)"
+          :aria-controls="ariaObject.tabPanel + (index + 1)"
           :aria-selected="slideIndex === index ? true : false"
           :tabindex="slideIndex === index ? -1 : 0"
         >
@@ -108,7 +108,8 @@ export default {
       ariaObject: {
         itemIndex: 'slide',
         tabPanel: 'tabpanel-0-'
-      }
+      },
+      slideList: ''
     }
   },
   methods: {
@@ -143,16 +144,23 @@ export default {
       } else {
         this.slideIndex === 0 ? this.slideIndex : --this.slideIndex
       }
+    },
+    resizeSlide() {
+      let _this = this
+      this.width = this.$el.offsetWidth
+      this.slideList.forEach(element => {
+        element.style.width = _this.width + 'px'
+      })
     }
   },
   mounted() {
-    let _this = this
-    this.width = this.$el.offsetWidth
-    let slideList = document.querySelectorAll('.list li')
-    this.slideLength = slideList.length > 0 ? slideList.length : 0
-    slideList.forEach(element => {
-      element.style.width = _this.width + 'px'
-    })
+    window.addEventListener('resize', this.resizeSlide)
+    this.slideList = document.querySelectorAll('.list li')
+    this.slideLength = this.slideList.length || 0
+    this.resizeSlide()
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeSlidel)
   }
 }
 </script>
@@ -199,7 +207,7 @@ $dotBackgrounColorActive: #ff7f3f;
     .dots {
       width: 100%;
       margin: 0;
-      padding: 0px;
+      padding: 0;
       list-style: none;
       li {
         cursor: pointer;

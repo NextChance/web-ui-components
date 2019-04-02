@@ -50,8 +50,8 @@
         <template v-slot:footer>
           <button>Copiar código</button>
         </template>
-      </nc-modal>
-    <button  @click="opened = true">Show Modal</button>
+    </nc-modal>
+    <button @click="opened = true">Show Modal</button>
     <hr />
     <br />
     <h2>NC-SLIDESHOW COMPONENT</h2>
@@ -154,7 +154,7 @@ export default {
 
 .slideshow {
   width: 80vw;
-  height: 522px;
+  height: 30vh;
   overflow: hidden;
   margin: auto;
 }
