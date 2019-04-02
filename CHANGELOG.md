@@ -25,3 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New component nc-list #11
 - Added package.json configuration #8
 - New component nc-loader #6
+
+### Changed
+- Component nc-list to customize item #96
