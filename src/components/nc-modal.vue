@@ -158,7 +158,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 /*media query breaks*/
 $break-mobile: 768px;
 $break-desktop: 769px;

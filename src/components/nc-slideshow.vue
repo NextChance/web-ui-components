@@ -170,7 +170,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $dotBackgrounColor: #d8d8d8;
 $dotBackgrounColorActive: #ff7f3f;
 .nc-slideshow {
