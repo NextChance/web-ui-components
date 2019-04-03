@@ -1,11 +1,13 @@
 <template>
   <div class="nc-slideshow">
     <div class="nc-slideshow__content" :style="{'width': `${width}px`}">
-      <ul class="list" v-touch:swipe="goToSlide"
+      <ul class="list" 
+        v-touch:swipe.right="previousSlide"
+        v-touch:swipe.left="nextSlide"
         :style="{
           width: `${width * slideLength}px`,
-          transform: `translate3d(-${slideIndex * width}px, 0px, 0px)`,
-          transition: '-webkit-transform 500ms ease'
+          transform: `translate3d(-${slideIndex * width}px, 0, 0)`,
+          transition: 'transform 500ms ease'
         }">
         <slot></slot>
       </ul>
@@ -15,19 +17,18 @@
         <li 
           :style="paginationStyle" 
           v-for="(i, index) in slideLength" 
-          :key=index @click.stop="selectNewSlide(index)" 
-          :class="[ slideIndex === index ? paginationActiveClass : '']" 
-          role="tab"
-          :aria-label="ariaObject.itemIndex + (index + 1)"
-          :aria-controls="ariaObject.tabPanel + (index + 1)"
-          :aria-selected="slideIndex === index ? true : false"
-          :tabindex="slideIndex === index ? -1 : 0"
+          :key=index
         >
-          <span>{{ ariaText.ariaTextDots + index + 1 }}</span>
+          <button 
+            @click.stop="selectSlide(index)" 
+            :class="[ slideIndex === index ? paginationActiveClass : '', 'dots__button']"
+          >
+            <span class="dots__text">{{ ariaText.ariaTextDots + index + 1 }}</span>
+          </button>
         </li>
       </ul>
     </div>
-    <a 
+    <button 
       v-if="hasLinkLeft" 
       class="nc-slideshow__link--left" 
       @click="leftLinkHandler($event)" 
@@ -35,9 +36,9 @@
       :style="leftLinkStyle"
       role="button"
     >
-      {{ leftLinkText}}
-    </a>
-    <a 
+      {{ leftLinkText }}
+    </button>
+    <button 
       v-if="hasLinkRight" 
       class="nc-slideshow__link--right"
       @click="rightLinkHandler($event)" 
@@ -46,7 +47,7 @@
       role="button"
     >
       {{ rightLinkText }}
-    </a>
+    </button>
   </div>
   
 </template>
@@ -113,43 +114,47 @@ export default {
     }
   },
   methods: {
-    selectNewSlide(index) {
+    selectSlide(index) {
       this.slideIndex = index
     },
-    leftLinkHandler(e) {
+    leftLinkHandler(ev) {
       if (this.linksDefaultAction) {
-        this.goToSlide('right')
+        this.previousSlide()
       }
       if (this.slideIndex === 0) {
-        this.$emit('slideshow-first-slide', e)
+        this.$emit('slideshow-first-slide', ev)
       } else {
-        this.$emit('slideshow-click-left-link', e)
+        this.$emit('slideshow-click-left-link', ev)
       }
     },
-    rightLinkHandler(e) {
+    rightLinkHandler(ev) {
       if (this.linksDefaultAction) {
-        this.goToSlide('left')
+        this.nextSlide()
       }
       if (this.slideIndex === this.slideLength - 1) {
-        this.$emit('slideshow-last-slide', e)
+        this.$emit('slideshow-last-slide', ev)
       } else {
-        this.$emit('slideshow-click-right-link', e)
+        this.$emit('slideshow-click-right-link', ev)
       }
     },
-    goToSlide(direction) {
-      if (direction === 'left') {
-        this.slideIndex < this.slideLength - 1
-          ? ++this.slideIndex
-          : this.slideIndex
-      } else {
-        this.slideIndex === 0 ? this.slideIndex : --this.slideIndex
+    nextSlide() {
+      let nextSlideIndex = this.slideIndex
+      if (this.slideIndex < this.slideLength - 1) {
+        ++nextSlideIndex
       }
+      this.slideIndex = nextSlideIndex
+    },
+    previousSlide() {
+      let nextSlideIndex = this.slideIndex
+      if (this.slideIndex > 0) {
+        --nextSlideIndex
+      }
+      this.slideIndex = nextSlideIndex
     },
     resizeSlide() {
-      let _this = this
       this.width = this.$el.offsetWidth
       this.slideList.forEach(element => {
-        element.style.width = _this.width + 'px'
+        element.style.width = this.width + 'px'
       })
     }
   },
@@ -173,6 +178,7 @@ $dotBackgrounColorActive: #ff7f3f;
   display: block;
   box-sizing: border-box;
   height: 100%;
+
   &__content {
     position: relative;
     overflow: hidden;
@@ -195,13 +201,10 @@ $dotBackgrounColorActive: #ff7f3f;
         height: 100%;
         min-height: 1px;
         display: block;
-
-        .image {
-          margin: 0 !important;
-        }
       }
     }
   }
+
   &__pagination {
     height: 20px;
     .dots {
@@ -210,17 +213,23 @@ $dotBackgrounColorActive: #ff7f3f;
       padding: 0;
       list-style: none;
       li {
-        cursor: pointer;
         height: 8px;
         width: 8px;
-        background-color: $dotBackgrounColor;
-        border-radius: 50%;
-        display: inline-block;
         margin: 0 4px;
-        &.active {
-          background-color: $dotBackgrounColorActive;
+        display: inline-block;
+        & .dots__button {
+          cursor: pointer;
+          height: 8px;
+          width: 8px;
+          background-color: $dotBackgrounColor;
+          border-radius: 50%;
+          padding: 0;
+          border: none;
+          &.active {
+            background-color: $dotBackgrounColorActive;
+          }
         }
-        span {
+        & .dots__text {
           position: absolute;
           width: 1px;
           height: 1px;
@@ -233,17 +242,22 @@ $dotBackgrounColorActive: #ff7f3f;
       }
     }
   }
-  &__link--left {
+
+  &__link--left,
+  &__link--right {
+    border: none;
+    background: none;
     position: absolute;
     margin-left: 13px;
-    left: 0;
     bottom: 0;
   }
+
+  &__link--left {
+    left: 0;
+  }
+
   &__link--right {
-    position: absolute;
-    margin-right: 13px;
     right: 0;
-    bottom: 0;
   }
 }
 </style>

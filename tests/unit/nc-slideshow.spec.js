@@ -57,19 +57,21 @@ describe('ncSlideshow', () => {
     })
   })
 
-  describe('.selectNewSlide()', () => {
+  describe('.selectSlide()', () => {
     const index = 1
     describe('when a dot is clicked', () => {
       let wrapper
       beforeAll(() => {
         wrapper = mount(ncSlideshow, {
-          localVue
+          attachToDocument: true,
+          localVue,
+          propsData: defaultProps
         })
       })
       it('should be called', () => {
         let stub = jest.fn()
-        wrapper.setMethods({ selectNewSlide: stub })
-        wrapper.find('.dots li:nth-of-type(1)').trigger('click')
+        wrapper.setMethods({ selectSlide: stub })
+        wrapper.find('.dots li:nth-of-type(1) button').trigger('click')
         expect(stub).toBeCalled()
       })
     })
@@ -82,7 +84,7 @@ describe('ncSlideshow', () => {
         })
       })
       it('should update its slideIndex data', () => {
-        wrapper.vm.selectNewSlide(index)
+        wrapper.vm.selectSlide(index)
         expect(wrapper.vm.slideIndex).toBe(index)
       })
     })
@@ -214,6 +216,25 @@ describe('ncSlideshow', () => {
       })
       it('slideshow-last-slide is emitted', () => {
         expect(wrapper.emitted('slideshow-first-slide')).toBeTruthy()
+      })
+    })
+  })
+
+  describe('.resizeSlide', () => {
+    describe('When resizeSlide is called', () => {
+      let wrapper
+      beforeAll(() => {
+        wrapper = mount(ncSlideshow, {
+          attachToDocument: true,
+          localVue,
+          propsData: defaultProps
+        })
+        wrapper.setData({ width: '100vw' })
+      })
+      it('the width of the elements from slideList is changed', () => {
+        wrapper.setData({ width: '50vw' })
+        debugger
+        wrapper.vm.resizeSlide()
       })
     })
   })
