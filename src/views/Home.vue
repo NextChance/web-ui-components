@@ -53,6 +53,28 @@
         </template>
       </nc-modal>
     <button  @click="opened = true">Show Modal</button>
+
+    <hr />
+    <br />
+    <h1>NC_BUTTON</h1>
+    <div class="nc-button-container">
+      <nc-button @click="clickButton">
+        <template>Basic Button</template>
+      </nc-button>
+      <nc-button  @click="clickButton">
+        <template>
+          <i class="fas fa-plus-circle"></i>
+          Icon Button
+        </template>
+      </nc-button>
+      <nc-button
+        :disabled=true
+        @click="clickButton">
+        <template>
+          Disabled Button
+        </template>
+      </nc-button>
+    </div>
   </div>
 </template>
 
@@ -63,6 +85,7 @@ import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
+import ncButton from '@/components/nc-button.vue'
 
 export default {
   name: 'home',
@@ -70,7 +93,8 @@ export default {
     Dumb,
     ncLoader,
     ncList,
-    ncModal
+    ncModal,
+    ncButton
   },
   data() {
     return {
@@ -102,6 +126,10 @@ export default {
     selectItem(e) {
       // eslint-disable-next-line no-console
       console.log(e)
+    },
+    clickButton(e) {
+      // eslint-disable-next-line no-console
+      console.log(e)
     }
   }
 }
@@ -111,5 +139,8 @@ export default {
 .test {
   width: 100%;
   height: 250px;
+}
+.nc-button-container button {
+  margin: 10px;
 }
 </style>
