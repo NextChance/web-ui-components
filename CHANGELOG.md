@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- New component nc-slideshow #6
 - New component nc-modal #4
 - New component nc-list #11
 - Added package.json configuration #8

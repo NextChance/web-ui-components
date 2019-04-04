@@ -51,8 +51,33 @@
         <template v-slot:footer>
           <button>Copiar código</button>
         </template>
-      </nc-modal>
-    <button  @click="opened = true">Show Modal</button>
+    </nc-modal>
+    <button @click="opened = true">Show Modal</button>
+    <hr />
+    <br />
+    <h2>NC-SLIDESHOW COMPONENT</h2>
+    <div class="slideshow">
+      <nc-slideshow
+        :has-link-right="true"
+        :has-link-left="true"
+        :links-default-action="true"
+        @slideshow-click-left-link="clickSlideshowLinkLeft"
+        @slideshow-click-right-link="clickSlideshowLinkRight"
+        @slideshow-last-slide="lastSlide"
+        @slideshow-first-slide="firstSlide">
+        <template>        
+          <li class="item">
+            SLIDE 1
+          </li>
+          <li class="item">
+            SLIDE 2
+          </li>
+          <li class="item">
+            SLIDE 3
+          </li>
+        </template>
+      </nc-slideshow> 
+    </div>
   </div>
 </template>
 
@@ -63,6 +88,7 @@ import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
+import ncSlideshow from '@/components/nc-slideshow.vue'
 
 export default {
   name: 'home',
@@ -70,7 +96,8 @@ export default {
     Dumb,
     ncLoader,
     ncList,
-    ncModal
+    ncModal,
+    ncSlideshow
   },
   data() {
     return {
@@ -88,7 +115,7 @@ export default {
       hideHeader: false,
       hideFooter: false,
       opened: false,
-      padding: '50px',
+      padding: '34px',
       marginTop: '0',
       width: '588px',
       height: '630px',
@@ -102,14 +129,37 @@ export default {
     selectItem(e) {
       // eslint-disable-next-line no-console
       console.log(e)
+    },
+    clickSlideshowLinkLeft(e) {
+      // eslint-disable-next-line no-console
+      console.log('left', e.currentTarget)
+    },
+    clickSlideshowLinkRight(e) {
+      // eslint-disable-next-line no-console
+      console.log('right', e.currentTarget)
+    },
+    lastSlide(e) {
+      // eslint-disable-next-line no-console
+      console.log('last-slide', e.currentTarget)
+    },
+    firstSlide(e) {
+      // eslint-disable-next-line no-console
+      console.log('first-slide', e.currentTarget)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .test {
   width: 100%;
   height: 250px;
+}
+
+.slideshow {
+  width: 80vw;
+  height: 30vh;
+  overflow: hidden;
+  margin: auto;
 }
 </style>
