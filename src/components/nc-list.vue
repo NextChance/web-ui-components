@@ -11,7 +11,7 @@
       class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
-        @click="itemSelected(item)"
+        @click="onItemSelected(item)"
         :key="index"
         class="nc-list__item">
         <slot :item="item"></slot>
@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    itemSelected(item) {
+    onItemSelected(item) {
       this.$emit('item-selected', item)
     }
   }

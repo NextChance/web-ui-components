@@ -34,7 +34,7 @@ describe('ncList', () => {
     })
   })
 
-  describe('When calls itemSelected', () => {
+  describe('When calls onItemSelected', () => {
     let hasSearch = true
     const items = [
       {
@@ -59,14 +59,14 @@ describe('ncList', () => {
     })
     it('calls itemSelected when an item is clicked', () => {
       const stub = jest.fn()
-      wrapper.setMethods({ itemSelected: stub })
+      wrapper.setMethods({ onItemSelected: stub })
       wrapper.find('.nc-list__item').trigger('click')
       expect(stub).toBeCalled()
     })
     it('called itemSelected with item value from items array', () => {
       const stub = jest.fn()
       wrapper.vm.$on('item-selected', stub)
-      wrapper.vm.itemSelected(item)
+      wrapper.vm.onItemSelected(item)
       expect(stub).toBeCalledWith(item)
     })
   })
