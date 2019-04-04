@@ -24,7 +24,7 @@
       <nc-list 
         :has-search="true" 
         :items="items"
-        @item-selected="selectItem"
+        @item-selected="onItemSelected"
       >
       <template slot-scope="{item}">
         <span class="item-on-left">{{ item.country }}</span><span class="item-on-right">{{ item.code }}</span>
