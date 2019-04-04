@@ -2,7 +2,7 @@
   <button
     :class="[className, 'nc-button']"
     :disabled="disabled"
-    @click="callback($event)"
+    @click="onClick($event)"
   >
     <slot></slot>
   </button>
@@ -20,7 +20,7 @@ export default {
     }
   },
   methods: {
-    callback(ev) {
+    onClick(ev) {
       this.$emit('click', ev)
     }
   }

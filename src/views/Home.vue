@@ -58,10 +58,10 @@
     <br />
     <h1>NC_BUTTON</h1>
     <div class="nc-button-container">
-      <nc-button @click="clickButton">
+      <nc-button @click="onClickButton">
         <template>Basic Button</template>
       </nc-button>
-      <nc-button  @click="clickButton">
+      <nc-button  @click="onClickButton">
         <template>
           <i class="fas fa-plus-circle"></i>
           Icon Button
@@ -123,13 +123,13 @@ export default {
     }
   },
   methods: {
-    selectItem(e) {
+    selectItem(ev) {
       // eslint-disable-next-line no-console
-      console.log(e)
+      console.log(ev)
     },
-    clickButton(e) {
+    clickButton(ev) {
       // eslint-disable-next-line no-console
-      console.log(e)
+      console.log(ev)
     }
   }
 }
