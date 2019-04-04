@@ -37,6 +37,7 @@
       :noVerticallyAligned="noVerticallyAligned"
       :width="width"
       :height="height"
+      :overlayStyle="modalOverlayStyle"
       >
         <template v-slot:header>
           <h1>Comparte los beneficios de Billionhands</h1>
@@ -117,8 +118,11 @@ export default {
       padding: '34px',
       marginTop: '0',
       width: '588px',
-      height: '558px',
-      noVerticallyAligned: false
+      height: '630px',
+      noVerticallyAligned: false,
+      modalOverlayStyle: {
+        background: '#FFF'
+      }
     }
   },
   methods: {
