@@ -11,11 +11,10 @@
       class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
-        @click="itemSelected(item)"
+        @click="onItemSelected(item)"
         :key="index"
         class="nc-list__item">
-          <!-- TODO: Decouple list content from component -->
-          <span class="item-on-left">{{ item.country }}</span><span class="item-on-right">{{ item.code }}</span>
+        <slot :item="item"></slot>
       </li>
     </ul>
     <p v-else>No hay items</p>
@@ -49,7 +48,7 @@ export default {
     }
   },
   methods: {
-    itemSelected(item) {
+    onItemSelected(item) {
       this.$emit('item-selected', item)
     }
   }

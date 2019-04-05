@@ -20,8 +20,16 @@
     <hr />
     <br />
     <h2>NC-LIST COMPONENT</h2>
-    <div class="test">
-      <nc-list :has-search="true" :items="items" @item-selected="selectItem" />
+    <div class="nc-list-container">
+      <nc-list 
+        :has-search="true" 
+        :items="items"
+        @item-selected="onItemSelected"
+      >
+      <template slot-scope="{item}">
+        <span class="item-on-left">{{ item.country }}</span><span class="item-on-right">{{ item.code }}</span>
+      </template>
+      </nc-list>
     </div>
     <hr />
     <br />
