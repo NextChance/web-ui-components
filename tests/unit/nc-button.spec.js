@@ -19,9 +19,9 @@ describe('ncButton', () => {
       expect(result).toStrictEqual(defaultProps)
     })
 
-    it('button on clik should call the onClick function', () => {
+    it('button on clik should call the handleClicked function', () => {
       let stub = jest.fn()
-      wrapper.setMethods({ onClick: stub })
+      wrapper.setMethods({ handleClicked: stub })
       wrapper.find('.nc-button').trigger('click')
       expect(stub).toBeCalled()
     })
@@ -34,8 +34,8 @@ describe('ncButton', () => {
       wrapper.find('.nc-button').trigger('click')
     })
 
-    it('should emit the event click', () => {
-      expect(wrapper.emitted('click')).toBeTruthy()
+    it('should emit the event button-clicked', () => {
+      expect(wrapper.emitted('button-clicked')).toBeTruthy()
     })
   })
 })

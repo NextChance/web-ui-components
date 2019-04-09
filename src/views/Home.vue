@@ -58,10 +58,10 @@
     <br />
     <h1>NC_BUTTON</h1>
     <div class="nc-button-container">
-      <nc-button @click="onClickButton">
+      <nc-button @button-clicked="handleClicked">
         <template>Basic Button</template>
       </nc-button>
-      <nc-button  @click="onClickButton">
+      <nc-button  @button-clicked="handleClicked">
         <template>
           <i class="fas fa-plus-circle"></i>
           Icon Button
@@ -69,7 +69,7 @@
       </nc-button>
       <nc-button
         :disabled=true
-        @click="clickButton">
+        @click="handleClicked">
         <template>
           Disabled Button
         </template>
@@ -127,7 +127,7 @@ export default {
       // eslint-disable-next-line no-console
       console.log(ev)
     },
-    clickButton(ev) {
+    handleClicked(ev) {
       // eslint-disable-next-line no-console
       console.log(ev)
     }
