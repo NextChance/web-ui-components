@@ -20,8 +20,16 @@
     <hr />
     <br />
     <h2>NC-LIST COMPONENT</h2>
-    <div class="test">
-      <nc-list :has-search="true" :items="items" @item-selected="selectItem" />
+    <div class="nc-list-container">
+      <nc-list 
+        :has-search="true" 
+        :items="items"
+        @item-selected="onItemSelected"
+      >
+      <template slot-scope="{item}">
+        <span class="item-on-left">{{ item.country }}</span><span class="item-on-right">{{ item.code }}</span>
+      </template>
+      </nc-list>
     </div>
     <hr />
     <br />
@@ -53,7 +61,31 @@
         </template>
       </nc-modal>
     <button  @click="opened = true">Show Modal</button>
-
+    <hr />
+    <br />
+    <h2>NC-SLIDESHOW COMPONENT</h2>
+    <div class="slideshow">
+      <nc-slideshow
+        :has-link-right="true"
+        :has-link-left="true"
+        :links-default-action="true"
+        @slideshow-click-left-link="clickSlideshowLinkLeft"
+        @slideshow-click-right-link="clickSlideshowLinkRight"
+        @slideshow-last-slide="lastSlide"
+        @slideshow-first-slide="firstSlide">
+        <template>        
+          <li class="item">
+            SLIDE 1
+          </li>
+          <li class="item">
+            SLIDE 2
+          </li>
+          <li class="item">
+            SLIDE 3
+          </li>
+        </template>
+      </nc-slideshow> 
+    </div>
     <hr />
     <br />
     <h1>NC_BUTTON</h1>
@@ -85,6 +117,7 @@ import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
+import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
 
 export default {
@@ -94,7 +127,9 @@ export default {
     ncLoader,
     ncList,
     ncModal,
+     ncSlideshow,
     ncButton
+
   },
   data() {
     return {
@@ -112,7 +147,7 @@ export default {
       hideHeader: false,
       hideFooter: false,
       opened: false,
-      padding: '50px',
+      padding: '34px',
       marginTop: '0',
       width: '588px',
       height: '630px',
@@ -130,15 +165,37 @@ export default {
     handleClicked(ev) {
       // eslint-disable-next-line no-console
       console.log(ev)
+    },
+    clickSlideshowLinkLeft(ev) {
+      // eslint-disable-next-line no-console
+      console.log('left', e.currentTarget)
+    },
+    clickSlideshowLinkRight(ev) {
+      // eslint-disable-next-line no-console
+      console.log('right', ev.currentTarget)
+    },
+    lastSlide(ev) {
+      // eslint-disable-next-line no-console
+      console.log('last-slide', ev.currentTarget)
+    },
+    firstSlide(ev) {
+      // eslint-disable-next-line no-console
+      console.log('first-slide', ev.currentTarget)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .test {
   width: 100%;
   height: 250px;
+}
+.slideshow {
+  width: 80vw;
+  height: 30vh;
+  overflow: hidden;
+  margin: auto;
 }
 .nc-button-container button {
   margin: 10px;

@@ -86,7 +86,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .nc-loader {
   width: 100%;
   text-align: center;
