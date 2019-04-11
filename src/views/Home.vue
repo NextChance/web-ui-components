@@ -59,8 +59,8 @@
         <template v-slot:footer>
           <button>Copiar código</button>
         </template>
-    </nc-modal>
-    <button @click="opened = true">Show Modal</button>
+      </nc-modal>
+    <button  @click="opened = true">Show Modal</button>
     <hr />
     <br />
     <h2>NC-SLIDESHOW COMPONENT</h2>
@@ -86,6 +86,27 @@
         </template>
       </nc-slideshow> 
     </div>
+    <hr />
+    <br />
+    <h1>NC_BUTTON</h1>
+    <div class="nc-button-container">
+      <nc-button @button-clicked="handleClicked">
+        <template>Basic Button</template>
+      </nc-button>
+      <nc-button  @button-clicked="handleClicked">
+        <template>
+          <i class="fas fa-plus-circle"></i>
+          Icon Button
+        </template>
+      </nc-button>
+      <nc-button
+        :disabled=true
+        @click="handleClicked">
+        <template>
+          Disabled Button
+        </template>
+      </nc-button>
+    </div>
   </div>
 </template>
 
@@ -97,6 +118,7 @@ import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
+import ncButton from '@/components/nc-button.vue'
 
 export default {
   name: 'home',
@@ -105,7 +127,9 @@ export default {
     ncLoader,
     ncList,
     ncModal,
-    ncSlideshow
+     ncSlideshow,
+    ncButton
+
   },
   data() {
     return {
@@ -134,25 +158,29 @@ export default {
     }
   },
   methods: {
-    selectItem(e) {
+    selectItem(ev) {
       // eslint-disable-next-line no-console
-      console.log(e)
+      console.log(ev)
     },
-    clickSlideshowLinkLeft(e) {
+    handleClicked(ev) {
+      // eslint-disable-next-line no-console
+      console.log(ev)
+    },
+    clickSlideshowLinkLeft(ev) {
       // eslint-disable-next-line no-console
       console.log('left', e.currentTarget)
     },
-    clickSlideshowLinkRight(e) {
+    clickSlideshowLinkRight(ev) {
       // eslint-disable-next-line no-console
-      console.log('right', e.currentTarget)
+      console.log('right', ev.currentTarget)
     },
-    lastSlide(e) {
+    lastSlide(ev) {
       // eslint-disable-next-line no-console
-      console.log('last-slide', e.currentTarget)
+      console.log('last-slide', ev.currentTarget)
     },
-    firstSlide(e) {
+    firstSlide(ev) {
       // eslint-disable-next-line no-console
-      console.log('first-slide', e.currentTarget)
+      console.log('first-slide', ev.currentTarget)
     }
   }
 }
@@ -163,11 +191,13 @@ export default {
   width: 100%;
   height: 250px;
 }
-
 .slideshow {
   width: 80vw;
   height: 30vh;
   overflow: hidden;
   margin: auto;
+}
+.nc-button-container button {
+  margin: 10px;
 }
 </style>
