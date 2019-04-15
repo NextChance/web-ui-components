@@ -38,8 +38,8 @@
       :opened = opened 
       @close = "opened = false"
       :showCloseIcon = "showCloseIcon"
-      :hideHeader = "hideHeader"
-      :hideFooter = "hideFooter"
+      :showHeader = "showHeader"
+      :showFooter = "showFooter"
       :padding="padding"
       :marginTop="marginTop"
       :noVerticallyAligned="noVerticallyAligned"
@@ -144,8 +144,8 @@ export default {
         }
       ],
       showCloseIcon: true,
-      hideHeader: false,
-      hideFooter: false,
+      showHeader: false,
+      showFooter: true,
       opened: false,
       padding: '34px',
       marginTop: '0',
