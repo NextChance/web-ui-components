@@ -7,8 +7,8 @@ describe('ncModal set 1', () => {
   const resizeModal = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = true
-  const hideFooter = false
+  const showHeader = true
+  const showFooter = false
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -18,8 +18,8 @@ describe('ncModal set 1', () => {
   const propsData = {
     showCloseIcon: showCloseIcon,
     opened: opened,
-    hideHeader: hideHeader,
-    hideFooter: hideFooter,
+    showHeader: showHeader,
+    showFooter: showFooter,
     padding: padding,
     marginTop: marginTop,
     noVerticallyAligned: noVerticallyAligned,
@@ -80,8 +80,8 @@ describe('ncModal set 2 (not vertically aligned)', () => {
   const resizeModal = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = true
-  const hideFooter = false
+  const showHeader = true
+  const showFooter = false
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -93,8 +93,8 @@ describe('ncModal set 2 (not vertically aligned)', () => {
       propsData: {
         showCloseIcon: showCloseIcon,
         opened: opened,
-        hideHeader: hideHeader,
-        hideFooter: hideFooter,
+        showHeader: showHeader,
+        showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
@@ -120,8 +120,8 @@ describe('ncModal set 3 testing resizeModal method', () => {
   const calculateContentHeight = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = true
-  const hideFooter = false
+  const showHeader = true
+  const showFooter = false
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -134,8 +134,8 @@ describe('ncModal set 3 testing resizeModal method', () => {
       propsData: {
         showCloseIcon: showCloseIcon,
         opened: opened,
-        hideHeader: hideHeader,
-        hideFooter: hideFooter,
+        showHeader: showHeader,
+        showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
@@ -203,8 +203,8 @@ describe('ncModal set 3 testing resizeModal method', () => {
 describe('ncModal set 4 testing getDesktopDevice method', () => {
   const showCloseIcon = true
   const opened = true
-  const hideHeader = false
-  const hideFooter = false
+  const showHeader = true
+  const showFooter = true
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -219,8 +219,8 @@ describe('ncModal set 4 testing getDesktopDevice method', () => {
       propsData: {
         showCloseIcon: showCloseIcon,
         opened: opened,
-        hideHeader: hideHeader,
-        hideFooter: hideFooter,
+        showHeader: showHeader,
+        showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
@@ -248,8 +248,8 @@ describe('ncModal set 4 testing getDesktopDevice method', () => {
 describe('ncModal set 5 testing getDesktopDevice method', () => {
   const showCloseIcon = true
   const opened = true
-  const hideHeader = false
-  const hideFooter = false
+  const showHeader = false
+  const showFooter = false
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -264,8 +264,8 @@ describe('ncModal set 5 testing getDesktopDevice method', () => {
       propsData: {
         showCloseIcon: showCloseIcon,
         opened: opened,
-        hideHeader: hideHeader,
-        hideFooter: hideFooter,
+        showHeader: showHeader,
+        showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,
@@ -287,8 +287,8 @@ describe('ncModal set 6 testing updateWindowWidth method', () => {
   const calculateContentHeight = jest.fn()
   const showCloseIcon = true
   const opened = true
-  const hideHeader = true
-  const hideFooter = false
+  const showHeader = true
+  const showFooter = false
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
@@ -300,8 +300,8 @@ describe('ncModal set 6 testing updateWindowWidth method', () => {
       propsData: {
         showCloseIcon: showCloseIcon,
         opened: opened,
-        hideHeader: hideHeader,
-        hideFooter: hideFooter,
+        showHeader: showHeader,
+        showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
         noVerticallyAligned: noVerticallyAligned,

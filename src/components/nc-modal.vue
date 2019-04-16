@@ -6,7 +6,7 @@
         :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform, 'background-color': backgroundColor}"
       >
         <i v-if="showCloseIcon" class="nc-modal__close-icon fa" @click="close"></i>
-        <div class="header" v-if="!hideHeader">
+        <div class="header" v-if="showHeader">
           <slot name="header">header</slot>
         </div>
         <div class="content" :style="{ 'height': contentHeight }">
@@ -14,7 +14,7 @@
             <p>Content</p>
           </slot>
         </div>
-        <div class="footer" v-if="!hideFooter">
+        <div class="footer" v-if="showFooter">
           <slot name="footer">
             <div @click="close">OK</div>
           </slot>
@@ -37,13 +37,13 @@ export default {
       type: Boolean,
       default: true
     },
-    hideHeader: {
+    showHeader: {
       type: Boolean,
-      defeault: false
+      default: true
     },
-    hideFooter: {
+    showFooter: {
       type: Boolean,
-      defeault: false
+      default: true
     },
     padding: {
       type: String,
@@ -91,8 +91,8 @@ export default {
     },
 
     calculateContentHeight() {
-      let headerHeight = document.querySelector('.header').offsetHeight
-      let footerHeight = document.querySelector('.footer').offsetHeight
+      let headerHeight = document.querySelector('.header').offsetHeight || 0
+      let footerHeight = document.querySelector('.footer').offsetHeight || 0
       let padding = parseInt(
         document.querySelector('.nc-modal__container').style.padding
       )
