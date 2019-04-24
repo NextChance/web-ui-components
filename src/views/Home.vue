@@ -117,7 +117,7 @@
         <i class="fab fa-accusoft"></i>  
       </template>
     </nc-separator>
-    <p>With fonts:</p>
+    <p>With text:</p>
     <nc-separator>
       <template > 
         <span>o</span>  

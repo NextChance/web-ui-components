@@ -1,7 +1,7 @@
 <template>
     <div class="nc-separator" :style="{'color':color}">
-      <div class="nc-separator__line"/>
-      <div class="nc-separator__content">
+      <div class="nc-separator__line" :style="{'color':colorLine}"/>
+      <div class="nc-separator__content" :style="{'color':colorBackground}">
         <slot></slot>
       </div>
     </div>
@@ -13,12 +13,24 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'grey'
+      default: 'red'
+    },
+    colorLine: {
+      type: String,
+      default: '$line'
+    },
+    colorBackground: {
+      type: String,
+      default: '$background'
     }
   }
 }
 </script>
 <style lang="scss">
+/*Colors*/
+$element: grey;
+$line: grey;
+$background: white;
 .nc-separator {
     align-items: center;
     display: flex;
@@ -29,13 +41,13 @@ export default {
     width: 100%;
 
     &__line {
-      border-top: 1px solid grey;
+      border-top: 1px solid $line;
       position: absolute;
       width: 100%;
     }
 
     &__content {
-    background-color: #ffffff;
+    background-color: $background;
     height: auto;
     padding: 0 25px;
     position: absolute;
