@@ -111,8 +111,13 @@
     <br />
 
     <h2>NC-SEPARATOR</h2>
+    <p>With icon:</p>
     <nc-separator>
-      <template > <span> o </span> </template>
+      <template > <i class="fab fa-accusoft"></i>  </template>
+    </nc-separator>
+    <p>With fonts:</p>
+    <nc-separator>
+      <template > <span>o</span>  </template>
     </nc-separator>
 
     <hr>

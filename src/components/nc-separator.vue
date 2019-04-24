@@ -1,5 +1,5 @@
 <template>
-    <div class="nc-separator">
+    <div class="nc-separator" :style="{'color':color}">
       <div class="nc-separator__line"/>
       <div class="nc-separator__content">
         <slot></slot>
@@ -9,35 +9,40 @@
 <script>
 export default {
   name: 'nc-separator',  
+
+  props: {
+    color: {
+      type: String,
+      default: 'grey'
+    }
+  }
 }
 </script>
 <style lang="scss">
 .nc-separator {
-    position: relative;
-    margin-bottom: 35px;
-    color: grey;
-    width: 100%;
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    margin-bottom: 35px;
+    position: relative;
+    width: 100%;
 
     &__line {
+      border-top: 1px solid grey;
       position: absolute;
       width: 100%;
-      border-top: 1px solid grey;
     }
 
     &__content {
-    padding: 0 25px;
-    height: auto;
-    width: auto;
-    position: absolute;
     background-color: #ffffff;
+    height: auto;
+    padding: 0 25px;
+    position: absolute;
+    width: auto;
     z-index: 2;
     }
   }
-
 </style>
 
 
