@@ -107,6 +107,16 @@
         </template>
       </nc-button>
     </div>
+    <hr>
+    <br />
+
+    <h2>NC-SEPARATOR</h2>
+    <nc-separator>
+      <template > <span> o </span> </template>
+    </nc-separator>
+
+    <hr>
+    <br />
   </div>
 </template>
 
@@ -119,6 +129,7 @@ import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
+import ncSeparator from '@/components/nc-separator.vue'
 
 export default {
   name: 'home',
@@ -127,8 +138,9 @@ export default {
     ncLoader,
     ncList,
     ncModal,
-     ncSlideshow,
-    ncButton
+    ncSlideshow,
+    ncButton,
+    ncSeparator
 
   },
   data() {
