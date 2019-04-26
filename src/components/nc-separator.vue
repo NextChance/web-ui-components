@@ -1,6 +1,6 @@
 <template>
     <div class="nc-separator" :style="{'color':color}">
-      <div class="nc-separator__line" :style="{'color':colorLine}"/>
+      <div class="nc-separator__line" :style="{'border-color':colorLine}"/>
       <div class="nc-separator__content" :style="{'color':colorBackground}">
         <slot></slot>
       </div>
