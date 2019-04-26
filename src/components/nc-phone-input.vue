@@ -103,10 +103,6 @@ export default {
     }
   },
   mounted() {
-    // this.initializeCountry();
-    // if (this.inputOptions && this.inputOptions.showDialCode && this.activeCountry) {
-    //   this.phone = '+' + this.activeCountry.dialCode;
-    // }
     this.$emit('onValidate', this.response);
   },
   created() {
@@ -142,8 +138,6 @@ export default {
         // If user manually type the country code
         const formatter = new AsYouType();// eslint-disable-line
         formatter.input(this.phone);
-        // Find inputted country in the countries list
-        // this.activeCountry = this.findCountry(formatter.country) || this.activeCountry;
       } else if (this.mode === 'prefix') {
         // Remove the first '0' if this is a '0' prefix number
         // Ex: 0432421999
@@ -182,7 +176,7 @@ export default {
         this.phone = this.formattedResult;
       }
       // eslint-disable-next-line no-console
-      console.log('this.response', this.response)
+      // console.log('this.response', this.response)
       this.$emit('onValidate', this.response);
     },
     value() {
@@ -192,18 +186,19 @@ export default {
   methods: {
     showCountryCodesList() {
       // eslint-disable-next-line no-console
-      console.log('Open Country codes list')
+      // console.log('Open Country codes list')
+      this.$emit('showCountryCodesList');
     },
     onInput() {
       // TODO: Replace with our custom validation
-      this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
+      // this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
       // eslint-disable-next-line no-console
-      console.log('this.response.number', this.response.number)
+      // console.log('this.response.number', this.response.number)
       this.$emit('input', this.response.number);
       // Emit the response, includes phone, validity and country
       // eslint-disable-next-line no-console
-      console.log('this.response', this.response)
+      // console.log('this.response', this.response)
       this.$emit('onInput', this.response);
     },
     onBlur() {
