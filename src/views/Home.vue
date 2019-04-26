@@ -107,6 +107,13 @@
         </template>
       </nc-button>
     </div>
+    <hr />
+    <br />
+    <h1>NC_TEXT_INPUT</h1>
+    <div class="home-nc-text-input-container">
+      <nc-text-input/>
+      <router-link to="/componentInputType">See others examples</router-link>
+    </div>
   </div>
 </template>
 
@@ -119,6 +126,7 @@ import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
+import ncTextInput from '@/components/nc-text-input.vue'
 
 export default {
   name: 'home',
@@ -127,9 +135,9 @@ export default {
     ncLoader,
     ncList,
     ncModal,
-     ncSlideshow,
-    ncButton
-
+    ncSlideshow,
+    ncButton,
+    ncTextInput
   },
   data() {
     return {
@@ -154,6 +162,10 @@ export default {
       noVerticallyAligned: false,
       modalOverlayStyle: {
         background: '#FFF'
+      },
+      ncTextInputError: {
+        hasError: true,
+        text: 'hola error'
       }
     }
   },
@@ -199,5 +211,9 @@ export default {
 }
 .nc-button-container button {
   margin: 10px;
+}
+.home-nc-text-input-container {
+  width: 300px;
+  margin: auto;
 }
 </style>
