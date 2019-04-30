@@ -112,7 +112,7 @@
     <h1>NC_TEXT_INPUT</h1>
     <div class="home-nc-text-input-container">
       <nc-text-input/>
-      <router-link to="/componentInputType">See others examples</router-link>
+      <router-link to="/componentInputTypeText">See other examples</router-link>
     </div>
   </div>
 </template>

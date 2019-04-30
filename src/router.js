@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import NcInputText from './views/NcInputText.vue'
+import NcTextInput from './views/NcTextInput.vue'
 
 Vue.use(Router)
 
@@ -22,9 +22,9 @@ export default new Router({
         import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/componentInputType',
-      name: 'componentInputType',
-      component: NcInputText
+      path: '/componentInputTypeText',
+      name: 'componentInputTypeText',
+      component: NcTextInput
     }
   ]
 })

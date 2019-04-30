@@ -41,15 +41,14 @@ describe('ncTextInput', () => {
   })
 
   describe('methods', () => {
-    describe('onFocusHandler()', () => {
+    describe('handleFocus()', () => {
       let wrapper
       let stub = jest.fn()
       beforeAll(() => {
         wrapper = mount(ncTextInput, {
-          attachToDocument: true,
-          propsData: defaultProps
+          attachToDocument: true
         })
-        wrapper.setMethods({ onFocusHandler: stub })
+        wrapper.setMethods({ handleFocus: stub })
         wrapper.vm.$refs[wrapper.vm.uiReference].focus()
       })
 
@@ -58,15 +57,14 @@ describe('ncTextInput', () => {
       })
     })
 
-    describe('onBlurHandler()', () => {
+    describe('handleBlur()', () => {
       let wrapper
       let stub = jest.fn()
       beforeAll(() => {
         wrapper = mount(ncTextInput, {
-          attachToDocument: true,
-          propsData: defaultProps
+          attachToDocument: true
         })
-        wrapper.setMethods({ onBlurHandler: stub })
+        wrapper.setMethods({ handleBlur: stub })
         wrapper.vm.$refs[wrapper.vm.uiReference].focus()
         wrapper.vm.$refs[wrapper.vm.uiReference].blur()
       })
@@ -76,15 +74,14 @@ describe('ncTextInput', () => {
       })
     })
 
-    describe('onInputHandler()', () => {
+    describe('handleInput()', () => {
       let wrapper
       let stub = jest.fn()
       beforeAll(() => {
         wrapper = mount(ncTextInput, {
-          attachToDocument: true,
-          propsData: defaultProps
+          attachToDocument: true
         })
-        wrapper.setMethods({ onInputHandler: stub })
+        wrapper.setMethods({ handleInput: stub })
         wrapper.find('.input-content__input').setValue(testText)
       })
 
@@ -99,8 +96,7 @@ describe('ncTextInput', () => {
       let wrapper
       beforeAll(() => {
         wrapper = mount(ncTextInput, {
-          attachToDocument: true,
-          propsData: defaultProps
+          attachToDocument: true
         })
         wrapper.vm.$refs[wrapper.vm.uiReference].focus()
       })
@@ -118,8 +114,7 @@ describe('ncTextInput', () => {
       let wrapper
       beforeAll(() => {
         wrapper = mount(ncTextInput, {
-          attachToDocument: true,
-          propsData: defaultProps
+          attachToDocument: true
         })
         wrapper.vm.$refs[wrapper.vm.uiReference].focus()
         wrapper.vm.$refs[wrapper.vm.uiReference].blur()
@@ -165,7 +160,7 @@ describe('ncTextInput', () => {
         wrapper.find('.icon-right').trigger('click')
       })
 
-      it('the event input-key-up-event is emitted', () => {
+      it('the event input-right-icon-event is emitted', () => {
         expect(wrapper.emitted('input-right-icon-event')).toBeTruthy()
       })
     })

@@ -3,50 +3,51 @@
   <div 
     class="nc-text-input__container" 
       :class="[{
-        'is-focused': isFocus,
+        'is-focused': isFocused,
         'has-value': hasValue,
         'has-error': error,
         'has-icon-right-on-focus': hasIconRightOnFocus,
         wrapperClasses
         }]"
-      :style="[isFocus ? { 'border-color': containerIsFocusBorderColor } : { 'border-color': containerBorderColor }, hasValue ? 'has-value' : '']"
+      :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }, hasValue ? 'has-value' : '']"
       @click="focusInput"
     >
     <div 
       :class="['icon-left', {'has-pointer': iconLeftHasPointer}]" 
       v-if="hasIconLeft" 
-      @click="leftIconHandler($event)"
+      @click="handleIconLeft($event)"
     >
       <slot name="iconLeft"></slot>
     </div>
     <div class="input-content">
       <label 
         class="input-content__label"
-        :style="[ isFocus ? {'color': inputContentIsFocusLabelColor} : {'color': inputContentLabelColor}]"
+        :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
       <input 
         v-model="inputValue"
         class="input-content__input"
-        :id="id"
         :class="inputClasses"
-        :ref="uiReference"
-        :type="inputType" 
         :disabled="disabled"
-        :required="required"
-        :name="name"
+        :id="id"
         :maxlength="maxLength"
-        @input="onInputHandler"
-        @keyup="onKeyUpHandler"
-        @focus="onFocusHandler"
-        @blur="onBlurHandler"
+        :name="name"
+        :ref="uiReference"
+        :required="required"
+        :size="size"
+        :type="inputType" 
+        @input="handleInput"
+        @keyup="handleKeyUp"
+        @focus="handleFocus"
+        @blur="handleBlur"
       >
     </div>
     <div 
       :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
       v-if="hasIconRight"
-      @click="rightIconHandler($event)"
+      @click="handleIconRight($event)"
     >
       <slot name="iconRight"></slot>
     </div>
@@ -70,37 +71,29 @@
 <script>
 export default {
   props: {
-    inputType: {
+    containerBorderColor: {
       type: String,
-      default: 'text'
+      default: '$containerBorderColor'
+    },
+    containerIsFocusedBorderColor: {
+      type: String,
+      default: '$containerIsFocusedColor'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     error: {
       type: String,
       default: ''
     },
-    extraText: {
-      type: String,
-      default: ''
-    },
-    containerBorderColor: {
-      type: String,
-      default: '$containerBorderColor'
-    },
-    containerIsFocusBorderColor: {
-      type: String,
-      default: '$containerIsFocusColor'
-    },
-    inputContentIsFocusLabelColor: {
-      type: String,
-      default: '$containerIsFocusColor'
-    },
-    inputContentLabelColor: {
-      type: String,
-      default: '$inputContentLabelColor'
-    },
     errorColor: {
       type: String,
       default: '$errorColor'
+    },
+    extraText: {
+      type: String,
+      default: ''
     },
     hasIconLeft: {
       type: Boolean,
@@ -114,48 +107,60 @@ export default {
       type: Boolean,
       default: false
     },
-    value: [String, Number],
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    required: {
-      type: Boolean,
-      default: false
-    },
-    name: String,
-    maxLength: {
-      type: Number,
-      default: 15
-    },
-    label: {
-      type: String,
-      default: 'label'
-    },
-    uiReference: {
-      type: String,
-      default: 'uiEl'
-    },
     iconLeftHasPointer: {
       type: Boolean,
       default: false
     },
-    iconRightHasPointer: {
-      type: Boolean,
-      default: false
+    id: String,
+    inputClasses: String,
+    inputContentIsFocusedLabelColor: {
+      type: String,
+      default: '$containerIsFocusedColor'
+    },
+    inputContentLabelColor: {
+      type: String,
+      default: '$inputContentLabelColor'
     },
     inputOptions: {
       type: Object,
       default: () => ({})
     },
-    id: String,
-    inputClasses: String,
+    iconRightHasPointer: {
+      type: Boolean,
+      default: false
+    },
+    inputType: {
+      type: String,
+      default: 'text'
+    },
+    label: {
+      type: String,
+      default: 'label'
+    },
+    maxLength: {
+      type: Number,
+      default: 15
+    },
+    name: String,
+    required: {
+      type: Boolean,
+      default: false
+    },
+    size: {
+      type: Number,
+      default: 35
+    },
+    uiReference: {
+      type: String,
+      default: 'uiEl'
+    },
+    value: [String, Number],
     wrapperClasses: String
   },
 
   data() {
     return {
-      isFocus: false,
+      isFocused: false,
       hasValue: false,
       inputValue: ''
     }
@@ -186,31 +191,31 @@ export default {
       this.$refs[this.uiReference].focus()
     },
 
-    onFocusHandler: function() {
+    handleFocus: function() {
       this.$emit('input-focus-event')
       this.isFocus = true
     },
 
-    onBlurHandler: function(ev) {
+    handleBlur: function(ev) {
       this.$emit('input-blur-event', ev)
       this.isFocus = false
     },
 
-    onInputHandler() {
-      this.$emit('input', this.$refs[this.uiReference].value)
+    handleInput() {
+      this.$emit('input', this.$refs[this.uiReference].vke)
     },
 
-    onKeyUpHandler(ev) {
+    handleKeyUp(ev) {
       this.hasValue =
         this.$refs[this.uiReference].value.length > 0 ? true : false
       this.$emit('input-key-up-event', ev)
     },
 
-    leftIconHandler(ev) {
+    handleIconLeft(ev) {
       this.$emit('input-left-icon-event', ev)
     },
 
-    rightIconHandler(ev) {
+    handleIconRight(ev) {
       this.$emit('input-right-icon-event', ev)
     }
   }
