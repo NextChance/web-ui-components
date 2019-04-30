@@ -162,10 +162,6 @@ export default {
       noVerticallyAligned: false,
       modalOverlayStyle: {
         background: '#FFF'
-      },
-      ncTextInputError: {
-        hasError: true,
-        text: 'hola error'
       }
     }
   },

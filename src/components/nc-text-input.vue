@@ -5,13 +5,15 @@
       :class="[{
         'is-focused': isFocus,
         'has-value': hasValue,
-        'has-error': error.hasError,
-        'has-icon-right-on-focus': hasIconRightOnFocus
+        'has-error': error,
+        'has-icon-right-on-focus': hasIconRightOnFocus,
+        wrapperClasses
         }]"
-      :style="[isFocus ? { 'border-color': containerIsFocusBorderColor } : { 'border-color': containerBorderColor }]"
+      :style="[isFocus ? { 'border-color': containerIsFocusBorderColor } : { 'border-color': containerBorderColor }, hasValue ? 'has-value' : '']"
       @click="focusInput"
     >
-    <div class="icon-left" 
+    <div 
+      :class="['icon-left', {'has-pointer': iconLeftHasPointer}]" 
       v-if="hasIconLeft" 
       @click="leftIconHandler($event)"
     >
@@ -19,27 +21,30 @@
     </div>
     <div class="input-content">
       <label 
-        for="" 
         class="input-content__label"
         :style="[ isFocus ? {'color': inputContentIsFocusLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
       <input 
+        v-model="inputValue"
         class="input-content__input"
-        ref="inputEl"
+        :id="id"
+        :class="inputClasses"
+        :ref="uiReference"
         :type="inputType" 
         :disabled="disabled"
         :required="required"
         :name="name"
         :maxlength="maxLength"
-        v-bind:value="value"
-        @input="$emit('input', $event.target.value)"
-        @focus="onFocus"
-        @blur="onBlur"
+        @input="onInputHandler"
+        @keyup="onKeyUpHandler"
+        @focus="onFocusHandler"
+        @blur="onBlurHandler"
       >
     </div>
-    <div class="icon-right" 
+    <div 
+      :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
       v-if="hasIconRight"
       @click="rightIconHandler($event)"
     >
@@ -48,10 +53,10 @@
   </div>
   <div 
     class="nc-text-input__error" 
-    v-if="error.hasError"
+    v-if="error"
     :style="{ 'color': errorColor }"
   >
-    {{ $t(error.text) }}
+    {{ $t(error) }}
   </div>
   <div 
     class="nc-text-input__extra-text" 
@@ -70,13 +75,8 @@ export default {
       default: 'text'
     },
     error: {
-      type: Object,
-      default: function() {
-        return {
-          hasError: false,
-          text: ''
-        }
-      }
+      type: String,
+      default: ''
     },
     extraText: {
       type: String,
@@ -84,23 +84,23 @@ export default {
     },
     containerBorderColor:{
       type: String,
-      color: '$containerBorderColor'
+      default: '$containerBorderColor'
     },
     containerIsFocusBorderColor:{
       type: String,
-      color: '$containerIsFocusColor'
+      default: '$containerIsFocusColor'
     },
     inputContentIsFocusLabelColor: {
       type: String,
-      color: '$containerIsFocusColor'
+      default: '$containerIsFocusColor'
     },
     inputContentLabelColor: {
       type: String,
-      color: '$inputContentLabelColor'
+      default: '$inputContentLabelColor'
     },
     errorColor: {
       type: String,
-      color: '$errorColor'
+      default: '$errorColor'
     },
     hasIconLeft: {
       type: Boolean,
@@ -114,19 +114,12 @@ export default {
       type: Boolean,
       default: false
     },
-    value: {
-      type: String,
-      default: ''
-    },
+    value: [String, Number],
     disabled: {
       type: Boolean,
       default: false
     },
     required: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
       type: Boolean,
       default: false
     },
@@ -138,46 +131,87 @@ export default {
     label: {
       type: String,
       default: 'label'
-    }
+    },
+    uiReference: {
+      type: String,
+      default: 'uiEl'
+    },
+    iconLeftHasPointer: {
+      type: Boolean,
+      default: false
+    },
+    iconRightHasPointer: {
+      type: Boolean,
+      default: false
+    },
+    inputOptions: {
+      type: Object,
+      default: () => ({})
+    },
+    id: String,
+    inputClasses: String,
+    wrapperClasses: String
   },
 
   data() {
     return {
       isFocus: false,
-      hasValue: false
+      hasValue: false,
+      inputValue: ''
+    }
+  },
+
+  created() {
+    if (this.value) {
+      this.inputValue = this.value
+      this.hasValue = true
     }
   },
 
   mounted() {
-    if(this.value.length !== '') {
+    if(this.$refs[this.uiReference].value !== '') {
+      this.value = this.$refs[this.uiReference].value
       this.focusInput()
     }
-    //this.$emit('onValidate', this.response);
+  },
+
+  watch: {
+    value() {
+      this.inputValue = this.value
+    }
   },
 
   methods: {
     focusInput () {
-      this.$refs.inputEl.focus()
+      this.$refs[this.uiReference].focus()
     },
 
-    onFocus: function () {
+    onFocusHandler: function () {
       this.$emit('input-focus-event')
       this.isFocus = true
     },
 
-    onBlur: function () {
-      this.$emit('input-blur-event')
-      this.hasValue = (this.$refs.inputEl.value.length > 0 ? true : false)
+    onBlurHandler: function (ev) {
+      this.$emit('input-blur-event', ev)
       this.isFocus = false
     },
 
-    leftLinkHandler(ev) {
+    onInputHandler() {
+      this.$emit('input', this.$refs[this.uiReference].value)
+    },
+
+    onKeyUpHandler(ev) {
+      this.hasValue = (this.$refs[this.uiReference].value.length > 0 ? true : false)
+      this.$emit('input-key-up-event', ev)
+    },
+
+    leftIconHandler(ev) {
       this.$emit('input-left-icon-event', ev)
     },
-    
-    rightLinkHandler(ev) {
+
+    rightIconHandler(ev) {
       this.$emit('input-right-icon-event', ev)
-    },
+    }
   }
 }
 </script>
@@ -222,7 +256,7 @@ $errorColor: red;
       }
     }
     
-    &.is-focused.has-icon-right-on-focus {
+    &.has-value.has-icon-right-on-focus {
       .icon-right {
         display: block;
         visibility: visible
@@ -271,11 +305,17 @@ $errorColor: red;
     .icon-left {
       margin-right: 8px;    
       flex-grow: 0;
+      &.has-pointer{
+        cursor: pointer 
+      }
     }
 
     .icon-right {
       margin-left: 8px;
       flex-grow: 0;
+      &.has-pointer{
+        cursor: pointer 
+      }
     }
   }
   

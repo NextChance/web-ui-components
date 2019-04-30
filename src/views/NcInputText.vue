@@ -2,11 +2,12 @@
   <div>
     <h1>NC_TEXT_INPUT</h1>
     <br/>
-    <h2>TEXT INPUT WITH ERROR</h2>
+    <h2>TEXT INPUT WITH VALIDATION</h2>
     <div class="nc-text-input-container">
       <nc-text-input
         :error=error
-        v-model='inputValue'
+        label='e-mail'
+        @input='inputChangeHandler'
       >
       </nc-text-input>
     </div>
@@ -30,6 +31,9 @@
         :has-icon-left='true'
         :has-icon-right='true'
         :has-icon-right-on-focus='true'
+        :icon-right-has-pointer='true'
+        @input-right-icon-event='onClickDeleteIcon'
+        v-model='newValueToDelete'
       >
         <template v-slot:iconLeft>
           <i class="fas fa-search-location"></i>
@@ -77,7 +81,7 @@
       </nc-text-input>
     </div> <hr />
     <br />
-    <h2>TEXT INPUT CUSTOM</h2>
+    <h2>CUSTOMIZED TEXT INPUT</h2>
     <div class="nc-text-input-container">
       <nc-text-input
         container-border-color='purple'
@@ -99,17 +103,29 @@
 
 <script>
 import ncTextInput from '@/components/nc-text-input.vue'
+
 export default {
   components: {
     ncTextInput
   },
   data() {
     return {
-      error: {
-        hasError: true,
-        text: 'invalid value'
-      },
-      inputValue: 'wrong value'
+      newValueToDelete: null,
+      error: null
+    }
+  },
+  methods: {
+    validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(email)
+    },
+    inputChangeHandler(value) {
+      if(value !== '') {
+        this.error = !this.validateEmail(value) ? 'wrong e-mail' : null
+      }
+    },
+    onClickDeleteIcon() {
+      this.newValueToDelete = ''
     }
   }
 }
