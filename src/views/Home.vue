@@ -176,7 +176,7 @@ export default {
     },
     clickSlideshowLinkLeft(ev) {
       // eslint-disable-next-line no-console
-      console.log('left', e.currentTarget)
+      console.log('left', ev.currentTarget)
     },
     clickSlideshowLinkRight(ev) {
       // eslint-disable-next-line no-console

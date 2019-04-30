@@ -189,35 +189,3 @@ describe('ncTextInput', () => {
     })
   })
 })
-
-//methods
-  //focus
-    //called onFocusHandler
-    //with input-focus-event
-  //blur
-    //called onBlurHandler
-    //input-blur-event
-  //input
-    //onInputHandler
-    //input event
-    // with value
-  // keyup
-    //onKeyUpHandler
-    //input-key-up-event
-  //leftIconClik
-    //leftIconHandler
-    //input-left-icon-event
-  //rightIconHandler
-    //rightIconHandler
-    //input-right-icon-event
-
-//prop isFocus
-  //true on focus
-  //false on blur
-
-//prop  this.hasValue 
-  //true with value
-  //false on empty
-
-//prop inputValue
-  //on create inputValue === value

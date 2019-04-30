@@ -80,13 +80,13 @@ export default {
     },
     extraText: {
       type: String,
-      default: '' 
+      default: ''
     },
-    containerBorderColor:{
+    containerBorderColor: {
       type: String,
       default: '$containerBorderColor'
     },
-    containerIsFocusBorderColor:{
+    containerIsFocusBorderColor: {
       type: String,
       default: '$containerIsFocusColor'
     },
@@ -126,7 +126,7 @@ export default {
     name: String,
     maxLength: {
       type: Number,
-      default: 15,
+      default: 15
     },
     label: {
       type: String,
@@ -169,7 +169,7 @@ export default {
   },
 
   mounted() {
-    if(this.$refs[this.uiReference].value !== '') {
+    if (this.$refs[this.uiReference].value !== '') {
       this.value = this.$refs[this.uiReference].value
       this.focusInput()
     }
@@ -182,16 +182,16 @@ export default {
   },
 
   methods: {
-    focusInput () {
+    focusInput() {
       this.$refs[this.uiReference].focus()
     },
 
-    onFocusHandler: function () {
+    onFocusHandler: function() {
       this.$emit('input-focus-event')
       this.isFocus = true
     },
 
-    onBlurHandler: function (ev) {
+    onBlurHandler: function(ev) {
       this.$emit('input-blur-event', ev)
       this.isFocus = false
     },
@@ -201,7 +201,8 @@ export default {
     },
 
     onKeyUpHandler(ev) {
-      this.hasValue = (this.$refs[this.uiReference].value.length > 0 ? true : false)
+      this.hasValue =
+        this.$refs[this.uiReference].value.length > 0 ? true : false
       this.$emit('input-key-up-event', ev)
     },
 
@@ -225,7 +226,7 @@ $errorColor: red;
 .nc-text-input {
   position: relative;
   text-align: left;
-  
+
   &__container {
     position: relative;
     border: solid 1px $containerBorderColor;
@@ -248,18 +249,18 @@ $errorColor: red;
         z-index: 2;
       }
     }
-    
+
     &.has-icon-right-on-focus {
       .icon-right {
         display: none;
         visibility: hidden;
       }
     }
-    
+
     &.has-value.has-icon-right-on-focus {
       .icon-right {
         display: block;
-        visibility: visible
+        visibility: visible;
       }
     }
 
@@ -286,7 +287,7 @@ $errorColor: red;
         padding: 19px 0;
         font-size: 17px;
       }
-      
+
       &__input {
         padding: 27px 0 15px 0;
         height: 60px;
@@ -303,26 +304,26 @@ $errorColor: red;
     }
 
     .icon-left {
-      margin-right: 8px;    
+      margin-right: 8px;
       flex-grow: 0;
-      &.has-pointer{
-        cursor: pointer 
+      &.has-pointer {
+        cursor: pointer;
       }
     }
 
     .icon-right {
       margin-left: 8px;
       flex-grow: 0;
-      &.has-pointer{
-        cursor: pointer 
+      &.has-pointer {
+        cursor: pointer;
       }
     }
   }
-  
+
   &__extra-text {
     font-size: 12px;
   }
-  
+
   &__error {
     color: $errorColor;
     font-size: 12px;
