@@ -91,12 +91,8 @@ export default {
     },
 
     calculateContentHeight() {
-      let headerHeight = document.querySelector('.header')
-        ? document.querySelector('.header').offsetHeight
-        : 0
-      let footerHeight = document.querySelector('.footer')
-        ? document.querySelector('.footer').offsetHeight
-        : 0
+      let headerHeight = !!(document.querySelector('.header')) ? document.querySelector('.header').offsetHeight : 0
+      let footerHeight = !!(document.querySelector('.footer')) ? document.querySelector('.footer').offsetHeight : 0
       let padding = parseInt(
         document.querySelector('.nc-modal__container').style.padding
       )
