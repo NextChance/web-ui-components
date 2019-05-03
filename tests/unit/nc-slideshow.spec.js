@@ -233,7 +233,6 @@ describe('ncSlideshow', () => {
       })
       it('the width of the elements from slideList is changed', () => {
         wrapper.setData({ width: '50vw' })
-        debugger
         wrapper.vm.resizeSlide()
       })
     })
