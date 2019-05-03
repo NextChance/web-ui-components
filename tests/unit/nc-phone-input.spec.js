@@ -172,7 +172,6 @@ describe('ncPhoneInput', () => {
             iso2: 'ES',
             name: 'España'
           },
-          formattedNumber: '123456789',
           isValid: false,
           number: '123456789'
         }
