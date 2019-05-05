@@ -210,7 +210,7 @@ $break-desktop: 769px;
       transform: translate('-50%', '-50');
       position: fixed;
       border-radius: 2px;
-      box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
+       box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       transition: all .3s ease;
