@@ -202,7 +202,7 @@ export default {
     },
 
     handleInput() {
-      this.$emit('input', this.$refs[this.uiReference].vke)
+      this.$emit('input', this.$refs[this.uiReference].value)
     },
 
     handleKeyUp(ev) {
