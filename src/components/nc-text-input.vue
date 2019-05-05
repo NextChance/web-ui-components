@@ -295,7 +295,7 @@ $errorColor: red;
 
       &__input {
         padding: 27px 0 15px 0;
-        height: 60px;
+        height: 58px;
         width: calc(100% - 2px);
         box-sizing: border-box;
         border: none;
