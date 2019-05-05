@@ -193,12 +193,12 @@ export default {
 
     handleFocus: function() {
       this.$emit('input-focus-event')
-      this.isFocus = true
+      this.isFocused = true
     },
 
     handleBlur: function(ev) {
       this.$emit('input-blur-event', ev)
-      this.isFocus = false
+      this.isFocused = false
     },
 
     handleInput() {
@@ -224,7 +224,7 @@ export default {
 
 <style lang="scss">
 $containerBorderColor: #ccc;
-$containerIsFocusColor: #379aaf;
+$containerIsFocusedColor: #379aaf;
 $inputContentLabelColor: #999;
 $errorColor: red;
 
@@ -245,10 +245,10 @@ $errorColor: red;
     display: flex;
     align-items: center;
     &.is-focused {
-      border-color: $containerIsFocusColor;
+      border-color: $containerIsFocusedColor;
       outline: 0;
       .input-content__label {
-        color: $containerIsFocusColor;
+        color: $containerIsFocusedColor;
         font-size: 70%;
         padding: 9px 0;
         z-index: 2;

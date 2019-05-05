@@ -106,7 +106,7 @@ describe('ncTextInput', () => {
       })
 
       it('should hasValue props to be true', () => {
-        expect(wrapper.vm.isFocus).toBe(true)
+        expect(wrapper.vm.isFocused).toBe(true)
       })
     })
 
@@ -125,7 +125,7 @@ describe('ncTextInput', () => {
       })
 
       it('should hasValue props to be false', () => {
-        expect(wrapper.vm.isFocus).toBe(false)
+        expect(wrapper.vm.isFocused).toBe(false)
       })
     })
 
