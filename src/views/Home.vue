@@ -107,6 +107,25 @@
         </template>
       </nc-button>
     </div>
+    <hr>
+    <br />
+
+    <h2>NC-SEPARATOR</h2>
+    <p>With icon:</p>
+    <nc-separator>
+      <template > 
+        <i class="fab fa-accusoft"></i>  
+      </template>
+    </nc-separator>
+    <p>With text:</p>
+    <nc-separator>
+      <template > 
+        <span>o</span>  
+      </template>
+    </nc-separator>
+
+    <hr>
+    <br />
     <hr />
     <br />
 
@@ -134,6 +153,7 @@ import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
+import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
 
@@ -147,6 +167,7 @@ export default {
     ncModal,
     ncSlideshow,
     ncButton,
+    ncSeparator,
     ncTextInput,    
     ncPhoneInput
   },
