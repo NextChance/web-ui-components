@@ -15,7 +15,7 @@ export default {
   props: {
     className: String,
     disabled: {
-      type: Boolean, 
+      type: Boolean,
       default: false
     }
   },
