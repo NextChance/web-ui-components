@@ -235,10 +235,11 @@ $errorColor: red;
   &__container {
     position: relative;
     border: solid 1px $containerBorderColor;
+    box-sizing: border-box;
     padding: 0 8px 0 16px;
     position: relative;
     height: 60px;
-    width: calc(100% - 18px);
+    width: 100%;
     border-radius: 4px;
     text-align: left;
     box-sizing: border-box;
