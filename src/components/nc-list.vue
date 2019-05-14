@@ -66,9 +66,20 @@ export default {
 
 <style lang="scss">
 .nc-list {
+  &__search {
+    margin-bottom: 16px;
+  }
+
   &__items {
     list-style: none;
     padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d8d8d8;
+    height: 46px;
   }
 }
 </style>
