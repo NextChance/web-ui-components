@@ -75,12 +75,12 @@ describe('ncList', () => {
     let hasSearch = true
     const items = [
       {
-        country: 'SPAIN',
-        code: '+34'
+        name: 'SPAIN',
+        dialCode: '+34'
       },
       {
-        country: 'SRI LANKA',
-        code: '+94'
+        name: 'SRI LANKA',
+        dialCode: '+94'
       }
     ]
     let wrapper
@@ -93,13 +93,27 @@ describe('ncList', () => {
         },
         scopedSlots: {
           default:
-            '<div><span class="item-on-left">{{ props.country }}</span><span class="item-on-right">{{ props.code }}</span></div>'
+            '<div><span class="item-on-left">{{ props.name }}</span><span class="item-on-right">{{ props.dialCode }}</span></div>'
         }
       })
     })
-    it('display as li elements as items in items array if hasSearch is false', () => {
+
+    describe('if has search is true and first element is selected', () => {
       hasSearch = false
-      expect(wrapper.findAll('.nc-list__item').length).toBe(2)
+
+      it('display as li elements as items in items array if hasSearch is false', () => {
+        expect(wrapper.findAll('.nc-list__item').length).toBe(2)
+      })
+  
+      it('sets selected property to selected item index', () => {
+        wrapper.find('.nc-list__item').trigger('click')
+        expect(wrapper.vm.selected).toBe(0)
+      })
+  
+      it('adds .highlighted class to selected item', () => {
+        wrapper.find('.nc-list__item').trigger('click')
+        expect(wrapper.find('.nc-list__item').classes()).toContain('highlighted')
+      })
     })
   })
 })

@@ -38,5 +38,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- Changed ncList to highlight selected value #33
 - Modified ncList to use nc-text-input #31 
 - Component nc-list to customize item #96
