@@ -49,8 +49,8 @@ export default {
       if (!this.search) return this.items
       let searchValue = this.search.toLowerCase()
       let filter = item =>
-        item.country.toLowerCase().includes(searchValue) ||
-        item.code.includes(searchValue)
+        item.name.toLowerCase().includes(searchValue) ||
+        item.dialCode.includes(searchValue)
 
       return this.items.filter(filter)
     }
