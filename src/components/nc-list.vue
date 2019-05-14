@@ -3,6 +3,7 @@
     <nc-text-input
       v-show="hasSearch"
       v-model="search"
+      class="nc-list__search"
       :has-icon-left='true'
       label='Buscar'>
       <template v-slot:iconLeft>
@@ -65,15 +66,6 @@ export default {
 
 <style lang="scss">
 .nc-list {
-  &__search {
-    margin: 10px 0 20px 0;
-    border: 1px solid #d8d8d8;
-    border-radius: 4px;
-    width: calc(100% - 4px);
-    height: 40px;
-    box-sizing: border-box;
-  }
-
   &__items {
     list-style: none;
     padding: 0;

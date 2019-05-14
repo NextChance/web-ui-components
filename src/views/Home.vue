@@ -27,7 +27,7 @@
         @item-selected="onItemSelected"
       >
       <template slot-scope="{item}">
-        <span class="item-on-left">{{ item.country }}</span><span class="item-on-right">{{ item.code }}</span>
+        <span class="item-on-left">{{ item.name }}</span><span class="item-on-right">{{ item.dialCode }}</span>
       </template>
       </nc-list>
     </div>
@@ -175,12 +175,16 @@ export default {
     return {
       items: [
         {
-          country: 'Spain',
-          code: '+34'
+          id: '1234567890',
+          name: 'España',
+          iso2: 'ES',
+          dialCode: '+34'
         },
         {
-          country: 'Sri Lanka',
-          code: '+94'
+          id: '2345678901',
+          name: 'Estados Unidos',
+          iso2: 'US',
+          dialCode: '+1'
         }
       ],
       // selectedItem: {
