@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ncTextInput from '@/components/nc-text-input.vue'
+import ncTextInput from './nc-text-input.vue'
 
 export default {
   name: 'nc-list',
