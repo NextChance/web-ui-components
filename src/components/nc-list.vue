@@ -1,11 +1,14 @@
 <template>
   <div class="nc-list">
-    <input
+    <nc-text-input
       v-show="hasSearch"
       v-model="search"
-      type="text"
-      class="nc-list__search"
-      placeholder="Buscar" />
+      :has-icon-left='true'
+      label='Buscar'>
+      <template v-slot:iconLeft>
+        <i class="fas fa-search-location"></i>
+      </template>
+    </nc-text-input>
     <ul
       v-if="items.length"
       class="nc-list__items">
@@ -22,8 +25,13 @@
 </template>
 
 <script>
+import ncTextInput from '@/components/nc-text-input.vue'
+
 export default {
   name: 'nc-list',
+  components: {
+    ncTextInput
+  },
   props: {
     hasSearch: {
       type: Boolean,
@@ -59,6 +67,11 @@ export default {
 .nc-list {
   &__search {
     margin: 10px 0 20px 0;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    width: calc(100% - 4px);
+    height: 40px;
+    box-sizing: border-box;
   }
 
   &__items {

@@ -101,14 +101,5 @@ describe('ncList', () => {
       hasSearch = false
       expect(wrapper.findAll('.nc-list__item').length).toBe(2)
     })
-    it('display as li elements as items in items array if search value is empty', () => {
-      wrapper.find('.nc-list__search').setValue('')
-      expect(wrapper.findAll('.nc-list__item').length).toBe(2)
-    })
-    it('filters items and return SRI LANKA if search value is k', () => {
-      expect(wrapper.findAll('.nc-list__item').length).toBe(2)
-      wrapper.find('.nc-list__search').setValue('k')
-      expect(wrapper.vm.filteredList[0].country).toBe('SRI LANKA')
-    })
   })
 })
