@@ -23,4 +23,32 @@ describe('ncCardItem.vue', () => {
       expect(result).toStrictEqual(defaultProps)
     })
   })
+
+  describe('.handleCardItemClicked()', () => {
+    let wrapper
+    let stub = jest.fn()
+    beforeAll(() => {
+      wrapper = mount(ncCardItem, {
+        attachToDocument: true
+      })
+      wrapper.setMethods({ handleCardItemClicked: stub })
+      wrapper.vm.$refs['cardItemRef'].click()
+    })
+    it('When card is selected', () => {
+      expect(stub).toBeCalled()
+    })
+  })
+
+  describe('on click card', () => {
+    let wrapper
+    beforeAll(() => {
+      wrapper = mount(ncCardItem, {
+        attachToDocument: true
+      })
+      wrapper.vm.$refs['cardItemRef'].click()
+    })
+    it('When card is selected', () => {
+      expect(wrapper.emitted('card-item-click-event')).toBeTruthy()
+    })
+  })
 })

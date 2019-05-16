@@ -1,6 +1,9 @@
 <template>
   <div 
-  :class="['nc-card-item', wrapperClass]">
+  :class="['nc-card-item', wrapperClass]"
+  @click="handleCardItemClicked($event)"
+  :ref="cardItemReference"
+  >
     <div class="nc-card-item__image">
       <img 
         :src="image" 
@@ -49,6 +52,10 @@
 export default {
   name: 'nc-card-item',
   props: {
+    cardItemReference: {
+      type: String,
+      default: 'cardItemRef'
+    },
     caption: {
       type: String,
       default: 'Caption'
@@ -99,6 +106,12 @@ export default {
     wrapperClass: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    handleCardItemClicked: function(ev) {
+      debugger
+      this.$emit('card-item-click-event', ev)
     }
   }
 }
