@@ -15,8 +15,9 @@
       class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
-        @click="onItemSelected(item)"
+        @click="onItemSelected(item, index)"
         :key="index"
+        :class="{highlighted: index === selected}"
         class="nc-list__item">
         <slot :item="item"></slot>
       </li>
@@ -42,7 +43,8 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      selected: undefined
     }
   },
   computed: {
@@ -57,7 +59,8 @@ export default {
     }
   },
   methods: {
-    onItemSelected(item) {
+    onItemSelected(item, index) {
+      this.selected = index
       this.$emit('item-selected', item)
     }
   }
@@ -80,6 +83,10 @@ export default {
     align-items: center;
     border-bottom: 1px solid #d8d8d8;
     height: 46px;
+
+    &.highlighted {
+      background-color: #ebebeb;
+    }
   }
 }
 </style>
