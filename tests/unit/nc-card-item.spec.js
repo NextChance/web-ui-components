@@ -34,7 +34,7 @@ describe('ncCardItem.vue', () => {
       wrapper.setMethods({ handleCardItemClicked: stub })
       wrapper.vm.$refs['cardItemRef'].click()
     })
-    it('When card is selected', () => {
+    it('handleCardItemClicked should be called', () => {
       expect(stub).toBeCalled()
     })
   })
@@ -47,7 +47,7 @@ describe('ncCardItem.vue', () => {
       })
       wrapper.vm.$refs['cardItemRef'].click()
     })
-    it('When card is selected', () => {
+    it('card-item-click-event should be emitted', () => {
       expect(wrapper.emitted('card-item-click-event')).toBeTruthy()
     })
   })
