@@ -110,7 +110,6 @@ export default {
   },
   methods: {
     handleCardItemClicked: function(ev) {
-      debugger
       this.$emit('card-item-click-event', ev)
     }
   }
