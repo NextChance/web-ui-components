@@ -22,8 +22,18 @@
     >
       <div class="header" v-if="header">{{ header }}</div>
       <div class="subheader" v-if="subheader">{{ subheader }}</div>
-      <div class="title" v-if="title">{{ title }}</div>
-      <div class="description" v-if="description">{{ description }}</div>
+      <div 
+        class="title"
+        :style="{ '-webkit-line-clamp': titleLineEllipis }"
+        v-if="title"
+      >
+        {{ title }}
+      </div>
+      <div 
+        class="description" 
+        v-if="description"
+        :style="{ '-webkit-line-clamp': descriptionLineEllipis }"
+      >{{ description }}</div>
     </div>
     <div 
       class="nc-card-item__extra-content" 
@@ -48,11 +58,15 @@ export default {
       type: String,
       default: ''
     },
-    extraContentStyle: Object,
     description: {
       type: String,
       default: 'Description'
     },
+    descriptionLineEllipis: {
+      type: Number,
+      default: 3
+    },
+    extraContentStyle: Object,
     hasExtraContent: {
       type: Boolean,
       default: false
@@ -78,6 +92,10 @@ export default {
       type: String,
       default: 'Title'
     },
+    titleLineEllipis: {
+      type: Number,
+      default: 2
+    },
     wrapperClass: {
       type: String,
       default: ''
@@ -101,19 +119,24 @@ export default {
   }
   &__content {
     padding: 11px 24px 24px 24px;
+    display: flex;
+    flex-flow: wrap;
+    & .header {
+      margin-right: 8px;
+    }
     & .title {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      flex-basis: 100%;
     }
     & .description {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+      flex-basis: 100%;
     }
   }
 }

@@ -4,6 +4,7 @@ export const defaultProps = {
   contentStyle: '',
   extraContentStyle: undefined,
   description: 'Description',
+  descriptionLineEllipis: 3,
   hasExtraContent: false,
   header: 'Header',
   image: '',
@@ -11,5 +12,6 @@ export const defaultProps = {
   imageStyle: undefined,
   subheader: 'Subheader',
   title: 'Title',
+  titleLineEllipis: 2,
   wrapperClass: ''
 }
