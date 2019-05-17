@@ -27,7 +27,7 @@
       <div class="subheader" v-if="subheader">{{ subheader }}</div>
       <div 
         class="title"
-        :style="{ '-webkit-line-clamp': titleLineEllipis }"
+        :style="{ '-webkit-line-clamp': titleLineEllipsis }"
         v-if="title"
       >
         {{ title }}
@@ -35,7 +35,7 @@
       <div 
         class="description" 
         v-if="description"
-        :style="{ '-webkit-line-clamp': descriptionLineEllipis }"
+        :style="{ '-webkit-line-clamp': descriptionLineEllipsis }"
       >{{ description }}</div>
     </div>
     <div 
@@ -69,7 +69,7 @@ export default {
       type: String,
       default: 'Description'
     },
-    descriptionLineEllipis: {
+    descriptionLineEllipsis: {
       type: Number,
       default: 3
     },
@@ -99,7 +99,7 @@ export default {
       type: String,
       default: 'Title'
     },
-    titleLineEllipis: {
+    titleLineEllipsis: {
       type: Number,
       default: 2
     },

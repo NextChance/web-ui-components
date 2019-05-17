@@ -149,9 +149,9 @@
         :caption-style="ncCardCaptionStyle"
         :image="ncCardItemImage"
         :title="ncCardItemTitle"
-        :title-line-ellipis="ncTitleLineEllipis"
+        :title-line-ellipsis="ncTitleLineEllipsis"
         :description="ncCardItemDescription"
-        :description-line-ellipis="ncDescritionLineEllipsis"/>
+        :description-line-ellipsis="ncDescritionLineEllipsis"/>
   </div>
   </div>
 </template>
@@ -230,7 +230,7 @@ export default {
         'right': '10px',
       },
       ncDescritionLineEllipsis: 2,
-      ncTitleLineEllipis: 1
+      ncTitleLineEllipsis: 1
     }
   },
   methods: {
