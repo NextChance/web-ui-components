@@ -141,6 +141,18 @@
       <nc-text-input/>
       <router-link to="/componentInputTypeText">See other examples</router-link>
     </div>
+    <br />
+    <br />
+    <h1>NC_CARD-ITEM</h1>
+    <div class="nc-card-item-container">
+      <nc-card-item 
+        :caption-style="ncCardCaptionStyle"
+        :image="ncCardItemImage"
+        :title="ncCardItemTitle"
+        :title-line-ellipsis="ncTitleLineEllipsis"
+        :description="ncCardItemDescription"
+        :description-line-ellipsis="ncDescritionLineEllipsis"/>
+  </div>
   </div>
 </template>
 
@@ -156,7 +168,7 @@ import ncButton from '@/components/nc-button.vue'
 import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
-
+import ncCardItem from '@/components/nc-card-item.vue'
 
 export default {
   name: 'home',
@@ -168,8 +180,9 @@ export default {
     ncSlideshow,
     ncButton,
     ncSeparator,
-    ncTextInput,    
-    ncPhoneInput
+    ncTextInput,
+    ncPhoneInput,
+    ncCardItem
   },
   data() {
     return {
@@ -204,7 +217,20 @@ export default {
       noVerticallyAligned: false,
       modalOverlayStyle: {
         background: '#FFF'
-      }
+      },
+      ncCardItemImage:
+        'https://cdn-images-1.medium.com/max/800/1*-PlqbnwqjqJi_EVmrhmuDQ.jpeg',
+      ncCardItemDescription:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Excepteur sint occaecat cupidatat non proident, sunt',
+      ncCardItemTitle:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
+      ncCardCaptionStyle: {
+        'position': 'absolute',
+        'bottom': '10px',
+        'right': '10px',
+      },
+      ncDescritionLineEllipsis: 2,
+      ncTitleLineEllipsis: 1
     }
   },
   methods: {
@@ -257,5 +283,12 @@ export default {
 .home-nc-text-input-container {
   width: 300px;
   margin: auto;
+}
+.nc-card-item-container {
+  width: 220px;
+  margin: auto;
+  font-size: 17px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
 }
 </style>
