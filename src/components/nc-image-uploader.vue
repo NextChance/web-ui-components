@@ -5,7 +5,7 @@
             id="imageUploader" 
             type="file" 
             name="imageUploader[]" 
-            class="image-uploader_input image-uploader_input-4 " 
+            class="image-uploader_input image-uploader_input-4" 
             data-multiple-caption="{count} files selected" 
             multiple=""
             @change="onFileChange"
@@ -13,6 +13,7 @@
             >
 					<label 
             for="imageUploader"
+            class="nc-image-uploader_background"
             :style="{ 
               borderRadius: radius,
               imageUploaderheight: imageUploaderheight,
@@ -179,6 +180,8 @@ export default {
   white-space: nowrap;
 }
 .nc-image-uploader_background {
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 </style>
