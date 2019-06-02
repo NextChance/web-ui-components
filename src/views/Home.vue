@@ -208,7 +208,7 @@
     <h3>Uploaded image</h3>
     <nc-image-uploader 
       :with-data="true"
-      bg-image="url(http://placekitten.com/g/500/310)">
+      bg-image="http://placekitten.com/g/500/310">
       <template v-slot:isEmptyState>
         <i class="fa fa-plus-circle image-uploader__icon">
         </i> 
