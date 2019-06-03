@@ -161,16 +161,18 @@ export default {
   data() {
     return {
       isFocused: false,
-      hasValue: false,
       inputValue: ''
     }
   },
 
-  created() {
-    if (this.value) {
-      this.inputValue = this.value
-      this.hasValue = true
+  computed: {
+    hasValue: function() {
+      return !!this.inputValue
     }
+  },
+
+  created() {
+    if (this.value) this.inputValue = this.value
   },
 
   mounted() {
@@ -206,8 +208,6 @@ export default {
     },
 
     handleKeyUp(ev) {
-      this.hasValue =
-        this.$refs[this.uiReference].value.length > 0 ? true : false
       this.$emit('input-key-up-event', ev)
     },
 
