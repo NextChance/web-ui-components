@@ -153,6 +153,14 @@
         :description="ncCardItemDescription"
         :description-line-ellipsis="ncDescritionLineEllipsis"/>
   </div>
+  <br>
+  <hr>
+  <br>
+  <div>
+    <h1>NC-DROPDOWN-ITEM</h1>
+    <nc-dropdown-item>
+    </nc-dropdown-item>
+  </div>
   </div>
 </template>
 
@@ -169,6 +177,7 @@ import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
 import ncCardItem from '@/components/nc-card-item.vue'
+import ncDropdownItem from '@/components/nc-dropdown-item.vue'
 
 export default {
   name: 'home',
@@ -182,7 +191,8 @@ export default {
     ncSeparator,
     ncTextInput,
     ncPhoneInput,
-    ncCardItem
+    ncCardItem,
+    ncDropdownItem
   },
   data() {
     return {
