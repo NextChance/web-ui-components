@@ -2,9 +2,12 @@
   <ul class="nc-dropdown-item__container">
     <li class="nc-dropdown-item__element"> 
       <!-- si el slot tiene texto y poner clase -->
-      <slot class="nc-dropdown-item__element-text" name="nc-dropdown-item__element-text">texto del item</slot>
-      <!-- si el slot tiene icono y poner clase -->
-      <slot class="nc-dropdown-item__element-icon" name="nc-dropdown-item__element-icon">icono</slot>
+      <span>
+        <slot class="nc-dropdown-item__element-text" name="nc-dropdown-item__element-text">texto del item</slot>
+      </span>
+      <!-- si  tiene icono y poner clase -->
+      <span class="nc-dropdown-item__element-icon fab fa-chevron-down" name="nc-dropdown-item__element-icon">   
+      </span>
     </li>
   </ul>
 </template>
@@ -27,7 +30,7 @@ export default {
     align-items: center;
 
     & .nc-dropdown-item__element-icon {
-      margin-left: auto;
+      margin-left: auto; /* no tira*/
     }
   }
   border-bottom: 1px solid green;
