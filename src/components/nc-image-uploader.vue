@@ -13,7 +13,7 @@
         >
       <label 
         for="imageUploader"
-        class="nc-image-uploader_background"
+        :class="['nc-image-uploader_background', error ? error : '']"
         :style="{ 
           borderRadius: radius,
           imageUploaderheight: imageUploaderheight,
@@ -67,6 +67,10 @@ export default {
     error: {
       type: String,
       default: ''
+    },
+    errorColor: {
+      type: String,
+      default: '$errorColor'
     },
     bgImage: {
       type: String,
@@ -123,12 +127,12 @@ export default {
       var files = e.target.files || e.dataTransfer.files
       if (!files.length)
         return
-      // this.createImage(files[0])
       this.$emit('input-image-uploader-event', files[0])
       this.isEmpty = false
       this.isLoading = true
       this.isDisabled = true
       this.withData = false
+      this.error = ''
     },
     removeImage: function (e) {
       this.bgImage = ''
@@ -136,10 +140,10 @@ export default {
       this.isLoading = false
       this.isDisabled = false
       this.withData = false
+      this.error = 'error'
     }
   },
   watch: {
-    // si existe una imagen entonces la pones en el input
     bgImage: function(newImage, oldImage) {
 
         if(newImage !== '') {
@@ -157,7 +161,10 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
+  $containerBorderColor: #ccc;
+  $errorColor: red;
+
 .image-uploader_input {
   height: 0.1px;
   opacity: 0;
@@ -167,7 +174,7 @@ export default {
   z-index: -1;
 }
 .image-uploader_input + label {
-  border: 1px solid #ccc;
+  border: 1px solid $containerBorderColor;
   cursor: pointer;
   display: inline-block;
   font-size: 1.25rem;
@@ -177,11 +184,18 @@ export default {
   padding: 0.625rem 1.25rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+   &.error {
+      border: 1px solid $errorColor;
+  }
 }
+
 .nc-image-uploader_background {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.image-uploader__error {
+  color: $errorColor
 }
 </style>
 
