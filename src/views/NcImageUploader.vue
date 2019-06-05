@@ -55,7 +55,7 @@ export default {
     uploadImage() {
       const vm = this
       setTimeout(function() {
-        vm.bgImage = 'http://placekitten.com/g/500/310'
+        vm.bgImage = 'http://placekitten.com/g/150/90'
       }, 2000)
     }
   }

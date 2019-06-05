@@ -4,10 +4,10 @@
       <input 
         id="imageUploader" 
         type="file" 
-        name="imageUploader[]" 
-        class="image-uploader_input image-uploader_input-4" 
+        name="imageUploader" 
+        class="image-uploader_input" 
         data-multiple-caption="{count} files selected" 
-        multiple=""
+        multiple
         @change="onFileChange"
         :disabled="isDisabled"
         >
