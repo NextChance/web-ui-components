@@ -41,9 +41,6 @@ export default {
     ncImageUploader,
     ncLoader
   },
-  props: {
-
-  },
   data() {
     return {
       isEmpty: true,
