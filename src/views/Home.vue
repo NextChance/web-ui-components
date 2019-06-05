@@ -158,7 +158,8 @@
   <br>
   <div>
     <h1>NC-DROPDOWN-ITEM</h1>
-    <nc-dropdown-item>
+    <nc-dropdown-item
+      :options="ncDropdownOptions">
     </nc-dropdown-item>
   </div>
   </div>
@@ -240,8 +241,15 @@ export default {
         'right': '10px',
       },
       ncDescritionLineEllipsis: 2,
-      ncTitleLineEllipsis: 1
+      ncTitleLineEllipsis: 1,
+      ncDropdownOptions: [
+        'Quienes somos',
+        'Benificios billioners',
+        'Beneficios negocios',
+        'Nuestro Blog'
+      ]
     }
+
   },
   methods: {
     selectItem(ev) {
