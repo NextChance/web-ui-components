@@ -119,7 +119,7 @@ export default {
       isEmpty: true,
       isLoading: false,
       withData: false
-      }
+    }
   },
   
   methods: {
