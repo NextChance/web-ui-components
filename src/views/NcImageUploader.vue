@@ -36,7 +36,6 @@ import ncImageUploader from '@/components/nc-image-uploader.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import { setTimeout } from 'timers';
 
-
 export default {
   components: {
     ncImageUploader,

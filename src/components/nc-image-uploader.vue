@@ -8,12 +8,12 @@
         class="image-uploader_input" 
         data-multiple-caption="{count} files selected" 
         multiple
-        @change="onFileChange"
+        @change="handleFileChange"
         :disabled="isDisabled"
         >
       <label 
         for="imageUploader"
-        :class="['nc-image-uploader_background', error ? error : '']"
+        :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
         :style="{ 
           borderRadius: radius,
           imageUploaderheight: imageUploaderheight,
@@ -42,7 +42,7 @@
             </figure>
             <figure 
               v-if="withData"
-              @click="removeImage">
+              @click="handleClickRemove">
               <slot 
                 name="withDataState" 
                 >
@@ -123,8 +123,8 @@ export default {
   },
   
   methods: {
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files
+    handleFileChange(ev) {
+      const files = ev.target.files || ev.dataTransfer.files
       if (!files.length)
         return
       this.$emit('input-image-uploader-event', files[0])
@@ -134,7 +134,7 @@ export default {
       this.withData = false
       this.error = ''
     },
-    removeImage: function (e) {
+    handleClickRemove: function (ev) {
       this.bgImage = ''
       this.isEmpty = true
       this.isLoading = false
@@ -173,7 +173,7 @@ export default {
   width: 0.1px;
   z-index: -1;
 }
-.image-uploader_input + label {
+.image-uploader_input + .nc-uploader_label {
   border: 1px solid $containerBorderColor;
   cursor: pointer;
   display: inline-block;
