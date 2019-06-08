@@ -22,7 +22,7 @@
         <slot :item="item"></slot>
       </li>
     </ul>
-    <p v-else>{{ textEmptyList}}</p>
+    <p v-else>{{ textEmptyList }}</p>
   </div>
 </template>
 
