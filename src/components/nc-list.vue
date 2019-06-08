@@ -5,9 +5,9 @@
       v-model="search"
       class="nc-list__search"
       :has-icon-left='true'
-      label='Buscar'>
+      :label='searchLabel'>
       <template v-slot:iconLeft>
-        <i class="fas fa-search-location"></i>
+        <i class="search-icon"></i>
       </template>
     </nc-text-input>
     <ul
@@ -22,7 +22,7 @@
         <slot :item="item"></slot>
       </li>
     </ul>
-    <p v-else>No hay items</p>
+    <p v-else>{{ textEmptyList}}</p>
   </div>
 </template>
 
@@ -39,7 +39,15 @@ export default {
       type: Boolean,
       default: false
     },
-    items: Array
+    items: Array,
+    textEmptyList: {
+      type: String,
+      default: 'ncListNotItem' 
+    },
+    searchLabel: {
+      type: String,
+      default: 'buscar'
+    }
   },
   data() {
     return {
@@ -52,8 +60,7 @@ export default {
       if (!this.search) return this.items
       let searchValue = this.search.toLowerCase()
       let filter = item =>
-        item.name.toLowerCase().includes(searchValue) ||
-        item.dialCode.includes(searchValue)
+        item.name.toLowerCase().includes(searchValue)
 
       return this.items.filter(filter)
     }
@@ -68,9 +75,23 @@ export default {
 </script>
 
 <style lang="scss">
+$iconColor: #ccc;
 .nc-list {
   &__search {
     margin-bottom: 16px;
+    .search-icon {
+      margin-left: 14px;
+      display: block;
+      width: 24px;
+      height: 30px;
+      background: $iconColor;
+      mask-image: url('../assets/svg/search.svg');
+    }
+    .nc-text-input__container {
+      border-radius: 25px;
+      height: 50px;
+      padding: 14px 0;
+    }
   }
 
   &__items {
