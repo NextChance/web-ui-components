@@ -6,10 +6,6 @@
       class="nc-phone-input__country-code"
       @click="showCountryCodesList">
       <!-- emoji -->
-      <!-- <img
-        v-if="flagsEnabled"
-        class="nc-phone-input__flag"
-        :src="'data:image/png;base64, ' + selectedCountry.flag" /> -->
       <span class="nc-phone-input__flag">{{ countryEmojiFlag }}</span>
       <!-- country code -->
       <span v-if="countryCodeEnabled" class="nc-phone-input__code-number">{{ selectedCountry.dialCode }}</span>
