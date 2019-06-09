@@ -18,6 +18,7 @@
         @click="onItemSelected(item, index)"
         :key="index"
         :class="{highlighted: index === selected}"
+        :style="itemStyle"
         class="nc-list__item">
         <slot :item="item"></slot>
       </li>
@@ -42,11 +43,15 @@ export default {
     items: Array,
     textEmptyList: {
       type: String,
-      default: 'ncListNotItem' 
+      default: 'There ater no items' 
     },
     searchLabel: {
       type: String,
       default: 'buscar'
+    },
+    itemStyle: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
