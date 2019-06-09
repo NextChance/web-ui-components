@@ -152,7 +152,15 @@
         :title-line-ellipsis="ncTitleLineEllipsis"
         :description="ncCardItemDescription"
         :description-line-ellipsis="ncDescritionLineEllipsis"/>
-  </div>
+    </div>
+
+    <h1>NC_TEXTAREA</h1>
+    <div class="home-nc-text-input-container">
+      <nc-textarea
+        :value="ncTextAreaValue"/>
+    </div>
+    <br />
+    <br />
   </div>
 </template>
 
@@ -169,6 +177,7 @@ import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
 import ncCardItem from '@/components/nc-card-item.vue'
+import ncTextarea from '@/components/nc-textarea.vue'
 
 export default {
   name: 'home',
@@ -182,7 +191,8 @@ export default {
     ncSeparator,
     ncTextInput,
     ncPhoneInput,
-    ncCardItem
+    ncCardItem,
+    ncTextarea
   },
   data() {
     return {
@@ -222,7 +232,8 @@ export default {
         'right': '10px',
       },
       ncDescritionLineEllipsis: 2,
-      ncTitleLineEllipsis: 1
+      ncTitleLineEllipsis: 1,
+      ncTextAreaValue: 'Valor por defecto'
     }
   },
   methods: {
