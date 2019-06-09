@@ -11,6 +11,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "country-code-emoji": "^1.0.0",
     "libphonenumber-js": "^1.7.15",
     "postcss-nested": "^4.1.1",
     "vue": "^2.5.21",
