@@ -44,7 +44,6 @@ export const propsWithValue = {
   inputContentIsFocusedLabelColor: '$containerIsFocusedColor',
   inputContentLabelColor: '$inputContentLabelColor',
   inputOptions: {},
-  inputType: 'text',
   label: 'label',
   maxLength: 15,
   name: undefined,
