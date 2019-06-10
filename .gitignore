@@ -1,6 +1,5 @@
 .DS_Store
-node_modules/*
-!node_modules/country-code-emoji
+node_modules
 /coverage
 /dist
 
