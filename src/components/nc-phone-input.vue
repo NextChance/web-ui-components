@@ -206,7 +206,7 @@ export default {
     },
     selectedCountry() {
       if (this.selectedCountry.iso) {
-        this.countryEmojiFlag = countryCodeEmoji.flag(this.selectedCountry.iso)
+        this.countryEmojiFlag = flag(this.selectedCountry.iso)
       }
     }
   },
