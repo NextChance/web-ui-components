@@ -9,7 +9,7 @@
     "test": "vue-cli-service test:unit",
     "test:debug": "node --inspect-brk ./node_modules/@vue/cli-service/bin/vue-cli-service.js test:unit --runInBand",
     "precommit": "npm run lint",
-    "postinstall": "npm install"
+    "postinstall": "npm install country-code-emoji"
   },
   "dependencies": {
     "country-code-emoji": "^1.0.0",
