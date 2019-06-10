@@ -8,7 +8,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "vue-cli-service test:unit",
     "test:debug": "node --inspect-brk ./node_modules/@vue/cli-service/bin/vue-cli-service.js test:unit --runInBand",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "postinstall": "npm install"
   },
   "dependencies": {
     "country-code-emoji": "^1.0.0",
