@@ -25,6 +25,8 @@
         :has-search="true" 
         :items="items"
         @item-selected="onItemSelected"
+        search-label="Buscar"
+        search-icon="../assets/svg/category.png"
       >
       <template slot-scope="{item}">
         <span class="item-on-left">{{ item.name }}</span><span class="item-on-right">{{ item.dialCode }}</span>
