@@ -32,7 +32,7 @@
  * Credit to https://github.com/iamstevendao
  */
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js'
-import flag from 'country-code-emoji'
+import flag from '../../node_modules/country-code-emoji'
 
 export default {
   name: 'nc-phone-input',
