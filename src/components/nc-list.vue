@@ -43,7 +43,7 @@ export default {
     items: Array,
     textEmptyList: {
       type: String,
-      default: 'There ater no items'
+      default: 'There are no items'
     },
     searchLabel: {
       type: String,
