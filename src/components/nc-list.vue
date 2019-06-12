@@ -43,7 +43,7 @@ export default {
     items: Array,
     textEmptyList: {
       type: String,
-      default: 'There ater no items' 
+      default: 'There are no items'
     },
     searchLabel: {
       type: String,
@@ -62,12 +62,19 @@ export default {
   },
   computed: {
     filteredList() {
-      if (!this.search) return this.items
-      let searchValue = this.search.toLowerCase()
-      let filter = item =>
-        item.name.toLowerCase().includes(searchValue)
-
-      return this.items.filter(filter)
+      if (!this.search) {
+        return this.items
+      }
+      const searchValue = this.search.toLowerCase()
+      return this.items.filter(item => {
+        if (typeof(item.searchText) === 'string') {
+          return item.searchText.toLowerCase().includes(searchValue)
+        } else if (typeof(item.name) === 'string') {
+          return item.name.toLowerCase().includes(searchValue)
+        } else {
+          return false
+        }
+      })
     }
   },
   methods: {
