@@ -65,13 +65,16 @@ export default {
       if (!this.search) {
         return this.items
       }
-      let searchValue = this.search.toLowerCase()
-      let filter = item => {
-        return typeof(item.searchText) === 'string'
-          ? item.searchText.toLowerCase().includes(searchValue)
-          : false
-      }
-      return this.items.filter(filter)
+      const searchValue = this.search.toLowerCase()
+      return this.items.filter(item => {
+        if (typeof(item.searchText) === 'string') {
+          return item.searchText.toLowerCase().includes(searchValue)
+        } else if (typeof(item.name) === 'string') {
+          return item.name.toLowerCase().includes(searchValue)
+        } else {
+          return false
+        }
+      })
     }
   },
   methods: {
