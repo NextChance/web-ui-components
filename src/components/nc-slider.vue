@@ -22,7 +22,10 @@
                 @mousedown="startDrag"
                 @mouseup="stopDrag"
                 @focus="startDrag"
-                @click="startDrag"></div>
+                @click="startDrag"
+                v-touch:start="startDrag"
+                v-touch:end="stopDrag"
+                v-touch:moving="onPanHorizontal"></div>
             <div 
                 v-if="max"
                 id="max"
@@ -41,7 +44,10 @@
                 @mousedown="startDrag"
                 @mouseup="stopDrag"
                 @focus="startDrag"
-                @click="startDrag"></div>
+                @click="startDrag"
+                v-touch:start="startDrag"
+                v-touch:end="stopDrag"
+                v-touch:moving="onPanHorizontal"></div>
         </div>
         <div class="nc-slider__rail-labels">
             <div v-if="min" class="nc-slider__rail-label min">{{minLabel}} {{minValueNow}} {{metrics}}</div>
@@ -122,15 +128,7 @@ export default {
             if (this.dragging) {
                 const position = ev.clientX;
 
-                if ((position  - this.iconSize) > this.maxRail) {
-                    return this[`${icon}IconPosition`] = this.maxRail;
-                }
-
-                if ((position  - this.iconSize) < this.minRail) {
-                    return this[`${icon}IconPosition`] = this.minRail;
-                }
-
-                return this[`${icon}IconPosition`] = position - this.iconSize;
+                this.moveSliderTo(icon, position);
             }
         },
 
@@ -140,6 +138,29 @@ export default {
             }
 
             this.doDrag(ev);
+        },
+
+        onPanHorizontal(ev) {
+            if (!this.dragging) {
+                this.startDrag();
+            }
+
+            const icon = ev.currentTarget.id;
+            const position = ev.changedTouches[0].clientX;
+
+            this.moveSliderTo(icon, position);
+        },
+
+        moveSliderTo(icon, position) {
+            if ((position  - this.iconSize) > this.maxRail) {
+                return this[`${icon}IconPosition`] = this.maxRail;
+            }
+
+            if ((position  - this.iconSize) < this.minRail) {
+                return this[`${icon}IconPosition`] = this.minRail;
+            }
+
+            return this[`${icon}IconPosition`] = position - this.iconSize;
         }
     }
 }
@@ -151,21 +172,22 @@ $second-color: #d8d8d8;
 
 .nc-slider {
   padding: 0.5em 0;
+  width: 100%;
 }
 
 .nc-slider__rail-labels {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: relative;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 22px;
-  letter-spacing: normal;
-  text-align: right;
   color: #272727;
+  display: flex;
+  font-size: 13px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: normal;
+  justify-content: space-between;
+  letter-spacing: normal;
+  line-height: 22px;
+  position: relative;
+  text-align: right;
 }
 
 .nc-slider__rail-label {
@@ -184,34 +206,34 @@ $second-color: #d8d8d8;
 
 .nc-slider__rail {
   background-color: #eee;
+  background-color: $second-color;
+  border-radius: 2px;
+  height: 4px;
+  margin-bottom: 10px;
   position: relative;
   width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background-color: $second-color;
-  margin-bottom: 10px;
 }
 
 .nc-slider__rail-main {
   background-color: $main-color;
-  right: 0;
   left: 0;
   position: absolute;
+  right: 0;
   width: auto;
 }
 
 .nc-slider__icon {
-  position: absolute;
-  padding: 0;
+  background-color: #ffffff;
+  border-radius: 100%;
+  border: solid 3px $main-color;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.19);
+  box-sizing: border-box;
+  height: 22px;
   margin: 0;
+  padding: 0;
+  position: absolute;
   top: -8px;
   width: 22px;
-  height: 22px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.19);
-  border: solid 3px $main-color;
-  border-radius: 100%;
-  background-color: #ffffff;
-  box-sizing: border-box;
 }
 
 .nc-slider__icon:focus {
