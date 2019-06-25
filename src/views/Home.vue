@@ -65,6 +65,33 @@
     <button  @click="opened = true">Show Modal</button>
     <hr />
     <br />
+    <h2>NC-SLIDER COMPONENT</h2>
+    <div id="slider" class="slider">
+      <nc-slider
+        metrics="Km"
+        max="80" maxLabel="Máximo"
+        @slider-stop-drag="sliderStopDrag">
+      </nc-slider>
+      <nc-slider
+        metrics="€"
+        min="20" minLabel="Mínimo"
+        @slider-stop-drag="sliderStopDrag">
+      </nc-slider>
+      <nc-slider
+        metrics="€"
+        min="0" minLabel="Desde"
+        max="50" maxLabel="Máximo"
+        @slider-stop-drag="sliderStopDrag">
+      </nc-slider>
+      <nc-slider
+        metrics="HBS"
+        min="0" minLabel="Desde"
+        max="100" maxLabel="Sin límite"
+        @slider-stop-drag="sliderStopDrag">
+      </nc-slider>
+    </div>
+    <hr />
+    <br />
     <h2>NC-SLIDESHOW COMPONENT</h2>
     <div class="slideshow">
       <nc-slideshow
@@ -173,6 +200,7 @@ import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
+import ncSlider from '@/components/nc-slider.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
 import ncSeparator from '@/components/nc-separator.vue'
@@ -188,6 +216,7 @@ export default {
     ncLoader,
     ncList,
     ncModal,
+    ncSlider,
     ncSlideshow,
     ncButton,
     ncSeparator,
@@ -229,9 +258,9 @@ export default {
       ncCardItemTitle:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
       ncCardCaptionStyle: {
-        'position': 'absolute',
-        'bottom': '10px',
-        'right': '10px',
+        position: 'absolute',
+        bottom: '10px',
+        right: '10px'
       },
       ncDescritionLineEllipsis: 2,
       ncTitleLineEllipsis: 1,
@@ -262,6 +291,10 @@ export default {
     firstSlide(ev) {
       // eslint-disable-next-line no-console
       console.log('first-slide', ev.currentTarget)
+    },
+    sliderStopDrag(values) {
+      // eslint-disable-next-line no-console
+      console.log('slider-stop-drag', values)
     }
   }
 }
