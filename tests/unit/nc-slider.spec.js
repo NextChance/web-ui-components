@@ -1,11 +1,16 @@
-import { mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import ncSlider from '@/components/nc-slider.vue'
-import { defaultProps } from './fixtures/nc-slider.fixture'
+import { defaultProps, propsData } from './fixtures/nc-slider.fixture'
+import Vue2TouchEvents from 'vue2-touch-events'
+const localVue = createLocalVue()
+localVue.use(Vue2TouchEvents)
 
 describe('ncSlider.vue', () => {
   describe('render', () => {
     it('is rendered', () => {
-      const wrapper = mount(ncSlider)
+      const wrapper = mount(ncSlider, {
+        localVue
+      })
       expect(wrapper.is(ncSlider)).toBe(true)
     })
   })
@@ -15,12 +20,66 @@ describe('ncSlider.vue', () => {
     let result
 
     beforeAll(() => {
-      wrapper = mount(ncSlider)
+      wrapper = mount(ncSlider, {
+        attachToDocument: true,
+        localVue
+      })
       result = wrapper.props()
     })
 
     it('should set all its default props', () => {
       expect(result).toStrictEqual(defaultProps)
+    })
+  })
+
+  describe('.startDrag()', () => {
+    let wrapper
+    let startDrag = jest.fn()
+    beforeAll(() => {
+      wrapper = mount(ncSlider, {
+        localVue,
+        propsData: propsData,
+        attachToDocument: true
+      })
+      wrapper.setMethods({ startDrag })
+      wrapper.vm.$refs['maxIcon'].click()
+    })
+    it('startDrag should be called', () => {
+      expect(startDrag).toBeCalled()
+    })
+  })
+
+  describe('.stopDrag()', () => {
+    let wrapper
+    let stopDrag = jest.fn()
+    beforeAll(() => {
+      wrapper = mount(ncSlider, {
+        localVue,
+        propsData: propsData,
+        attachToDocument: true
+      })
+      wrapper.setMethods({ stopDrag })
+      wrapper.find('.nc-slider__icon.nc-slider__icon-max').trigger('mouseleave')
+    })
+    it('stopDrag should be called', () => {
+      expect(stopDrag).toBeCalled()
+    })
+  })
+
+  describe('.doDrag()', () => {
+    let wrapper
+    let doDrag = jest.fn()
+    beforeAll(() => {
+      wrapper = mount(ncSlider, {
+        localVue,
+        propsData: propsData,
+        attachToDocument: true
+      })
+      wrapper.setMethods({ doDrag })
+      wrapper.find('.nc-slider__icon.nc-slider__icon-max').trigger('mousemove')
+    })
+    it('doDrag should be called', () => {
+      expect(doDrag).toBeCalled()
     })
   })
 })
