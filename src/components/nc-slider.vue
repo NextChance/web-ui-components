@@ -23,10 +23,9 @@
                 @mouseup="stopDrag"
                 @focus="startDrag"
                 @click="startDrag"
-                v-hammer:swipe="onPanHorizontal"
-                v-hammer:tap="onPanHorizontal"
-                v-hammer:pan="onPanHorizontal"
-                v-hammer:press="onPanHorizontal"></div>
+                v-touch:start="startDrag"
+                v-touch:end="stopDrag"
+                v-touch:moving="onPanHorizontal"></div>
             <div 
                 v-if="max"
                 id="max"
@@ -46,10 +45,9 @@
                 @mouseup="stopDrag"
                 @focus="startDrag"
                 @click="startDrag"
-                v-hammer:swipe="onPanHorizontal"
-                v-hammer:tap="onPanHorizontal"
-                v-hammer:pan="onPanHorizontal"
-                v-hammer:press="onPanHorizontal"></div>
+                v-touch:start="startDrag"
+                v-touch:end="stopDrag"
+                v-touch:moving="onPanHorizontal"></div>
         </div>
         <div class="nc-slider__rail-labels">
             <div v-if="min" class="nc-slider__rail-label min">{{minLabel}} {{minValueNow}} {{metrics}}</div>
@@ -147,8 +145,8 @@ export default {
                 this.startDrag();
             }
 
-            const icon = ev.target.id;
-            const position = ev.changedPointers[0].clientX;
+            const icon = ev.currentTarget.id;
+            const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
 
             this.moveSliderTo(icon, position);
         },
