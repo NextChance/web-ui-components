@@ -125,14 +125,13 @@ export default {
   methods: {
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
-      if (!files.length)
-        return
-      this.$emit('input-image-uploader-event', files[0])
-      this.isEmpty = false
-      this.isLoading = true
-      this.isDisabled = true
-      this.withData = false
-      this.error = ''
+        this.$emit('input-image-uploader-event', !files.length ? files[0] : [])
+        this.isEmpty = false
+        this.isLoading = true
+        this.isDisabled = true
+        this.withData = false
+        this.error = ''
+
     },
     handleClickRemove: function (ev) {
       this.bgImage = ''
@@ -145,18 +144,17 @@ export default {
   },
   watch: {
     bgImage: function(newImage, oldImage) {
+      this.isEmpty = true
+      this.isLoading = false
+      this.isDisabled = true
+      this.withData = false
 
-        if(newImage !== '') {
-          this.isEmpty = false
-          this.isLoading = false
-          this.isDisabled = false
-          this.withData = true
-        } else {
-          this.isEmpty = true
-          this.isLoading = false
-          this.isDisabled = true
-          this.withData = false
-        }
+      if(newImage !== '') {
+        this.isEmpty = false
+        this.isLoading = false
+        this.isDisabled = false
+        this.withData = true
+      }
     }
   }
 }

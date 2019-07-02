@@ -16,10 +16,10 @@
           :has-text="true"
           :has-veil="true"
           :active="true"
+          :text="$t('lang.loading.msg')"
           icon-color="#272727"
           text-color="#272727"
           veil-color="#FFF"
-          :text="$t('lang.loading.msg')"
         />
       </template>
       <template v-slot:withDataState>
@@ -27,8 +27,6 @@
         </i> 
       </template>
    </nc-image-uploader>
-    <br>
-
   </div>
 </template>
 <script>
@@ -57,8 +55,3 @@ export default {
   }
 }
 </script>
-<style>
-
-</style>
-
-
