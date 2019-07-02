@@ -1,7 +1,7 @@
 <template>
-<div class="nc-text-input">
+<div class="nc-textarea">
   <div 
-    class="nc-text-input__container" 
+    class="nc-textarea__container" 
       :class="[{
         'is-focused': isFocused,
         'has-value': hasValue,
@@ -26,7 +26,7 @@
       >
         {{ label }}
       </label>
-      <input 
+      <textarea 
         v-model="inputValue"
         class="input-content__input"
         :class="inputClasses"
@@ -36,13 +36,13 @@
         :name="name"
         :ref="uiReference"
         :required="required"
-        :size="size"
-        :type="inputType" 
+        rows="4"
+        cols="50"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"
         @blur="handleBlur"
-      >
+      ></textarea>
     </div>
     <div 
       :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
@@ -53,14 +53,14 @@
     </div>
   </div>
   <div 
-    class="nc-text-input__error" 
+    class="nc-textarea__error" 
     v-if="error"
     :style="{ 'color': errorColor }"
   >
     {{ $t(error) }}
   </div>
   <div 
-    class="nc-text-input__extra-text" 
+    class="nc-textarea__extra-text" 
     v-if="extraText"
   >
     {{ extraText }}
@@ -129,17 +129,13 @@ export default {
       type: Boolean,
       default: false
     },
-    inputType: {
-      type: String,
-      default: 'text'
-    },
     label: {
       type: String,
       default: 'label'
     },
     maxLength: {
       type: Number,
-      default: 15
+      default: 1000
     },
     name: String,
     required: {
@@ -228,7 +224,7 @@ $containerIsFocusedColor: #379aaf;
 $inputContentLabelColor: #999;
 $errorColor: red;
 
-.nc-text-input {
+.nc-textarea {
   position: relative;
   text-align: left;
 
@@ -238,7 +234,7 @@ $errorColor: red;
     box-sizing: border-box;
     padding: 0 8px 0 16px;
     position: relative;
-    height: 60px;
+    height: 110px;
     width: 100%;
     border-radius: 4px;
     text-align: left;
@@ -251,7 +247,6 @@ $errorColor: red;
       .input-content__label {
         color: $containerIsFocusedColor;
         font-size: 70%;
-        padding: 9px 0;
         z-index: 2;
       }
     }
@@ -272,7 +267,6 @@ $errorColor: red;
 
     &.has-value {
       .input-content__label {
-        padding: 9px 0;
         font-size: 70%;
       }
     }
@@ -284,24 +278,25 @@ $errorColor: red;
     .input-content {
       position: relative;
       flex-grow: 1;
+      padding-top: 17px;
       &__label {
         color: $inputContentLabelColor;
         top: 0;
         left: 0;
         position: absolute;
         transition: font 0.2s;
-        padding: 19px 0;
         font-size: 17px;
       }
 
       &__input {
-        padding: 27px 0 15px 0;
-        height: 58px;
-        width: calc(100% - 2px);
+        padding: 0;
+        height: 76px;
+        width: calc(100% - 44px);
         box-sizing: border-box;
         border: none;
         background: none;
         font-size: 17px;
+        resize:none;
         z-index: 1;
         &:focus {
           outline: 0;

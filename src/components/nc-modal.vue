@@ -5,7 +5,7 @@
         class="nc-modal__container"
         :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform, 'background-color': backgroundColor}"
       >
-        <i v-if="showCloseIcon" class="nc-modal__close-icon fa" @click="close"></i>
+        <img v-if="showCloseIcon" src="@/assets/svg/close.svg"  class="nc-modal__close-icon" @click="handleCloseModal" />
         <div class="header" v-if="showHeader">
           <slot name="header">header</slot>
         </div>
@@ -16,7 +16,7 @@
         </div>
         <div class="footer" v-if="showFooter">
           <slot name="footer">
-            <div @click="close">OK</div>
+            <div @click="handleCloseModal">OK</div>
           </slot>
         </div>
       </div>
@@ -86,7 +86,7 @@ export default {
   },
 
   methods: {
-    close() {
+    handleCloseModal() {
       this.$emit(close, true)
     },
 
@@ -181,13 +181,11 @@ $break-desktop: 769px;
   }
   &__close-icon {
     opacity: .8;
+    width: 24px;
     position: absolute;
     cursor: pointer;
     top: 21px;
     right: 25px;
-    &:before {
-      content: '\f00d';
-    }
     @media (min-width: $break-desktop) {
       top: 30px;
       right: 30px;

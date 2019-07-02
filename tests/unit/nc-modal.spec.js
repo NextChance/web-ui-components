@@ -60,18 +60,18 @@ describe('ncModal set 1', () => {
     expect(wrapper.vm.display).toBe('none')
   })
 
-  it('calls close on click close icon', () => {
+  it('calls handleCloseModal on click close icon', () => {
     const stub = jest.fn()
-    wrapper.setMethods({ close: stub })
+    wrapper.setMethods({ handleCloseModal: stub })
     wrapper.find('.nc-modal__close-icon').trigger('click')
     expect(stub).toBeCalled()
   })
 
-  it('calls close with true value', () => {
+  it('calls handleCloseModal with true value', () => {
     const stub = jest.fn()
-    wrapper.vm.$on('close', stub)
-    wrapper.vm.close()
-    expect(stub).toBeCalledWith(true)
+    wrapper.vm.$on('handleCloseModal', stub)
+    wrapper.vm.handleCloseModal()
+    expect(wrapper.emitted()['close'][0]).toEqual([true])
   })
 })
 
