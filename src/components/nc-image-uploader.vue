@@ -16,8 +16,8 @@
         :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
         :style="{ 
           borderRadius: radius,
-          imageUploaderheight: imageUploaderheight,
-          imageUploaderwidth: imageUploaderwidth,
+          height: imageUploaderHeight,
+          width: imageUploaderWidth,
           backgroundImage: `url(${bgImage})`
         }"
         >
@@ -76,9 +76,9 @@ export default {
       type: String,
       default: ''
     },
-    borderStyle: {
+    containerBorderColor: {
       type: String,
-      default: '1px solid #ccc'
+      default: '$containerBorderColor'
     },
     loaderIconHeigth: {
       type: String,
@@ -100,11 +100,11 @@ export default {
       type: String,
       default: '24px'
     },
-    imageUploaderheight: {
+    imageUploaderHeight: {
       type: String,
       default: 'auto'
     },
-    imageUploaderwidth: {
+    imageUploaderWidth: {
       type: String,
       default: 'auto'
     },
@@ -179,7 +179,6 @@ export default {
   display: inline-block;
   font-size: 1.25rem;
   font-weight: 700;
-  max-width: 80%;
   overflow: hidden;
   padding: 0.625rem 1.25rem;
   text-overflow: ellipsis;
