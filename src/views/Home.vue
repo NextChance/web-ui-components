@@ -183,6 +183,84 @@
         :description-line-ellipsis="ncDescritionLineEllipsis"/>
     </div>
 
+    <br>
+    <br>
+    <h1>NC_IMAGE_UPLOADER</h1>
+    <router-link to="/componentImageUploader">See behaviour</router-link>
+   
+    <h3>Ready to upload an image</h3>
+     <nc-image-uploader :is-empty="true">
+      <template v-slot:isEmptyState>
+        <i class="fa fa-plus-circle image-uploader__icon">
+        </i> 
+      </template>
+      <template v-slot:isLoadingState>
+        <nc-loader
+          :has-text="true"
+          :has-veil="true"
+          :active="true"
+          icon-color="#272727"
+          text-color="#272727"
+          veil-color="#FFF"
+          :text="$t('lang.loading.msg')"
+        />
+      </template>
+      <template v-slot:withDataState>
+        <i class="fa fa-times-circle image-uploader__icon">
+        </i> 
+      </template>
+    </nc-image-uploader>
+    <br>
+
+    <h3>Uploanding an image</h3>
+    <nc-image-uploader :is-loading="true">
+      <template v-slot:isEmptyState>
+        <i class="fa fa-plus-circle image-uploader__icon">
+        </i> 
+      </template>
+      <template v-slot:isLoadingState>
+        <nc-loader
+          :has-text="false"
+          :has-veil="true"
+          :active="true"
+          icon-color="#272727"
+          text-color="#272727"
+          veil-color="#FFF"
+        />
+      </template>
+      <template v-slot:withDataState>
+        <i class="fa fa-times-circle image-uploader__icon">
+        </i> 
+      </template>
+   </nc-image-uploader>
+    <br>
+    
+    <h3>Uploaded image</h3>
+    <nc-image-uploader 
+      :with-data="true"
+      bg-image="http://placekitten.com/g/150/90">
+      <template v-slot:isEmptyState>
+        <i class="fa fa-plus-circle image-uploader__icon">
+        </i> 
+      </template>
+      <template v-slot:isLoadingState>
+        <nc-loader
+          :has-text="true"
+          :has-veil="true"
+          :active="true"
+          icon-color="#272727"
+          text-color="#272727"
+          veil-color="#FFF"
+          :text="$t('lang.loading.msg')"
+        />
+      </template>
+      <template v-slot:withDataState>
+        <i class="fa fa-times-circle image-uploader__icon">
+        </i> 
+      </template>
+   </nc-image-uploader>
+    <br>
+
     <h1>NC_TEXTAREA</h1>
     <div class="home-nc-text-input-container">
       <nc-textarea
@@ -207,6 +285,7 @@ import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
 import ncCardItem from '@/components/nc-card-item.vue'
+import ncImageUploader from '@/components/nc-image-uploader.vue'
 import ncTextarea from '@/components/nc-textarea.vue'
 
 export default {
@@ -223,6 +302,7 @@ export default {
     ncTextInput,
     ncPhoneInput,
     ncCardItem,
+    ncImageUploader,
     ncTextarea
   },
   data() {
@@ -329,4 +409,6 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
 }
+
+
 </style>
