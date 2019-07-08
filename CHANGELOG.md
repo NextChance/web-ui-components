@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v0.1.4 - 2019-07-08
 
 ### Added
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## v0.1.2 - 2019-07-14
+## v0.1.2 - 2019-06-14
 
 ### Fixed
 
@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## v0.1.1 - 2019-07-13
+## v0.1.1 - 2019-06-13
 
 ### Fixed
 
