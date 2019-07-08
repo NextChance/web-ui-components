@@ -1,32 +1,34 @@
 <template>
   <div>
     <h1>NC_IMAGE_UPLOADER</h1>
-
-    <nc-image-uploader 
-      :is-empty="isEmpty"
-      @input-image-uploader-event="uploadImage"
-      :bg-image="bgImage"
-      >
-      <template v-slot:isEmptyState>
-        <i class="fa fa-plus-circle image-uploader__icon">
-        </i> 
-      </template>
-      <template v-slot:isLoadingState>
-        <nc-loader
-          :has-text="true"
-          :has-veil="true"
-          :active="true"
-          :text="$t('lang.loading.msg')"
-          icon-color="#272727"
-          text-color="#272727"
-          veil-color="#FFF"
-        />
-      </template>
-      <template v-slot:withDataState>
-        <i class="fa fa-times-circle image-uploader__icon">
-        </i> 
-      </template>
-   </nc-image-uploader>
+    <div class="nc-image__container">
+      <nc-image-uploader 
+        :is-empty="isEmpty"
+        :imageUploaderHeight="'100px'"
+        :bg-image="bgImage"
+        @input-image-uploader-event="uploadImage"
+        >
+        <template v-slot:isEmptyState>
+          <i class="fa fa-plus-circle image-uploader__icon">
+          </i> 
+        </template>
+        <template v-slot:isLoadingState>
+          <nc-loader
+            :has-text="true"
+            :has-veil="true"
+            :active="true"
+            :text="$t('lang.loading.msg')"
+            icon-color="#272727"
+            text-color="#272727"
+            veil-color="#FFF"
+          />
+        </template>
+        <template v-slot:withDataState>
+          <i class="fa fa-times-circle image-uploader__icon">
+          </i> 
+        </template>
+    </nc-image-uploader>
+    </div>
   </div>
 </template>
 <script>
@@ -55,3 +57,10 @@ export default {
   }
 }
 </script>
+<style>
+.nc-image__container {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto
+}
+</style>

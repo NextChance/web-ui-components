@@ -1,34 +1,21 @@
 <template>
-  <div class="image-uploader__container">
+  <div class="image-uploader__container" :style="{width: imageUploaderWidth}">
     <div class="box">
-      <input 
-        id="imageUploader" 
-        type="file" 
-        name="imageUploader" 
-        class="image-uploader_input" 
-        data-multiple-caption="{count} files selected" 
-        multiple
-        @change="handleFileChange"
-        :disabled="isDisabled"
-        >
-      <label 
-        for="imageUploader"
+      <label
         :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
-        :style="{ 
+        :style="{
           borderRadius: radius,
           height: imageUploaderHeight,
-          width: imageUploaderWidth,
           backgroundImage: `url(${bgImage})`
         }"
         >
             <figure v-if="isEmpty"
             :style="{
-            height: iconHeight,
-            width: iconWidth,
-              }">
+              transform: emptyIconScale
+            }">
               <slot name="isEmptyState">
                 <!-- icon for empty input -->
-              </slot>  
+              </slot>
             </figure>
             <figure v-if="isLoading"
               :style="{
@@ -38,21 +25,27 @@
               }">
               <slot name="isLoadingState">
                 <!-- icon for loading -->
-              </slot>  
+              </slot>
             </figure>
-            <figure 
+            <figure
               v-if="withData"
               @click="handleClickRemove">
-              <slot 
-                name="withDataState" 
+              <slot
+                name="withDataState"
                 >
                 <!-- icon for with a background-image -->
-              </slot>  
+              </slot>
             </figure>
+            <input
+              :id="id"
+              type="file"
+              class="image-uploader_input"
+              @change="handleFileChange"
+              >
         </label>
       </div>
-    <div 
-      class="image-uploader__error" 
+    <div
+      class="image-uploader__error"
       v-if="error"
       :style="{ 'color': errorColor }"
     >
@@ -64,6 +57,10 @@
 export default {
   name: 'nc-image-uploader',
   props: {
+    id: {
+      type: String,
+      default: ''
+    },
     error: {
       type: String,
       default: ''
@@ -92,13 +89,9 @@ export default {
       type: String,
       default: '20px'
     },
-    iconHeight: {
+    emptyIconScale: {
       type: String,
-      default: '24px'
-    },
-    iconWidth: {
-      type: String,
-      default: '24px'
+      default: 'scale(0.5)'
     },
     imageUploaderHeight: {
       type: String,
@@ -121,17 +114,18 @@ export default {
       withData: false
     }
   },
-  
+
   methods: {
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
-        this.$emit('input-image-uploader-event', !files.length ? files[0] : [])
-        this.isEmpty = false
-        this.isLoading = true
-        this.isDisabled = true
-        this.withData = false
-        this.error = ''
-
+        if (files.length > 0) {
+          this.$emit('input-image-uploader-event', {file: files[0], imgId: this.id})
+          this.isEmpty = false
+          this.isLoading = true
+          this.isDisabled = true
+          this.withData = false
+          this.error = ''
+        }
     },
     handleClickRemove: function (ev) {
       this.bgImage = ''
@@ -163,6 +157,10 @@ export default {
   $containerBorderColor: #ccc;
   $errorColor: red;
 
+.image-uploader__container {
+  position: relative;
+  padding: 0 2px 0;
+}
 .image-uploader_input {
   height: 0.1px;
   opacity: 0;
@@ -171,21 +169,21 @@ export default {
   width: 0.1px;
   z-index: -1;
 }
-.image-uploader_input + .nc-uploader_label {
+.nc-uploader_label {
+  position: relative;
   border: 1px solid $containerBorderColor;
   cursor: pointer;
-  display: inline-block;
-  font-size: 1.25rem;
-  font-weight: 700;
   overflow: hidden;
-  padding: 0.625rem 1.25rem;
+  width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
    &.error {
       border: 1px solid $errorColor;
   }
 }
-
 .nc-image-uploader_background {
   background-position: center;
   background-repeat: no-repeat;
@@ -195,4 +193,3 @@ export default {
   color: $errorColor
 }
 </style>
-
