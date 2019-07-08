@@ -159,7 +159,7 @@ export default {
 
 .image-uploader__container {
   position: relative;
-  padding: 0 2px 0 0px;
+  padding: 0 2px 0;
 }
 .image-uploader_input {
   height: 0.1px;
