@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+
+### Added
+
+- New component nc-image-uploader #37
+
+
 
 
 ## v0.1.2 - 2019-07-14
