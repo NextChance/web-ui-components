@@ -4,7 +4,6 @@
     <div class="nc-image__container">
       <nc-image-uploader 
         :is-empty="isEmpty"
-        :imageUploaderHeight="'100px'"
         :bg-image="bgImage"
         @input-image-uploader-event="uploadImage"
         >
