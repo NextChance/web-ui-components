@@ -1,7 +1,7 @@
 <template>
 <div class="nc-text-input">
-  <div 
-    class="nc-text-input__container" 
+  <div
+    class="nc-text-input__container"
       :class="[{
         'is-focused': isFocused,
         'has-value': hasValue,
@@ -9,27 +9,27 @@
         'has-icon-right-on-focus': hasIconRightOnFocus,
         wrapperClasses
         }]"
-      :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }, hasValue ? 'has-value' : '']"
+      :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }]"
       @click="focusInput"
     >
-    <div 
-      :class="['icon-left', {'has-pointer': iconLeftHasPointer}]" 
-      v-if="hasIconLeft" 
+    <div
+      :class="['icon-left', {'has-pointer': iconLeftHasPointer}]"
+      v-if="hasIconLeft"
       @click="handleIconLeft($event)"
     >
       <slot name="iconLeft"></slot>
     </div>
     <div class="input-content">
-      <label 
+      <label
         class="input-content__label"
         :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
-      <input 
+      <input
         v-model="inputValue"
         class="input-content__input"
-        :class="inputClasses"
+        :class="[inputClasses, {'disable-spinButton': disableSpinButton}]"
         :disabled="disabled"
         :id="id"
         :maxlength="maxLength"
@@ -37,30 +37,30 @@
         :ref="uiReference"
         :required="required"
         :size="size"
-        :type="inputType" 
+        :type="inputType"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"
         @blur="handleBlur"
       >
     </div>
-    <div 
-      :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
+    <div
+      :class="['icon-right', {'has-pointer': iconRightHasPointer}]"
       v-if="hasIconRight"
       @click="handleIconRight($event)"
     >
       <slot name="iconRight"></slot>
     </div>
   </div>
-  <div 
-    class="nc-text-input__error" 
+  <div
+    class="nc-text-input__error"
     v-if="error"
     :style="{ 'color': errorColor }"
   >
     {{ $t(error) }}
   </div>
-  <div 
-    class="nc-text-input__extra-text" 
+  <div
+    class="nc-text-input__extra-text"
     v-if="extraText"
   >
     {{ extraText }}
@@ -71,6 +71,10 @@
 <script>
 export default {
   props: {
+    disableSpinButton: {
+      type: Boolean,
+      default: true
+    },
     containerBorderColor: {
       type: String,
       default: '$containerBorderColor'
@@ -333,6 +337,12 @@ $errorColor: red;
   &__error {
     color: $errorColor;
     font-size: 12px;
+  }
+
+  .disable-spinButton::-webkit-inner-spin-button,
+  .disable-spinButton::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
 </style>
