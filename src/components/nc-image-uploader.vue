@@ -1,11 +1,9 @@
 <template>
-  <div class="image-uploader__container" :style="{width: imageUploaderWidth}">
-    <div class="box">
+  <div class="image-uploader__container">
       <label
         :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
         :style="{
           borderRadius: radius,
-          height: imageUploaderHeight,
           backgroundImage: `url(${bgImage})`
         }"
         >
@@ -43,7 +41,6 @@
               @change="handleFileChange"
               >
         </label>
-      </div>
     <div
       class="image-uploader__error"
       v-if="error"
@@ -91,15 +88,7 @@ export default {
     },
     emptyIconScale: {
       type: String,
-      default: 'scale(0.5)'
-    },
-    imageUploaderHeight: {
-      type: String,
-      default: 'auto'
-    },
-    imageUploaderWidth: {
-      type: String,
-      default: 'auto'
+      default: 'scale(1.0)'
     },
     radius: {
       type: String,
@@ -171,6 +160,7 @@ export default {
 }
 .nc-uploader_label {
   position: relative;
+  height: 100%;
   border: 1px solid $containerBorderColor;
   cursor: pointer;
   overflow: hidden;
