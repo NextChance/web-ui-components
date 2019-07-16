@@ -135,14 +135,12 @@ export default {
   },
   watch: {
     bgImage: function(newImage, oldImage) {
-      console.log('newImage')
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
       this.withData = false
 
       if(newImage !== '') {
-        console.log('newImage fill')
         this.isEmpty = false
         this.isLoading = false
         this.isDisabled = false
