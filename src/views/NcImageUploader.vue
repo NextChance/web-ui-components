@@ -55,8 +55,7 @@ export default {
       }, 2000)
     },
     removeImage() {
-      const vm = this
-      vm.bgImage = ''
+      this.bgImage = ''
     }
   }
 }

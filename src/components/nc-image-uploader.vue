@@ -1,18 +1,17 @@
 <template>
   <div class="image-uploader__container">
     <figure
-        v-if="withData"
-        class="nc-delete_icon"
-        @click="handleClickRemove"
-        :style="{
+      v-if="withData"
+      class="nc-delete_icon"
+      :style="{
         transform: emptyIconScale
-      }">
-        <slot
-          name="withDataState"
-          >
-          <!-- icon for with a background-image -->
-        </slot>
-      </figure>
+      }"
+      @click="handleClickRemove"
+    >
+      <slot name="withDataState">
+        <!-- icon for with a background-image -->
+      </slot>
+    </figure>
       <label
         :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
         :style="{
@@ -40,12 +39,12 @@
             </figure>
 
             <input
-              :id="id"
-              type="file"
               class="image-uploader_input"
+              type="file"
+              :id="id"
               :disabled="withData"
               @change="handleFileChange"
-              >
+            >
         </label>
     <div
       class="image-uploader__error"
