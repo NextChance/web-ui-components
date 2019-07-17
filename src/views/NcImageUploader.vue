@@ -3,9 +3,10 @@
     <h1>NC_IMAGE_UPLOADER</h1>
     <div class="nc-image__container">
       <nc-image-uploader 
-        :is-empty="isEmpty"
+        :class="'nc-image'"
         :bg-image="bgImage"
         @input-image-uploader-event="uploadImage"
+        @input-image-remove-event="removeImage"
         >
         <template v-slot:isEmptyState>
           <i class="fa fa-plus-circle image-uploader__icon">
@@ -52,6 +53,9 @@ export default {
       setTimeout(function() {
         vm.bgImage = 'http://placekitten.com/g/150/90'
       }, 2000)
+    },
+    removeImage() {
+      this.bgImage = ''
     }
   }
 }
@@ -61,5 +65,10 @@ export default {
   width: 30%;
   margin-left: auto;
   margin-right: auto
+}
+
+.nc-image {
+  width: 100%;
+  height: 100px;
 }
 </style>
