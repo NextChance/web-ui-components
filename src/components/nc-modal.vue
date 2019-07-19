@@ -96,10 +96,9 @@ export default {
       if (this.opened) {
         const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 0
         const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
-        const modalHeight = parseInt(this.heightByDevice)
-        let padding = parseInt(document.querySelector('.nc-modal__container').style.padding)
-        padding = padding * 2
-        this.contentHeight = `calc(100vh - ${this.paddingTop})`
+        const elementsHeight = (headerHeight + footerHeight) + 'px'
+
+        this.contentHeight = `calc(100vh - ${elementsHeight})`
       }
     },
 
