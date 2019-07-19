@@ -1,10 +1,22 @@
 <template>
   <div class="image-uploader__container">
+    <figure
+      v-if="withData"
+      class="nc-delete_icon"
+      :style="{
+        transform: emptyIconScale
+      }"
+      @click="handleClickRemove"
+    >
+      <slot name="withDataState">
+        <!-- icon for with a background-image -->
+      </slot>
+    </figure>
       <label
         :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
         :style="{
           borderRadius: radius,
-          backgroundImage: `url(${bgImage})`
+          backgroundImage: `url(${bgImage}), url(${bgImage != '' ? defaultBackground : ''})`
         }"
         >
             <figure v-if="isEmpty"
@@ -25,21 +37,14 @@
                 <!-- icon for loading -->
               </slot>
             </figure>
-            <figure
-              v-if="withData"
-              @click="handleClickRemove">
-              <slot
-                name="withDataState"
-                >
-                <!-- icon for with a background-image -->
-              </slot>
-            </figure>
+
             <input
-              :id="id"
-              type="file"
               class="image-uploader_input"
+              type="file"
+              :id="id"
+              :disabled="withData"
               @change="handleFileChange"
-              >
+            >
         </label>
     <div
       class="image-uploader__error"
@@ -55,6 +60,10 @@ export default {
   name: 'nc-image-uploader',
   props: {
     id: {
+      type: String,
+      default: ''
+    },
+    defaultBackground: {
       type: String,
       default: ''
     },
@@ -103,7 +112,6 @@ export default {
       withData: false
     }
   },
-
   methods: {
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
@@ -117,12 +125,11 @@ export default {
         }
     },
     handleClickRemove: function (ev) {
-      this.bgImage = ''
+      this.$emit('input-image-remove-event', {file: '', imgId: this.id})
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = false
       this.withData = false
-      this.error = 'error'
     }
   },
   watch: {
@@ -149,6 +156,9 @@ export default {
 .image-uploader__container {
   position: relative;
   padding: 0 2px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .image-uploader_input {
   height: 0.1px;
@@ -157,6 +167,11 @@ export default {
   position: absolute;
   width: 0.1px;
   z-index: -1;
+}
+.nc-delete_icon {
+  position: absolute;
+   z-index: 1;
+   margin: 0;
 }
 .nc-uploader_label {
   position: relative;

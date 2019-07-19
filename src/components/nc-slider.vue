@@ -1,10 +1,10 @@
 <template>
     <div class="nc-slider">
-        <div 
+        <div
             ref="rail"
             class="nc-slider__rail">
             <div class="nc-slider__rail nc-slider__rail-main" :style="styleMainRail"></div>
-            <div 
+            <div
                 v-if="min"
                 id="min"
                 role="slider"
@@ -26,7 +26,7 @@
                 v-touch:start="startDrag"
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
-            <div 
+            <div
                 v-if="max"
                 id="max"
                 role="slider"
@@ -49,9 +49,9 @@
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
         </div>
-        <div class="nc-slider__rail-labels">
-            <div v-if="min" class="nc-slider__rail-label min">{{minLabel}} {{minValueNow}} {{metrics}}</div>
-            <div v-if="max" class="nc-slider__rail-label max">{{maxLabel}} {{maxValueNow}} {{metrics}}</div>
+        <div class="nc-slider__rail-labels" :class="{ 'right': isOnlyMaxLabel }">
+            <div v-if="min" class="nc-slider__rail-label min">{{minLabel}}</div>
+            <div v-if="max" class="nc-slider__rail-label max">{{maxLabel}}</div>
         </div>
     </div>
 </template>
@@ -71,22 +71,12 @@ export default {
         }
     },
     props: {
-        metrics: {
-            type: String,
-            default: ''
-        },
-        min: {
-            type: [String, Number]
-        },
-        minLabel: {
-            label: String,
-        },
-        max: {
-            type: [String, Number],
-        },
-        maxLabel: {
-            label: String,
-        }
+        min: [String, Number],
+        max: [String, Number],
+        minLabel: String,
+        maxLabel: String,
+        minValue: [String, Number],
+        maxValue: [String, Number]
     },
     mounted() {
         const rail = this.$refs.rail;
@@ -101,14 +91,17 @@ export default {
             return { left: leftPosition, right: rightPosition };
         },
         minValueNow() {
-            const minValue = (this.maxSize * this.minIconPosition) / this.maxRail;
+            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail)) + Number(this.min);
 
-            return Number(minValue) ? Number(minValue).toFixed(0) : this.minIconPosition;
+            return Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
         },
         maxValueNow() {
-            const maxValue = (this.max * this.maxIconPosition) / this.maxRail;
+            const maxValue = (Number(this.max) * Number(this.maxIconPosition)) / Number(this.maxRail);
 
-            return Number(maxValue) ? Number(maxValue).toFixed(0) : this.maxSize;
+            return Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
+        },
+        isOnlyMaxLabel() {
+            return !Boolean(this.min) && Boolean(this.max);
         }
     },
     methods: {
@@ -188,6 +181,10 @@ $second-color: #d8d8d8;
   line-height: 22px;
   position: relative;
   text-align: right;
+
+  &.right {
+    justify-content: flex-end;
+  }
 }
 
 .nc-slider__rail-label {

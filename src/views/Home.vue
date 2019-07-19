@@ -68,25 +68,36 @@
     <h2>NC-SLIDER COMPONENT</h2>
     <div id="slider" class="slider">
       <nc-slider
-        metrics="Km"
-        max="80" maxLabel="Máximo"
+        min="20"
+        minLabel="Min 20 Km"
+        minValue="20"
         @slider-stop-drag="sliderStopDrag">
       </nc-slider>
+
       <nc-slider
-        metrics="€"
-        min="20" minLabel="Mínimo"
+        max="150"
+        maxLabel="Max 150 Km"
+        maxValue="150"
         @slider-stop-drag="sliderStopDrag">
       </nc-slider>
+
       <nc-slider
-        metrics="€"
-        min="0" minLabel="Desde"
-        max="50" maxLabel="Máximo"
+        min="0"
+        minLabel="Desde 0 €"
+        minValue="0"
+        max="1000"
+        maxLabel="Hasta 1000 €"
+        maxValue="1000"
         @slider-stop-drag="sliderStopDrag">
       </nc-slider>
+
       <nc-slider
-        metrics="HBS"
-        min="0" minLabel="Desde"
-        max="100" maxLabel="Sin límite"
+        min="0"
+        minLabel="Desde 0 %"
+        minValue="0"
+        max="100"
+        maxLabel="Hasta 100 %"
+        maxValue="100"
         @slider-stop-drag="sliderStopDrag">
       </nc-slider>
     </div>
