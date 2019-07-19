@@ -3,18 +3,26 @@
     <div class="nc-modal__overlay" :style="overlayStyle">
       <div
         class="nc-modal__container"
-        :style="{'margin-top': marginTop, 'padding': padding, 'width': widthByDevice, 'height': heightByDevice, top, left, transform, 'background-color': backgroundColor}"
+        :style="{'padding': padding, 'width': widthByDevice, 'height': heightByDevice, 'background-color': backgroundColor}"
       >
         <img v-if="showCloseIcon" src="@/assets/svg/close.svg"  class="nc-modal__close-icon" @click="handleCloseModal" />
-        <div class="header" v-if="showHeader">
+        <div
+          v-if="showHeader"
+          ref="header"
+          class="header"
+        >
           <slot name="header">header</slot>
         </div>
-        <div class="content" :style="{ 'height': contentHeight }">
+        <div class="content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
           <slot name="content">
             <p>Content</p>
           </slot>
         </div>
-        <div class="footer" v-if="showFooter">
+        <div
+          v-if="showFooter"
+          ref="footer"
+          class="footer"
+        >
           <slot name="footer">
             <div @click="handleCloseModal">OK</div>
           </slot>
@@ -49,10 +57,6 @@ export default {
       type: String,
       default: '20px'
     },
-    marginTop: {
-      type: String,
-      default: '0'
-    },
     width: {
       type: String,
       default: '588px'
@@ -71,15 +75,13 @@ export default {
     },
     overlayStyle: {
       type: Object
-    }
+    },
   },
 
   data() {
     return {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      contentHeight: '610px',
+      paddingTop: '0px',
+      contentHeight: '0px',
       widthByDevice: '',
       heightByDevice: ''
     }
@@ -91,15 +93,21 @@ export default {
     },
 
     calculateContentHeight() {
-      let headerHeight = !!(document.querySelector('.header')) ? document.querySelector('.header').offsetHeight : 0
-      let footerHeight = !!(document.querySelector('.footer')) ? document.querySelector('.footer').offsetHeight : 0
-      let padding = parseInt(
-        document.querySelector('.nc-modal__container').style.padding
-      )
-      padding = padding * 2
-      let modalHeight = parseInt(this.heightByDevice)
-      this.contentHeight =
-        modalHeight - (padding + headerHeight + footerHeight) + 'px'
+      if (this.opened) {
+        const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 0
+        const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
+        const modalHeight = parseInt(this.heightByDevice)
+        let padding = parseInt(document.querySelector('.nc-modal__container').style.padding)
+        padding = padding * 2
+        this.contentHeight = `calc(100vh - ${this.paddingTop})`
+      }
+    },
+
+    calculatePaddingTop() {
+      if (this.opened) {
+        const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 16
+        this.paddingTop = `${headerHeight}px`
+      }
     },
 
     updateWindowWidth() {
@@ -113,22 +121,15 @@ export default {
     resizeModal() {
       this.isDesktopDevice = this.getDesktopDevice()
       if (!this.isDesktopDevice) {
-        let padding = parseInt(this.padding) * 2
-        this.top = '0'
-        this.left = '0'
-        this.transform = 'translate(0, 0)'
+        const padding = parseInt(this.padding) * 2
         this.widthByDevice = `calc(100vw - ${padding}px)`
-        this.heightByDevice =
-          document.documentElement.clientHeight - parseInt(padding) + 'px'
-        this.calculateContentHeight()
+        this.heightByDevice = document.documentElement.clientHeight - parseInt(padding) + 'px'
       } else {
-        this.top = '50%'
-        this.left = '50%'
-        this.transform = 'translate(-50%, -50%)'
         this.heightByDevice = this.height
         this.widthByDevice = this.width
-        this.calculateContentHeight()
       }
+      this.calculateContentHeight()
+      this.calculatePaddingTop()
     }
   },
   computed: {
@@ -139,13 +140,17 @@ export default {
       return this.opened ? 'block' : 'none'
     }
   },
+  whatch: {
+    opened() {
+      this.calculateContentHeight()
+      this.calculatePaddingTop()
+    }
+  },
   mounted() {
+    this.calculateContentHeight()
+    this.calculatePaddingTop()
     this.$nextTick(function() {
       window.addEventListener('resize', this.resizeModal)
-      if (this.noVerticallyAligned) {
-        this.top = '0'
-        this.transform = 'translate(-50%, 0)'
-      }
     })
   },
   updated() {
@@ -167,58 +172,90 @@ $break-mobile: 768px;
 $break-desktop: 769px;
 
 .nc-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
   &__overlay {
-    position: absolute;
-    z-index: 9998;
+    background-color: rgba(0, 0, 0, .5);
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, .5);
-    transition: opacity .3s ease;
-    position: fixed;
-    overflow: hidden;
+    right: 0;
+    bottom: 0;
   }
+  & .header svg,
   &__close-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     opacity: .8;
     width: 24px;
-    position: absolute;
     cursor: pointer;
-    top: 21px;
-    right: 25px;
     @media (min-width: $break-desktop) {
       top: 30px;
       right: 30px;
     }
   }
   &__container {
-    max-width: 100vw;
-    max-height: 100vh;
-    top: 0;
-    left: 0;
-    transform: translate('0', '0');
-    position: relative;
     font-family: Helvetica, Arial, sans-serif;
-    overflow: hidden;
     box-sizing: content-box;
-    /* desktop, specific styles */
     @media (min-width: $break-desktop) {
-      top: 50%;
-      left: 50%;
-      transform: translate('-50%', '-50');
-      position: fixed;
       border-radius: 2px;
        box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       transition: all .3s ease;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
     }
+
+    & .header {
+      padding: 60px 30px 0 30px;
+      margin-bottom: 16px;
+      background-color: #ffffff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: auto;
+      z-index: 1;
+
+      @media (min-width: $break-desktop) {
+        padding: 30px;
+        position: relative;
+      }
+    }
+
     & .content {
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       width: 100%;
     }
+
     & .footer {
-      margin: 10px;
+      background-color: #ffffff;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+
+      & .bh-button {
+        padding: 3px;
+      }
     }
   }
 }
