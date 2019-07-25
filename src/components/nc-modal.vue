@@ -103,7 +103,7 @@ export default {
         const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
         const elementsHeight = (headerHeight + footerHeight) + 'px'
 
-        this.contentHeight = `calc(100vh - ${elementsHeight})`
+        this.contentHeight = `calc(100vh - ${headerHeight + footerHeight}px)`
       }
     },
 
