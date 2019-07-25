@@ -9,11 +9,12 @@
         <div
           v-if="showHeader"
           ref="header"
-          class="header"
+          class="nc-modal__header"
+          :style="{'z-index':zIndexHeader}"
         >
           <slot name="header">header</slot>
         </div>
-        <div class="content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
+        <div class="nc-modal__content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
           <slot name="content">
             <p>Content</p>
           </slot>
@@ -21,7 +22,7 @@
         <div
           v-if="showFooter"
           ref="footer"
-          class="footer"
+          class="nc-modal__footer"
         >
           <slot name="footer">
             <div @click="handleCloseModal">OK</div>
@@ -76,12 +77,16 @@ export default {
     overlayStyle: {
       type: Object
     },
+    zIndexHeader: {
+      type: Number,
+      default: 1
+    }
   },
 
   data() {
     return {
-      paddingTop: '0px',
-      contentHeight: '0px',
+      paddingTop: '0',
+      contentHeight: '0',
       widthByDevice: '',
       heightByDevice: ''
     }
@@ -102,10 +107,10 @@ export default {
       }
     },
 
-    calculatePaddingTop() {
+    calculateTopPadding() {
       if (this.opened) {
         const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 16
-        this.paddingTop = `${headerHeight}px`
+        this.topPadding = `${headerHeight}px`
       }
     },
 
@@ -128,7 +133,7 @@ export default {
         this.widthByDevice = this.width
       }
       this.calculateContentHeight()
-      this.calculatePaddingTop()
+      this.calculateTopPadding()
     }
   },
   computed: {
@@ -139,15 +144,15 @@ export default {
       return this.opened ? 'block' : 'none'
     }
   },
-  whatch: {
+  watch: {
     opened() {
       this.calculateContentHeight()
-      this.calculatePaddingTop()
+      this.calculateTopPadding()
     }
   },
   mounted() {
     this.calculateContentHeight()
-    this.calculatePaddingTop()
+    this.calculateTopPadding()
     this.$nextTick(function() {
       window.addEventListener('resize', this.resizeModal)
     })
@@ -217,7 +222,7 @@ $break-desktop: 769px;
       right: 0;
     }
 
-    & .header {
+    &__header {
       padding: 60px 30px 0 30px;
       margin-bottom: 16px;
       background-color: #ffffff;
@@ -226,7 +231,6 @@ $break-desktop: 769px;
       left: 0;
       right: 0;
       height: auto;
-      z-index: 1;
 
       @media (min-width: $break-desktop) {
         padding: 30px;
@@ -234,13 +238,13 @@ $break-desktop: 769px;
       }
     }
 
-    & .content {
+    &__content {
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       width: 100%;
     }
 
-    & .footer {
+    &__footer {
       background-color: #ffffff;
       position: fixed;
       bottom: 0;
