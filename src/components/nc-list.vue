@@ -4,23 +4,29 @@
       v-show="hasSearch"
       v-model="search"
       class="nc-list__search"
-      :has-icon-left='true'
-      :label='searchLabel'>
+      :has-icon-left="true"
+      :label="searchLabel"
+    >
       <template v-slot:iconLeft>
         <i class="search-icon"></i>
       </template>
     </nc-text-input>
-    <ul
-      v-if="items.length"
-      class="nc-list__items">
+    <ul v-if="items.length" class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
         @click="onItemSelected(item, index)"
         :key="index"
-        :class="{highlighted: index === selected}"
         :style="itemStyle"
-        class="nc-list__item">
-        <slot :item="item"></slot>
+        class="nc-list__item"
+      >
+        <div class="nc-list__item-slot">
+          <slot :item="item"></slot>
+        </div>
+        <img
+          v-if="index === selected"
+          class="nc-list__item-check-icon"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM2MGE5MGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjAxNyAxNC43MUwxOC4yNDQgNyAyMCA4LjY0NSAxMC4wMTcgMTggNSAxMy4zbDEuNzU2LTEuNjQ2eiIvPgo8L3N2Zz4K"
+        >
       </li>
     </ul>
     <p v-else>{{ textEmptyList }}</p>
@@ -67,9 +73,9 @@ export default {
       }
       const searchValue = this.search.toLowerCase()
       return this.items.filter(item => {
-        if (typeof(item.searchText) === 'string') {
+        if (typeof item.searchText === 'string') {
           return item.searchText.toLowerCase().includes(searchValue)
-        } else if (typeof(item.name) === 'string') {
+        } else if (typeof item.name === 'string') {
           return item.name.toLowerCase().includes(searchValue)
         } else {
           return false
@@ -117,8 +123,16 @@ $iconColor: #ccc;
     border-bottom: 1px solid #d8d8d8;
     height: 46px;
 
-    &.highlighted {
-      background-color: #ebebeb;
+    &-slot {
+      flex: 0 1 100%;
+      text-align: left;
+    }
+
+    &-check-icon {
+      flex: 0 1 auto;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 20px;
     }
   }
 }
