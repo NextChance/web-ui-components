@@ -4,22 +4,25 @@
       v-show="hasSearch"
       v-model="search"
       class="nc-list__search"
-      :has-icon-left='true'
-      :label='searchLabel'>
+      :has-icon-left="true"
+      :label="searchLabel"
+    >
       <template v-slot:iconLeft>
-        <i class="search-icon"></i>
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CiAgPHBhdGggZmlsbD0iI0FBQUFBQSIgZD0iTTIxLjEzNCAxOS4zNzZsNC4xOTkgNC4xOTktMS43NTggMS43NTgtNC4xOTktNC4xOTlhOCA4IDAgMSAxIDEuNzU3LTEuNzU3em0tNi40NjcuNzY0YTUuNDc0IDUuNDc0IDAgMSAwIDAtMTAuOTQ5IDUuNDc0IDUuNDc0IDAgMCAwIDAgMTAuOTQ5eiIvPgo8L3N2Zz4K"
+          class="search-icon"
+        >
       </template>
     </nc-text-input>
-    <ul
-      v-if="items.length"
-      class="nc-list__items">
+    <ul v-if="items.length" class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
         @click="onItemSelected(item, index)"
         :key="index"
         :class="{highlighted: index === selected}"
         :style="itemStyle"
-        class="nc-list__item">
+        class="nc-list__item"
+      >
         <slot :item="item"></slot>
       </li>
     </ul>
@@ -67,9 +70,9 @@ export default {
       }
       const searchValue = this.search.toLowerCase()
       return this.items.filter(item => {
-        if (typeof(item.searchText) === 'string') {
+        if (typeof item.searchText === 'string') {
           return item.searchText.toLowerCase().includes(searchValue)
-        } else if (typeof(item.name) === 'string') {
+        } else if (typeof item.name === 'string') {
           return item.name.toLowerCase().includes(searchValue)
         } else {
           return false
@@ -95,9 +98,7 @@ $iconColor: #ccc;
       margin-left: 14px;
       display: block;
       width: 24px;
-      height: 30px;
-      background: $iconColor;
-      mask-image: url('../assets/svg/search.svg');
+      height: 24px;
     }
     .nc-text-input__container {
       border-radius: 25px;
