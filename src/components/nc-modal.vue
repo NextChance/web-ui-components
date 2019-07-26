@@ -14,7 +14,7 @@
         >
           <slot name="header">header</slot>
         </div>
-        <div class="nc-modal__content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
+        <div class="nc-modal .content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
           <slot name="content">
             <p>Content</p>
           </slot>
@@ -103,7 +103,7 @@ export default {
         const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
         const elementsHeight = (headerHeight + footerHeight) + 'px'
 
-        this.contentHeight = `calc(100vh - ${headerHeight + footerHeight}px)`
+        this.contentHeight = `calc(${this.height} - ${headerHeight + footerHeight}px)`
       }
     },
 
@@ -238,10 +238,14 @@ $break-desktop: 769px;
       }
     }
 
-    &__content {
+    & .content {
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       width: 100%;
+    }
+    @media (min-width: $break-desktop) {
+      overflow: hidden;
+      overflow-y: scroll;
     }
 
     &__footer {
