@@ -14,7 +14,7 @@
         >
           <slot name="header">header</slot>
         </div>
-        <div class="nc-modal .content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
+        <div class="content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
           <slot name="content">
             <p>Content</p>
           </slot>
