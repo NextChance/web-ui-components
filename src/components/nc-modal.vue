@@ -101,7 +101,6 @@ export default {
       if (this.opened) {
         const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 0
         const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
-        const elementsHeight = (headerHeight + footerHeight) + 'px'
 
         this.contentHeight = `calc(${this.height} - ${headerHeight + footerHeight}px)`
       }
