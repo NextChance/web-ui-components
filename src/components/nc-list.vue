@@ -4,22 +4,22 @@
       v-show="hasSearch"
       v-model="search"
       class="nc-list__search"
-      :has-icon-left='true'
-      :label='searchLabel'>
+      :has-icon-left="true"
+      :label="searchLabel"
+    >
       <template v-slot:iconLeft>
         <i class="search-icon"></i>
       </template>
     </nc-text-input>
-    <ul
-      v-if="items.length"
-      class="nc-list__items">
+    <ul v-if="items.length" class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
         @click="onItemSelected(item, index)"
         :key="index"
         :class="{highlighted: index === selected}"
         :style="itemStyle"
-        class="nc-list__item">
+        class="nc-list__item"
+      >
         <slot :item="item"></slot>
       </li>
     </ul>
@@ -67,10 +67,12 @@ export default {
       }
       const searchValue = this.search.toLowerCase()
       return this.items.filter(item => {
-        if (typeof(item.searchText) === 'string') {
+        if (typeof item.searchText === 'string') {
           return item.searchText.toLowerCase().includes(searchValue)
-        } else if (typeof(item.name) === 'string') {
-          return item.name.toLowerCase().includes(searchValue)
+        } else if (typeof this._parseLocaleString(item.iso) === 'string') {
+          return this._parseLocaleString(item.iso)
+            .toLowerCase()
+            .includes(searchValue)
         } else {
           return false
         }
@@ -81,6 +83,10 @@ export default {
     onItemSelected(item, index) {
       this.selected = index
       this.$emit('item-selected', item)
+    },
+
+    _parseLocaleString(iso) {
+      return this.$t(iso)
     }
   }
 }

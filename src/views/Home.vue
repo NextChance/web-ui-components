@@ -2,9 +2,9 @@
   <div class="home">
     <h1>COMPONENTS</h1>
     <h2>DUMB COMPONENT</h2>
-    <Dumb />
-    <hr />
-    <br />
+    <Dumb/>
+    <hr>
+    <br>
     <h2>NC-LOADER COMPONENT</h2>
     <div class="test">
       <nc-loader
@@ -17,69 +17,58 @@
         :text="$t('lang.loading.msg')"
       />
     </div>
-    <hr />
-    <br />
+    <hr>
+    <br>
     <h2>NC-LIST COMPONENT</h2>
     <div class="nc-list-container">
-      <nc-list 
-        :has-search="true" 
+      <nc-list
+        :has-search="true"
         :items="items"
         @item-selected="onItemSelected"
         search-label="Buscar"
         search-icon="../assets/svg/category.png"
       >
-      <template slot-scope="{item}">
-        <span class="item-on-left">{{ item.name }}</span><span class="item-on-right">{{ item.dialCode }}</span>
-      </template>
+        <template slot-scope="{item}">
+          <span class="item-on-left">{{ item.name }}</span>
+          <span class="item-on-right">{{ item.dialCode }}</span>
+        </template>
       </nc-list>
     </div>
-    <hr />
-    <br />
+    <hr>
+    <br>
     <h1>NC_MODAL</h1>
-    <nc-modal 
-      :opened = opened 
-      @close = "opened = false"
-      :showCloseIcon = "showCloseIcon"
-      :showHeader = "showHeader"
-      :showFooter = "showFooter"
+    <nc-modal
+      :opened="opened"
+      @close="opened = false"
+      :showCloseIcon="showCloseIcon"
+      :showHeader="showHeader"
+      :showFooter="showFooter"
       :padding="padding"
       :marginTop="marginTop"
       :noVerticallyAligned="noVerticallyAligned"
       :width="width"
       :height="height"
       :overlayStyle="modalOverlayStyle"
-      >
-        <template v-slot:header>
-          <h1>Comparte los beneficios de Billionhands</h1>
-        </template>
-        <template v-slot:content>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <p>12NYS5</p>
-        </template>
-        <template v-slot:footer>
-          <button>Copiar código</button>
-        </template>
-      </nc-modal>
-    <button  @click="opened = true">Show Modal</button>
-    <hr />
-    <br />
+    >
+      <template v-slot:header>
+        <h1>Comparte los beneficios de Billionhands</h1>
+      </template>
+      <template v-slot:content>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>12NYS5</p>
+      </template>
+      <template v-slot:footer>
+        <button>Copiar código</button>
+      </template>
+    </nc-modal>
+    <button @click="opened = true">Show Modal</button>
+    <hr>
+    <br>
     <h2>NC-SLIDER COMPONENT</h2>
     <div id="slider" class="slider">
-      <nc-slider
-        min="20"
-        minLabel="Min 20 Km"
-        minValue="20"
-        @slider-stop-drag="sliderStopDrag">
-      </nc-slider>
+      <nc-slider min="20" minLabel="Min 20 Km" minValue="20" @slider-stop-drag="sliderStopDrag"></nc-slider>
 
-      <nc-slider
-        max="150"
-        maxLabel="Max 150 Km"
-        maxValue="150"
-        @slider-stop-drag="sliderStopDrag">
-      </nc-slider>
+      <nc-slider max="150" maxLabel="Max 150 Km" maxValue="150" @slider-stop-drag="sliderStopDrag"></nc-slider>
 
       <nc-slider
         min="0"
@@ -88,8 +77,8 @@
         max="1000"
         maxLabel="Hasta 1000 €"
         maxValue="1000"
-        @slider-stop-drag="sliderStopDrag">
-      </nc-slider>
+        @slider-stop-drag="sliderStopDrag"
+      ></nc-slider>
 
       <nc-slider
         min="0"
@@ -98,11 +87,11 @@
         max="100"
         maxLabel="Hasta 100 %"
         maxValue="100"
-        @slider-stop-drag="sliderStopDrag">
-      </nc-slider>
+        @slider-stop-drag="sliderStopDrag"
+      ></nc-slider>
     </div>
-    <hr />
-    <br />
+    <hr>
+    <br>
     <h2>NC-SLIDESHOW COMPONENT</h2>
     <div class="slideshow">
       <nc-slideshow
@@ -112,22 +101,17 @@
         @slideshow-click-left-link="clickSlideshowLinkLeft"
         @slideshow-click-right-link="clickSlideshowLinkRight"
         @slideshow-last-slide="lastSlide"
-        @slideshow-first-slide="firstSlide">
-        <template>        
-          <li class="item">
-            SLIDE 1
-          </li>
-          <li class="item">
-            SLIDE 2
-          </li>
-          <li class="item">
-            SLIDE 3
-          </li>
+        @slideshow-first-slide="firstSlide"
+      >
+        <template>
+          <li class="item">SLIDE 1</li>
+          <li class="item">SLIDE 2</li>
+          <li class="item">SLIDE 3</li>
         </template>
-      </nc-slideshow> 
+      </nc-slideshow>
     </div>
-    <hr />
-    <br />
+    <hr>
+    <br>
     <h1>NC_BUTTON</h1>
     <div class="nc-button-container">
       <nc-button @button-clicked="handleClicked">
@@ -139,71 +123,66 @@
           Icon Button
         </template>
       </nc-button>
-      <nc-button
-        :disabled=true
-        @click="handleClicked">
-        <template>
-          Disabled Button
-        </template>
+      <nc-button :disabled="true" @click="handleClicked">
+        <template>Disabled Button</template>
       </nc-button>
     </div>
     <hr>
-    <br />
+    <br>
 
     <h2>NC-SEPARATOR</h2>
     <p>With icon:</p>
     <nc-separator>
-      <template > 
-        <i class="fab fa-accusoft"></i>  
+      <template>
+        <i class="fab fa-accusoft"></i>
       </template>
     </nc-separator>
     <p>With text:</p>
     <nc-separator>
-      <template > 
-        <span>o</span>  
+      <template>
+        <span>o</span>
       </template>
     </nc-separator>
 
     <hr>
-    <br />
-    <hr />
-    <br />
+    <br>
+    <hr>
+    <br>
 
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
-      <nc-phone-input
-        :selected-country="selectedItem" />
+      <nc-phone-input :selected-country="selectedItem"/>
     </div>
-    <br />
-    <br />
+    <br>
+    <br>
     <h1>NC_TEXT_INPUT</h1>
     <div class="home-nc-text-input-container">
       <nc-text-input/>
       <router-link to="/componentInputTypeText">See other examples</router-link>
     </div>
-    <br />
-    <br />
+    <br>
+    <br>
     <h1>NC_CARD-ITEM</h1>
     <div class="nc-card-item-container">
-      <nc-card-item 
+      <nc-card-item
         :caption-style="ncCardCaptionStyle"
         :image="ncCardItemImage"
         :title="ncCardItemTitle"
         :title-line-ellipsis="ncTitleLineEllipsis"
         :description="ncCardItemDescription"
-        :description-line-ellipsis="ncDescritionLineEllipsis"/>
+        :description-line-ellipsis="ncDescritionLineEllipsis"
+      />
     </div>
 
     <br>
     <br>
     <h1>NC_IMAGE_UPLOADER</h1>
     <router-link to="/componentImageUploader">See behaviour</router-link>
-   
+
     <h3>Ready to upload an image</h3>
-     <nc-image-uploader :is-empty="true">
+    <nc-image-uploader :is-empty="true">
       <template v-slot:isEmptyState>
-        <i class="fa fa-plus-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-plus-circle image-uploader__icon"></i>
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
@@ -217,8 +196,7 @@
         />
       </template>
       <template v-slot:withDataState>
-        <i class="fa fa-times-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-times-circle image-uploader__icon"></i>
       </template>
     </nc-image-uploader>
     <br>
@@ -226,8 +204,7 @@
     <h3>Uploanding an image</h3>
     <nc-image-uploader :is-loading="true">
       <template v-slot:isEmptyState>
-        <i class="fa fa-plus-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-plus-circle image-uploader__icon"></i>
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
@@ -240,19 +217,15 @@
         />
       </template>
       <template v-slot:withDataState>
-        <i class="fa fa-times-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-times-circle image-uploader__icon"></i>
       </template>
-   </nc-image-uploader>
+    </nc-image-uploader>
     <br>
-    
+
     <h3>Uploaded image</h3>
-    <nc-image-uploader 
-      :with-data="true"
-      bg-image="http://placekitten.com/g/150/90">
+    <nc-image-uploader :with-data="true" bg-image="http://placekitten.com/g/150/90">
       <template v-slot:isEmptyState>
-        <i class="fa fa-plus-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-plus-circle image-uploader__icon"></i>
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
@@ -266,19 +239,17 @@
         />
       </template>
       <template v-slot:withDataState>
-        <i class="fa fa-times-circle image-uploader__icon">
-        </i> 
+        <i class="fa fa-times-circle image-uploader__icon"></i>
       </template>
-   </nc-image-uploader>
+    </nc-image-uploader>
     <br>
 
     <h1>NC_TEXTAREA</h1>
     <div class="home-nc-text-input-container">
-      <nc-textarea
-        :value="ncTextAreaValue"/>
+      <nc-textarea :value="ncTextAreaValue"/>
     </div>
-    <br />
-    <br />
+    <br>
+    <br>
   </div>
 </template>
 
@@ -322,11 +293,13 @@ export default {
         {
           id: '1234567890',
           iso: 'ES',
+          searchText: '+34',
           dialCode: '+34'
         },
         {
           id: '2345678901',
           iso: 'US',
+          searchText: '+1',
           dialCode: '+1'
         }
       ],
@@ -420,6 +393,4 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
 }
-
-
 </style>
