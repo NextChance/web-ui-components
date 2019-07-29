@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+
+
+## [UNRELEASED]
+
+### Fixed
+- Modal refactor #66
+
+
 ## v0.1.4 - 2019-07-08
 
 ### Added
