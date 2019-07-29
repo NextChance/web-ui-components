@@ -14,16 +14,16 @@
     <ul v-if="items.length" class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
-        @click="onItemSelected(item, index)"
+        class="nc-list__item"
         :key="index"
         :style="itemStyle"
-        class="nc-list__item"
+        @click="onItemSelected(item, index)"
       >
         <div class="nc-list__item-slot">
           <slot :item="item"></slot>
         </div>
         <img
-          v-if="index === selected"
+          v-if="showCheckedIcon && index === selected"
           class="nc-list__item-check-icon"
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM2MGE5MGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjAxNyAxNC43MUwxOC4yNDQgNyAyMCA4LjY0NSAxMC4wMTcgMTggNSAxMy4zbDEuNzU2LTEuNjQ2eiIvPgo8L3N2Zz4K"
         >
@@ -54,6 +54,10 @@ export default {
     searchLabel: {
       type: String,
       default: 'buscar'
+    },
+    showCheckedIcon: {
+      type: Boolean,
+      default: false
     },
     itemStyle: {
       type: Object,
