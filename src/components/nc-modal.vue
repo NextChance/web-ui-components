@@ -5,7 +5,12 @@
         class="nc-modal__container"
         :style="{'padding': padding, 'width': widthByDevice, 'height': heightByDevice, 'background-color': backgroundColor}"
       >
-        <img v-if="showCloseIcon" src="@/assets/svg/close.svg"  class="nc-modal__close-icon" @click="handleCloseModal" />
+        <img
+          v-if="showCloseIcon"
+          src="data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiMyNzI3MjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5IDYuNEwxNy42IDUgMTIgMTAuNiA2LjQgNSA1IDYuNGw1LjYgNS42TDUgMTcuNiA2LjQgMTlsNS42LTUuNiA1LjYgNS42IDEuNC0xLjQtNS42LTUuNnoiLz4KPC9zdmc+Cg=="
+          class="nc-modal__close-icon"
+          @click="handleCloseModal"
+        >
         <div
           v-if="showHeader"
           ref="header"
@@ -209,7 +214,7 @@ $break-desktop: 769px;
     box-sizing: content-box;
     @media (min-width: $break-desktop) {
       border-radius: 2px;
-       box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
+      box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       transition: all .3s ease;
