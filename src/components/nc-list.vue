@@ -8,7 +8,10 @@
       :label="searchLabel"
     >
       <template v-slot:iconLeft>
-        <i class="search-icon"></i>
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CiAgPHBhdGggZmlsbD0iI0FBQUFBQSIgZD0iTTIxLjEzNCAxOS4zNzZsNC4xOTkgNC4xOTktMS43NTggMS43NTgtNC4xOTktNC4xOTlhOCA4IDAgMSAxIDEuNzU3LTEuNzU3em0tNi40NjcuNzY0YTUuNDc0IDUuNDc0IDAgMSAwIDAtMTAuOTQ5IDUuNDc0IDUuNDc0IDAgMCAwIDAgMTAuOTQ5eiIvPgo8L3N2Zz4K"
+          class="search-icon"
+        >
       </template>
     </nc-text-input>
     <ul v-if="items.length" class="nc-list__items">
@@ -105,9 +108,7 @@ $iconColor: #ccc;
       margin-left: 14px;
       display: block;
       width: 24px;
-      height: 30px;
-      background: $iconColor;
-      mask-image: url('../assets/svg/search.svg');
+      height: 24px;
     }
     .nc-text-input__container {
       border-radius: 25px;
