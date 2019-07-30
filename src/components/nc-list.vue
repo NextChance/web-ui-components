@@ -8,19 +8,28 @@
       :label="searchLabel"
     >
       <template v-slot:iconLeft>
-        <i class="search-icon"></i>
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CiAgPHBhdGggZmlsbD0iI0FBQUFBQSIgZD0iTTIxLjEzNCAxOS4zNzZsNC4xOTkgNC4xOTktMS43NTggMS43NTgtNC4xOTktNC4xOTlhOCA4IDAgMSAxIDEuNzU3LTEuNzU3em0tNi40NjcuNzY0YTUuNDc0IDUuNDc0IDAgMSAwIDAtMTAuOTQ5IDUuNDc0IDUuNDc0IDAgMCAwIDAgMTAuOTQ5eiIvPgo8L3N2Zz4K"
+          class="search-icon"
+        >
       </template>
     </nc-text-input>
     <ul v-if="items.length" class="nc-list__items">
       <li
         v-for="(item, index) in filteredList"
-        @click="onItemSelected(item, index)"
-        :key="index"
-        :class="{highlighted: index === selected}"
-        :style="itemStyle"
         class="nc-list__item"
+        :key="index"
+        :style="itemStyle"
+        @click="onItemSelected(item, index)"
       >
-        <slot :item="item"></slot>
+        <div class="nc-list__item-slot">
+          <slot :item="item"></slot>
+        </div>
+        <img
+          v-if="showCheckedIcon && index === selected"
+          class="nc-list__item-check-icon"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM2MGE5MGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjAxNyAxNC43MUwxOC4yNDQgNyAyMCA4LjY0NSAxMC4wMTcgMTggNSAxMy4zbDEuNzU2LTEuNjQ2eiIvPgo8L3N2Zz4K"
+        >
       </li>
     </ul>
     <p v-else>{{ textEmptyList }}</p>
@@ -52,6 +61,10 @@ export default {
     searchLabel: {
       type: String,
       default: 'buscar'
+    },
+    showCheckedIcon: {
+      type: Boolean,
+      default: false
     },
     itemStyle: {
       type: Object,
@@ -107,9 +120,7 @@ $iconColor: #ccc;
       margin-left: 14px;
       display: block;
       width: 24px;
-      height: 30px;
-      background: $iconColor;
-      mask-image: url('../assets/svg/search.svg');
+      height: 24px;
     }
     .nc-text-input__container {
       border-radius: 25px;
@@ -129,8 +140,16 @@ $iconColor: #ccc;
     border-bottom: 1px solid #d8d8d8;
     height: 46px;
 
-    &.highlighted {
-      background-color: #ebebeb;
+    &-slot {
+      flex: 0 1 100%;
+      text-align: left;
+    }
+
+    &-check-icon {
+      flex: 0 1 auto;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 20px;
     }
   }
 }
