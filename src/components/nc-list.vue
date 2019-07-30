@@ -45,6 +45,10 @@ export default {
     ncTextInput
   },
   props: {
+    cleanSearch: {
+      type: Boolean,
+      default: false
+    },
     hasSearch: {
       type: Boolean,
       default: false
@@ -94,6 +98,14 @@ export default {
     onItemSelected(item, index) {
       this.selected = index
       this.$emit('item-selected', item)
+    }
+  },
+
+  watch: {
+    cleanSearch() {
+      if (this.cleanSearch) {
+        this.search = ''
+      }
     }
   }
 }
