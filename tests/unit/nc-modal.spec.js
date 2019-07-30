@@ -10,23 +10,23 @@ describe('ncModal set 1', () => {
   const showHeader = true
   const showFooter = false
   const padding = '50px'
-  const marginTop = '0'
   const width = '200px'
   const noVerticallyAligned = false
   const height = '630px'
   const backgroundColor = '#fff'
+  const zIndexHeader = 1
   const propsData = {
     showCloseIcon: showCloseIcon,
     opened: opened,
     showHeader: showHeader,
     showFooter: showFooter,
     padding: padding,
-    marginTop: marginTop,
     noVerticallyAligned: noVerticallyAligned,
     width: width,
     height: height,
     backgroundColor: backgroundColor,
-    overlayStyle: undefined
+    overlayStyle: undefined,
+    zIndexHeader: zIndexHeader
   }
   let wrapper
   beforeEach(() => {
@@ -40,13 +40,6 @@ describe('ncModal set 1', () => {
   })
   it('renders props', () => {
     expect(wrapper.props()).toStrictEqual(propsData)
-  })
-
-  it('changes props in mounted method', () => {
-    let top = '50%'
-    let transform = 'translate(-50%, -50%)'
-    expect(wrapper.vm.top).toBe(top)
-    expect(wrapper.vm.transform).toBe(transform)
   })
 
   it('changes props in computed method with opened = true', () => {
@@ -75,48 +68,7 @@ describe('ncModal set 1', () => {
   })
 })
 
-describe('ncModal set 2 (not vertically aligned)', () => {
-  const calculateContentHeight = jest.fn()
-  const resizeModal = jest.fn()
-  const showCloseIcon = true
-  const opened = true
-  const showHeader = true
-  const showFooter = false
-  const padding = '50px'
-  const marginTop = '0'
-  const width = '200px'
-  const noVerticallyAligned = true
-  const height = '630px'
-  let wrapper
-  beforeEach(() => {
-    wrapper = mount(ncModal, {
-      propsData: {
-        showCloseIcon: showCloseIcon,
-        opened: opened,
-        showHeader: showHeader,
-        showFooter: showFooter,
-        padding: padding,
-        marginTop: marginTop,
-        noVerticallyAligned: noVerticallyAligned,
-        width: width,
-        height: height
-      },
-      methods: {
-        calculateContentHeight,
-        resizeModal
-      }
-    })
-  })
-
-  it('changes props in mounted method', () => {
-    let top = '0'
-    let transform = 'translate(-50%, 0)'
-    expect(wrapper.vm.top).toBe(top)
-    expect(wrapper.vm.transform).toBe(transform)
-  })
-})
-
-describe('ncModal set 3 testing resizeModal method', () => {
+describe('ncModal testing resizeModal method', () => {
   const calculateContentHeight = jest.fn()
   const showCloseIcon = true
   const opened = true
@@ -168,7 +120,6 @@ describe('ncModal set 3 testing resizeModal method', () => {
   it('resizeModal method changes props if component is displayed in mobile ', () => {
     const top = '0'
     const left = '0'
-    const transform = 'translate(0, 0)'
     const width = 'calc(100vw - 100px)'
     let calculatePadding = parseInt(padding)
     calculatePadding = calculatePadding * 2
@@ -177,24 +128,15 @@ describe('ncModal set 3 testing resizeModal method', () => {
     getDesktopDevice.mockReturnValue(false)
     wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
     wrapper.vm.resizeModal()
-    expect(wrapper.vm.transform).toBe(transform)
-    expect(wrapper.vm.top).toBe(top)
-    expect(wrapper.vm.left).toBe(left)
     expect(wrapper.vm.widthByDevice).toBe(width)
     expect(wrapper.vm.heightByDevice).toBe(height)
   })
 
   it('resizeModal method changes props if component is displayed in desktop ', () => {
-    const top = '50%'
-    const left = '50%'
-    const transform = 'translate(-50%, -50%)'
     const getDesktopDevice = jest.fn()
     getDesktopDevice.mockReturnValue(true)
     wrapper.setMethods({ getDesktopDevice: getDesktopDevice })
     wrapper.vm.resizeModal()
-    expect(wrapper.vm.transform).toBe(transform)
-    expect(wrapper.vm.top).toBe(top)
-    expect(wrapper.vm.left).toBe(left)
     expect(wrapper.vm.widthByDevice).toBe(width)
     expect(wrapper.vm.heightByDevice).toBe(height)
   })
