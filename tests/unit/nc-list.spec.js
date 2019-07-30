@@ -104,16 +104,12 @@ describe('ncList', () => {
       it('display as li elements as items in items array if hasSearch is false', () => {
         expect(wrapper.findAll('.nc-list__item').length).toBe(2)
       })
-  
+
       it('sets selected property to selected item index', () => {
         wrapper.find('.nc-list__item').trigger('click')
         expect(wrapper.vm.selected).toBe(0)
       })
-  
-      it('adds .highlighted class to selected item', () => {
-        wrapper.find('.nc-list__item').trigger('click')
-        expect(wrapper.find('.nc-list__item').classes()).toContain('highlighted')
-      })
+
     })
   })
 })
