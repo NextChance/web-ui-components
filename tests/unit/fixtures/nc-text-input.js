@@ -3,6 +3,7 @@ export const testText = 'Test Text'
 export const defaultProps = {
   containerBorderColor: '$containerBorderColor',
   containerIsFocusedBorderColor: '$containerIsFocusedColor',
+  disableSpinButton: true,
   disabled: false,
   error: '',
   errorColor: '$errorColor',
@@ -32,6 +33,7 @@ export const propsWithValue = {
   containerBorderColor: '$containerBorderColor',
   containerIsFocusedBorderColor: '$containerIsFocusedColor',
   disabled: false,
+  disableSpinButton: true,
   error: '',
   errorColor: '$errorColor',
   extraText: '',
