@@ -180,7 +180,7 @@ describe('ncTextInput', () => {
 
       })
 
-      it('the value emmited is the same as that the value setted', () => {
+      it('the value emitted is the same as that the value set', () => {
         expect(wrapper.emitted().input[0][0]).toEqual(testText)
       })
     })
