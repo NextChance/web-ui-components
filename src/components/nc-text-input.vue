@@ -27,7 +27,6 @@
         {{ label }}
       </label>
       <input
-        v-model="inputValue"
         class="input-content__input"
         :class="[inputClasses, {'disable-spinButton': disableSpinButton}]"
         :disabled="disabled"
@@ -38,6 +37,7 @@
         :required="required"
         :size="size"
         :type="inputType"
+        :value="value"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"
@@ -158,37 +158,33 @@ export default {
       type: String,
       default: 'uiEl'
     },
-    value: [String, Number],
+    value: {
+      type: String,
+      default:''
+    },
     wrapperClasses: String
   },
 
   data() {
     return {
-      isFocused: false,
-      inputValue: ''
+      isFocused: false
     }
   },
 
   computed: {
     hasValue: function() {
-      return !!this.inputValue
+      return !!this.value
     }
   },
 
   created() {
-    if (this.value) this.inputValue = this.value
+    if (this.value) this.value = this.value.trim()
   },
 
   mounted() {
     if (this.$refs[this.uiReference].value !== '') {
-      this.value = this.$refs[this.uiReference].value
+      this.value = this.$refs[this.uiReference].value.trim()
       this.focusInput()
-    }
-  },
-
-  watch: {
-    value() {
-      this.inputValue = this.value
     }
   },
 
@@ -208,7 +204,7 @@ export default {
     },
 
     handleInput() {
-      this.$emit('input', this.$refs[this.uiReference].value)
+      this.$emit('input', this.$refs[this.uiReference].value.trim())
     },
 
     handleKeyUp(ev) {

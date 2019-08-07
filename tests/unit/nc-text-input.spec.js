@@ -171,15 +171,17 @@ describe('ncTextInput', () => {
         wrapper = mount(ncTextInput, {
           attachToDocument: true
         })
+
         wrapper.find('.input-content__input').setValue(testText)
       })
 
       it('the event input is emitted', () => {
         expect(wrapper.emitted('input')).toBeTruthy()
+
       })
 
-      it('the inputValue prop changes', () => {
-        expect(wrapper.vm.inputValue).toBe(testText)
+      it('the value emitted is the same as that the value set', () => {
+        expect(wrapper.emitted().input[0][0]).toEqual(testText)
       })
     })
   })
