@@ -27,7 +27,6 @@
         {{ label }}
       </label>
       <input
-        :value="value"
         class="input-content__input"
         :class="[inputClasses, {'disable-spinButton': disableSpinButton}]"
         :disabled="disabled"
@@ -38,6 +37,7 @@
         :required="required"
         :size="size"
         :type="inputType"
+        :value="value"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"

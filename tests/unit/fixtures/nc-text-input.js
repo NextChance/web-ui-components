@@ -25,7 +25,7 @@ export const defaultProps = {
   required: false,
   size: 35,
   uiReference: 'uiEl',
-  value: undefined,
+  value: '',
   wrapperClasses: undefined
 }
 
