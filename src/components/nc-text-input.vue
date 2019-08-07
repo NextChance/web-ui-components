@@ -159,7 +159,7 @@ export default {
       default: 'uiEl'
     },
     value: {
-      type: [String, Number],
+      type: String,
       default:''
     },
     wrapperClasses: String
