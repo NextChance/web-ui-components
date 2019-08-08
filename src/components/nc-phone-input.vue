@@ -7,7 +7,7 @@
       :class="['nc-phone-input__phone', inputClasses]"
       :ui-reference="uiReference"
       :has-icon-left="true"
-      :label="label"
+      :label="placeholder"
       :value="value"
       @input="onInput"
       @input-blur-event="onBlur"
@@ -42,6 +42,9 @@ export default {
   },
   props: {
     value: {
+      type: String
+    },
+    placeholder: {
       type: String,
       default: ''
     },
@@ -98,13 +101,8 @@ export default {
       type: Number,
       default: 15
     },
-    label: {
-      type: String,
-      default: ''
-    },
     uiReference: {
-      type: String,
-      default: ''
+      type: String
     }
   },
   mounted() {
