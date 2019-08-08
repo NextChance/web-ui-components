@@ -79,18 +79,22 @@ export default {
   },
   computed: {
     filteredList() {
+      debugger
       if (!this.search) {
         return this.items
       }
-      const searchValue = this.search.toLowerCase()
+      const searchValue = this._itemParser(this.search)
+      console.log('searchValue', searchValue)
       return this.items.filter(item => {
+        let itemSearched
+        let hasResult = false
         if (typeof item.searchText === 'string') {
-          return item.searchText.toLowerCase().includes(searchValue)
+          itemSearched = this._itemParser(item.searchText)
         } else if (typeof item.name === 'string') {
-          return item.name.toLowerCase().includes(searchValue)
-        } else {
-          return false
-        }
+          itemSearched = this._itemParser(item.name)
+        } 
+        hasResult = itemSearched.includes(searchValue)
+        return hasResult
       })
     }
   },
@@ -98,6 +102,10 @@ export default {
     onItemSelected(item, index) {
       this.selected = index
       this.$emit('item-selected', item)
+    },
+    _itemParser(item) {
+      console.log('_itemParser', item.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
+      return item.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
     }
   },
 

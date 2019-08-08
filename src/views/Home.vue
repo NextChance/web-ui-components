@@ -293,13 +293,15 @@ export default {
       items: [
         {
           id: '1234567890',
-          iso: 'ES',
-          dialCode: '+34'
+          name: 'Bélgica',
+          dialCode: '+34',
+          searchText: '+34 Bélgica'
         },
         {
           id: '2345678901',
-          iso: 'US',
-          dialCode: '+1'
+          name: 'Bruselas',
+          dialCode: '+1',
+          searchText: '+1 Bruselas'
         }
       ],
       showCloseIcon: true,
@@ -327,7 +329,11 @@ export default {
       },
       ncDescritionLineEllipsis: 2,
       ncTitleLineEllipsis: 1,
-      ncTextAreaValue: 'Valor por defecto'
+      ncTextAreaValue: 'Valor por defecto',
+      selectedItem:  {
+        dialCode: '+34',
+        iso: 'ES'
+      }
     }
   },
   methods: {
@@ -358,6 +364,10 @@ export default {
     sliderStopDrag(values) {
       // eslint-disable-next-line no-console
       console.log('slider-stop-drag', values)
+    },
+    onItemSelected(ev) {
+      // eslint-disable-next-line no-console
+      console.log('item-selected', ev)
     }
   }
 }
