@@ -256,7 +256,7 @@ export default {
   }
 
   &__code-number {
-    color: #272727;
+    color: #aaaaaa;
     margin-right: 20px;
     font-size: 15px;
   }
@@ -267,7 +267,7 @@ export default {
     width: 100%;
     outline: none;
     font-size: 15px;
-    color: #272727;
+    color: #aaaaaa;
     line-height: 1.4;
   }
 }

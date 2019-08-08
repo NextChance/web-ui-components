@@ -223,9 +223,9 @@ export default {
 </script>
 
 <style lang="scss">
-$containerBorderColor: #ccc;
+$containerBorderColor: #737373;
 $containerIsFocusedColor: #379aaf;
-$inputContentLabelColor: #999;
+$inputContentLabelColor: #d8d8d8;
 $errorColor: red;
 
 .nc-text-input {
