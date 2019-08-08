@@ -153,7 +153,7 @@
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
       <nc-phone-input 
-      :label="ncPhoneInputLabel"
+      :placeholder="ncPhoneInputLabel"
     />
     </div>
     <br>

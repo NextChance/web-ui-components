@@ -9,6 +9,7 @@
       :has-icon-left="true"
       :label="placeholder"
       :value="value"
+      :size="maxLength"
       @input="onInput"
       @input-blur-event="onBlur"
     >
@@ -64,9 +65,9 @@ export default {
       type: Boolean,
       default: true
     },
-    flagsEnabled: {
+    sendInvalidPhone: {
       type: Boolean,
-      default: true
+      default: false
     },
     required: {
       type: Boolean,
@@ -228,6 +229,9 @@ export default {
       // Emit input event in case v-model is used in the parent
       this.$emit('input', this.response.number)
       this.$emit('onInput', this.response)
+      if (this.sendInvalidPhone && !(this.response.isValid)) {
+        this.$emit('onValidate', this.response)
+      }
     },
     onBlur() {
       this.$emit('onBlur')

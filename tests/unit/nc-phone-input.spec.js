@@ -1,5 +1,5 @@
 /* eslint-disable no-debugger */
-import { createLocalVue, mount, shallowMount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 const localVue = createLocalVue()
 
@@ -11,7 +11,7 @@ describe('ncPhoneInput', () => {
     formattingDisabled: false,
     invalidMsg: 'Wrong phone number',
     countryCodeEnabled: true,
-    flagsEnabled: true,
+    sendInvalidPhone: false,
     required: false,
     name: 'telephone',
     wrapperClasses: '',
@@ -86,7 +86,7 @@ describe('ncPhoneInput', () => {
     }
 
     beforeAll(() => {
-      wrapper = shallowMount(ncPhoneInput, {
+      wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
         propsData: defaultProps
