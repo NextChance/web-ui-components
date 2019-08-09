@@ -241,6 +241,7 @@ export default {
 </script>
 
 <style lang="scss">
+$contentColor: #aaaaaa;
 .nc-phone-input {
   width: 300px;
   height: 60px;
@@ -256,7 +257,7 @@ export default {
   }
 
   &__code-number {
-    color: #aaaaaa;
+    color: $contentColor;
     margin-right: 20px;
     font-size: 15px;
   }
@@ -267,7 +268,7 @@ export default {
     width: 100%;
     outline: none;
     font-size: 15px;
-    color: #aaaaaa;
+    color: $contentColor;
     line-height: 1.4;
   }
 }

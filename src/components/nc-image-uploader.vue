@@ -150,7 +150,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  $containerBorderColor: #ccc;
+  $containerBorderColor: #737373;
   $errorColor: red;
 
 .image-uploader__container {
