@@ -6,12 +6,12 @@ const localVue = createLocalVue()
 describe('ncPhoneInput', () => {
   const defaultProps = {
     value: undefined,
-    placeholder: 'Enter a phone number',
+    placeholder: '',
     disabled: false,
     formattingDisabled: false,
     invalidMsg: 'Wrong phone number',
     countryCodeEnabled: true,
-    flagsEnabled: true,
+    sendInvalidPhone: false,
     required: false,
     name: 'telephone',
     wrapperClasses: '',
@@ -21,7 +21,8 @@ describe('ncPhoneInput', () => {
     },
     inputClasses: '',
     inputOptions: {},
-    maxLength: 15
+    maxLength: 15,
+    uiReference: undefined
   }
 
   describe('when mounted without props', () => {
@@ -154,12 +155,12 @@ describe('ncPhoneInput', () => {
     })
 
     it('should emit the input event with the number in the response', () => {
-      wrapper.find('.nc-phone-input__phone').setValue('123456789')
+      wrapper.find('.input-content__input').setValue('123456789')
       expect(wrapper.emitted().input[0]).toEqual(['123456789'])
     })
 
     it('should emit the onInput event with the response', () => {
-      wrapper.find('.nc-phone-input__phone').setValue('123456789')
+      wrapper.find('.input-content__input').setValue('123456789')
       expect(wrapper.emitted().onInput[0]).toEqual([
         {
           country: {
@@ -190,7 +191,7 @@ describe('ncPhoneInput', () => {
     it('should call onBlur method', () => {
       let stub = jest.fn()
       wrapper.setMethods({ onBlur: stub })
-      wrapper.find('.nc-phone-input__phone').trigger('blur')
+      wrapper.find('.input-content__input').trigger('blur')
 
       expect(stub).toHaveBeenCalled()
     })

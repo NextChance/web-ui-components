@@ -2,27 +2,28 @@
   <div
     :class="['nc-phone-input', wrapperClasses, { disabled: disabled }]"
     :selected-country="selectedCountry">
-    <div
-      class="nc-phone-input__country-code"
-      @click="showCountryCodesList">
-      <!-- emoji -->
-      <span class="nc-phone-input__flag">{{ countryEmojiFlag }}</span>
-      <!-- country code -->
-      <span v-if="countryCodeEnabled" class="nc-phone-input__code-number">{{ selectedCountry.dialCode }}</span>
-    </div>
-    <!-- TODO: Replace this with nc-input -->
-    <input
-      ref="input"
+    <nc-text-input
+      input-type="number"
+      has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
-      v-model="phone"
-      type= "tel"
-      :placeholder="placeholder"
-      :disabled="disabled"
-      :required="required"
-      :name="name"
-      :maxlength="maxLength"
-      @blur="onBlur"
-      @input="onInput" />
+      :ui-reference="uiReference"
+      :label="placeholder"
+      :value="value"
+      :size="maxLength"
+      @input="onInput"
+      @input-blur-event="onBlur"
+    >
+      <template v-slot:iconLeft>
+        <div
+          class="nc-phone-input__country-code"
+          @click="showCountryCodesList">
+          <!-- emoji -->
+          <span class="nc-phone-input__flag">{{ countryEmojiFlag }}</span>
+          <!-- country code -->
+          <span v-if="countryCodeEnabled" class="nc-phone-input__code-number">{{ selectedCountry.dialCode }}</span>
+        </div>
+      </template>
+    </nc-text-input>
   </div>
 </template>
 
@@ -33,16 +34,20 @@
  */
 import { formatNumber, AsYouType, isValidNumber } from 'libphonenumber-js'
 import flag from 'country-code-emoji'
+import ncTextInput from './nc-text-input.vue'
 
 export default {
   name: 'nc-phone-input',
+  components: {
+    ncTextInput
+  },
   props: {
     value: {
       type: String
     },
     placeholder: {
       type: String,
-      default: 'Enter a phone number'
+      default: ''
     },
     disabled: {
       type: Boolean,
@@ -60,9 +65,9 @@ export default {
       type: Boolean,
       default: true
     },
-    flagsEnabled: {
+    sendInvalidPhone: {
       type: Boolean,
-      default: true
+      default: false
     },
     required: {
       type: Boolean,
@@ -96,6 +101,9 @@ export default {
     maxLength: {
       type: Number,
       default: 15
+    },
+    uiReference: {
+      type: String
     }
   },
   mounted() {
@@ -214,12 +222,16 @@ export default {
     showCountryCodesList() {
       this.$emit('showCountryCodesList')
     },
-    onInput() {
+    onInput(value) {
+      this.phone = value
       // TODO: Replace with our custom validation
       // this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
       this.$emit('input', this.response.number)
       this.$emit('onInput', this.response)
+      if (this.sendInvalidPhone && !(this.response.isValid)) {
+        this.$emit('onValidate', this.response)
+      }
     },
     onBlur() {
       this.$emit('onBlur')
@@ -229,16 +241,10 @@ export default {
 </script>
 
 <style lang="scss">
+$contentColor: #aaaaaa;
 .nc-phone-input {
   width: 300px;
   height: 60px;
-  border-radius: 4px;
-  display: flex;
-  border: 1px solid #d8d8d8;
-  background-color: #ffffff;
-  text-align: left;
-  padding: 16px;
-  box-sizing: border-box;
 
   &__country-code {
     display: flex;
@@ -251,7 +257,7 @@ export default {
   }
 
   &__code-number {
-    color: #272727;
+    color: $contentColor;
     margin-right: 20px;
     font-size: 15px;
   }
@@ -262,7 +268,7 @@ export default {
     width: 100%;
     outline: none;
     font-size: 15px;
-    color: #272727;
+    color: $contentColor;
     line-height: 1.4;
   }
 }

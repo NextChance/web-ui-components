@@ -152,7 +152,9 @@
 
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
-      <nc-phone-input :selected-country="selectedItem"/>
+      <nc-phone-input 
+      :placeholder="ncPhoneInputLabel"
+    />
     </div>
     <br>
     <br>
@@ -327,7 +329,8 @@ export default {
       },
       ncDescritionLineEllipsis: 2,
       ncTitleLineEllipsis: 1,
-      ncTextAreaValue: 'Valor por defecto'
+      ncTextAreaValue: 'Valor por defecto',
+      ncPhoneInputLabel: 'Teléfono de contacto'
     }
   },
   methods: {
