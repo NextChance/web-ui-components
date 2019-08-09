@@ -25,11 +25,17 @@
         <div class="nc-list__item-slot">
           <slot :item="item"></slot>
         </div>
-        <img
-          v-if="showCheckedIcon && index === selected"
-          class="nc-list__item-check-icon"
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiM2MGE5MGUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwLjAxNyAxNC43MUwxOC4yNDQgNyAyMCA4LjY0NSAxMC4wMTcgMTggNSAxMy4zbDEuNzU2LTEuNjQ2eiIvPgo8L3N2Zz4K"
+        <div 
+          class="nc-list__item-checked" 
+          :style="checkIconStyle"
+          v-if="showCheckedIcon && item.id === selected"
         >
+          <slot name="check-icon">
+            <img class="check-icon"
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0ZGRiIgZD0iTS0zMTctMTc1SDQzdjYzNWgtMzYweiIvPgogICAgICAgIDxwYXRoIGZpbGw9IiNFMTVFNUQiIGQ9Ik05LjAxNyAxMy43MUwxNy4yNDQgNiAxOSA3LjY0NSA5LjAxNyAxNyA0IDEyLjNsMS43NTYtMS42NDZ6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo="
+            >
+          </slot>
+        </div>
       </li>
     </ul>
     <p v-else>{{ textEmptyList }}</p>
@@ -69,6 +75,10 @@ export default {
     itemStyle: {
       type: Object,
       default: () => {}
+    },
+    checkIconStyle: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -79,12 +89,10 @@ export default {
   },
   computed: {
     filteredList() {
-      debugger
       if (!this.search) {
         return this.items
       }
       const searchValue = this._itemParser(this.search)
-      console.log('searchValue', searchValue)
       return this.items.filter(item => {
         let itemSearched
         let hasResult = false
@@ -100,11 +108,10 @@ export default {
   },
   methods: {
     onItemSelected(item, index) {
-      this.selected = index
+      this.selected = item.id
       this.$emit('item-selected', item)
     },
     _itemParser(item) {
-      console.log('_itemParser', item.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
       return item.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
     }
   },
@@ -143,6 +150,7 @@ $iconColor: #ccc;
   }
 
   &__item {
+    position: relative;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #d8d8d8;
@@ -152,12 +160,17 @@ $iconColor: #ccc;
       flex: 0 1 100%;
       text-align: left;
     }
+  }
 
+  &__item-checked {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 20px;
     &-check-icon {
       flex: 0 1 auto;
       align-items: center;
       justify-content: flex-end;
-      margin-right: 20px;
     }
   }
 }
