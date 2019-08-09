@@ -15,6 +15,7 @@ describe('ncPhoneInput', () => {
     required: false,
     name: 'telephone',
     wrapperClasses: '',
+    isDisabled: false,
     selectedCountry: {
       dialCode: '+34',
       iso: 'ES'
