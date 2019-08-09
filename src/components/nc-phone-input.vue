@@ -264,15 +264,14 @@ export default {
   &__country-code {
     display: flex;
     align-items: center;
-    padding-left: 7px;
   }
 
   &__flag {
-    margin-right: 10px;
+    margin-right: 6px;
   }
 
   &__code-number {
-    margin-right: 20px;
+    margin-right: 6px;
     font-size: 15px;
   }
 
