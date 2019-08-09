@@ -75,10 +75,12 @@ describe('ncList', () => {
     let hasSearch = true
     const items = [
       {
+        id: '1',
         name: 'SPAIN',
         dialCode: '+34'
       },
       {
+        id: '2',
         name: 'SRI LANKA',
         dialCode: '+94'
       }
@@ -100,16 +102,14 @@ describe('ncList', () => {
 
     describe('if has search is true and first element is selected', () => {
       hasSearch = false
-
       it('display as li elements as items in items array if hasSearch is false', () => {
         expect(wrapper.findAll('.nc-list__item').length).toBe(2)
       })
 
       it('sets selected property to selected item index', () => {
         wrapper.find('.nc-list__item').trigger('click')
-        expect(wrapper.vm.selected).toBe(0)
+        expect(wrapper.vm.selected).toBe(items[0].id)
       })
-
     })
   })
 })
