@@ -3,6 +3,7 @@
     :class="['nc-phone-input', wrapperClasses, { disabled: disabled }]"
     :selected-country="selectedCountry">
     <nc-text-input
+      ref="phoneCountryCode"
       input-type="number"
       has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
@@ -10,8 +11,10 @@
       :label="placeholder"
       :value="value"
       :size="maxLength"
+      :disabled="isDisabled"
       @input="onInput"
       @input-blur-event="onBlur"
+      @input-is-focused-event="handleFocusEvent"
     >
       <template v-slot:iconLeft>
         <div
@@ -104,6 +107,10 @@ export default {
     },
     uiReference: {
       type: String
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -123,7 +130,8 @@ export default {
         'National', // (213) 373-4253
         'International' // +1 213 373 4253
       ],
-      countryEmojiFlag: ''
+      countryEmojiFlag: '',
+      isCountryCodeListOpen: false
     }
   },
   computed: {
@@ -221,6 +229,7 @@ export default {
   methods: {
     showCountryCodesList() {
       this.$emit('showCountryCodesList')
+      this.isCountryCodeListOpen = true
     },
     onInput(value) {
       this.phone = value
@@ -235,13 +244,19 @@ export default {
     },
     onBlur() {
       this.$emit('onBlur')
+    },
+
+    handleFocusEvent() {
+      if (this.isCountryCodeListOpen) {
+        this.$refs.phoneCountryCode.$el.querySelector('input').blur()
+        this.isCountryCodeListOpen = false
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-$contentColor: #aaaaaa;
 .nc-phone-input {
   width: 300px;
   height: 60px;
@@ -249,16 +264,14 @@ $contentColor: #aaaaaa;
   &__country-code {
     display: flex;
     align-items: center;
-    padding-left: 7px;
   }
 
   &__flag {
-    margin-right: 10px;
+    margin-right: 6px;
   }
 
   &__code-number {
-    color: $contentColor;
-    margin-right: 20px;
+    margin-right: 6px;
     font-size: 15px;
   }
 
@@ -268,7 +281,6 @@ $contentColor: #aaaaaa;
     width: 100%;
     outline: none;
     font-size: 15px;
-    color: $contentColor;
     line-height: 1.4;
   }
 }
