@@ -152,7 +152,9 @@
 
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
-      <nc-phone-input :selected-country="selectedItem"/>
+      <nc-phone-input 
+      :placeholder="ncPhoneInputLabel"
+    />
     </div>
     <br>
     <br>
@@ -333,7 +335,8 @@ export default {
       selectedItem:  {
         dialCode: '+34',
         iso: 'ES'
-      }
+      },
+      ncPhoneInputLabel: 'Teléfono de contacto'
     }
   },
   methods: {
