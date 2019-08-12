@@ -164,7 +164,7 @@ $iconColor: #ccc;
 
   &__item-checked {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 0;
     margin-right: 20px;
     &-check-icon {
