@@ -257,6 +257,9 @@ export default {
 </script>
 
 <style lang="scss">
+.nc-text-input__container {
+  border: 1px solid #d8d8d8;
+}
 .nc-phone-input {
   width: 300px;
   height: 60px;
