@@ -14,7 +14,7 @@
       :disabled="isDisabled"
       @input="onInput"
       @input-blur-event="onBlur"
-      @input-is-focused-event="handleFocusEvent"
+      @input-focus-event="handleFocusEvent"
     >
       <template v-slot:iconLeft>
         <div
