@@ -108,7 +108,7 @@ describe('ncList', () => {
 
       it('sets selected property to selected item index', () => {
         wrapper.find('.nc-list__item').trigger('click')
-        expect(wrapper.vm.selected).toBe(items[0].id)
+        expect(wrapper.vm.itemSelected).toBe(items[0].id)
       })
     })
   })

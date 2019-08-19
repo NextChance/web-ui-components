@@ -25,10 +25,10 @@
         <div class="nc-list__item-slot">
           <slot :item="item"></slot>
         </div>
-        <div 
-          class="nc-list__item-checked" 
+        <div
+          class="nc-list__item-checked"
           :style="checkIconStyle"
-          v-if="showCheckedIcon && item.id === selected"
+          v-if="showCheckedIcon && item.id === itemSelected"
         >
           <slot name="check-icon">
             <img class="check-icon"
@@ -79,13 +79,20 @@ export default {
     checkIconStyle: {
       type: Object,
       default: () => {}
+    },
+    selected: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
       search: '',
-      selected: undefined
+      itemSelected: ''
     }
+  },
+  mounted() {
+    this.itemSelected = this.selected
   },
   computed: {
     filteredList() {
@@ -100,15 +107,16 @@ export default {
           itemSearched = this._itemParser(item.searchText)
         } else if (typeof item.name === 'string') {
           itemSearched = this._itemParser(item.name)
-        } 
+        }
         hasResult = itemSearched.includes(searchValue)
         return hasResult
       })
     }
   },
+
   methods: {
     onItemSelected(item, index) {
-      this.selected = item.id
+      this.itemSelected = item.id
       this.$emit('item-selected', item)
     },
     _itemParser(item) {
