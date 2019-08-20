@@ -17,12 +17,11 @@
                 :aria-valuemax="max"
                 :aria-label="minLabel"
                 :style="{left: minIconPosition + 'px'}"
-                @mouseleave="stopDrag"
-                @mousemove="handleMouseMove"
+                @mouseleave="stopDragMouseLeave"
+                @mousemove="onPanHorizontal"
                 @mousedown="startDrag"
-                @mouseup="stopDrag"
                 v-touch:start="startDrag"
-                v-touch:end="stopDrag"
+                v-touch:end="stopDragTouchEnd"
                 v-touch:moving="onPanHorizontal"></div>
             <div
                 v-if="max"
@@ -37,12 +36,11 @@
                 :aria-valuemax="max"
                 :aria-label="maxLabel"
                 :style="{left: maxIconPosition + 'px'}"
-                @mouseleave="stopDrag"
-                @mousemove="handleMouseMove"
+                @mouseleave="stopDragMouseLeave"
+                @mousemove="onPanHorizontal"
                 @mousedown="startDrag"
-                @mouseup="stopDrag"
                 v-touch:start="startDrag"
-                v-touch:end="stopDrag"
+                v-touch:end="stopDragTouchEnd"
                 v-touch:moving="onPanHorizontal"></div>
         </div>
         <div class="nc-slider__rail-labels" :class="{ 'right': isOnlyMaxLabel }">
@@ -106,64 +104,65 @@ export default {
             this.dragging = true;
         },
 
-        stopDrag() {
-            const values = [this.minValueNow, this.maxValueNow];
-            this.dragging = false;
-            this.$emit('slider-stop-drag', values);
+        stopDragMouseLeave() {
+          const values = [this.minValueNow, this.maxValueNow];
+          this.dragging = false;
+          this.$emit('slider-stop-drag', values);
         },
 
-        doDrag(ev) {
-            if (this.dragging) {
-                const icon = ev.target.id;
-                const position = ev.clientX;
-
-                this.moveSliderTo(icon, position);
-            }
+        stopDragMouseUp() {
+          const values = [this.minValueNow, this.maxValueNow];
+          this.dragging = false;
+          this.$emit('slider-stop-drag', values);
         },
 
-        handleMouseMove(ev) {
-            if (this.dragging) {
-              this.doDrag(ev);
-            }
+        stopDragTouchEnd() {
+          const values = [this.minValueNow, this.maxValueNow];
+          this.dragging = false;
+          this.$emit('slider-stop-drag', values);
         },
 
         onPanHorizontal(ev) {
             if (this.dragging) {
-              const icon = ev.currentTarget.id;
+              const icon = ev.currentTarget.id || ev.target.id;
               const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
 
-              this.moveSliderTo(icon, position);
+              return icon === 'min' ? this.moveMinIcon(icon, position) : this.moveMaxIcon(icon, position);
             }
-        },
-
-        moveSliderTo(icon, position) {
-            return icon === 'min' ? this.moveMinIcon(icon, position) : this.moveMaxIcon(icon, position);
         },
 
         moveMinIcon(icon, position) {
-            if ((position  - this.iconSize) > this.maxRail) {
-                return this[`${icon}IconPosition`] = this.maxRail;
+            const rail = this.$refs.rail;
+            const railWidth = rail.clientWidth;
+            const railLeft = rail.offsetLeft;
+            const realPosition = position - railLeft;
+            const halfIconSize = this.iconSize / 2;
+
+            if (realPosition > (railWidth - this.iconSize)) {
+                return this[`${icon}IconPosition`] = railWidth - this.iconSize;
             }
-            if ((position  - this.iconSize) < this.minRail) {
+            if (realPosition < this.minRail) {
                 return this[`${icon}IconPosition`] = this.minRail;
             }
-            return this[`${icon}IconPosition`] = position - this.iconSize;
+            return this[`${icon}IconPosition`] = realPosition - halfIconSize;
         },
 
         moveMaxIcon(icon, position) {
             const rail = this.$refs.rail;
             const railWidth = rail.clientWidth;
             const railLeft = rail.offsetLeft;
+            const realPosition = position - railLeft;
+            const halfIconSize = this.iconSize / 2;
 
-            if ((position - railLeft) > railWidth - this.iconSize) {
+            if (realPosition > (railWidth - this.iconSize)) {
                 return this[`${icon}IconPosition`] = railWidth - this.iconSize;
             }
 
-            if ((position - railLeft) < this.minRail) {
+            if (realPosition < this.minRail) {
                 return this[`${icon}IconPosition`] = this.minRail;
             }
 
-            return this[`${icon}IconPosition`] = position - railLeft - this.iconSize;
+            return this[`${icon}IconPosition`] = realPosition - halfIconSize;
         }
     }
 }
