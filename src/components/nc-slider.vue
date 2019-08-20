@@ -21,8 +21,6 @@
                 @mousemove="handleMouseMove"
                 @mousedown="startDrag"
                 @mouseup="stopDrag"
-                @focus="startDrag"
-                @click="startDrag"
                 v-touch:start="startDrag"
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
@@ -43,8 +41,6 @@
                 @mousemove="handleMouseMove"
                 @mousedown="startDrag"
                 @mouseup="stopDrag"
-                @focus="startDrag"
-                @click="startDrag"
                 v-touch:start="startDrag"
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
@@ -80,6 +76,7 @@ export default {
     },
     mounted() {
         const rail = this.$refs.rail;
+
         this.maxRail = rail.clientWidth - this.iconSize;
         this.maxIconPosition = this.maxRail;
     },
@@ -116,9 +113,8 @@ export default {
         },
 
         doDrag(ev) {
-            const icon = ev.target.id;
-
             if (this.dragging) {
+                const icon = ev.target.id;
                 const position = ev.clientX;
 
                 this.moveSliderTo(icon, position);
@@ -126,34 +122,48 @@ export default {
         },
 
         handleMouseMove(ev) {
-            if (!this.dragging) {
-                this.startDrag();
+            if (this.dragging) {
+              this.doDrag(ev);
             }
-
-            this.doDrag(ev);
         },
 
         onPanHorizontal(ev) {
-            if (!this.dragging) {
-                this.startDrag();
+            if (this.dragging) {
+              const icon = ev.currentTarget.id;
+              const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
+
+              this.moveSliderTo(icon, position);
             }
-
-            const icon = ev.currentTarget.id;
-            const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
-
-            this.moveSliderTo(icon, position);
         },
 
         moveSliderTo(icon, position) {
+            return icon === 'min' ? this.moveMinIcon(icon, position) : this.moveMaxIcon(icon, position);
+        },
+
+        moveMinIcon(icon, position) {
             if ((position  - this.iconSize) > this.maxRail) {
                 return this[`${icon}IconPosition`] = this.maxRail;
             }
-
             if ((position  - this.iconSize) < this.minRail) {
                 return this[`${icon}IconPosition`] = this.minRail;
             }
-
             return this[`${icon}IconPosition`] = position - this.iconSize;
+        },
+
+        moveMaxIcon(icon, position) {
+            const rail = this.$refs.rail;
+            const railWidth = rail.clientWidth;
+            const railLeft = rail.offsetLeft;
+
+            if ((position - railLeft) > railWidth - this.iconSize) {
+                return this[`${icon}IconPosition`] = railWidth - this.iconSize;
+            }
+
+            if ((position - railLeft) < this.minRail) {
+                return this[`${icon}IconPosition`] = this.minRail;
+            }
+
+            return this[`${icon}IconPosition`] = position - railLeft - this.iconSize;
         }
     }
 }
