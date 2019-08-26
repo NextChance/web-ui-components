@@ -81,14 +81,17 @@ export default {
     mounted() {
         const rail = this.$refs.rail;
         const railWidth = rail.clientWidth;
-        const railLeft = rail.offsetLeft;
-        const halfIconSize = this.iconSize / 2;
 
         this.maxRail = railWidth - this.iconSize;
         this.minIconPosition = this.minRail;
         this.maxIconPosition = this.maxRail;
         this.currentMinValue = this.minValue;
         this.currentMaxValue = this.maxValue;
+
+        window.addEventListener('resize', this.resizeSlider)
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.resizeSlider)
     },
     computed: {
         onlyHasMaxLabel() {
@@ -107,6 +110,14 @@ export default {
       }
     },
     methods: {
+        resizeSlider() {
+          const rail = this.$refs.rail;
+          const railWidth = rail.clientWidth;
+
+          this.maxRail = railWidth - this.iconSize;
+          this.calculateMinValuePercentage();
+          this.calculateMaxValuePercentage();
+        },
         minValueNow() {
             const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail)) + Number(this.min);
             const parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
