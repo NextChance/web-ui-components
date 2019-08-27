@@ -6,11 +6,12 @@
   >
     <div class="nc-card-item__image">
       <img 
-        :src="image" 
+        v-if="image"
         alt="imageAlt" 
         class="image-content"
+        :src="image"
         :style="imageStyle"
-        v-if="image">
+        @error="handleImageError">
       <div 
         :class="caption" 
         :style="captionStyle"
@@ -111,6 +112,9 @@ export default {
   methods: {
     handleCardItemClicked: function(ev) {
       this.$emit('card-item-click-event', ev)
+    },
+    handleImageError(ev) {
+      this.$emit('image-error', ev)
     }
   }
 }
