@@ -67,29 +67,33 @@
     <br>
     <h2>NC-SLIDER COMPONENT</h2>
     <div id="slider" class="slider">
-      <nc-slider min="20" minLabel="Min 20 Km" minValue="20" @slider-stop-drag="sliderStopDrag"></nc-slider>
-
-      <nc-slider max="150" maxLabel="Max 150 Km" maxValue="150" @slider-stop-drag="sliderStopDrag"></nc-slider>
+      <nc-slider
+        minValue="1"
+        :max="maxDistanceLimit"
+        :maxLabel="maxDistance"
+        :maxValue="maxDistance"
+        @slider-stop-drag="sliderStopDistance">
+      </nc-slider>
 
       <nc-slider
-        min="0"
-        minLabel="Desde 0 €"
-        minValue="0"
-        max="1000"
-        maxLabel="Hasta 1000 €"
-        maxValue="1000"
-        @slider-stop-drag="sliderStopDrag"
-      ></nc-slider>
+        :min="minPriceLimit"
+        :minLabel="minPrice"
+        :minValue="minPrice"
+        :max="maxPriceLimit"
+        :maxLabel="maxPrice"
+        :maxValue="maxPrice"
+        @slider-stop-drag="sliderStopPrice">
+      </nc-slider>
 
       <nc-slider
-        min="0"
-        minLabel="Desde 0 %"
-        minValue="0"
-        max="100"
-        maxLabel="Hasta 100 %"
-        maxValue="100"
-        @slider-stop-drag="sliderStopDrag"
-      ></nc-slider>
+        :min="minPercentageLimit"
+        :minLabel="minPercentage"
+        :minValue="minPercentage"
+        :max="maxPercentageLimit"
+        :maxLabel="maxPercentage"
+        :maxValue="maxPercentage"
+        @slider-stop-drag="sliderStopDiscount">
+      </nc-slider>
     </div>
     <hr>
     <br>
@@ -258,7 +262,6 @@
 
 
 <script>
-// @ is an alias to /src
 import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
@@ -332,11 +335,21 @@ export default {
       ncDescritionLineEllipsis: 2,
       ncTitleLineEllipsis: 1,
       ncTextAreaValue: 'Valor por defecto',
-      selectedItem:  {
+      selectedItem: {
         dialCode: '+34',
         iso: 'ES'
       },
-      ncPhoneInputLabel: 'Teléfono de contacto'
+      ncPhoneInputLabel: 'Teléfono de contacto',
+      maxDistance: 150,
+      maxDistanceLimit: 150,
+      minPrice: '0',
+      maxPrice: 1000,
+      minPercentage: 15,
+      maxPercentage: 100,
+      minPriceLimit: '0',
+      maxPriceLimit: 1000,
+      minPercentageLimit: 15,
+      maxPercentageLimit: 100
     }
   },
   methods: {
@@ -364,9 +377,18 @@ export default {
       // eslint-disable-next-line no-console
       console.log('first-slide', ev.currentTarget)
     },
-    sliderStopDrag(values) {
-      // eslint-disable-next-line no-console
-      console.log('slider-stop-drag', values)
+    sliderStopDistance(values) {
+      this.maxDistance = values[1]
+    },
+
+    sliderStopPrice(values) {
+      this.minPrice = String(values[0])
+      this.maxPrice = values[1]
+    },
+
+    sliderStopDiscount(values) {
+      this.minPercentage = String(values[0])
+      this.maxPercentage = values[1]
     },
     onItemSelected(ev) {
       // eslint-disable-next-line no-console
