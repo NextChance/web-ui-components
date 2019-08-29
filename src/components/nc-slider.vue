@@ -83,10 +83,12 @@ export default {
         const railWidth = rail.clientWidth;
 
         this.maxRail = railWidth - this.iconSize;
-        this.minIconPosition = this.minRail;
-        this.maxIconPosition = this.maxRail;
         this.currentMinValue = this.minValue;
         this.currentMaxValue = this.maxValue;
+        this.minValueNow();
+        this.maxValueNow();
+        this.calculateMinValuePercentage();
+        this.calculateMaxValuePercentage();
 
         window.addEventListener('resize', this.resizeSlider)
     },
@@ -99,12 +101,12 @@ export default {
         },
     },
     watch: {
-      minValue: function (newValue, oldValue) {
+      minValue(newValue, oldValue) {
         this.currentMinValue = newValue;
         this.calculateMinValuePercentage()
       },
 
-      maxValue: function (newValue, oldValue) {
+      maxValue(newValue, oldValue) {
         this.currentMaxValue = newValue;
         this.calculateMaxValuePercentage()
       }
@@ -115,38 +117,54 @@ export default {
           const railWidth = rail.clientWidth;
 
           this.maxRail = railWidth - this.iconSize;
+          this.currentMinValue = this.minValue;
+          this.currentMaxValue = this.maxValue;
+          this.minValueNow();
+          this.maxValueNow();
           this.calculateMinValuePercentage();
           this.calculateMaxValuePercentage();
         },
+
         minValueNow() {
-            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail)) + Number(this.min);
-            const parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
+            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail));
+            let parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
+            parseNumber = parseNumber <= this.min ? this.min : parseNumber;
+            parseNumber = parseNumber >= this.max ? this.max - (this.iconSize / 2) : parseNumber;
 
             this.currentMinValue = parseNumber;
         },
 
         maxValueNow() {
             const maxValue = (Number(this.max) * Number(this.maxIconPosition)) / Number(this.maxRail);
-            const parseNumber = Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
+            let parseNumber = Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
+            parseNumber = parseNumber >= this.max ? this.max : parseNumber;
+            parseNumber = parseNumber <= 5 ? this.minValue : parseNumber;
+            if (this.onlyHasMaxLabel) {
+              parseNumber = (parseNumber < (this.iconSize / 2)) ? this.minValue : parseNumber;
+            }
 
             this.currentMaxValue = parseNumber;
         },
 
         calculateMinValuePercentage() {
-          const calculatedValue = (Number(this.minValue) * Number(this.maxPercentage)) / Number(this.max);
+          let minValue = Number(this.minValue) === 0 ? Number(this.minValue) + 1 : Number(this.minValue);
+          const calculatedValue = (minValue * Number(this.maxPercentage)) / Number(this.max);
           const percentage = Number(this.minValue) ? calculatedValue.toFixed(0) : Number(this.minPercentage);
+
           this.calculateMinIconPosition(percentage)
         },
 
         calculateMaxValuePercentage() {
           const calculatedValue = (Number(this.maxValue) * Number(this.maxPercentage)) / Number(this.max);
           const percentage = Number(this.maxValue) ? calculatedValue.toFixed(0) : Number(this.maxPercentage);
+
           this.calculateMaxIconPosition(percentage)
         },
 
         calculateMinIconPosition(percentage) {
           const calculatedValue = Number(percentage) ? Number(percentage) : this.minPercentage;
           const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.minPercentage;
+
           this.leftPosition = parsePosition + 'px';
           this.minIconPosition = parsePosition;
         },
@@ -154,6 +172,7 @@ export default {
         calculateMaxIconPosition(percentage) {
           const calculatedValue = Number(percentage) ? Number(percentage) : this.maxRail;
           const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.maxRail;
+
           this.rightPosition = (this.maxRail - parsePosition) + 'px';
           this.maxIconPosition = parsePosition;
         },
@@ -208,13 +227,16 @@ export default {
               this[`${icon}IconPosition`] = iconPosition;
               this.minValueNow()
             } else {
-              if (realUserPosition - this.iconSize + borderIcon < Number(this.minIconPosition)) {
-                if (typeof this.min === 'undefined' && Number(this.minIconPosition) === 0) {
-                    iconPosition = Number(this.minIconPosition) + 1;
-                } else if (Number(this.min) && Number(this.minIconPosition) === 0) {
-                    iconPosition = Number(this.min)
+              if ((realUserPosition - this.iconSize) <= Number(this.minIconPosition)) {
+                if (this.onlyHasMaxLabel) {
+                  iconPosition = Number(this.minIconPosition) + 1;
+                }
+                if (!this.onlyHasMaxLabel && (this.maxIconPosition >= this.minIconPosition)) {
+                    iconPosition = Number(this.minIconPosition) + Number(this.iconSize);
+                } else if (this.maxIconPosition <= this.minIconPosition) {
+                    iconPosition = Number(this.maxIconPosition) + 1;
                 } else {
-                    iconPosition = Number(this.minIconPosition) + halfIconSize;
+                    iconPosition = Number(this.minIconPosition) + 1;
                 }
               }
               this[`${icon}IconPosition`] = iconPosition;
