@@ -3,7 +3,8 @@
         <div
             ref="rail"
             class="nc-slider__rail">
-            <div class="nc-slider__rail nc-slider__rail-main" :style="styleMainRail"></div>
+            <div class="nc-slider__rail nc-slider__rail-second"></div>
+            <div class="nc-slider__rail nc-slider__rail-main" :style="{ left: leftPosition, right: rightPosition }"></div>
             <div
                 v-if="min"
                 id="min"
@@ -12,17 +13,14 @@
                 tabindex="0"
                 class="nc-slider__icon nc-slider__icon-min"
                 :aria-valuemin="min"
-                :aria-valuenow="minValueNow"
-                :aria-valuetext="minValueNow"
+                :aria-valuenow="currentMinValue"
+                :aria-valuetext="currentMinValue"
                 :aria-valuemax="max"
                 :aria-label="minLabel"
                 :style="{left: minIconPosition + 'px'}"
                 @mouseleave="stopDrag"
-                @mousemove="handleMouseMove"
+                @mousemove="onPanHorizontal"
                 @mousedown="startDrag"
-                @mouseup="stopDrag"
-                @focus="startDrag"
-                @click="startDrag"
                 v-touch:start="startDrag"
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
@@ -34,24 +32,21 @@
                 tabindex="0"
                 class="nc-slider__icon nc-slider__icon-max"
                 :aria-valuemin="min"
-                :aria-valuenow="maxValueNow"
-                :aria-valuetext="maxValueNow"
+                :aria-valuenow="currentMaxValue"
+                :aria-valuetext="currentMaxValue"
                 :aria-valuemax="max"
                 :aria-label="maxLabel"
                 :style="{left: maxIconPosition + 'px'}"
                 @mouseleave="stopDrag"
-                @mousemove="handleMouseMove"
+                @mousemove="onPanHorizontal"
                 @mousedown="startDrag"
-                @mouseup="stopDrag"
-                @focus="startDrag"
-                @click="startDrag"
                 v-touch:start="startDrag"
                 v-touch:end="stopDrag"
                 v-touch:moving="onPanHorizontal"></div>
         </div>
-        <div class="nc-slider__rail-labels" :class="{ 'right': isOnlyMaxLabel }">
-            <div v-if="min" class="nc-slider__rail-label min">{{minLabel}}</div>
-            <div v-if="max" class="nc-slider__rail-label max">{{maxLabel}}</div>
+        <div class="nc-slider__rail-labels" :class="{ 'right': onlyHasMaxLabel }">
+            <div v-if="min" class="nc-slider__rail-label min">{{ minLabel }}</div>
+            <div v-if="max" class="nc-slider__rail-label max">{{ maxLabel }}</div>
         </div>
     </div>
 </template>
@@ -67,7 +62,12 @@ export default {
             maxIconPosition: 0,
             minRail: 0,
             maxRail: 0,
-            maxSize: 100
+            minPercentage: 0,
+            maxPercentage: 100,
+            currentMinValue: 0,
+            currentMaxValue: 0,
+            leftPosition: '0px',
+            rightPosition: '0px'
         }
     },
     props: {
@@ -80,81 +80,169 @@ export default {
     },
     mounted() {
         const rail = this.$refs.rail;
-        this.maxRail = rail.clientWidth - this.iconSize;
-        this.maxIconPosition = this.maxRail;
+        const railWidth = rail.clientWidth;
+
+        this.maxRail = railWidth - this.iconSize;
+        this.currentMinValue = this.minValue;
+        this.currentMaxValue = this.maxValue;
+        this.minValueNow();
+        this.maxValueNow();
+        this.calculateMinValuePercentage();
+        this.calculateMaxValuePercentage();
+
+        window.addEventListener('resize', this.resizeSlider)
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.resizeSlider)
     },
     computed: {
-        styleMainRail() {
-            const leftPosition = this.minIconPosition + 'px';
-            const rightPosition = (this.maxRail - this.maxIconPosition) + 'px';
-
-            return { left: leftPosition, right: rightPosition };
-        },
-        minValueNow() {
-            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail)) + Number(this.min);
-
-            return Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
-        },
-        maxValueNow() {
-            const maxValue = (Number(this.max) * Number(this.maxIconPosition)) / Number(this.maxRail);
-
-            return Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
-        },
-        isOnlyMaxLabel() {
+        onlyHasMaxLabel() {
             return !Boolean(this.min) && Boolean(this.max);
-        }
+        },
+    },
+    watch: {
+      minValue(newValue, oldValue) {
+        this.currentMinValue = newValue;
+        this.calculateMinValuePercentage()
+      },
+
+      maxValue(newValue, oldValue) {
+        this.currentMaxValue = newValue;
+        this.calculateMaxValuePercentage()
+      }
     },
     methods: {
-        startDrag() {
+        resizeSlider() {
+          const rail = this.$refs.rail;
+          const railWidth = rail.clientWidth;
+
+          this.maxRail = railWidth - this.iconSize;
+          this.currentMinValue = this.minValue;
+          this.currentMaxValue = this.maxValue;
+          this.minValueNow();
+          this.maxValueNow();
+          this.calculateMinValuePercentage();
+          this.calculateMaxValuePercentage();
+        },
+
+        minValueNow() {
+            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail));
+            let parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
+            parseNumber = parseNumber <= this.min ? this.min : parseNumber;
+            parseNumber = parseNumber >= this.max ? this.max - (this.iconSize / 2) : parseNumber;
+
+            this.currentMinValue = parseNumber;
+        },
+
+        maxValueNow() {
+            const maxValue = (Number(this.max) * Number(this.maxIconPosition)) / Number(this.maxRail);
+            let parseNumber = Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
+            parseNumber = parseNumber >= this.max ? this.max : parseNumber;
+            parseNumber = parseNumber <= 5 ? this.minValue : parseNumber;
+            if (this.onlyHasMaxLabel) {
+              parseNumber = (parseNumber < (this.iconSize / 2)) ? this.minValue : parseNumber;
+            }
+
+            this.currentMaxValue = parseNumber;
+        },
+
+        calculateMinValuePercentage() {
+          let minValue = Number(this.minValue) === 0 ? Number(this.minValue) + 1 : Number(this.minValue);
+          const calculatedValue = (minValue * Number(this.maxPercentage)) / Number(this.max);
+          const percentage = Number(this.minValue) ? calculatedValue.toFixed(0) : Number(this.minPercentage);
+
+          this.calculateMinIconPosition(percentage)
+        },
+
+        calculateMaxValuePercentage() {
+          const calculatedValue = (Number(this.maxValue) * Number(this.maxPercentage)) / Number(this.max);
+          const percentage = Number(this.maxValue) ? calculatedValue.toFixed(0) : Number(this.maxPercentage);
+
+          this.calculateMaxIconPosition(percentage)
+        },
+
+        calculateMinIconPosition(percentage) {
+          const calculatedValue = Number(percentage) ? Number(percentage) : this.minPercentage;
+          const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.minPercentage;
+
+          this.leftPosition = parsePosition + 'px';
+          this.minIconPosition = parsePosition;
+        },
+
+        calculateMaxIconPosition(percentage) {
+          const calculatedValue = Number(percentage) ? Number(percentage) : this.maxRail;
+          const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.maxRail;
+
+          this.rightPosition = (this.maxRail - parsePosition) + 'px';
+          this.maxIconPosition = parsePosition;
+        },
+
+        startDrag(ev) {
             this.dragging = true;
         },
 
         stopDrag() {
-            const values = [this.minValueNow, this.maxValueNow];
-            this.dragging = false;
-            this.$emit('slider-stop-drag', values);
-        },
+          const values = [this.currentMinValue, this.currentMaxValue];
 
-        doDrag(ev) {
-            const icon = ev.target.id;
-
-            if (this.dragging) {
-                const position = ev.clientX;
-
-                this.moveSliderTo(icon, position);
-            }
-        },
-
-        handleMouseMove(ev) {
-            if (!this.dragging) {
-                this.startDrag();
-            }
-
-            this.doDrag(ev);
+          this.dragging = false;
+          this.$emit('slider-stop-drag', values);
         },
 
         onPanHorizontal(ev) {
-            if (!this.dragging) {
-                this.startDrag();
+            if (this.dragging) {
+              const icon = ev.currentTarget.id || ev.target.id;
+              const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
+
+              return this.moveIcon(icon, position);
             }
-
-            const icon = ev.currentTarget.id;
-            const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
-
-            this.moveSliderTo(icon, position);
         },
 
-        moveSliderTo(icon, position) {
-            if ((position  - this.iconSize) > this.maxRail) {
-                return this[`${icon}IconPosition`] = this.maxRail;
+        moveIcon(icon, position) {
+            const rail = this.$refs.rail;
+            const railWidth = rail.clientWidth;
+            const railLeft = rail.offsetLeft;
+            const realUserPosition = position - railLeft;
+            const halfIconSize = this.iconSize / 2;
+            const borderIcon = 4;
+            let iconPosition = realUserPosition - halfIconSize;
+
+            // MAXIMUM POSITION
+            if (realUserPosition > (railWidth - this.iconSize)) {
+                iconPosition = railWidth - this.iconSize;
             }
 
-            if ((position  - this.iconSize) < this.minRail) {
-                return this[`${icon}IconPosition`] = this.minRail;
+            // MINIMUN POSITION
+            if (realUserPosition < (this.minRail - this.iconSize)) {
+                iconPosition = this.minRail;
             }
 
-            return this[`${icon}IconPosition`] = position - this.iconSize;
-        }
+            if (icon === 'min') {
+              if (realUserPosition - this.iconSize - borderIcon > Number(this.maxIconPosition)) {
+                iconPosition = Number(this.maxIconPosition) - halfIconSize;
+              }
+              if (realUserPosition < (this.minRail - this.iconSize) ||
+                  realUserPosition - this.iconSize < this.minRail) {
+                  iconPosition = this.minRail;
+              }
+              this[`${icon}IconPosition`] = iconPosition;
+              this.minValueNow()
+            } else {
+              if ((realUserPosition - this.iconSize) <= Number(this.minIconPosition)) {
+                if (this.onlyHasMaxLabel) {
+                  iconPosition = Number(this.minIconPosition) + 1;
+                }
+                if (!this.onlyHasMaxLabel && (this.maxIconPosition >= this.minIconPosition)) {
+                    iconPosition = Number(this.minIconPosition) + Number(this.iconSize);
+                } else if (this.maxIconPosition <= this.minIconPosition) {
+                    iconPosition = Number(this.maxIconPosition) + 1;
+                } else {
+                    iconPosition = Number(this.minIconPosition) + 1;
+                }
+              }
+              this[`${icon}IconPosition`] = iconPosition;
+              this.maxValueNow()
+            }
+        },
     }
 }
 </script>
@@ -202,20 +290,35 @@ $second-color: #d8d8d8;
 }
 
 .nc-slider__rail {
-  background-color: #eee;
-  background-color: $second-color;
-  border-radius: 2px;
-  height: 4px;
+  height: 22px;
   margin-bottom: 10px;
+  padding: 9px 0;
   position: relative;
   width: 100%;
+  overflow: hidden;
+}
+
+.nc-slider__rail-second {
+  background-color: $second-color;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  margin: 9px 0;
+  padding: 0;
+  width: auto;
 }
 
 .nc-slider__rail-main {
   background-color: $main-color;
-  left: 0;
+  border-radius: 2px;
   position: absolute;
+  left: 0;
   right: 0;
+  height: 4px;
+  margin: 9px 0;
+  padding: 0;
   width: auto;
 }
 
@@ -229,7 +332,7 @@ $second-color: #d8d8d8;
   margin: 0;
   padding: 0;
   position: absolute;
-  top: -8px;
+  top: 8px;
   width: 22px;
 }
 

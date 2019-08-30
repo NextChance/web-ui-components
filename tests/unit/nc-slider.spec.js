@@ -42,7 +42,7 @@ describe('ncSlider.vue', () => {
         attachToDocument: true
       })
       wrapper.setMethods({ startDrag })
-      wrapper.vm.$refs['maxIcon'].click()
+      wrapper.find('.nc-slider__icon.nc-slider__icon-max').trigger('mousedown')
     })
     it('startDrag should be called', () => {
       expect(startDrag).toBeCalled()
@@ -68,18 +68,18 @@ describe('ncSlider.vue', () => {
 
   describe('.doDrag()', () => {
     let wrapper
-    let doDrag = jest.fn()
+    let onPanHorizontal = jest.fn()
     beforeAll(() => {
       wrapper = mount(ncSlider, {
         localVue,
         propsData: propsData,
         attachToDocument: true
       })
-      wrapper.setMethods({ doDrag })
+      wrapper.setMethods({ onPanHorizontal })
       wrapper.find('.nc-slider__icon.nc-slider__icon-max').trigger('mousemove')
     })
-    it('doDrag should be called', () => {
-      expect(doDrag).toBeCalled()
+    it('onPanHorizontal should be called', () => {
+      expect(onPanHorizontal).toBeCalled()
     })
   })
 })
