@@ -165,7 +165,7 @@
     </div>
     <br>
     <br>
-    <h1>NC_CARD-ITEM</h1>
+    <h1>NC_CARD_ITEM</h1>
     <div class="nc-card-item-container">
       <nc-card-item
         :caption-style="ncCardCaptionStyle"
@@ -176,7 +176,19 @@
         :description-line-ellipsis="ncDescritionLineEllipsis"
       />
     </div>
-
+    <br>
+    <br>
+    <h1>NC_COUPON_ITEM</h1>
+    <div class="nc-coupon-item-container">
+      <nc-coupon-item
+        :caption-style="ncCouponCaptionStyle"
+        :image="ncCardItemImage"
+        :name="ncCouponUser"
+        :description="ncCardItemDescription"
+        :total-price="ncCouponTotalPrice"
+        :discounted-price="ncCouponDiscountedPrice"
+      />
+    </div>
     <br>
     <br>
     <h1>NC_IMAGE_UPLOADER</h1>
@@ -270,6 +282,7 @@ import ncSeparator from '@/components/nc-separator.vue'
 import ncPhoneInput from '@/components/nc-phone-input.vue'
 import ncTextInput from '@/components/nc-text-input.vue'
 import ncCardItem from '@/components/nc-card-item.vue'
+import ncCouponItem from '@/components/nc-coupon-item.vue'
 import ncImageUploader from '@/components/nc-image-uploader.vue'
 import ncTextarea from '@/components/nc-textarea.vue'
 
@@ -287,6 +300,7 @@ export default {
     ncTextInput,
     ncPhoneInput,
     ncCardItem,
+    ncCouponItem,
     ncImageUploader,
     ncTextarea
   },
@@ -329,6 +343,14 @@ export default {
         bottom: '10px',
         right: '10px'
       },
+      ncCouponUser: 'Default User Name',
+      ncCouponCaptionStyle: {
+        position: 'absolute',
+        bottom: '10px',
+        right: '10px'
+      },
+      ncCouponTotalPrice: '43€',
+      ncCouponDiscountedPrice: '21.50€',
       ncDescritionLineEllipsis: 2,
       ncTitleLineEllipsis: 1,
       ncTextAreaValue: 'Valor por defecto',
@@ -400,6 +422,14 @@ export default {
 }
 .nc-card-item-container {
   width: 220px;
+  margin: auto;
+  font-size: 17px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+}
+.nc-coupon-item-container {
+  width: 328px;
+  height: 144px;
   margin: auto;
   font-size: 17px;
   border-radius: 8px;
