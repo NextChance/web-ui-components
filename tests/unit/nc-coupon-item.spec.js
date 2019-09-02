@@ -39,7 +39,7 @@ describe('ncCouponItem.vue', () => {
     })
   })
 
-  describe('on click card', () => {
+  describe('on click coupon', () => {
     let wrapper
     beforeAll(() => {
       wrapper = mount(ncCouponItem, {
@@ -47,7 +47,7 @@ describe('ncCouponItem.vue', () => {
       })
       wrapper.vm.$refs['couponItemRef'].click()
     })
-    it('card-item-click-event should be emitted', () => {
+    it('coupon-item-click-event should be emitted', () => {
       expect(wrapper.emitted('coupon-item-click-event')).toBeTruthy()
     })
   })
