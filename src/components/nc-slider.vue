@@ -128,8 +128,12 @@ export default {
         minValueNow() {
             const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail));
             let parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
-            parseNumber = parseNumber <= this.min ? this.min : parseNumber;
             parseNumber = parseNumber >= this.max ? this.max - (this.iconSize / 2) : parseNumber;
+
+            if (parseNumber <= this.min) {
+              parseNumber = this.min;
+              this.calculateMinValuePercentage()
+            }
 
             this.currentMinValue = parseNumber;
         },
@@ -220,23 +224,19 @@ export default {
               if (realUserPosition - this.iconSize - borderIcon > Number(this.maxIconPosition)) {
                 iconPosition = Number(this.maxIconPosition) - halfIconSize;
               }
-              if (realUserPosition < (this.minRail - this.iconSize) ||
-                  realUserPosition - this.iconSize < this.minRail) {
-                  iconPosition = this.minRail;
-              }
               this[`${icon}IconPosition`] = iconPosition;
               this.minValueNow()
             } else {
               if ((realUserPosition - this.iconSize) <= Number(this.minIconPosition)) {
                 if (this.onlyHasMaxLabel) {
-                  iconPosition = Number(this.minIconPosition) + 1;
+                  iconPosition = realUserPosition - halfIconSize + 1;
                 }
                 if (!this.onlyHasMaxLabel && (this.maxIconPosition >= this.minIconPosition)) {
                     iconPosition = Number(this.minIconPosition) + Number(this.iconSize);
                 } else if (this.maxIconPosition <= this.minIconPosition) {
                     iconPosition = Number(this.maxIconPosition) + 1;
                 } else {
-                    iconPosition = Number(this.minIconPosition) + 1;
+                    iconPosition = (realUserPosition - halfIconSize + 1) <= this.minRail ? this.minRail : (realUserPosition - halfIconSize + 1);
                 }
               }
               this[`${icon}IconPosition`] = iconPosition;
