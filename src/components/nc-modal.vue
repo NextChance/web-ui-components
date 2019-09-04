@@ -152,6 +152,7 @@ export default {
     opened() {
       this.calculateContentHeight()
       this.calculateTopPadding()
+      this.resizeModal()
     }
   },
   mounted() {
