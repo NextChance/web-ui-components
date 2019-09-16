@@ -71,7 +71,7 @@ export default {
       type: String,
       default: '630px'
     },
-    noVerticallyAligned: {
+    fixedSize: {
       type: Boolean,
       default: false
     },
@@ -128,13 +128,13 @@ export default {
 
     resizeModal() {
       this.isDesktopDevice = this.getDesktopDevice()
-      if (!this.isDesktopDevice) {
+      if (this.fixedSize || this.isDesktopDevice) {
+        this.heightByDevice = this.height
+        this.widthByDevice = this.width
+      } else {
         const padding = parseInt(this.padding) * 2
         this.widthByDevice = `calc(100vw - ${padding}px)`
         this.heightByDevice = document.documentElement.clientHeight - parseInt(padding) + 'px'
-      } else {
-        this.heightByDevice = this.height
-        this.widthByDevice = this.width
       }
       this.calculateContentHeight()
       this.calculateTopPadding()
@@ -152,7 +152,6 @@ export default {
     opened() {
       this.calculateContentHeight()
       this.calculateTopPadding()
-      this.resizeModal()
     }
   },
   mounted() {
@@ -213,8 +212,8 @@ $break-desktop: 769px;
   &__container {
     font-family: Helvetica, Arial, sans-serif;
     box-sizing: content-box;
+    border-radius: 8px;
     @media (min-width: $break-desktop) {
-      border-radius: 2px;
       box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
