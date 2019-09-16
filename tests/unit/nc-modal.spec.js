@@ -11,7 +11,7 @@ describe('ncModal set 1', () => {
   const showFooter = false
   const padding = '50px'
   const width = '200px'
-  const noVerticallyAligned = false
+  const fixedSize = false
   const height = '630px'
   const backgroundColor = '#fff'
   const zIndexHeader = 1
@@ -21,7 +21,7 @@ describe('ncModal set 1', () => {
     showHeader: showHeader,
     showFooter: showFooter,
     padding: padding,
-    noVerticallyAligned: noVerticallyAligned,
+    fixedSize: fixedSize,
     width: width,
     height: height,
     backgroundColor: backgroundColor,
@@ -77,7 +77,7 @@ describe('ncModal testing resizeModal method', () => {
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
-  const noVerticallyAligned = false
+  const fixedSize = false
   const height = '630px'
   let wrapper
   beforeEach(() => {
@@ -90,7 +90,7 @@ describe('ncModal testing resizeModal method', () => {
         showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
-        noVerticallyAligned: noVerticallyAligned,
+        fixedSize: fixedSize,
         width: width,
         height: height
       },
@@ -150,7 +150,7 @@ describe('ncModal set 4 testing getDesktopDevice method', () => {
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
-  const noVerticallyAligned = false
+  const fixedSize = false
   const height = '630px'
   let wrapper
   const updateWindowWidth = jest.fn()
@@ -165,7 +165,7 @@ describe('ncModal set 4 testing getDesktopDevice method', () => {
         showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
-        noVerticallyAligned: noVerticallyAligned,
+        fixedSize: fixedSize,
         width: width,
         height: height
       },
@@ -195,7 +195,7 @@ describe('ncModal set 5 testing getDesktopDevice method', () => {
   const padding = '50px'
   const marginTop = '0'
   const width = '200px'
-  const noVerticallyAligned = false
+  const fixedSize = false
   const height = '630px'
   let wrapper
   const updateWindowWidth = jest.fn()
@@ -210,7 +210,7 @@ describe('ncModal set 5 testing getDesktopDevice method', () => {
         showFooter: showFooter,
         padding: padding,
         marginTop: marginTop,
-        noVerticallyAligned: noVerticallyAligned,
+        fixedSize: fixedSize,
         width: width,
         height: height
       },
