@@ -76,7 +76,8 @@ export default {
         minLabel: String,
         maxLabel: String,
         minValue: [String, Number],
-        maxValue: [String, Number]
+        maxValue: [String, Number],
+        offsetLeft: Number
     },
     mounted() {
         const rail = this.$refs.rail;
@@ -161,7 +162,7 @@ export default {
         calculateMaxValuePercentage() {
           const calculatedValue = (Number(this.maxValue) * Number(this.maxPercentage)) / Number(this.max);
           const percentage = Number(this.maxValue) ? calculatedValue.toFixed(0) : Number(this.maxPercentage);
-
+          
           this.calculateMaxIconPosition(percentage)
         },
 
@@ -204,7 +205,7 @@ export default {
         moveIcon(icon, position) {
             const rail = this.$refs.rail;
             const railWidth = rail.clientWidth;
-            const railLeft = rail.offsetLeft;
+            const railLeft = this.offsetLeft ? this.offsetLeft : rail.offsetLeft;
             const realUserPosition = position - railLeft;
             const halfIconSize = this.iconSize / 2;
             const borderIcon = 4;
