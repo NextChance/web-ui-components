@@ -4,7 +4,8 @@ export const defaultProps = {
   minValue: undefined,
   maxValue: undefined,
   max: undefined,
-  maxLabel: undefined
+  maxLabel: undefined,
+  offsetLeft: undefined
 }
 
 export const propsData = {
