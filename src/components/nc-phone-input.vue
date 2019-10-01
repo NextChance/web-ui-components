@@ -267,6 +267,7 @@ export default {
   &__country-code {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   &__flag {
