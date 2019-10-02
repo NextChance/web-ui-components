@@ -13,7 +13,7 @@
       </slot>
     </figure>
       <label
-        :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
+        :class="['nc-image-uploader_background','nc-uploader_label', hasError ? 'error' : '']"
         :style="{
           borderRadius: radius,
           backgroundImage: `url(${bgImage}), url(${bgImage != '' ? defaultBackground : ''})`
@@ -48,10 +48,10 @@
         </label>
     <div
       class="image-uploader__error"
-      v-if="error"
+      v-if="hasError"
       :style="{ 'color': errorColor }"
     >
-      {{ $t(error) }}
+      {{ $t(errorMsg) }}
     </div>
   </div>
 </template>
@@ -67,7 +67,11 @@ export default {
       type: String,
       default: ''
     },
-    error: {
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    errorMsg: {
       type: String,
       default: ''
     },
@@ -121,7 +125,7 @@ export default {
           this.isLoading = true
           this.isDisabled = true
           this.withData = false
-          this.error = ''
+          this.errorMsg = ''
         }
     },
     handleClickRemove: function (ev) {
@@ -133,7 +137,7 @@ export default {
     }
   },
   watch: {
-    bgImage: function(newImage, oldImage) {
+    bgImage: function(newImage) {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
@@ -144,6 +148,14 @@ export default {
         this.isLoading = false
         this.isDisabled = false
         this.withData = true
+      }
+    },
+    hasError(newHasError) {
+      if (newHasError) {
+        this.isEmpty = true
+        this.isLoading = false
+        this.isDisabled = false
+        this.withData = false
       }
     }
   }
