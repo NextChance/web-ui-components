@@ -163,6 +163,7 @@ $iconColor: #ccc;
     align-items: center;
     border-bottom: 1px solid #d8d8d8;
     height: 46px;
+    cursor: pointer;
 
     &-slot {
       flex: 0 1 100%;
