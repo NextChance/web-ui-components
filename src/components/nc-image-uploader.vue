@@ -117,6 +117,12 @@ export default {
     }
   },
   methods: {
+    _resetStatus() {
+      this.isEmpty = true
+      this.isLoading = false
+      this.isDisabled = false
+      this.withData = false
+    },
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
         if (files.length > 0) {
@@ -130,10 +136,7 @@ export default {
     },
     handleClickRemove: function (ev) {
       this.$emit('input-image-remove-event', {file: '', imgId: this.id})
-      this.isEmpty = true
-      this.isLoading = false
-      this.isDisabled = false
-      this.withData = false
+      this._resetStatus();
     }
   },
   watch: {
@@ -150,12 +153,9 @@ export default {
         this.withData = true
       }
     },
-    hasError(newHasError) {
-      if (newHasError) {
-        this.isEmpty = true
-        this.isLoading = false
-        this.isDisabled = false
-        this.withData = false
+    hasError(hasErrorNewVal) {
+      if (hasErrorNewVal) {
+        this._resetStatus()
       }
     }
   }
