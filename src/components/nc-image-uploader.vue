@@ -140,7 +140,7 @@ export default {
     }
   },
   watch: {
-    bgImage: function(newImage) {
+    bgImage(newImage) {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
