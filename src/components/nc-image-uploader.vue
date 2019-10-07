@@ -13,7 +13,7 @@
       </slot>
     </figure>
       <label
-        :class="['nc-image-uploader_background','nc-uploader_label', error ? error : '']"
+        :class="['nc-image-uploader_background','nc-uploader_label', hasError ? 'error' : '']"
         :style="{
           borderRadius: radius,
           backgroundImage: `url(${bgImage}), url(${bgImage != '' ? defaultBackground : ''})`
@@ -48,10 +48,10 @@
         </label>
     <div
       class="image-uploader__error"
-      v-if="error"
+      v-if="hasError"
       :style="{ 'color': errorColor }"
     >
-      {{ $t(error) }}
+      {{ $t(errorMsg) }}
     </div>
   </div>
 </template>
@@ -67,7 +67,11 @@ export default {
       type: String,
       default: ''
     },
-    error: {
+    hasError: {
+      type: Boolean,
+      default: false
+    },
+    errorMsg: {
       type: String,
       default: ''
     },
@@ -113,6 +117,12 @@ export default {
     }
   },
   methods: {
+    _resetStatus() {
+      this.isEmpty = true
+      this.isLoading = false
+      this.isDisabled = false
+      this.withData = false
+    },
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
         if (files.length > 0) {
@@ -121,19 +131,16 @@ export default {
           this.isLoading = true
           this.isDisabled = true
           this.withData = false
-          this.error = ''
+          this.errorMsg = ''
         }
     },
     handleClickRemove: function (ev) {
       this.$emit('input-image-remove-event', {file: '', imgId: this.id})
-      this.isEmpty = true
-      this.isLoading = false
-      this.isDisabled = false
-      this.withData = false
+      this._resetStatus();
     }
   },
   watch: {
-    bgImage: function(newImage, oldImage) {
+    bgImage(newImage) {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
@@ -144,6 +151,11 @@ export default {
         this.isLoading = false
         this.isDisabled = false
         this.withData = true
+      }
+    },
+    hasError(hasErrorNewVal) {
+      if (hasErrorNewVal) {
+        this._resetStatus()
       }
     }
   }
