@@ -1,7 +1,7 @@
 <template>
   <div class="nc-slideshow">
     <div class="nc-slideshow__content" :style="{'width': `${width}px`}">
-      <ul class="list" 
+      <ul class="nc-slideshow__list"
         v-touch:swipe.right="previousSlide"
         v-touch:swipe.left="nextSlide"
         :style="{
@@ -9,6 +9,10 @@
           transform: `translate3d(-${slideIndex * width}px, 0, 0)`,
           transition: 'transform 500ms ease'
         }">
+        <li v-for="(imgSrc, index) in images"
+            class="nc-slideshow__item">
+          <img :src="imgSrc" :alt="" class="nc-slideshow__image"/>
+        </li>
         <slot></slot>
       </ul>
     </div>
@@ -99,6 +103,10 @@ export default {
           ariaTextDots: 'Slide'
         }
       }
+    },
+    images: {
+      type: Array,
+      default: []
     }
   },
   data() {
