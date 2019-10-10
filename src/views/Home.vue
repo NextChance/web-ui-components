@@ -103,17 +103,12 @@
         :has-link-right="true"
         :has-link-left="true"
         :links-default-action="true"
+        :images="['http://via.placeholder.com/640x360', 'http://via.placeholder.com/640x560', 'http://via.placeholder.com/800x360']"
         @slideshow-click-left-link="clickSlideshowLinkLeft"
         @slideshow-click-right-link="clickSlideshowLinkRight"
         @slideshow-last-slide="lastSlide"
         @slideshow-first-slide="firstSlide"
-      >
-        <template>
-          <li class="item">SLIDE 1</li>
-          <li class="item">SLIDE 2</li>
-          <li class="item">SLIDE 3</li>
-        </template>
-      </nc-slideshow>
+      />
     </div>
     <hr>
     <br>
@@ -340,16 +335,16 @@ export default {
         iso: 'ES'
       },
       ncPhoneInputLabel: 'Teléfono de contacto',
-      maxDistance: 150,
-      maxDistanceLimit: 150,
+      maxDistance: '150',
+      maxDistanceLimit: '150',
       minPrice: '0',
-      maxPrice: 1000,
-      minPercentage: 15,
-      maxPercentage: 100,
+      maxPrice: '1000',
+      minPercentage: '15',
+      maxPercentage: '100',
       minPriceLimit: '0',
-      maxPriceLimit: 1000,
-      minPercentageLimit: 15,
-      maxPercentageLimit: 100
+      maxPriceLimit: '1000',
+      minPercentageLimit: '15',
+      maxPercentageLimit: '100'
     }
   },
   methods: {
