@@ -127,10 +127,18 @@ export default {
   text-align: left;
   display: flex;
   flex-direction: column;
+
   &__image {
     position: relative;
+
     .image-content {
+      height: 100%;
       width: 100%;
+      object-fit: cover;
+
+      @media all and (-ms-high-contrast: none) {
+        width: auto;
+      }
     }
   }
   &__content {

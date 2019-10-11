@@ -1,7 +1,7 @@
 <template>
   <div class="nc-slideshow">
     <div class="nc-slideshow__content" :style="{'width': `${width}px`}">
-      <ul class="list" 
+      <ul class="list"
         v-touch:swipe.right="previousSlide"
         v-touch:swipe.left="nextSlide"
         :style="{
@@ -9,18 +9,27 @@
           transform: `translate3d(-${slideIndex * width}px, 0, 0)`,
           transition: 'transform 500ms ease'
         }">
-        <slot></slot>
+        <template v-if="images.length">
+          <li v-for="(image, index) in images" :key="index" class="list__item">
+            <img class="image" :src="image" @error="setDefaultImage">
+          </li>
+        </template>
+        <template v-else>
+          <li class="item">
+            <div class="list__image" :style="{ 'background-image': `url(${defaultImage})` }"/>
+          </li>
+        </template>
       </ul>
     </div>
     <div class="nc-slideshow__pagination">
       <ul class="dots" aria-label="Pagination Slideshow" role="navigation">
-        <li 
-          :style="paginationStyle" 
-          v-for="(i, index) in slideLength" 
+        <li
+          :style="paginationStyle"
+          v-for="(i, index) in slideLength"
           :key=index
         >
-          <button 
-            @click.stop="selectSlide(index)" 
+          <button
+            @click.stop="selectSlide(index)"
             :class="[ slideIndex === index ? paginationActiveClass : '', 'dots__button']"
           >
             <span class="dots__text">{{ ariaText.ariaTextDots + index + 1 }}</span>
@@ -28,20 +37,20 @@
         </li>
       </ul>
     </div>
-    <button 
-      v-if="hasLinkLeft" 
-      class="nc-slideshow__link--left" 
-      @click="leftLinkHandler($event)" 
+    <button
+      v-if="hasLinkLeft"
+      class="nc-slideshow__link--left"
+      @click="leftLinkHandler($event)"
       :data-slide-to="slideIndex + 1"
       :style="leftLinkStyle"
       role="button"
     >
       {{ leftLinkText }}
     </button>
-    <button 
-      v-if="hasLinkRight" 
+    <button
+      v-if="hasLinkRight"
       class="nc-slideshow__link--right"
-      @click="rightLinkHandler($event)" 
+      @click="rightLinkHandler($event)"
       :data-slide-to="slideIndex + 1"
       :style="rightLinkStyle"
       role="button"
@@ -49,7 +58,7 @@
       {{ rightLinkText }}
     </button>
   </div>
-  
+
 </template>
 
 <script>
@@ -99,7 +108,12 @@ export default {
           ariaTextDots: 'Slide'
         }
       }
-    }
+    },
+    images: {
+      type: Array,
+      default: () => []
+    },
+    defaultImage: String
   },
   data() {
     return {
@@ -156,6 +170,9 @@ export default {
       this.slideList.forEach(element => {
         element.style.width = this.width + 'px'
       })
+    },
+    setDefaultImage(ev) {
+      ev.target.src = this.defaultImage
     }
   },
   mounted() {
@@ -185,7 +202,7 @@ $dotBackgrounColorActive: #ff7f3f;
     display: block;
     margin: 0;
     padding: 0;
-    height: calc(100% - 20px);
+    height: 100%;
     .list {
       height: 100%;
       position: relative;
@@ -196,11 +213,19 @@ $dotBackgrounColorActive: #ff7f3f;
       margin: 0;
       padding: 0;
 
-      .item {
+      &__item {
         float: left;
         height: 100%;
         min-height: 1px;
-        display: block;
+        .image {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          display: block;
+          @media all and (-ms-high-contrast: none) {
+            width: auto;
+          }
+        }
       }
     }
   }
