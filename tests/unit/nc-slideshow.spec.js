@@ -1,23 +1,16 @@
 /* eslint-disable no-debugger */
 import { createLocalVue, mount } from '@vue/test-utils'
 import ncSlideshow from '@/components/nc-slideshow.vue'
+import {
+  defaultProps,
+  propsWithImages,
+  propsWithButtons
+} from './fixtures/nc-slideshow.fixture'
 import Vue2TouchEvents from 'vue2-touch-events'
 const localVue = createLocalVue()
 localVue.use(Vue2TouchEvents)
 
 describe('ncSlideshow', () => {
-  const defaultProps = {
-    paginationActiveClass: 'active',
-    paginationStyle: undefined,
-    hasLinkLeft: false,
-    hasLinkRight: false,
-    leftLinkText: 'Previous',
-    rightLinkText: 'Next',
-    linksDefaultAction: false,
-    leftLinkStyle: undefined,
-    rightLinkStyle: undefined,
-    ariaText: { ariaTextDots: 'Slide' }
-  }
   describe('when mounted without props', () => {
     let wrapper
     let result
@@ -38,22 +31,58 @@ describe('ncSlideshow', () => {
     })
   })
 
-  describe('when mounted slot', () => {
+  describe('with a list of images', () => {
     let wrapper
 
     beforeAll(() => {
       wrapper = mount(ncSlideshow, {
         attachToDocument: true,
         localVue,
-        slots: {
-          default:
-            '<li class="item">SLIDE 1</li><li class="item">SLIDE 2</li><li class="item">SLIDE 3</li>'
-        }
+        propsData: propsWithImages
       })
     })
 
     it('should have the prop slideLength with the same value as the number of li', () => {
       expect(wrapper.vm.slideLength).toBe(3)
+    })
+  })
+
+  describe('.rightLinkHandler', () => {
+    describe('when right link is clicked and the last slide is displayed', () => {
+      let wrapper
+      const slideIndex = 2
+      beforeAll(() => {
+        wrapper = mount(ncSlideshow, {
+          localVue,
+          propsData: propsWithButtons
+        })
+        wrapper.setData({ slideIndex: slideIndex })
+        wrapper.vm.rightLinkHandler()
+      })
+      it('should keep the same slideIndex', () => {
+        expect(wrapper.vm.slideIndex).toBe(slideIndex)
+      })
+      it('slideshow-last-slide is emitted', () => {
+        expect(wrapper.emitted('slideshow-last-slide')).toBeTruthy()
+      })
+    })
+
+    describe('when right link is clicked first time', () => {
+      let wrapper
+      beforeAll(() => {
+        wrapper = mount(ncSlideshow, {
+          localVue,
+          propsData: propsWithButtons,
+          attachToDocument: true
+        })
+        wrapper.vm.rightLinkHandler()
+      })
+      it('should increase slideIndex', () => {
+        expect(wrapper.vm.slideIndex).toBe(1)
+      })
+      it('the event slideshow-click-right-link is emitted', () => {
+        expect(wrapper.emitted('slideshow-click-right-link')).toBeTruthy()
+      })
     })
   })
 
@@ -63,7 +92,6 @@ describe('ncSlideshow', () => {
       let wrapper
       beforeAll(() => {
         wrapper = mount(ncSlideshow, {
-          attachToDocument: true,
           localVue,
           propsData: defaultProps
         })
@@ -90,108 +118,17 @@ describe('ncSlideshow', () => {
     })
   })
 
-  describe('.rightLinkHandler', () => {
-    const defaultProps = {
-      paginationActiveClass: 'active',
-      paginationStyle: undefined,
-      hasLinkLeft: false,
-      hasLinkRight: true,
-      leftLinkText: 'Previous',
-      rightLinkText: 'Next',
-      linksDefaultAction: true,
-      leftLinkStyle: undefined,
-      rightLinkStyle: undefined,
-      ariaText: { ariaTextDots: 'Slide' }
-    }
-    describe('when right link is clicked', () => {
-      let wrapper
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-      })
-      it('should be called', () => {
-        let stub = jest.fn()
-        wrapper.setMethods({ rightLinkHandler: stub })
-        wrapper.find('.nc-slideshow__link--right').trigger('click')
-        expect(stub).toBeCalled()
-      })
-    })
-    describe('when right link is clicked first time', () => {
-      let wrapper
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-        wrapper.find('.nc-slideshow__link--right').trigger('click')
-      })
-      it('should increase slideIndex', () => {
-        expect(wrapper.vm.slideIndex).toBe(1)
-      })
-      it('the event slideshow-click-right-link is emitted', () => {
-        expect(wrapper.emitted('slideshow-click-right-link')).toBeTruthy()
-      })
-    })
-    describe('when right link is clicked and the last slide is displayed', () => {
-      let wrapper
-      const slideIndex = 2
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-        wrapper.setData({ slideIndex: slideIndex })
-        wrapper.find('.nc-slideshow__link--right').trigger('click')
-      })
-      it('should keep the same slideIndex', () => {
-        expect(wrapper.vm.slideIndex).toBe(slideIndex)
-      })
-      it('slideshow-last-slide is emitted', () => {
-        expect(wrapper.emitted('slideshow-last-slide')).toBeTruthy()
-      })
-    })
-  })
-
   describe('.leftLinkHandler', () => {
-    const defaultProps = {
-      paginationActiveClass: 'active',
-      paginationStyle: undefined,
-      hasLinkLeft: true,
-      hasLinkRight: false,
-      leftLinkText: 'Previous',
-      rightLinkText: 'Next',
-      linksDefaultAction: true,
-      leftLinkStyle: undefined,
-      rightLinkStyle: undefined,
-      ariaText: { ariaTextDots: 'Slide' }
-    }
-    describe('when left link is clicked', () => {
-      let wrapper
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-      })
-      it('should be called', () => {
-        let stub = jest.fn()
-        wrapper.setMethods({ leftLinkHandler: stub })
-        wrapper.find('.nc-slideshow__link--left').trigger('click')
-        expect(stub).toBeCalled()
-      })
-    })
     describe('when left link is clicked first time', () => {
       let wrapper
       const slideIndex = 2
       beforeAll(() => {
         wrapper = mount(ncSlideshow, {
           localVue,
-          propsData: defaultProps
+          propsData: propsWithButtons
         })
         wrapper.setData({ slideIndex: slideIndex })
-        wrapper.find('.nc-slideshow__link--left').trigger('click')
+        wrapper.vm.leftLinkHandler()
       })
       it('should increase slideIndex', () => {
         expect(wrapper.vm.slideIndex).toBe(1)
@@ -206,10 +143,10 @@ describe('ncSlideshow', () => {
       beforeAll(() => {
         wrapper = mount(ncSlideshow, {
           localVue,
-          propsData: defaultProps
+          propsData: propsWithButtons
         })
         wrapper.setData({ slideIndex: slideIndex })
-        wrapper.find('.nc-slideshow__link--left').trigger('click')
+        wrapper.vm.leftLinkHandler()
       })
       it('should keep the same slideIndex', () => {
         expect(wrapper.vm.slideIndex).toBe(slideIndex)
