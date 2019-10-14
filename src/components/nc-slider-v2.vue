@@ -1,0 +1,225 @@
+<template>
+  <div class="nc-slider">
+    <div
+        class="nc-slider__container"
+        ref="nc-slider__container"
+    >
+      <img :src="dragDot" class="nc-slider__drag-dot-placeholder">
+      <div class="nc-slider__total-track"></div>
+      <div
+          class="nc-slider__selected-track"
+          :style="{
+          'left': `${trackSize * floorRelativePosition}px`,
+          'right': `${trackSize - (trackSize * ceilRelativePosition)}px`
+        }"></div>
+      <span
+          v-if="isDouble"
+          class="nc-slider__trigger nc-slider__trigger--min"
+          draggable="true"
+          :style="{ 'left': `${trackSize * floorRelativePosition}px` }"
+          @dragstart="dragStartHandler"
+          @drag="dragHandler"
+          @dragend="dragEndHandler"
+          @touchmove="touchMoveHandler"
+          @touchend="dragEndHandler"
+      ></span>
+      <span
+          draggable="true"
+          class="nc-slider__trigger nc-slider__trigger--max"
+          :style="{ 'left': `${trackSize * ceilRelativePosition}px` }"
+          @dragstart="dragStartHandler"
+          @drag="dragHandler"
+          @dragend="dragEndHandler"
+          @touchmove="touchMoveHandler"
+          @touchend="dragEndHandler"
+      ></span>
+    </div>
+    <div class="nc-slider__label nc-slider__label--min">{{floorLabel}}</div>
+    <div class="nc-slider__label nc-slider__label--max">{{ceilLabel}}</div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'NcSliderV2',
+    data() {
+      return {
+        dragDot: '../assets/png/dragDot.png',
+        isMinTrigger: false,
+        sliderMinGap: 0.01,
+        floorRelativePosition: 0,
+        ceilRelativePosition: 1,
+        trackSize: 0,
+        trackLeftPosition: 0,
+        dragX: 0
+      }
+    },
+    props: {
+      isDouble: {
+        type: Boolean,
+        default: false
+      },
+      floorLabel: {
+        type: String,
+        default: ' '
+      },
+      minValue: {
+        type: Number,
+        default: 0
+      },
+      ceilLabel: {
+        type: String,
+        default: ' '
+      },
+      maxValue: {
+        type: Number,
+        default: 100
+      }
+    },
+    computed: {
+      floorValue() {
+        return this.isDouble
+          ? Math.round(this.maxValue * this.floorRelativePosition)
+          : this.minValue
+      },
+      ceilValue() {
+        return Math.round(this.maxValue * this.ceilRelativePosition)
+      }
+    },
+    methods: {
+      setMinTriggerPosition(dragOffset, dragPosition) {
+        const ceil = this.ceilRelativePosition - this.sliderMinGap
+        this.floorRelativePosition =
+          dragPosition > 0
+            ? dragPosition < ceil
+            ? dragPosition
+            : ceil
+            : 0
+      },
+      setMaxTriggerPosition(dragOffset, dragPosition) {
+        const floor = this.floorRelativePosition + this.sliderMinGap
+        this.ceilRelativePosition =
+          dragPosition > floor
+            ? dragPosition < 1
+            ? dragPosition
+            : 1
+            : floor
+      },
+      resizeHandler() {
+        this.trackSize = this.$refs['nc-slider__container'].offsetWidth
+        this.trackLeftPosition = this.$refs['nc-slider__container'].getBoundingClientRect().x
+        // calculate trigger positions
+      },
+      dragStartHandler(e) {
+        e.dataTransfer.setData('application/node type', this)
+        const dragImg = new Image()
+        dragImg.src = this.dragDot
+        e.dataTransfer.setDragImage(dragImg, 0, 0)
+        e.dataTransfer.setData('text', '_')
+      },
+      dragOverHandler(e) {
+        if (e.clientX && this.dragX !== e.clientX) {
+          this.dragX = e.clientX
+          const dragOffset = e.clientX - this.trackLeftPosition
+          const dragPosition = dragOffset / this.trackSize
+          if (this.isMinTrigger) {
+            this.setMinTriggerPosition(dragOffset, dragPosition)
+          } else {
+            this.setMaxTriggerPosition(dragOffset, dragPosition)
+          }
+        }
+      },
+      touchMoveHandler(e) {
+        this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
+        this.dragOverHandler(e.targetTouches[0])
+      },
+      dragHandler(e) {
+        this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
+      },
+      dragEndHandler() {
+        this.$emit('change', [this.floorValue, this.ceilValue])
+      }
+    },
+    mounted() {
+      window.addEventListener('resize', this.resizeHandler)
+      document.addEventListener('dragover', this.dragOverHandler)
+      this.resizeHandler()
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.resizeHandler)
+      window.removeEventListener('dragover', this.dragOverHandler)
+    }
+  }
+</script>
+
+<style scoped lang="scss">
+  $color-coral: #fa5a5a;
+  $color-metal: #737373;
+  $color-white: #ffffff;
+  $triggerBorder: 3;
+  $triggerSize: 16;
+  $triggerBounds: (2 * $triggerBorder) + $triggerSize;
+
+  .nc-slider {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 ($triggerBounds / 2) + 0px;
+    width: 100%;
+
+    &__container {
+      height: $triggerBounds + 0px;
+      position: relative;
+      width: 100%;
+    }
+
+    &__drag-dot-placeholder {
+      bottom: 100%;
+      height: 1px;
+      position: absolute;
+      right: 100%;
+      width: 1px;
+    }
+
+    &__total-track,
+    &__selected-track {
+      bottom: 0;
+      height: $triggerBorder + 1px;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      top: 0;
+    }
+
+    &__total-track {
+      background-color: $color-metal;
+      right: 0;
+    }
+
+    &__selected-track {
+      background-color: $color-coral;
+    }
+
+    &__trigger {
+      background-color: $color-white;
+      border: $triggerBorder + 0px solid $color-coral;
+      bottom: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      height: $triggerSize + 0px;
+      margin: auto 0 auto -1 * ($triggerBounds / 2) + 0px;
+      outline: 0;
+      position: absolute;
+      top: 0;
+      width: $triggerSize + 0px;
+      z-index: 1;
+    }
+    &__label {
+      color: #272727;
+      font-family: 'Circular-Book', sans-serif;
+      font-size: 12px;
+      margin-top: 8px;
+      min-width: 1px;
+    }
+  }
+</style>
