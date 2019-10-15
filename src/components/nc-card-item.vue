@@ -1,46 +1,49 @@
 <template>
-  <div 
+  <div
   :class="['nc-card-item', wrapperClass]"
-  @click="handleCardItemClicked($event)"
   :ref="cardItemReference"
   >
-    <div class="nc-card-item__image">
-      <img 
-        v-if="image"
-        alt="imageAlt" 
-        class="image-content"
-        :src="image"
-        :style="imageStyle"
-        @error="handleImageError">
-      <div 
-        :class="caption" 
-        :style="captionStyle"
-        v-if="caption"
+    <div 
+      class="clickable"
+      @click="handleCardItemClicked($event)">
+      <div class="nc-card-item__image">
+        <img
+          v-if="image"
+          alt="imageAlt"
+          class="image-content"
+          :src="image"
+          :style="imageStyle"
+          @error="handleImageError">
+        <div
+          :class="caption"
+          :style="captionStyle"
+          v-if="caption"
+        >
+          {{ caption }}
+        </div>
+      </div>
+      <div
+        class="nc-card-item__content"
+        :style="contentStyle"
       >
-        {{ caption }}
+        <div class="header" v-if="header">{{ header }}</div>
+        <div class="subheader" v-if="subheader">{{ subheader }}</div>
+        <div
+          class="title"
+          :style="{ '-webkit-line-clamp': titleLineEllipsis }"
+          v-if="title"
+        >
+          {{ title }}
+        </div>
+        <div
+          class="description"
+          v-if="description"
+          :style="{ '-webkit-line-clamp': descriptionLineEllipsis }"
+        >{{ description }}</div>
       </div>
     </div>
-    <div 
-      class="nc-card-item__content"
-      :style="contentStyle"
-    >
-      <div class="header" v-if="header">{{ header }}</div>
-      <div class="subheader" v-if="subheader">{{ subheader }}</div>
-      <div 
-        class="title"
-        :style="{ '-webkit-line-clamp': titleLineEllipsis }"
-        v-if="title"
-      >
-        {{ title }}
-      </div>
-      <div 
-        class="description" 
-        v-if="description"
-        :style="{ '-webkit-line-clamp': descriptionLineEllipsis }"
-      >{{ description }}</div>
-    </div>
-    <div 
-      class="nc-card-item__extra-content" 
+    <div
+      class="nc-card-item__extra-content"
       v-if="hasExtraContent"
       :style="extraContentStyle"
     >
@@ -127,6 +130,10 @@ export default {
   text-align: left;
   display: flex;
   flex-direction: column;
+
+  & .clickable {
+    cursor: pointer;
+  }
 
   &__image {
     position: relative;
