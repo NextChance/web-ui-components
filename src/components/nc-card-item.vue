@@ -1,11 +1,10 @@
 <template>
-  <div
-  :class="['nc-card-item', wrapperClass]"
-  :ref="cardItemReference"
-  >
+  <div :class="['nc-card-item', wrapperClass]">
     <div 
       class="clickable"
-      @click="handleCardItemClicked($event)">
+      @click="handleCardItemClicked($event)"
+      :ref="cardItemReference"
+    >
       <div class="nc-card-item__image">
         <img
           v-if="image"
