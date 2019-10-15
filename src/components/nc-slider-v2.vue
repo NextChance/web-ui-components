@@ -95,7 +95,25 @@
         return Math.round((this.maxValue - this.minValue) * this.ceilRelativePosition) + this.minValue
       }
     },
+    watch: {
+      ceilValue() {
+        this.calculateInitialCeilRelativePosition()
+      },
+      floorValue() {
+        this.calculateInitialFloorRelativePosition()
+      }
+    },
     methods: {
+      calculateInitialCeilRelativePosition() {
+        this.ceilRelativePosition = this.maxValue >= this.ceilValue
+          ? (this.ceilValue - this.minValue) / (this.maxValue - this.minValue)
+          : 1
+      },
+      calculateInitialFloorRelativePosition() {
+        this.floorRelativePosition = this.minValue <= this.floorValue && this.isDouble
+          ? (this.floorValue - this.minValue) / (this.maxValue - this.minValue)
+          : 0
+      },
       setMinTriggerPosition(dragOffset, dragPosition) {
         const ceil = this.ceilRelativePosition - this.sliderMinGap
         this.floorRelativePosition =
@@ -154,12 +172,8 @@
       window.addEventListener('resize', this.resizeHandler)
       document.addEventListener('dragover', this.dragOverHandler)
       this.resizeHandler()
-      this.ceilRelativePosition = this.maxValue >= this.ceilValue
-        ? (this.ceilValue - this.minValue) / (this.maxValue - this.minValue)
-        : 1
-      this.floorRelativePosition = this.minValue <= this.floorValue && this.isDouble
-        ? (this.floorValue - this.minValue) / (this.maxValue - this.minValue)
-        : 0
+      this.calculateInitialCeilRelativePosition()
+      this.calculateInitialFloorRelativePosition()
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.resizeHandler)
