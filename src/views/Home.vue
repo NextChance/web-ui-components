@@ -252,6 +252,32 @@
     </div>
     <br>
     <br>
+
+    <h1>NC_SLIDER_V2</h1>
+    <div class="home__nc-slider-v2__container">
+      <nc-slider-v2
+        :isDouble="false"
+        :floorLabel="`${sliderV2_values[0]} km`"
+        :minValue="0"
+        :floorValue="sliderV2_values[0]"
+        :ceilLabel="`${sliderV2_values[1]} km`"
+        :maxValue="1000"
+        :ceilValue="sliderV2_values[1]"
+        @change="sliderV2Change"
+      />
+      <nc-slider-v2
+        :isDouble="true"
+        :floorLabel="`${sliderV2_values2[0]}%`"
+        :minValue="15"
+        :floorValue="sliderV2_values2[0]"
+        :ceilLabel="`${sliderV2_values2[1]}%`"
+        :maxValue="100"
+        :ceilValue="sliderV2_values2[1]"
+        @change="sliderV2Change2"
+      />
+    </div>
+    <br>
+    <br>
   </div>
 </template>
 
@@ -262,6 +288,7 @@ import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
 import ncSlider from '@/components/nc-slider.vue'
+import ncSliderV2 from '@/components/nc-slider-v2.vue'
 import ncSlideshow from '@/components/nc-slideshow.vue'
 import ncButton from '@/components/nc-button.vue'
 import ncSeparator from '@/components/nc-separator.vue'
@@ -279,6 +306,7 @@ export default {
     ncList,
     ncModal,
     ncSlider,
+    ncSliderV2,
     ncSlideshow,
     ncButton,
     ncSeparator,
@@ -344,7 +372,9 @@ export default {
       minPriceLimit: '0',
       maxPriceLimit: '1000',
       minPercentageLimit: '15',
-      maxPercentageLimit: '100'
+      maxPercentageLimit: '100',
+      sliderV2_values: [15, 250],
+      sliderV2_values2: [30, 80]
     }
   },
   methods: {
@@ -385,6 +415,16 @@ export default {
       this.minPercentage = String(values[0])
       this.maxPercentage = values[1]
     },
+
+    sliderV2Change(values) {
+      this.sliderV2_values = values
+    },
+
+    sliderV2Change2(values) {
+      console.log('asdsa')
+      this.sliderV2_values2 = values
+    },
+
     onItemSelected(ev) {
       // eslint-disable-next-line no-console
       console.log('item-selected', ev)
@@ -393,7 +433,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .test {
   width: 100%;
   height: 250px;
@@ -421,5 +461,15 @@ export default {
   font-size: 17px;
   border-radius: 8px;
   box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+}
+
+.home {
+  &__nc-slider-v2 {
+    &__container {
+      margin: 0 auto;
+      width: 500px;
+      max-width: 75vw;
+    }
+  }
 }
 </style>
