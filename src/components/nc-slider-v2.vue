@@ -47,7 +47,7 @@
       return {
         dragDot: require('../assets/png/dragDot.png'),
         isDragging: false,
-        isMinTrigger: false,
+        isFloorTrigger: false,
         floorRelativePosition: 0,
         ceilRelativePosition: 1,
         trackSize: 0,
@@ -118,7 +118,7 @@
           ? (this.floorValue - this.minValue) / (this.maxValue - this.minValue)
           : 0
       },
-      setMinTriggerPosition(dragOffset, dragPosition) {
+      setFloorTriggerPosition(dragOffset, dragPosition) {
         const ceil = this.ceilRelativePosition - this.sliderMinGap
         this.floorRelativePosition =
           dragPosition > 0
@@ -127,8 +127,8 @@
               : ceil
             : 0
       },
-      setMaxTriggerPosition(dragOffset, dragPosition) {
-        const floor = this.floorRelativePosition + this.sliderMinGap
+      setCeilTriggerPosition(dragOffset, dragPosition) {
+        const floor = this.floorRelativePosition + (this.isDouble ? this.sliderMinGap : 0)
         this.ceilRelativePosition =
           dragPosition > floor
             ? dragPosition < 1
@@ -155,19 +155,19 @@
           this.dragX = e.clientX
           const dragOffset = e.clientX - this.trackLeftPosition
           const dragPosition = dragOffset / this.trackSize
-          if (this.isMinTrigger) {
-            this.setMinTriggerPosition(dragOffset, dragPosition)
+          if (this.isFloorTrigger) {
+            this.setFloorTriggerPosition(dragOffset, dragPosition)
           } else {
-            this.setMaxTriggerPosition(dragOffset, dragPosition)
+            this.setCeilTriggerPosition(dragOffset, dragPosition)
           }
         }
       },
       touchMoveHandler(e) {
-        this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
+        this.isFloorTrigger = e.target.classList.contains('nc-slider__trigger--min')
         this.dragOverHandler(e.targetTouches[0])
       },
       dragHandler(e) {
-        this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
+        this.isFloorTrigger = e.target.classList.contains('nc-slider__trigger--min')
       },
       dragEndHandler() {
         this.isDragging = false
