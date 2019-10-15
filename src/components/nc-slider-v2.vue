@@ -9,9 +9,10 @@
       <div
           class="nc-slider__selected-track"
           :style="{
-          'left': `${trackSize * floorRelativePosition}px`,
-          'right': `${trackSize - (trackSize * ceilRelativePosition)}px`
-        }"></div>
+            'left': `${trackSize * floorRelativePosition}px`,
+            'right': `${trackSize - (trackSize * ceilRelativePosition)}px`
+          }"
+        ></div>
       <span
           v-if="isDouble"
           class="nc-slider__trigger nc-slider__trigger--min"
@@ -115,7 +116,7 @@
       },
       resizeHandler() {
         this.trackSize = this.$refs['nc-slider__container'].offsetWidth
-        this.trackLeftPosition = this.$refs['nc-slider__container'].getBoundingClientRect().x
+        this.trackLeftPosition = this.$refs['nc-slider__container'].getBoundingClientRect().left
       },
       dragStartHandler(e) {
         e.dataTransfer.setData('application/node type', this)
@@ -123,8 +124,10 @@
         dragImg.src = this.dragDot
         e.dataTransfer.setDragImage(dragImg, 0, 0)
         e.dataTransfer.setData('text', '_')
+        e.dataTransfer.effectAllowed = 'move'
       },
       dragOverHandler(e) {
+        e.dataTransfer.dropEffect = "move"
         if (e.clientX && this.dragX !== e.clientX) {
           this.dragX = e.clientX
           const dragOffset = e.clientX - this.trackLeftPosition
