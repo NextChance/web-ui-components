@@ -46,6 +46,7 @@
     data() {
       return {
         dragDot: require('../assets/png/dragDot.png'),
+        isDragging: false,
         isMinTrigger: false,
         sliderMinGap: 0.01,
         floorRelativePosition: 0,
@@ -137,6 +138,7 @@
         this.trackLeftPosition = this.$refs['nc-slider__container'].getBoundingClientRect().left
       },
       dragStartHandler(e) {
+        this.isDragging = true
         e.dataTransfer.setData('application/node type', this)
         const dragImg = new Image()
         dragImg.src = this.dragDot
@@ -165,6 +167,7 @@
         this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
       },
       dragEndHandler() {
+        this.isDragging = false
         this.$emit('change', [this._floorValue, this._ceilValue])
       }
     },
@@ -184,7 +187,7 @@
 
 <style scoped lang="scss">
   $color-coral: #fa5a5a;
-  $color-metal: #737373;
+  $color-stone: #d8d8d8;
   $color-white: #ffffff;
   $triggerBorder: 3;
   $triggerSize: 18;
@@ -222,7 +225,7 @@
     }
 
     &__total-track {
-      background-color: $color-metal;
+      background-color: $color-stone;
       right: 0;
     }
 
