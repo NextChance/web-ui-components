@@ -44,7 +44,7 @@
     name: 'NcSliderV2',
     data() {
       return {
-        dragDot: '../assets/png/dragDot.png',
+        dragDot: require('../assets/png/dragDot.png'),
         isMinTrigger: false,
         sliderMinGap: 0.01,
         floorRelativePosition: 0,
@@ -63,6 +63,10 @@
         type: String,
         default: ' '
       },
+      floorValue: {
+        type: Number,
+        default: 0
+      },
       minValue: {
         type: Number,
         default: 0
@@ -71,19 +75,23 @@
         type: String,
         default: ' '
       },
+      ceilValue: {
+        type: Number,
+        default: 0
+      },
       maxValue: {
         type: Number,
         default: 100
       }
     },
     computed: {
-      floorValue() {
+      _floorValue() {
         return this.isDouble
-          ? Math.round(this.maxValue * this.floorRelativePosition)
+          ? Math.round((this.maxValue - this.minValue) * this.floorRelativePosition) + this.minValue
           : this.minValue
       },
-      ceilValue() {
-        return Math.round(this.maxValue * this.ceilRelativePosition)
+      _ceilValue() {
+        return Math.round((this.maxValue - this.minValue) * this.ceilRelativePosition) + this.minValue
       }
     },
     methods: {
@@ -92,8 +100,8 @@
         this.floorRelativePosition =
           dragPosition > 0
             ? dragPosition < ceil
-            ? dragPosition
-            : ceil
+              ? dragPosition
+              : ceil
             : 0
       },
       setMaxTriggerPosition(dragOffset, dragPosition) {
@@ -101,14 +109,13 @@
         this.ceilRelativePosition =
           dragPosition > floor
             ? dragPosition < 1
-            ? dragPosition
-            : 1
+              ? dragPosition
+              : 1
             : floor
       },
       resizeHandler() {
         this.trackSize = this.$refs['nc-slider__container'].offsetWidth
         this.trackLeftPosition = this.$refs['nc-slider__container'].getBoundingClientRect().x
-        // calculate trigger positions
       },
       dragStartHandler(e) {
         e.dataTransfer.setData('application/node type', this)
@@ -137,13 +144,19 @@
         this.isMinTrigger = e.target.classList.contains('nc-slider__trigger--min')
       },
       dragEndHandler() {
-        this.$emit('change', [this.floorValue, this.ceilValue])
+        this.$emit('change', [this._floorValue, this._ceilValue])
       }
     },
     mounted() {
       window.addEventListener('resize', this.resizeHandler)
       document.addEventListener('dragover', this.dragOverHandler)
       this.resizeHandler()
+      this.ceilRelativePosition = this.maxValue >= this.ceilValue
+        ? (this.ceilValue - this.minValue) / (this.maxValue - this.minValue)
+        : 1
+      this.floorRelativePosition = this.minValue <= this.floorValue && this.isDouble
+        ? (this.floorValue - this.minValue) / (this.maxValue - this.minValue)
+        : 0
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.resizeHandler)
@@ -157,7 +170,7 @@
   $color-metal: #737373;
   $color-white: #ffffff;
   $triggerBorder: 3;
-  $triggerSize: 16;
+  $triggerSize: 18;
   $triggerBounds: (2 * $triggerBorder) + $triggerSize;
 
   .nc-slider {

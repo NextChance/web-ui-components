@@ -257,10 +257,12 @@
     <div class="home__nc-slider-v2__container">
       <nc-slider-v2
         :isDouble="false"
-        :floorLabel="`${sliderV2_values[0]}%`"
-        minValue="15"
-        :ceilLabel="`${sliderV2_values[1]}%`"
-        :maxValue="90"
+        :floorLabel="`${sliderV2_values[0]} km`"
+        :minValue="0"
+        :floorValue="sliderV2_values[0]"
+        :ceilLabel="`${sliderV2_values[1]} km`"
+        :maxValue="1000"
+        :ceilValue="sliderV2_values[1]"
         @change="sliderV2Change"
       />
     </div>
@@ -361,7 +363,7 @@ export default {
       maxPriceLimit: '1000',
       minPercentageLimit: '15',
       maxPercentageLimit: '100',
-      sliderV2_values: [15, 99]
+      sliderV2_values: [15, 900]
     }
   },
   methods: {
@@ -450,6 +452,7 @@ export default {
     &__container {
       margin: 0 auto;
       width: 500px;
+      max-width: 75vw;
     }
   }
 }
