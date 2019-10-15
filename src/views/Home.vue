@@ -265,6 +265,16 @@
         :ceilValue="sliderV2_values[1]"
         @change="sliderV2Change"
       />
+      <nc-slider-v2
+        :isDouble="true"
+        :floorLabel="`${sliderV2_values2[0]}%`"
+        :minValue="15"
+        :floorValue="sliderV2_values2[0]"
+        :ceilLabel="`${sliderV2_values2[1]}%`"
+        :maxValue="100"
+        :ceilValue="sliderV2_values2[1]"
+        @change="sliderV2Change2"
+      />
     </div>
     <br>
     <br>
@@ -363,7 +373,8 @@ export default {
       maxPriceLimit: '1000',
       minPercentageLimit: '15',
       maxPercentageLimit: '100',
-      sliderV2_values: [15, 900]
+      sliderV2_values: [15, 250],
+      sliderV2_values2: [30, 80]
     }
   },
   methods: {
@@ -407,6 +418,11 @@ export default {
 
     sliderV2Change(values) {
       this.sliderV2_values = values
+    },
+
+    sliderV2Change2(values) {
+      console.log('asdsa')
+      this.sliderV2_values2 = values
     },
 
     onItemSelected(ev) {

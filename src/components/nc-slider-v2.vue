@@ -48,7 +48,6 @@
         dragDot: require('../assets/png/dragDot.png'),
         isDragging: false,
         isMinTrigger: false,
-        sliderMinGap: 0.01,
         floorRelativePosition: 0,
         ceilRelativePosition: 1,
         trackSize: 0,
@@ -84,6 +83,10 @@
       maxValue: {
         type: Number,
         default: 100
+      },
+      sliderMinGap: {
+        type: Number,
+        default: 0.02
       }
     },
     computed: {
@@ -148,7 +151,7 @@
       },
       dragOverHandler(e) {
         e.dataTransfer.dropEffect = "move"
-        if (e.clientX && this.dragX !== e.clientX) {
+        if (e.clientX && this.dragX !== e.clientX && this.isDragging) {
           this.dragX = e.clientX
           const dragOffset = e.clientX - this.trackLeftPosition
           const dragPosition = dragOffset / this.trackSize
