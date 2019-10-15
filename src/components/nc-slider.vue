@@ -5,44 +5,52 @@
             class="nc-slider__rail">
             <div class="nc-slider__rail nc-slider__rail-second"></div>
             <div class="nc-slider__rail nc-slider__rail-main" :style="{ left: leftPosition, right: rightPosition }"></div>
-            <div
-                v-if="min"
-                id="min"
-                role="slider"
-                ref="minIcon"
-                tabindex="0"
-                class="nc-slider__icon nc-slider__icon-min"
-                :aria-valuemin="min"
-                :aria-valuenow="currentMinValue"
-                :aria-valuetext="currentMinValue"
-                :aria-valuemax="max"
-                :aria-label="minLabel"
-                :style="{left: minIconPosition + 'px'}"
-                @mouseleave="stopDrag"
-                @mousemove="onPanHorizontal"
-                @mousedown="startDrag"
-                v-touch:start="startDrag"
-                v-touch:end="stopDrag"
-                v-touch:moving="onPanHorizontal"></div>
-            <div
-                v-if="max"
-                id="max"
-                role="slider"
-                ref="maxIcon"
-                tabindex="0"
-                class="nc-slider__icon nc-slider__icon-max"
-                :aria-valuemin="min"
-                :aria-valuenow="currentMaxValue"
-                :aria-valuetext="currentMaxValue"
-                :aria-valuemax="max"
-                :aria-label="maxLabel"
-                :style="{left: maxIconPosition + 'px'}"
-                @mouseleave="stopDrag"
-                @mousemove="onPanHorizontal"
-                @mousedown="startDrag"
-                v-touch:start="startDrag"
-                v-touch:end="stopDrag"
-                v-touch:moving="onPanHorizontal"></div>
+            <button
+              v-if="min"
+              id="min"
+              role="slider"
+              ref="minIcon"
+              tabindex="0"
+              class="nc-slider__icon nc-slider__icon-min"
+              :aria-valuemin="min"
+              :aria-valuenow="currentMinValue"
+              :aria-valuetext="currentMinValue"
+              :aria-valuemax="max"
+              :aria-label="minLabel"
+              :style="{left: minIconPosition + 'px'}"
+              @mouseup="stopDrag"
+              @mouseleave="stopDrag"
+              @mouseout="stopDrag"
+              @mousemove="onPanHorizontal"
+              @mousedown="startDrag"
+              v-touch:start="startDrag"
+              v-touch:end="stopDrag"
+              v-touch:moving="onPanHorizontal">
+                <div class="circle"></div>
+            </button>
+            <button
+              v-if="max"
+              id="max"
+              role="slider"
+              ref="maxIcon"
+              tabindex="0"
+              class="nc-slider__icon nc-slider__icon-max"
+              :aria-valuemin="min"
+              :aria-valuenow="currentMaxValue"
+              :aria-valuetext="currentMaxValue"
+              :aria-valuemax="max"
+              :aria-label="maxLabel"
+              :style="{left: maxIconPosition + 'px'}"
+              @mouseup="stopDrag"
+              @mouseleave="stopDrag"
+              @mouseout="stopDrag"
+              @mousemove="onPanHorizontal"
+              @mousedown="startDrag"
+              v-touch:start="startDrag"
+              v-touch:end="stopDrag"
+              v-touch:moving="onPanHorizontal">
+                <div class="circle"></div>
+            </button>
         </div>
         <div class="nc-slider__rail-labels" :class="{ 'right': onlyHasMaxLabel }">
             <div v-if="min" class="nc-slider__rail-label min">{{ minLabel }}</div>
@@ -50,7 +58,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
     name: 'nc-slider',
@@ -127,8 +134,8 @@ export default {
         },
 
         minValueNow() {
-            const minValue = ((Number(this.max) * Number(this.minIconPosition)) / Number(this.maxRail));
-            let parseNumber = Number(minValue) ? Number(minValue).toFixed(0) : Number(this.minIconPosition);
+            const minValue = ((parseInt(this.max) * parseInt(this.minIconPosition)) / parseInt(this.maxRail));
+            let parseNumber = parseInt(minValue) ? parseInt(minValue).toFixed(0) : parseInt(this.minIconPosition);
             parseNumber = parseNumber >= this.max ? this.max - (this.iconSize / 2) : parseNumber;
 
             if (parseNumber <= this.min) {
@@ -140,8 +147,8 @@ export default {
         },
 
         maxValueNow() {
-            const maxValue = (Number(this.max) * Number(this.maxIconPosition)) / Number(this.maxRail);
-            let parseNumber = Boolean(Number(maxValue)) ? Number(maxValue).toFixed(0) : Number(this.max);
+            const maxValue = (parseInt(this.max) * parseInt(this.maxIconPosition)) / parseInt(this.maxRail);
+            let parseNumber = Boolean(parseInt(maxValue)) ? parseInt(maxValue).toFixed(0) : parseInt(this.max);
             parseNumber = parseNumber >= this.max ? this.max : parseNumber;
             parseNumber = parseNumber <= 5 ? this.minValue : parseNumber;
             if (this.onlyHasMaxLabel) {
@@ -152,31 +159,30 @@ export default {
         },
 
         calculateMinValuePercentage() {
-          let minValue = Number(this.minValue) === 0 ? Number(this.minValue) + 1 : Number(this.minValue);
-          const calculatedValue = (minValue * Number(this.maxPercentage)) / Number(this.max);
-          const percentage = Number(this.minValue) ? calculatedValue.toFixed(0) : Number(this.minPercentage);
+          let minValue = parseInt(this.minValue) === 0 ? parseInt(this.minValue) + 1 : parseInt(this.minValue);
+          const calculatedValue = (minValue * parseInt(this.maxPercentage)) / parseInt(this.max);
+          const percentage = parseInt(this.minValue) ? calculatedValue.toFixed(0) : parseInt(this.minPercentage);
 
           this.calculateMinIconPosition(percentage)
         },
 
         calculateMaxValuePercentage() {
-          const calculatedValue = (Number(this.maxValue) * Number(this.maxPercentage)) / Number(this.max);
-          const percentage = Number(this.maxValue) ? calculatedValue.toFixed(0) : Number(this.maxPercentage);
-          
+          const calculatedValue = (parseInt(this.maxValue) * parseInt(this.maxPercentage)) / parseInt(this.max);
+          const percentage = parseInt(this.maxValue) ? calculatedValue.toFixed(0) : parseInt(this.maxPercentage);
+
           this.calculateMaxIconPosition(percentage)
         },
 
         calculateMinIconPosition(percentage) {
-          const calculatedValue = Number(percentage) ? Number(percentage) : this.minPercentage;
-          const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.minPercentage;
-
-          this.leftPosition = parsePosition + 'px';
+          const calculatedValue = parseInt(percentage) ? parseInt(percentage) : this.minPercentage;
+          const parsePosition = parseInt(calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.minPercentage);
+          this.leftPosition = (parsePosition) + 'px';
           this.minIconPosition = parsePosition;
         },
 
         calculateMaxIconPosition(percentage) {
-          const calculatedValue = Number(percentage) ? Number(percentage) : this.maxRail;
-          const parsePosition = calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.maxRail;
+          const calculatedValue = parseInt(percentage) ? parseInt(percentage) : this.maxRail;
+          const parsePosition = parseInt(calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.maxRail);
 
           this.rightPosition = (this.maxRail - parsePosition) + 'px';
           this.maxIconPosition = parsePosition;
@@ -212,7 +218,7 @@ export default {
             let iconPosition = realUserPosition - halfIconSize;
 
             // MAXIMUM POSITION
-            if (realUserPosition > (railWidth - this.iconSize)) {
+            if (realUserPosition > railWidth) {
                 iconPosition = railWidth - this.iconSize;
             }
 
@@ -222,20 +228,20 @@ export default {
             }
 
             if (icon === 'min') {
-              if (realUserPosition - this.iconSize - borderIcon > Number(this.maxIconPosition)) {
-                iconPosition = Number(this.maxIconPosition) - halfIconSize;
+              if (realUserPosition - this.iconSize - borderIcon > parseInt(this.maxIconPosition)) {
+                iconPosition = parseInt(this.maxIconPosition) - halfIconSize;
               }
               this[`${icon}IconPosition`] = iconPosition;
               this.minValueNow()
             } else {
-              if ((realUserPosition - this.iconSize) <= Number(this.minIconPosition)) {
+              if ((realUserPosition - this.iconSize) <= parseInt(this.minIconPosition)) {
                 if (this.onlyHasMaxLabel) {
                   iconPosition = realUserPosition - halfIconSize + 1;
                 }
                 if (!this.onlyHasMaxLabel && (this.maxIconPosition >= this.minIconPosition)) {
-                    iconPosition = Number(this.minIconPosition) + Number(this.iconSize);
+                    iconPosition = parseInt(this.minIconPosition) + parseInt(this.iconSize);
                 } else if (this.maxIconPosition <= this.minIconPosition) {
-                    iconPosition = Number(this.maxIconPosition) + 1;
+                    iconPosition = parseInt(this.maxIconPosition) + 1;
                 } else {
                     iconPosition = (realUserPosition - halfIconSize + 1) <= this.minRail ? this.minRail : (realUserPosition - halfIconSize + 1);
                 }
@@ -291,7 +297,7 @@ $second-color: #d8d8d8;
 }
 
 .nc-slider__rail {
-  height: 22px;
+  height: 30px;
   margin-bottom: 10px;
   padding: 9px 0;
   position: relative;
@@ -324,17 +330,22 @@ $second-color: #d8d8d8;
 }
 
 .nc-slider__icon {
-  background-color: #ffffff;
-  border-radius: 100%;
-  border: solid 3px $main-color;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.19);
-  box-sizing: border-box;
-  height: 22px;
+  background: transparent;
+  top: 5px;
+  position: absolute;
   margin: 0;
   padding: 0;
-  position: absolute;
-  top: 8px;
+  height: 30px;
   width: 22px;
+  & .circle {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.19);
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 100%;
+    border: solid 3px $main-color;
+    height: 22px;
+    width: 22px;
+  }
 }
 
 .nc-slider__icon:focus {

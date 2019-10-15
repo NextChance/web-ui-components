@@ -303,6 +303,7 @@ $errorColor: red;
         background: none;
         font-size: 17px;
         z-index: 1;
+        transform: translateZ(0);
         &:focus {
           outline: 0;
         }
