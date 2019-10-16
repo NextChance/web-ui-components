@@ -253,8 +253,8 @@
       position: absolute;
       top: 0;
       width: $triggerSize + 0px;
-      z-index: 1;
     }
+
     &__label {
       color: #272727;
       font-family: 'Circular-Book', sans-serif;
