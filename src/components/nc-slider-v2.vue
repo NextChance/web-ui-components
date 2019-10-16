@@ -21,6 +21,7 @@
           @dragstart="dragStartHandler"
           @drag="dragHandler"
           @dragend="dragEndHandler"
+          @touchstart="touchStartHandler"
           @touchmove="touchMoveHandler"
           @touchend="dragEndHandler"
       ></span>
@@ -31,6 +32,7 @@
           @dragstart="dragStartHandler"
           @drag="dragHandler"
           @dragend="dragEndHandler"
+          @touchstart="touchStartHandler"
           @touchmove="touchMoveHandler"
           @touchend="dragEndHandler"
       ></span>
@@ -150,7 +152,7 @@
         e.dataTransfer.effectAllowed = 'move'
       },
       dragOverHandler(e) {
-        e.dataTransfer.dropEffect = "move"
+        (e.dataTransfer || {}).dropEffect = "move"
         if (e.clientX && this.dragX !== e.clientX && this.isDragging) {
           this.dragX = e.clientX
           const dragOffset = e.clientX - this.trackLeftPosition
@@ -161,6 +163,9 @@
             this.setCeilTriggerPosition(dragOffset, dragPosition)
           }
         }
+      },
+      touchStartHandler() {
+        this.isDragging = true
       },
       touchMoveHandler(e) {
         this.isFloorTrigger = e.target.classList.contains('nc-slider__trigger--min')
