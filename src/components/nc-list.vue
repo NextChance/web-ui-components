@@ -27,8 +27,8 @@
         </div>
         <div
           class="nc-list__item-checked"
-          :style="checkIconStyle"
           v-if="showCheckedIcon && item.id === itemSelected"
+          :style="checkIconStyle"
         >
           <slot name="check-icon">
             <img class="check-icon"
@@ -92,7 +92,9 @@ export default {
     }
   },
   mounted() {
-    this.itemSelected = this.selected
+    this.$nextTick(function() {
+      this.itemSelected = this.selected
+    })
   },
   computed: {
     filteredList() {
