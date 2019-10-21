@@ -37,6 +37,7 @@
         :required="required"
         :size="size"
         :type="inputType"
+        :step="stepNumber"
         :value="value"
         @input="handleInput"
         @keyup="handleKeyUp"
@@ -153,6 +154,9 @@ export default {
     size: {
       type: Number,
       default: 35
+    },
+    stepNumber: {
+      default: 1
     },
     uiReference: {
       type: String,
