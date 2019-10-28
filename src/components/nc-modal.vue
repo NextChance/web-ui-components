@@ -127,7 +127,6 @@ export default {
         const padding = parseInt(this.padding) * 2
         this.widthByDevice = `calc(100vw - ${padding}px)`
         this.heightByDevice = document.documentElement.clientHeight - parseInt(padding) + 'px'
-        //this.height = this.heightByDevice
       }
       this.calculateContentHeight()
     }
