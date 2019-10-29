@@ -19,7 +19,7 @@
         >
           <slot name="header">header</slot>
         </div>
-        <div class="content" :style="{ 'height': contentHeight, 'padding-top': paddingTop }">
+        <div class="content" :style="{ 'height': contentHeight }">
           <slot name="content">
             <p>Content</p>
           </slot>
@@ -90,7 +90,6 @@ export default {
 
   data() {
     return {
-      paddingTop: '0',
       contentHeight: '0',
       widthByDevice: '',
       heightByDevice: ''
@@ -107,14 +106,7 @@ export default {
         const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 0
         const footerHeight = this.$refs.footer ? this.$refs.footer.offsetHeight : 0
 
-        this.contentHeight = `calc(${this.height} - ${headerHeight + footerHeight}px)`
-      }
-    },
-
-    calculateTopPadding() {
-      if (this.opened) {
-        const headerHeight = this.$refs.header ? this.$refs.header.offsetHeight : 16
-        this.topPadding = `${headerHeight}px`
+        this.contentHeight = `calc(${this.heightByDevice} - ${headerHeight + footerHeight }px)`
       }
     },
 
@@ -137,7 +129,6 @@ export default {
         this.heightByDevice = document.documentElement.clientHeight - parseInt(padding) + 'px'
       }
       this.calculateContentHeight()
-      this.calculateTopPadding()
     }
   },
   computed: {
@@ -148,19 +139,20 @@ export default {
       return this.opened ? 'block' : 'none'
     }
   },
+
   watch: {
     opened() {
       this.calculateContentHeight()
-      this.calculateTopPadding()
     }
   },
+
   mounted() {
     this.calculateContentHeight()
-    this.calculateTopPadding()
     this.$nextTick(function() {
       window.addEventListener('resize', this.resizeModal)
     })
   },
+
   updated() {
     this.$nextTick(function() {
       if (this.opened) {
@@ -212,8 +204,8 @@ $break-desktop: 769px;
   &__container {
     font-family: Helvetica, Arial, sans-serif;
     box-sizing: content-box;
-    border-radius: 8px;
     @media (min-width: $break-desktop) {
+      border-radius: 8px;
       box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -webkit-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
       -moz-box-shadow: 0 2px 54px 0 rgba(0, 0, 0, .12);
