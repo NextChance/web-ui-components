@@ -131,6 +131,9 @@ export default {
       if (this.cleanSearch) {
         this.search = ''
       }
+    },
+    selected() {
+      this.itemSelected = this.selected
     }
   }
 }
