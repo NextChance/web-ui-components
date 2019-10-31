@@ -17,11 +17,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-
 ## [UNRELEASED]
 
+### Added
+- nc-list Make dynamic changes on selected
+
 ### Fixed
-- Modal refactor #66
+- nc-modal refactor #66
+
 
 
 ## v0.1.4 - 2019-07-08
