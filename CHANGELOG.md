@@ -17,13 +17,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [UNRELEASED]
+
+## v0.1.8
 
 ### Added
+
 - nc-list Make dynamic changes on selected
 
+
+
+## v0.1.7
+
 ### Fixed
-- nc-modal refactor #66
+
+- nc-modal resize
+
+
+
+## v0.1.6
+
+### Fixed
+
+- nc-modal get better height calculated
+
+
+
+## v0.1.5
+
+### Added
+
+- nc-list Waiting for nextTick to take selected item
 
 
 
@@ -31,8 +54,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- New component nc-image-uploader #37
+- nc-slider-v2
 
+### Changed
+
+- New component nc-image-uploader #37
+- nc-card-item refactor
+- nc-image-uploader refactor
+- nc-list refactor
+- nc-modal refactor
+- nc-phone-input refactor
+- nc-slider refactor
+- nc-slideshow refactor
+- nc-text-input refactor
+- nc-textarea refactor
 
 
 
@@ -41,7 +76,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Fixed Close icon for ncModal #55
-
 
 
 
