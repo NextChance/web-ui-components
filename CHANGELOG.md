@@ -16,8 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
-## [UNRELEASED]
+## v0.1.9
+
 ### Added
+
 - nc-textarea allows autoresize on input
 
 
