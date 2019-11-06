@@ -312,7 +312,7 @@ $errorColor: red;
         background: none;
         border: none;
         font-size: 17px;
-        height: 60px;
+        height: 66px;
         resize:none;
         padding: 0;
         width: 100%;
