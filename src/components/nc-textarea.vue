@@ -9,10 +9,9 @@
         'has-icon-right-on-focus': hasIconRightOnFocus,
         wrapperClasses
         }]"
-      :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }, hasValue ? 'has-value' : '']"
       @click="focusInput"
     >
-    <div 
+    <div
       :class="['icon-left', {'has-pointer': iconLeftHasPointer}]" 
       v-if="hasIconLeft" 
       @click="handleIconLeft($event)"
@@ -20,13 +19,13 @@
       <slot name="iconLeft"></slot>
     </div>
     <div class="input-content">
-      <label 
+      <label
         class="input-content__label"
         :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
-      <textarea 
+      <textarea
         v-model="inputValue"
         class="input-content__input"
         :class="inputClasses"
@@ -36,6 +35,7 @@
         :name="name"
         :ref="uiReference"
         :required="required"
+        :style="{'height': textAreaHeight}"
         rows="4"
         cols="50"
         @input="handleInput"
@@ -44,7 +44,7 @@
         @blur="handleBlur"
       ></textarea>
     </div>
-    <div 
+    <div
       :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
       v-if="hasIconRight"
       @click="handleIconRight($event)"
@@ -52,8 +52,8 @@
       <slot name="iconRight"></slot>
     </div>
   </div>
-  <div 
-    class="nc-textarea__error" 
+  <div
+    class="nc-textarea__error"
     v-if="error"
     :style="{ 'color': errorColor }"
   >
@@ -73,11 +73,11 @@ export default {
   props: {
     containerBorderColor: {
       type: String,
-      default: '$containerBorderColor'
+      default: ''
     },
     containerIsFocusedBorderColor: {
       type: String,
-      default: '$containerIsFocusedColor'
+      default: ''
     },
     disabled: {
       type: Boolean,
@@ -89,7 +89,7 @@ export default {
     },
     errorColor: {
       type: String,
-      default: '$errorColor'
+      default: ''
     },
     extraText: {
       type: String,
@@ -115,11 +115,11 @@ export default {
     inputClasses: String,
     inputContentIsFocusedLabelColor: {
       type: String,
-      default: '$containerIsFocusedColor'
+      default: ''
     },
     inputContentLabelColor: {
       type: String,
-      default: '$inputContentLabelColor'
+      default: ''
     },
     inputOptions: {
       type: Object,
@@ -151,13 +151,18 @@ export default {
       default: 'uiEl'
     },
     value: [String, Number],
-    wrapperClasses: String
+    wrapperClasses: String,
+    isAutoResizable: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data() {
     return {
       isFocused: false,
-      inputValue: ''
+      inputValue: '',
+      textAreaHeight: ''
     }
   },
 
@@ -172,8 +177,15 @@ export default {
   },
 
   mounted() {
-    if (this.$refs[this.uiReference].value !== '') {
-      this.value = this.$refs[this.uiReference].value
+    const uiElement = this.$refs[this.uiReference]
+    if( this.isAutoResizable ) {
+      this.textAreaHeight = '0px'
+      this.$nextTick(function() {
+        this.textAreaHeight = uiElement.scrollHeight + 'px'
+      })
+    }
+    if (uiElement.value !== '') {
+      this.value = uiElement.value
       this.focusInput()
     }
   },
@@ -200,6 +212,12 @@ export default {
     },
 
     handleInput() {
+      if( this.isAutoResizable ) {
+        this.textAreaHeight = '0px'
+        this.$nextTick(function() {
+          this.textAreaHeight = this.$refs[this.uiReference].scrollHeight + 'px'
+        })
+      }
       this.$emit('input', this.$refs[this.uiReference].value)
     },
 
@@ -229,24 +247,24 @@ $errorColor: red;
   text-align: left;
 
   &__container {
-    position: relative;
     border: solid 1px $containerBorderColor;
-    box-sizing: border-box;
-    padding: 0 8px 0 16px;
-    position: relative;
-    height: 110px;
-    width: 100%;
     border-radius: 4px;
-    text-align: left;
     box-sizing: border-box;
-    display: flex;
-    align-items: center;
+    padding: 32px 16px 16px;
+    position: relative;
+    min-height: 110px;
+    position: relative;
+    text-align: left;
+    width: 100%;
+
     &.is-focused {
       border-color: $containerIsFocusedColor;
       outline: 0;
+
       .input-content__label {
         color: $containerIsFocusedColor;
         font-size: 70%;
+        margin-bottom: 8px;
         z-index: 2;
       }
     }
@@ -268,6 +286,7 @@ $errorColor: red;
     &.has-value {
       .input-content__label {
         font-size: 70%;
+        margin-bottom: 8px;
       }
     }
 
@@ -276,28 +295,29 @@ $errorColor: red;
     }
 
     .input-content {
+      height: 100%;
       position: relative;
-      flex-grow: 1;
-      padding-top: 17px;
+
       &__label {
+        bottom: 100%;
         color: $inputContentLabelColor;
-        top: 0;
+        font-size: 17px;
         left: 0;
         position: absolute;
-        transition: font 0.2s;
-        font-size: 17px;
+        transition: font 0.2s, margin 0.2s;
       }
 
       &__input {
-        padding: 0;
-        height: 76px;
-        width: calc(100% - 44px);
         box-sizing: border-box;
-        border: none;
         background: none;
+        border: none;
         font-size: 17px;
+        height: 60px;
         resize:none;
+        padding: 0;
+        width: 100%;
         z-index: 1;
+
         &:focus {
           outline: 0;
         }
@@ -307,6 +327,7 @@ $errorColor: red;
     .icon-left {
       margin-right: 8px;
       flex-grow: 0;
+
       &.has-pointer {
         cursor: pointer;
       }
