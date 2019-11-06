@@ -154,7 +154,7 @@ export default {
     wrapperClasses: String,
     isAutoResizable: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
 
