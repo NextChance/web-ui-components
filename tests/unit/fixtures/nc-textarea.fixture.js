@@ -1,11 +1,11 @@
 export const testText = 'Test Text'
 
 export const defaultProps = {
-  containerBorderColor: '$containerBorderColor',
-  containerIsFocusedBorderColor: '$containerIsFocusedColor',
+  containerBorderColor: '',
+  containerIsFocusedBorderColor: '',
   disabled: false,
   error: '',
-  errorColor: '$errorColor',
+  errorColor: '',
   extraText: '',
   hasIconLeft: false,
   hasIconRight: false,
@@ -14,8 +14,8 @@ export const defaultProps = {
   iconRightHasPointer: false,
   id: undefined,
   inputClasses: undefined,
-  inputContentIsFocusedLabelColor: '$containerIsFocusedColor',
-  inputContentLabelColor: '$inputContentLabelColor',
+  inputContentIsFocusedLabelColor: '',
+  inputContentLabelColor: '',
   inputOptions: {},
   label: 'label',
   maxLength: 1000,
@@ -24,7 +24,8 @@ export const defaultProps = {
   size: 35,
   uiReference: 'uiEl',
   value: undefined,
-  wrapperClasses: undefined
+  wrapperClasses: undefined,
+  isAutoResizable: false
 }
 
 export const propsWithValue = {
