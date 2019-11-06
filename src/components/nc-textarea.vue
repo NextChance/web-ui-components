@@ -178,12 +178,7 @@ export default {
 
   mounted() {
     const uiElement = this.$refs[this.uiReference]
-    if( this.isAutoResizable ) {
-      this.textAreaHeight = '0px'
-      this.$nextTick(function() {
-        this.textAreaHeight = uiElement.scrollHeight + 'px'
-      })
-    }
+    this.handleAutoResize()
     if (uiElement.value !== '') {
       this.value = uiElement.value
       this.focusInput()
@@ -212,12 +207,7 @@ export default {
     },
 
     handleInput() {
-      if( this.isAutoResizable ) {
-        this.textAreaHeight = '0px'
-        this.$nextTick(function() {
-          this.textAreaHeight = this.$refs[this.uiReference].scrollHeight + 'px'
-        })
-      }
+      this.handleAutoResize()
       this.$emit('input', this.$refs[this.uiReference].value)
     },
 
@@ -231,6 +221,15 @@ export default {
 
     handleIconRight(ev) {
       this.$emit('input-right-icon-event', ev)
+    },
+
+    handleAutoResize() {
+      if( this.isAutoResizable ) {
+        this.textAreaHeight = '0px'
+        this.$nextTick(function() {
+          this.textAreaHeight = this.$refs[this.uiReference].scrollHeight + 'px'
+        })
+      }
     }
   }
 }
