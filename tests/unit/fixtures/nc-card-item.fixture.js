@@ -1,8 +1,6 @@
 export const defaultProps = {
   cardItemReference: 'cardItemRef',
   caption: 'Caption',
-  captionStyle: undefined,
-  contentStyle: '',
   extraContentStyle: undefined,
   description: 'Description',
   descriptionLineEllipsis: 3,
