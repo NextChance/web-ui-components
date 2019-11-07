@@ -1,12 +1,12 @@
 <template>
   <div class="nc-modal">
-    <div class="nc-modal__overlay" @click="handleCloseModal">
+    <div class="nc-modal__overlay" v-on="{ click: closeOnOverlayClick ? closeModal : null }">
       <div class="nc-modal__container" @click.stop.prevent>
         <img
           v-if="!hideCloseIcon"
           src="data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiMyNzI3MjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5IDYuNEwxNy42IDUgMTIgMTAuNiA2LjQgNSA1IDYuNGw1LjYgNS42TDUgMTcuNiA2LjQgMTlsNS42LTUuNiA1LjYgNS42IDEuNC0xLjQtNS42LTUuNnoiLz4KPC9zdmc+Cg=="
           class="nc-modal__close-icon"
-          @click="handleCloseModal"
+          @click="closeModal"
         />
         <header v-if="hasHeader" ref="header" class="nc-modal__header">
           <div class="header-slot">
@@ -44,11 +44,15 @@ export default {
     closeEventName: {
       type: String,
       default: 'close'
+    },
+    closeOnOverlayClick: {
+      type: Boolean,
+      default: false
     }
   },
 
   methods: {
-    handleCloseModal() {
+    closeModal() {
       this.$emit(this.closeEventName, true)
     }
   }
@@ -99,6 +103,7 @@ $breakpoint-tablet: 768px;
 
     @media (min-width: $breakpoint-tablet) {
       max-height: 60%;
+      max-width: 80%;
     }
 
     .content {
