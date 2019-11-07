@@ -1,6 +1,6 @@
 <template>
   <div :class="['nc-card-item', wrapperClass]">
-    <div 
+    <div
       class="clickable"
       @click="handleCardItemClicked($event)"
       :ref="cardItemReference"
@@ -14,8 +14,7 @@
           :style="imageStyle"
           @error="handleImageError">
         <div
-          :class="caption"
-          :style="captionStyle"
+          class="nc-card-item__caption"
           v-if="caption"
         >
           {{ caption }}
@@ -63,7 +62,6 @@ export default {
       type: String,
       default: 'Caption'
     },
-    captionStyle: Object,
     contentStyle: {
       type: String,
       default: ''
