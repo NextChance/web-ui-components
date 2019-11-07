@@ -14,7 +14,7 @@
           :style="imageStyle"
           @error="handleImageError">
         <div
-          class="nc_card-item__caption"
+          class="nc-card-item__caption"
           v-if="caption"
         >
           {{ caption }}
