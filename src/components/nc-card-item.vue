@@ -62,6 +62,10 @@ export default {
       type: String,
       default: 'Caption'
     },
+    contentStyle: {
+      type: String,
+      default: ''
+    },
     description: {
       type: String,
       default: 'Description'
