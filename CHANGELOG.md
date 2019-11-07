@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
+
+## [UNRELEASED]
+
+### Changed
+- nc-card-item, eliminates styles in line for component in use.
+
 ## v0.1.11
 
 ### Added
