@@ -39,22 +39,16 @@
     <br>
     <h1>NC_MODAL</h1>
     <nc-modal
-      :opened="opened"
-      :showCloseIcon="showCloseIcon"
-      :showHeader="showHeader"
-      :showFooter="showFooter"
-      :padding="padding"
-      :marginTop="marginTop"
-      :noVerticallyAligned="noVerticallyAligned"
-      :width="width"
-      :height="height"
-      :overlayStyle="modalOverlayStyle"
-      @close="opened = false"
-    >
+      v-if="currentModal === 'modal1'"
+      has-header
+      has-footer
+      @close="currentModal = null"
+      >
       <template v-slot:header>
         <h1>Comparte los beneficios de Billionhands</h1>
       </template>
       <template v-slot:content>
+        <h1>este modal puede no puede cerrarse al pulsar en el sombreado!</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <p>12NYS5</p>
       </template>
@@ -62,7 +56,28 @@
         <button>Copiar código</button>
       </template>
     </nc-modal>
-    <button @click="opened = true">Show Modal</button>
+
+    <nc-modal
+      v-if="currentModal === 'modal2'"
+      has-header
+      has-footer
+      closeOnOverlayClick
+      @close="currentModal = null"
+      >
+      <template v-slot:header>
+        <h1>texto del header</h1>
+      </template>
+      <template v-slot:content>
+        <h1>este modal puede cerrarse si pulsas en el sombreado!</h1>
+      </template>
+      <template v-slot:footer>
+        <button>boton!</button>
+      </template>
+    </nc-modal>
+    
+    <button @click="currentModal = 'modal1'">Show  example modal 1</button>
+    <button @click="currentModal = 'modal2'">Show  example modal 2</button>
+
     <hr>
     <br>
     <h2>NC-SLIDER COMPONENT</h2>
@@ -332,18 +347,7 @@ export default {
           searchText: '+1 Bruselas'
         }
       ],
-      showCloseIcon: true,
-      showHeader: false,
-      showFooter: true,
-      opened: false,
-      padding: '34px',
-      marginTop: '0',
-      width: '588px',
-      height: '630px',
-      noVerticallyAligned: false,
-      modalOverlayStyle: {
-        background: '#FFF'
-      },
+      currentModal: null,
       ncCardItemImage:
         'https://cdn-images-1.medium.com/max/800/1*-PlqbnwqjqJi_EVmrhmuDQ.jpeg',
       ncCardItemDescription:
