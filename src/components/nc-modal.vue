@@ -1,13 +1,12 @@
 <template>
   <div class="nc-modal">
-    <div class="nc-modal__overlay" v-on="{ click: closeOnOverlayClick ? closeModal : null }">
+    <div class="nc-modal__overlay" @click="() => closeOnOverlayClick ? closeModal() : null">
       <div class="nc-modal__container" @click.stop.prevent>
-        <img
-          v-if="!hideCloseIcon"
-          src="data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiMyNzI3MjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5IDYuNEwxNy42IDUgMTIgMTAuNiA2LjQgNSA1IDYuNGw1LjYgNS42TDUgMTcuNiA2LjQgMTlsNS42LTUuNiA1LjYgNS42IDEuNC0xLjQtNS42LTUuNnoiLz4KPC9zdmc+Cg=="
-          class="nc-modal__close-icon"
-          @click="closeModal"
-        />
+        <button v-if="!hideCloseIcon" class="nc-modal__close-icon" @click="closeModal">
+          <img
+            src="data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxwYXRoIGZpbGw9IiMyNzI3MjciIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE5IDYuNEwxNy42IDUgMTIgMTAuNiA2LjQgNSA1IDYuNGw1LjYgNS42TDUgMTcuNiA2LjQgMTlsNS42LTUuNiA1LjYgNS42IDEuNC0xLjQtNS42LTUuNnoiLz4KPC9zdmc+Cg=="
+          />
+        </button>
         <header v-if="hasHeader" ref="header" class="nc-modal__header">
           <div class="header-slot">
             <slot name="header"></slot>
@@ -25,7 +24,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'nc-modal',
   props: {
@@ -140,8 +138,10 @@ $breakpoint-tablet: 768px;
     top: $gutter;
     right: $gutter;
     width: $close-icon-size;
-    cursor: pointer;
     z-index: 100;
+    cursor: pointer;
+    padding: 0;
+    border: none;
   }
 }
 </style>
