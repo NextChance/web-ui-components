@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
+## 0.3.0
+### Changed
+- NcCardItem uses BEM class names on header, subheader, title, description and image-container
+
 
 ## v0.2.0
 
