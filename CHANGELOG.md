@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.0.2
+### Changed
+- ncModal event handler fix
+
 ## v1.0.1
 ### Changed
 - Merge
