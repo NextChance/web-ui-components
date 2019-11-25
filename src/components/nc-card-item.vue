@@ -9,7 +9,7 @@
         <img
           v-if="image"
           alt="imageAlt"
-          class="image-content"
+          class="nc-card-item__image__content"
           :src="image"
           :style="imageStyle"
           @error="handleImageError">
@@ -24,17 +24,17 @@
         class="nc-card-item__content"
         :style="contentStyle"
       >
-        <div class="header" v-if="header">{{ header }}</div>
-        <div class="subheader" v-if="subheader">{{ subheader }}</div>
+        <div class="nc-card-item__header" v-if="header">{{ header }}</div>
+        <div class="nc-card-item__subheader" v-if="subheader">{{ subheader }}</div>
         <div
-          class="title"
+          class="nc-card-item__title"
           :style="{ '-webkit-line-clamp': titleLineEllipsis }"
           v-if="title"
         >
           {{ title }}
         </div>
         <div
-          class="description"
+          class="nc-card-item__description"
           v-if="description"
           :style="{ '-webkit-line-clamp': descriptionLineEllipsis }"
         >{{ description }}</div>
@@ -135,7 +135,7 @@ export default {
   &__image {
     position: relative;
 
-    .image-content {
+    &__content {
       height: 100%;
       width: 100%;
       object-fit: cover;
@@ -149,23 +149,23 @@ export default {
     padding: 11px 24px 24px 24px;
     display: flex;
     flex-flow: wrap;
-    & .header {
-      margin-right: 8px;
-    }
-    & .title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      flex-basis: 100%;
-    }
-    & .description {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      flex-basis: 100%;
-    }
+  }
+  &__header {
+    margin-right: 8px;
+  }
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    flex-basis: 100%;
+  }
+  &__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    flex-basis: 100%;
   }
 }
 </style>
