@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+## v1.0.3
+### Fixed
+- ncPhoneInput label issues on error cases
+- ncInputText remove autofill styles
+
+
 ## v1.0.2
 ### Changed
 - ncModal event handler fix
