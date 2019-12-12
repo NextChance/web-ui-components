@@ -4,7 +4,7 @@
     :selected-country="selectedCountry">
     <nc-text-input
       ref="phoneCountryCode"
-      input-type="number"
+      input-type="tel"
       has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
       :ui-reference="uiReference"
