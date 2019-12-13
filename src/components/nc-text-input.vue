@@ -229,6 +229,12 @@ $inputContentLabelColor: #aaaaaa;
 $errorColor: red;
 
 .nc-text-input {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+
   position: relative;
   text-align: left;
 
@@ -236,7 +242,6 @@ $errorColor: red;
     position: relative;
     border: solid 1px $containerBorderColor;
     box-sizing: border-box;
-    padding: 0 8px 0 16px;
     position: relative;
     height: 60px;
     width: 100%;
@@ -251,7 +256,7 @@ $errorColor: red;
       .input-content__label {
         color: $containerIsFocusedColor;
         font-size: 70%;
-        padding: 9px 0;
+        padding: 9px 8px 9px 16px;
         z-index: 2;
       }
     }
@@ -272,7 +277,7 @@ $errorColor: red;
 
     &.has-value {
       .input-content__label {
-        padding: 9px 0;
+        padding: 9px 8px 9px 16px;
         font-size: 70%;
       }
     }
@@ -290,14 +295,14 @@ $errorColor: red;
         left: 0;
         position: absolute;
         transition: font 0.2s;
-        padding: 19px 0;
+        padding: 19px 8px 19px 18px;
         font-size: 17px;
       }
 
       &__input {
-        padding: 27px 0 15px 0;
+        padding: 27px 8px 15px 16px;
         height: 58px;
-        width: calc(100% - 2px);
+        width: 100%;
         box-sizing: border-box;
         border: none;
         background: none;
@@ -311,8 +316,17 @@ $errorColor: red;
     }
 
     .icon-left {
-      margin-right: 8px;
+      padding-left: 16px;
       flex-grow: 0;
+      &+div.input-content {    
+        .input-content__label {
+          padding-left: 8px;
+        }
+        .input-content__input {
+          padding-left: 8px;
+        }
+        
+      }
       &.has-pointer {
         cursor: pointer;
       }
