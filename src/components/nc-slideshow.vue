@@ -21,44 +21,45 @@
         </template>
       </ul>
     </div>
-    <div class="nc-slideshow__pagination">
-      <ul class="dots" aria-label="Pagination Slideshow" role="navigation">
-        <li
-          :style="paginationStyle"
-          v-for="(i, index) in slideLength"
-          :key=index
-        >
-          <button
-            @click.stop="selectSlide(index)"
-            :class="[ slideIndex === index ? paginationActiveClass : '', 'dots__button']"
+    <template v-if="images.length > 1" >
+      <div class="nc-slideshow__pagination">
+        <ul class="dots" aria-label="Pagination Slideshow" role="navigation">
+          <li
+              :style="paginationStyle"
+              v-for="(i, index) in slideLength"
+              :key=index
           >
-            <span class="dots__text">{{ ariaText.ariaTextDots + index + 1 }}</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-    <button
-      v-if="hasLinkLeft"
-      class="nc-slideshow__link--left"
-      @click="leftLinkHandler($event)"
-      :data-slide-to="slideIndex + 1"
-      :style="leftLinkStyle"
-      role="button"
-    >
-      {{ leftLinkText }}
-    </button>
-    <button
-      v-if="hasLinkRight"
-      class="nc-slideshow__link--right"
-      @click="rightLinkHandler($event)"
-      :data-slide-to="slideIndex + 1"
-      :style="rightLinkStyle"
-      role="button"
-    >
-      {{ rightLinkText }}
-    </button>
+            <button
+                @click.stop="selectSlide(index)"
+                :class="[ slideIndex === index ? paginationActiveClass : '', 'dots__button']"
+            >
+              <span class="dots__text">{{ ariaText.ariaTextDots + index + 1 }}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <button
+          v-if="hasLinkLeft"
+          class="nc-slideshow__link--left"
+          @click="leftLinkHandler($event)"
+          :data-slide-to="slideIndex + 1"
+          :style="leftLinkStyle"
+          role="button"
+      >
+        {{ leftLinkText }}
+      </button>
+      <button
+          v-if="hasLinkRight"
+          class="nc-slideshow__link--right"
+          @click="rightLinkHandler($event)"
+          :data-slide-to="slideIndex + 1"
+          :style="rightLinkStyle"
+          role="button"
+      >
+        {{ rightLinkText }}
+      </button>
+    </template>
   </div>
-
 </template>
 
 <script>
