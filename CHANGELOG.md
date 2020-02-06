@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+## v1.1.0
+### Added
+- ncSlideshow shows pagination just when there is more than one page to show
+
 ## v1.0.2
 ### Changed
 - ncModal event handler fix
