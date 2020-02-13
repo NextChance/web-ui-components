@@ -60,7 +60,7 @@ export default {
     },
     caption: {
       type: String,
-      default: 'Caption'
+      default: ''
     },
     contentStyle: {
       type: String,
@@ -68,7 +68,7 @@ export default {
     },
     description: {
       type: String,
-      default: 'Description'
+      default: ''
     },
     descriptionLineEllipsis: {
       type: Number,
@@ -81,7 +81,7 @@ export default {
     },
     header: {
       type: String,
-      default: 'Header'
+      default: ''
     },
     image: {
       type: String,
@@ -94,11 +94,11 @@ export default {
     imageStyle: Object,
     subheader: {
       type: String,
-      default: 'Subheader'
+      default: ''
     },
     title: {
       type: String,
-      default: 'Title'
+      default: ''
     },
     titleLineEllipsis: {
       type: Number,

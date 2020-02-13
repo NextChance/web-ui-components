@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
+## v1.2.0
+### Changed
+- ncCardItem has no default values to hide those elements where a value is not passed
+
 ## v1.1.0
 ### Added
 - ncSlideshow shows pagination just when there is more than one page to show
