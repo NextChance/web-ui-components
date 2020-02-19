@@ -60,197 +60,245 @@
 </template>
 <script>
 export default {
-    name: 'nc-slider',
-    data() {
-        return {
-            dragging: false,
-            iconSize: 22,
-            minIconPosition: 0,
-            maxIconPosition: 0,
-            minRail: 0,
-            maxRail: 0,
-            minPercentage: 0,
-            maxPercentage: 100,
-            currentMinValue: 0,
-            currentMaxValue: 0,
-            leftPosition: '0px',
-            rightPosition: '0px'
-        }
-    },
-    props: {
-        min: [String, Number],
-        max: [String, Number],
-        minLabel: String,
-        maxLabel: String,
-        minValue: [String, Number],
-        maxValue: [String, Number],
-        offsetLeft: Number
-    },
-    mounted() {
-        const rail = this.$refs.rail;
-        const railWidth = rail.clientWidth;
+  name: 'nc-slider',
+  data() {
+    return {
+      dragging: false,
+      iconSize: 22,
+      minIconPosition: 0,
+      maxIconPosition: 0,
+      minRail: 0,
+      maxRail: 0,
+      minPercentage: 0,
+      maxPercentage: 100,
+      currentMinValue: 0,
+      currentMaxValue: 0,
+      leftPosition: '0px',
+      rightPosition: '0px'
+    }
+  },
+  props: {
+    min: [String, Number],
+    max: [String, Number],
+    minLabel: String,
+    maxLabel: String,
+    minValue: [String, Number],
+    maxValue: [String, Number],
+    offsetLeft: Number
+  },
+  mounted() {
+    const rail = this.$refs.rail
+    const railWidth = rail.clientWidth
 
-        this.maxRail = railWidth - this.iconSize;
-        this.currentMinValue = this.minValue;
-        this.currentMaxValue = this.maxValue;
-        this.minValueNow();
-        this.maxValueNow();
-        this.calculateMinValuePercentage();
-        this.calculateMaxValuePercentage();
+    this.maxRail = railWidth - this.iconSize
+    this.currentMinValue = this.minValue
+    this.currentMaxValue = this.maxValue
+    this.minValueNow()
+    this.maxValueNow()
+    this.calculateMinValuePercentage()
+    this.calculateMaxValuePercentage()
 
-        window.addEventListener('resize', this.resizeSlider)
+    window.addEventListener('resize', this.resizeSlider)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeSlider)
+  },
+  computed: {
+    onlyHasMaxLabel() {
+      return !this.min && Boolean(this.max)
+    }
+  },
+  watch: {
+    minValue(newValue, oldValue) {
+      this.currentMinValue = newValue
+      this.calculateMinValuePercentage()
     },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.resizeSlider)
+
+    maxValue(newValue, oldValue) {
+      this.currentMaxValue = newValue
+      this.calculateMaxValuePercentage()
+    }
+  },
+  methods: {
+    resizeSlider() {
+      const rail = this.$refs.rail
+      const railWidth = rail.clientWidth
+
+      this.maxRail = railWidth - this.iconSize
+      this.currentMinValue = this.minValue
+      this.currentMaxValue = this.maxValue
+      this.minValueNow()
+      this.maxValueNow()
+      this.calculateMinValuePercentage()
+      this.calculateMaxValuePercentage()
     },
-    computed: {
-        onlyHasMaxLabel() {
-            return !Boolean(this.min) && Boolean(this.max);
-        },
-    },
-    watch: {
-      minValue(newValue, oldValue) {
-        this.currentMinValue = newValue;
+
+    minValueNow() {
+      const minValue =
+        (parseInt(this.max) * parseInt(this.minIconPosition)) /
+        parseInt(this.maxRail)
+      let parseNumber = parseInt(minValue)
+        ? parseInt(minValue).toFixed(0)
+        : parseInt(this.minIconPosition)
+      parseNumber =
+        parseNumber >= this.max ? this.max - this.iconSize / 2 : parseNumber
+
+      if (parseNumber <= this.min) {
+        parseNumber = this.min
         this.calculateMinValuePercentage()
-      },
+      }
 
-      maxValue(newValue, oldValue) {
-        this.currentMaxValue = newValue;
-        this.calculateMaxValuePercentage()
+      this.currentMinValue = parseNumber
+    },
+
+    maxValueNow() {
+      const maxValue =
+        (parseInt(this.max) * parseInt(this.maxIconPosition)) /
+        parseInt(this.maxRail)
+      let parseNumber = parseInt(maxValue)
+        ? parseInt(maxValue).toFixed(0)
+        : parseInt(this.max)
+      parseNumber = parseNumber >= this.max ? this.max : parseNumber
+      parseNumber = parseNumber <= 5 ? this.minValue : parseNumber
+      if (this.onlyHasMaxLabel) {
+        parseNumber =
+          parseNumber < this.iconSize / 2 ? this.minValue : parseNumber
+      }
+
+      this.currentMaxValue = parseNumber
+    },
+
+    calculateMinValuePercentage() {
+      let minValue =
+        parseInt(this.minValue) === 0
+          ? parseInt(this.minValue) + 1
+          : parseInt(this.minValue)
+      const calculatedValue =
+        (minValue * parseInt(this.maxPercentage)) / parseInt(this.max)
+      const percentage = parseInt(this.minValue)
+        ? calculatedValue.toFixed(0)
+        : parseInt(this.minPercentage)
+
+      this.calculateMinIconPosition(percentage)
+    },
+
+    calculateMaxValuePercentage() {
+      const calculatedValue =
+        (parseInt(this.maxValue) * parseInt(this.maxPercentage)) /
+        parseInt(this.max)
+      const percentage = parseInt(this.maxValue)
+        ? calculatedValue.toFixed(0)
+        : parseInt(this.maxPercentage)
+
+      this.calculateMaxIconPosition(percentage)
+    },
+
+    calculateMinIconPosition(percentage) {
+      const calculatedValue = parseInt(percentage)
+        ? parseInt(percentage)
+        : this.minPercentage
+      const parsePosition = parseInt(
+        calculatedValue
+          ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0)
+          : this.minPercentage
+      )
+      this.leftPosition = parsePosition + 'px'
+      this.minIconPosition = parsePosition
+    },
+
+    calculateMaxIconPosition(percentage) {
+      const calculatedValue = parseInt(percentage)
+        ? parseInt(percentage)
+        : this.maxRail
+      const parsePosition = parseInt(
+        calculatedValue
+          ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0)
+          : this.maxRail
+      )
+
+      this.rightPosition = this.maxRail - parsePosition + 'px'
+      this.maxIconPosition = parsePosition
+    },
+
+    startDrag(ev) {
+      this.dragging = true
+    },
+
+    stopDrag() {
+      const values = [this.currentMinValue, this.currentMaxValue]
+
+      this.dragging = false
+      this.$emit('slider-stop-drag', values)
+    },
+
+    onPanHorizontal(ev) {
+      if (this.dragging) {
+        const icon = ev.currentTarget.id || ev.target.id
+        const position =
+          ev.changedTouches && ev.changedTouches.length > 0
+            ? ev.changedTouches[0].clientX
+            : ev.clientX
+
+        return this.moveIcon(icon, position)
       }
     },
-    methods: {
-        resizeSlider() {
-          const rail = this.$refs.rail;
-          const railWidth = rail.clientWidth;
 
-          this.maxRail = railWidth - this.iconSize;
-          this.currentMinValue = this.minValue;
-          this.currentMaxValue = this.maxValue;
-          this.minValueNow();
-          this.maxValueNow();
-          this.calculateMinValuePercentage();
-          this.calculateMaxValuePercentage();
-        },
+    moveIcon(icon, position) {
+      const rail = this.$refs.rail
+      const railWidth = rail.clientWidth
+      const railLeft = this.offsetLeft ? this.offsetLeft : rail.offsetLeft
+      const realUserPosition = position - railLeft
+      const halfIconSize = this.iconSize / 2
+      const borderIcon = 4
+      let iconPosition = realUserPosition - halfIconSize
 
-        minValueNow() {
-            const minValue = ((parseInt(this.max) * parseInt(this.minIconPosition)) / parseInt(this.maxRail));
-            let parseNumber = parseInt(minValue) ? parseInt(minValue).toFixed(0) : parseInt(this.minIconPosition);
-            parseNumber = parseNumber >= this.max ? this.max - (this.iconSize / 2) : parseNumber;
+      // MAXIMUM POSITION
+      if (realUserPosition > railWidth) {
+        iconPosition = railWidth - this.iconSize
+      }
 
-            if (parseNumber <= this.min) {
-              parseNumber = this.min;
-              this.calculateMinValuePercentage()
-            }
+      // MINIMUN POSITION
+      if (realUserPosition < this.minRail - this.iconSize) {
+        iconPosition = this.minRail
+      }
 
-            this.currentMinValue = parseNumber;
-        },
-
-        maxValueNow() {
-            const maxValue = (parseInt(this.max) * parseInt(this.maxIconPosition)) / parseInt(this.maxRail);
-            let parseNumber = Boolean(parseInt(maxValue)) ? parseInt(maxValue).toFixed(0) : parseInt(this.max);
-            parseNumber = parseNumber >= this.max ? this.max : parseNumber;
-            parseNumber = parseNumber <= 5 ? this.minValue : parseNumber;
-            if (this.onlyHasMaxLabel) {
-              parseNumber = (parseNumber < (this.iconSize / 2)) ? this.minValue : parseNumber;
-            }
-
-            this.currentMaxValue = parseNumber;
-        },
-
-        calculateMinValuePercentage() {
-          let minValue = parseInt(this.minValue) === 0 ? parseInt(this.minValue) + 1 : parseInt(this.minValue);
-          const calculatedValue = (minValue * parseInt(this.maxPercentage)) / parseInt(this.max);
-          const percentage = parseInt(this.minValue) ? calculatedValue.toFixed(0) : parseInt(this.minPercentage);
-
-          this.calculateMinIconPosition(percentage)
-        },
-
-        calculateMaxValuePercentage() {
-          const calculatedValue = (parseInt(this.maxValue) * parseInt(this.maxPercentage)) / parseInt(this.max);
-          const percentage = parseInt(this.maxValue) ? calculatedValue.toFixed(0) : parseInt(this.maxPercentage);
-
-          this.calculateMaxIconPosition(percentage)
-        },
-
-        calculateMinIconPosition(percentage) {
-          const calculatedValue = parseInt(percentage) ? parseInt(percentage) : this.minPercentage;
-          const parsePosition = parseInt(calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.minPercentage);
-          this.leftPosition = (parsePosition) + 'px';
-          this.minIconPosition = parsePosition;
-        },
-
-        calculateMaxIconPosition(percentage) {
-          const calculatedValue = parseInt(percentage) ? parseInt(percentage) : this.maxRail;
-          const parsePosition = parseInt(calculatedValue ? ((calculatedValue * this.maxRail) / this.maxPercentage).toFixed(0) : this.maxRail);
-
-          this.rightPosition = (this.maxRail - parsePosition) + 'px';
-          this.maxIconPosition = parsePosition;
-        },
-
-        startDrag(ev) {
-            this.dragging = true;
-        },
-
-        stopDrag() {
-          const values = [this.currentMinValue, this.currentMaxValue];
-
-          this.dragging = false;
-          this.$emit('slider-stop-drag', values);
-        },
-
-        onPanHorizontal(ev) {
-            if (this.dragging) {
-              const icon = ev.currentTarget.id || ev.target.id;
-              const position = ev.changedTouches && ev.changedTouches.length > 0 ? ev.changedTouches[0].clientX : ev.clientX;
-
-              return this.moveIcon(icon, position);
-            }
-        },
-
-        moveIcon(icon, position) {
-            const rail = this.$refs.rail;
-            const railWidth = rail.clientWidth;
-            const railLeft = this.offsetLeft ? this.offsetLeft : rail.offsetLeft;
-            const realUserPosition = position - railLeft;
-            const halfIconSize = this.iconSize / 2;
-            const borderIcon = 4;
-            let iconPosition = realUserPosition - halfIconSize;
-
-            // MAXIMUM POSITION
-            if (realUserPosition > railWidth) {
-                iconPosition = railWidth - this.iconSize;
-            }
-
-            // MINIMUN POSITION
-            if (realUserPosition < (this.minRail - this.iconSize)) {
-                iconPosition = this.minRail;
-            }
-
-            if (icon === 'min') {
-              if (realUserPosition - this.iconSize - borderIcon > parseInt(this.maxIconPosition)) {
-                iconPosition = parseInt(this.maxIconPosition) - halfIconSize;
-              }
-              this[`${icon}IconPosition`] = iconPosition;
-              this.minValueNow()
-            } else {
-              if ((realUserPosition - this.iconSize) <= parseInt(this.minIconPosition)) {
-                if (this.onlyHasMaxLabel) {
-                  iconPosition = realUserPosition - halfIconSize + 1;
-                }
-                if (!this.onlyHasMaxLabel && (this.maxIconPosition >= this.minIconPosition)) {
-                    iconPosition = parseInt(this.minIconPosition) + parseInt(this.iconSize);
-                } else if (this.maxIconPosition <= this.minIconPosition) {
-                    iconPosition = parseInt(this.maxIconPosition) + 1;
-                } else {
-                    iconPosition = (realUserPosition - halfIconSize + 1) <= this.minRail ? this.minRail : (realUserPosition - halfIconSize + 1);
-                }
-              }
-              this[`${icon}IconPosition`] = iconPosition;
-              this.maxValueNow()
-            }
-        },
+      if (icon === 'min') {
+        if (
+          realUserPosition - this.iconSize - borderIcon >
+          parseInt(this.maxIconPosition)
+        ) {
+          iconPosition = parseInt(this.maxIconPosition) - halfIconSize
+        }
+        this[`${icon}IconPosition`] = iconPosition
+        this.minValueNow()
+      } else {
+        if (
+          realUserPosition - this.iconSize <=
+          parseInt(this.minIconPosition)
+        ) {
+          if (this.onlyHasMaxLabel) {
+            iconPosition = realUserPosition - halfIconSize + 1
+          }
+          if (
+            !this.onlyHasMaxLabel &&
+            this.maxIconPosition >= this.minIconPosition
+          ) {
+            iconPosition =
+              parseInt(this.minIconPosition) + parseInt(this.iconSize)
+          } else if (this.maxIconPosition <= this.minIconPosition) {
+            iconPosition = parseInt(this.maxIconPosition) + 1
+          } else {
+            iconPosition =
+              realUserPosition - halfIconSize + 1 <= this.minRail
+                ? this.minRail
+                : realUserPosition - halfIconSize + 1
+          }
+        }
+        this[`${icon}IconPosition`] = iconPosition
+        this.maxValueNow()
+      }
     }
+  }
 }
 </script>
 
@@ -349,6 +397,6 @@ $second-color: #d8d8d8;
 }
 
 .nc-slider__icon:focus {
-    outline: none;
+  outline: none;
 }
 </style>

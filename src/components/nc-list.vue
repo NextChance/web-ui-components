@@ -122,7 +122,10 @@ export default {
       this.$emit('item-selected', item)
     },
     _itemParser(item) {
-      return item.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      return item
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
     }
   },
 

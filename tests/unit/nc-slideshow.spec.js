@@ -88,21 +88,6 @@ describe('ncSlideshow', () => {
 
   describe('.selectSlide()', () => {
     const index = 1
-    describe('when a dot is clicked', () => {
-      let wrapper
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-      })
-      it('should be called', () => {
-        let stub = jest.fn()
-        wrapper.setMethods({ selectSlide: stub })
-        wrapper.find('.dots li:nth-of-type(1) button').trigger('click')
-        expect(stub).toBeCalled()
-      })
-    })
 
     describe('when called with a valid number', () => {
       let wrapper

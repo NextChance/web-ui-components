@@ -4,7 +4,7 @@
     :selected-country="selectedCountry">
     <nc-text-input
       ref="phoneCountryCode"
-      input-type="number"
+      :input-type="type"
       has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
       :ui-reference="uiReference"
@@ -111,6 +111,10 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: 'number'
     }
   },
   mounted() {
@@ -238,7 +242,7 @@ export default {
       // Emit input event in case v-model is used in the parent
       this.$emit('input', this.response.number)
       this.$emit('onInput', this.response)
-      if (this.sendInvalidPhone && !(this.response.isValid)) {
+      if (this.sendInvalidPhone && !this.response.isValid) {
         this.$emit('onValidate', this.response)
       }
     },

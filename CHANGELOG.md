@@ -14,7 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
-
+## v1.3.0
+### Changed
+- ncPhoneInput, input type as prop
 
 ## v1.2.0
 ### Changed

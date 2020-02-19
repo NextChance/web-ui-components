@@ -160,7 +160,7 @@ export default {
     },
     value: {
       type: String,
-      default:''
+      default: ''
     },
     wrapperClasses: String
   },
@@ -337,7 +337,7 @@ $errorColor: red;
   }
 
   .disable-spinButton::-webkit-inner-spin-button,
-  .disable-spinButton::-webkit-outer-spin-button{
+  .disable-spinButton::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
