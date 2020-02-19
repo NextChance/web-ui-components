@@ -8,7 +8,7 @@
 </template>
 <script>
 export default {
-  name: 'nc-separator',  
+  name: 'nc-separator',
 
   props: {
     color: {
@@ -32,29 +32,27 @@ $element: grey;
 $line: grey;
 $background: white;
 .nc-separator {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 35px;
-    position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 35px;
+  position: relative;
+  width: 100%;
+
+  &__line {
+    border-top: 1px solid $line;
+    position: absolute;
     width: 100%;
+  }
 
-    &__line {
-      border-top: 1px solid $line;
-      position: absolute;
-      width: 100%;
-    }
-
-    &__content {
+  &__content {
     background-color: $background;
     height: auto;
     padding: 0 25px;
     position: absolute;
     width: auto;
     z-index: 2;
-    }
   }
+}
 </style>
-
-

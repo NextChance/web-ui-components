@@ -139,10 +139,10 @@ describe('ncTextInput', () => {
           }
         })
         wrapper.setProps({ hasIconLeft: true })
-        wrapper.find('.icon-left').trigger('click')
+        wrapper.vm.handleIconLeft({})
       })
 
-      it('the event input-key-up-event is emitted', () => {
+      it('the event input-left-icon-event is emitted', () => {
         expect(wrapper.emitted('input-left-icon-event')).toBeTruthy()
       })
     })
@@ -157,7 +157,7 @@ describe('ncTextInput', () => {
           }
         })
         wrapper.setProps({ hasIconRight: true })
-        wrapper.find('.icon-right').trigger('click')
+        wrapper.vm.handleIconRight({})
       })
 
       it('the event input-right-icon-event is emitted', () => {
@@ -177,7 +177,6 @@ describe('ncTextInput', () => {
 
       it('the event input is emitted', () => {
         expect(wrapper.emitted('input')).toBeTruthy()
-
       })
 
       it('the value emitted is the same as that the value set', () => {

@@ -224,7 +224,7 @@ export default {
     },
 
     handleAutoResize() {
-      if( this.isAutoResizable ) {
+      if (this.isAutoResizable) {
         this.textAreaHeight = '0px'
         this.$nextTick(function() {
           this.textAreaHeight = this.$refs[this.uiReference].scrollHeight + 'px'
@@ -312,7 +312,7 @@ $errorColor: red;
         border: none;
         font-size: 17px;
         height: 66px;
-        resize:none;
+        resize: none;
         padding: 0;
         width: 100%;
         z-index: 1;

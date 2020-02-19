@@ -131,6 +131,7 @@ describe('ncTextarea', () => {
 
     describe('on click left icon', () => {
       let wrapper
+      let ev = {}
       beforeAll(() => {
         wrapper = mount(ncTextarea, {
           attachToDocument: true,
@@ -139,7 +140,7 @@ describe('ncTextarea', () => {
           }
         })
         wrapper.setProps({ hasIconLeft: true })
-        wrapper.find('.icon-left').trigger('click')
+        wrapper.vm.handleIconLeft(ev)
       })
 
       it('the event input-key-up-event is emitted', () => {
@@ -149,6 +150,7 @@ describe('ncTextarea', () => {
 
     describe('on click right icon', () => {
       let wrapper
+      let ev = {}
       beforeAll(() => {
         wrapper = mount(ncTextarea, {
           attachToDocument: true,
@@ -157,7 +159,7 @@ describe('ncTextarea', () => {
           }
         })
         wrapper.setProps({ hasIconRight: true })
-        wrapper.find('.icon-right').trigger('click')
+        wrapper.vm.handleIconRight(ev)
       })
 
       it('the event input-right-icon-event is emitted', () => {

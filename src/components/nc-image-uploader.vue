@@ -108,7 +108,7 @@ export default {
       default: '4px'
     }
   },
-  data () {
+  data() {
     return {
       isDisabled: false,
       isEmpty: true,
@@ -125,18 +125,21 @@ export default {
     },
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
-        if (files.length > 0) {
-          this.$emit('input-image-uploader-event', {file: files[0], imgId: this.id})
-          this.isEmpty = false
-          this.isLoading = true
-          this.isDisabled = true
-          this.withData = false
-          this.errorMsg = ''
-        }
+      if (files.length > 0) {
+        this.$emit('input-image-uploader-event', {
+          file: files[0],
+          imgId: this.id
+        })
+        this.isEmpty = false
+        this.isLoading = true
+        this.isDisabled = true
+        this.withData = false
+        this.errorMsg = ''
+      }
     },
-    handleClickRemove: function (ev) {
-      this.$emit('input-image-remove-event', {file: '', imgId: this.id})
-      this._resetStatus();
+    handleClickRemove: function() {
+      this.$emit('input-image-remove-event', { file: '', imgId: this.id })
+      this._resetStatus()
     }
   },
   watch: {
@@ -146,7 +149,7 @@ export default {
       this.isDisabled = true
       this.withData = false
 
-      if(newImage !== '') {
+      if (newImage !== '') {
         this.isEmpty = false
         this.isLoading = false
         this.isDisabled = false
@@ -162,8 +165,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  $containerBorderColor: #d8d8d8;
-  $errorColor: red;
+$containerBorderColor: #d8d8d8;
+$errorColor: red;
 
 .image-uploader__container {
   position: relative;
@@ -182,8 +185,8 @@ export default {
 }
 .nc-delete_icon {
   position: absolute;
-   z-index: 1;
-   margin: 0;
+  z-index: 1;
+  margin: 0;
 }
 .nc-uploader_label {
   position: relative;
@@ -197,8 +200,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-   &.error {
-      border: 1px solid $errorColor;
+  &.error {
+    border: 1px solid $errorColor;
   }
 }
 .nc-image-uploader_background {
@@ -207,6 +210,6 @@ export default {
   background-size: cover;
 }
 .image-uploader__error {
-  color: $errorColor
+  color: $errorColor;
 }
 </style>
