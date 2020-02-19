@@ -23,7 +23,8 @@ describe('ncPhoneInput', () => {
     inputClasses: '',
     inputOptions: {},
     maxLength: 15,
-    uiReference: undefined
+    uiReference: undefined,
+    type: 'number'
   }
 
   describe('when mounted without props', () => {
