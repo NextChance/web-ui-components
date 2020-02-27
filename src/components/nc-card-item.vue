@@ -25,7 +25,10 @@
         :style="contentStyle"
       >
         <div class="nc-card-item__header" v-if="header">{{ header }}</div>
-        <div class="nc-card-item__subheader" v-if="subheader">{{ subheader }}</div>
+        <div class="nc-card-item__subheader" v-if="subheader">
+          {{ subheader }}
+          <slot name="subheaderExtraContent"></slot>
+        </div>
         <div
           class="nc-card-item__title"
           :style="{ '-webkit-line-clamp': titleLineEllipsis }"
@@ -159,6 +162,9 @@ export default {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     flex-basis: 100%;
+  }
+  &__subheader {
+    display: flex;
   }
   &__description {
     overflow: hidden;

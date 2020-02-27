@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
+## v1.4.0
+### Changed
+- ncCardItem new slot inside subheader
+
 ## v1.3.0
 ### Changed
 - ncPhoneInput, input type as prop

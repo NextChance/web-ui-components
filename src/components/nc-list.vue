@@ -117,7 +117,7 @@ export default {
   },
 
   methods: {
-    onItemSelected(item, index) {
+    onItemSelected(item) {
       this.itemSelected = item.id
       this.$emit('item-selected', item)
     },
