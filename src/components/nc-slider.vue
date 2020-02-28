@@ -109,12 +109,12 @@ export default {
     }
   },
   watch: {
-    minValue(newValue, oldValue) {
+    minValue(newValue) {
       this.currentMinValue = newValue
       this.calculateMinValuePercentage()
     },
 
-    maxValue(newValue, oldValue) {
+    maxValue(newValue) {
       this.currentMaxValue = newValue
       this.calculateMaxValuePercentage()
     }
@@ -220,7 +220,7 @@ export default {
       this.maxIconPosition = parsePosition
     },
 
-    startDrag(ev) {
+    startDrag() {
       this.dragging = true
     },
 
