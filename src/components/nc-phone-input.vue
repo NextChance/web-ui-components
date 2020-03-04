@@ -162,6 +162,9 @@ export default {
       if (!this.displayMode) {
         return ''
       }
+      if (this.formattingDisabled) {
+        return Array.prototype.filter.call(this.phone, char => char !== ' ' && char !== '.').join('')
+      }
       let phone = this.phone
       if (this.displayMode === 'code') {
         // If user manually type the country code
@@ -171,9 +174,6 @@ export default {
         // Remove the first '0' if this is a '0' prefix number
         // Ex: 0432421999
         phone = this.phone.slice(1)
-      }
-      if (this.formattingDisabled) {
-        return this.phone
       }
       return formatNumber(
         phone,
