@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
+## v1.5.0
+### Fixed
+- Remove double background on ncImageLoader to not show it on transparent uploads.
+### Changed
+- ncPhoneInput now sends formatted phone without spaces. When we introduce a valid phone number (including dashed, spaced or split with dash bars) the result will be the same.
+
 ## v1.4.0
 ### Changed
 - ncCardItem new slot inside subheader
