@@ -162,6 +162,9 @@ export default {
       if (!this.displayMode) {
         return ''
       }
+      if (this.formattingDisabled) {
+        return this.phone
+      }
       let phone = this.phone
       if (this.displayMode === 'code') {
         // If user manually type the country code
@@ -172,14 +175,15 @@ export default {
         // Ex: 0432421999
         phone = this.phone.slice(1)
       }
-      if (this.formattingDisabled) {
-        return this.phone
-      }
-      return formatNumber(
+      const _formattedResult =  formatNumber(
         phone,
         this.selectedCountry && this.selectedCountry.iso.toUpperCase(),
         this.format[0]
       )
+      const _removeSpaces = phoneNumber => {
+        return Array.prototype.filter.call(phoneNumber, char => char !== ' ').join('')
+      }
+      return _removeSpaces(_formattedResult)
     },
     isValid() {
       return isValidNumber(
