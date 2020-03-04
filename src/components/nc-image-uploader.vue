@@ -16,7 +16,7 @@
         :class="['nc-image-uploader_background','nc-uploader_label', hasError ? 'error' : '']"
         :style="{
           borderRadius: radius,
-          backgroundImage: `url(${bgImage}), url(${bgImage != '' ? defaultBackground : ''})`
+          backgroundImage: bgImage ? `url(${bgImage})` : `url('')`
         }"
         >
             <figure v-if="isEmpty"
