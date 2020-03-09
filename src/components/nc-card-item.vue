@@ -24,11 +24,11 @@
         class="nc-card-item__content"
         :style="contentStyle"
       >
-        <div class="nc-card-item__header" v-if="header">
+        <div class="nc-card-item__header" v-if="$slots['headerExtraContent']">
           <slot name="headerExtraContent"></slot>
           {{ header }}
         </div>
-        <div class="nc-card-item__subheader" v-if="subheader">
+        <div class="nc-card-item__subheader" v-if="$slots['subheaderExtraContent']">
           <slot name="subheaderExtraContent"></slot>
           {{ subheader }}
         </div>
