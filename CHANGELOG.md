@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
+## v1.6.0
+### Changed
+- ncCardItem new slots for caption, and header
+
 ## v1.5.0
 ### Fixed
 - Remove double background on ncImageLoader to not show it on transparent uploads.
