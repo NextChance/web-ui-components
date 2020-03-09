@@ -13,21 +13,22 @@
           :src="image"
           :style="imageStyle"
           @error="handleImageError">
-        <div
-          class="nc-card-item__caption"
-          v-if="caption"
-        >
-          {{ caption }}
+        <div class="nc-card-item__image__extra-content--top" v-if="$slots['imageExtraContentTop']">
+          <slot name="imageExtraContentTop" />
+        </div>
+        <div class="nc-card-item__image__extra-content--bottom" v-if="$slots['imageExtraContentBottom']">
+          <slot name="imageExtraContentBottom" />
         </div>
       </div>
       <div
         class="nc-card-item__content"
         :style="contentStyle"
       >
-        <div class="nc-card-item__header" v-if="header">{{ header }}</div>
-        <div class="nc-card-item__subheader" v-if="subheader">
-          {{ subheader }}
-          <slot name="subheaderExtraContent"></slot>
+        <div class="nc-card-item__header" v-if="$slots['header']">
+          <slot name="header"></slot>
+        </div>
+        <div class="nc-card-item__subheader" v-if="$slots['subheader']">
+          <slot name="subheader"></slot>
         </div>
         <div
           class="nc-card-item__title"
@@ -61,10 +62,6 @@ export default {
       type: String,
       default: 'cardItemRef'
     },
-    caption: {
-      type: String,
-      default: ''
-    },
     contentStyle: {
       type: String,
       default: ''
@@ -82,10 +79,6 @@ export default {
       type: Boolean,
       default: false
     },
-    header: {
-      type: String,
-      default: ''
-    },
     image: {
       type: String,
       default: ''
@@ -95,10 +88,6 @@ export default {
       default: 'Default image'
     },
     imageStyle: Object,
-    subheader: {
-      type: String,
-      default: ''
-    },
     title: {
       type: String,
       default: ''
@@ -110,6 +99,14 @@ export default {
     wrapperClass: {
       type: String,
       default: ''
+    },
+    hasImageExtraContentTop: {
+      type: Boolean,
+      default: false
+    },
+    hasImageExtraContentBottom: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -137,7 +134,18 @@ export default {
 
   &__image {
     position: relative;
-
+    &__extra-content {
+      &--top {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+      }
+      &--bottom {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+      }
+    }
     &__content {
       height: 100%;
       width: 100%;
