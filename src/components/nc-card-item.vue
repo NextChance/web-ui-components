@@ -26,11 +26,9 @@
       >
         <div class="nc-card-item__header" v-if="header">
           <slot name="headerExtraContent"></slot>
-          {{ header }}
         </div>
         <div class="nc-card-item__subheader" v-if="subheader">
           <slot name="subheaderExtraContent"></slot>
-          {{ subheader }}
         </div>
         <div
           class="nc-card-item__title"
@@ -81,10 +79,6 @@ export default {
       type: Boolean,
       default: false
     },
-    header: {
-      type: String,
-      default: ''
-    },
     image: {
       type: String,
       default: ''
@@ -94,10 +88,6 @@ export default {
       default: 'Default image'
     },
     imageStyle: Object,
-    subheader: {
-      type: String,
-      default: ''
-    },
     title: {
       type: String,
       default: ''
