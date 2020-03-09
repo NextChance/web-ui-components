@@ -24,11 +24,11 @@
         class="nc-card-item__content"
         :style="contentStyle"
       >
-        <div class="nc-card-item__header" v-if="$slots['headerExtraContent']">
+        <div class="nc-card-item__header" v-if="header">
           <slot name="headerExtraContent"></slot>
           {{ header }}
         </div>
-        <div class="nc-card-item__subheader" v-if="$slots['subheaderExtraContent']">
+        <div class="nc-card-item__subheader" v-if="subheader">
           <slot name="subheaderExtraContent"></slot>
           {{ subheader }}
         </div>
@@ -109,6 +109,14 @@ export default {
     wrapperClass: {
       type: String,
       default: ''
+    },
+    hasImageExtraContentTop: {
+      type: Boolean,
+      default: false
+    },
+    hasImageExtraContentBottom: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
