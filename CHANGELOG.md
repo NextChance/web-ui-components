@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
+
+## v1.7.0
+### Added
+- User can click on ncSliderV2 to move closest trigger.
+
 ## v1.6.0
 ### Changed
 - ncCardItem new slots for caption, and header

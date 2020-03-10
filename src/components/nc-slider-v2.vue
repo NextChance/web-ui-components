@@ -3,6 +3,7 @@
     <div
         class="nc-slider__container"
         ref="nc-slider__container"
+        @click="clickTrack"
     >
       <img :src="dragDot" class="nc-slider__drag-dot-placeholder">
       <div class="nc-slider__total-track"></div>
@@ -183,6 +184,22 @@ export default {
     },
     dragEndHandler() {
       this.isDragging = false
+      this.$emit('change', [this._floorValue, this._ceilValue])
+    },
+    clickTrack(e) {
+      const clickOffset = e.clientX - this.trackLeftPosition
+      const clickPosition = clickOffset / this.trackSize
+      let methodName
+      if (this.isDouble) {
+        const distanceToCeil = Math.abs(this.ceilRelativePosition - clickPosition)
+        const distanceToFloor = Math.abs(this.floorRelativePosition - clickPosition)
+        this.isFloorTrigger = distanceToFloor < distanceToCeil
+        methodName = this.isFloorTrigger ? 'setFloorTriggerPosition' : 'setCeilTriggerPosition'
+      } else {
+        this.isFloorTrigger = false
+        methodName = 'setCeilTriggerPosition'
+      }
+      this[methodName](clickOffset, clickPosition)
       this.$emit('change', [this._floorValue, this._ceilValue])
     }
   },
