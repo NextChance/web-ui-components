@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Changed
+- nc-list and nc-text-input due to UiKit update
+
 ## v1.7.0
 ### Added
 - User can click on ncSliderV2 to move closest trigger.
