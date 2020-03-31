@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v1.8.0
 ### Changed
 - nc-list and nc-text-input due to UiKit update
 
