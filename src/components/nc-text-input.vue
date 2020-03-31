@@ -7,6 +7,7 @@
         'has-value': hasValue,
         'has-error': error,
         'has-icon-right-on-focus': hasIconRightOnFocus,
+        'hide-floating-placeholder': hideFloatingPlaceholder,
         wrapperClasses
         }]"
       :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }]"
@@ -162,7 +163,11 @@ export default {
       type: String,
       default: ''
     },
-    wrapperClasses: String
+    wrapperClasses: String,
+    hideFloatingPlaceholder: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -248,12 +253,15 @@ $errorColor: red;
     &.is-focused {
       border-color: $containerIsFocusedColor;
       outline: 0;
-      .input-content__label {
-        color: $containerIsFocusedColor;
-        font-size: 70%;
-        padding: 9px 0;
-        z-index: 2;
+      &:not(.hide-floating-placeholder) {
+        .input-content__label {
+          color: $containerIsFocusedColor;
+          font-size: 70%;
+          padding: 9px 0;
+          z-index: 2;
+        }
       }
+      
     }
 
     &.has-icon-right-on-focus {
@@ -271,9 +279,16 @@ $errorColor: red;
     }
 
     &.has-value {
-      .input-content__label {
-        padding: 9px 0;
-        font-size: 70%;
+      &:not(.hide-floating-placeholder) {
+        .input-content__label {
+          padding: 9px 0;
+          font-size: 70%;
+        }
+      }
+      &.hide-floating-placeholder {
+        .input-content__label {
+          display: none;
+        }
       }
     }
 
@@ -308,6 +323,12 @@ $errorColor: red;
           outline: 0;
         }
       }
+    }
+
+    &.hide-floating-placeholder {
+      .input-content__input {
+        padding: 0;
+      }   
     }
 
     .icon-left {
