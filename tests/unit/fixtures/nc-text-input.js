@@ -26,7 +26,8 @@ export const defaultProps = {
   size: 35,
   uiReference: 'uiEl',
   value: '',
-  wrapperClasses: undefined
+  wrapperClasses: undefined,
+  hideFloatingPlaceholder: false
 }
 
 export const propsWithValue = {
