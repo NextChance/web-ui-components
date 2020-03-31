@@ -99,14 +99,6 @@ export default {
     wrapperClass: {
       type: String,
       default: ''
-    },
-    hasImageExtraContentTop: {
-      type: Boolean,
-      default: false
-    },
-    hasImageExtraContentBottom: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {
