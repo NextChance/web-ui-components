@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.8.2
+### Fixed
+- nc-text-input error and extra content margin top
+
 ## v1.8.1
 ### Fixed
 - nc-text-input and nc-card-item test

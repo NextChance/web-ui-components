@@ -261,7 +261,7 @@ $errorColor: red;
           z-index: 2;
         }
       }
-      
+
     }
 
     &.has-icon-right-on-focus {
@@ -328,7 +328,7 @@ $errorColor: red;
     &.hide-floating-placeholder {
       .input-content__input {
         padding: 0;
-      }   
+      }
     }
 
     .icon-left {
@@ -350,11 +350,13 @@ $errorColor: red;
 
   &__extra-text {
     font-size: 12px;
+    margin-top: 4px;
   }
 
   &__error {
     color: $errorColor;
     font-size: 12px;
+    margin-top: 4px;
   }
 
   .disable-spinButton::-webkit-inner-spin-button,
