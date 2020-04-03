@@ -240,7 +240,7 @@ export default {
       this.isCountryCodeListOpen = true
     },
     onInput(value) {
-      this.phone = value
+      this.phone = value.trim()
       // TODO: Replace with our custom validation
       // this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
