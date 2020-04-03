@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.8.3
+### Changed
+- nc-text-input will not trim always
+- nc-phone-input will trim always
+
 ## v1.8.2
 ### Fixed
 - nc-text-input error and extra content margin top
