@@ -209,7 +209,7 @@ export default {
     },
 
     handleInput() {
-      this.$emit('input', this.$refs[this.uiReference].value.trim())
+      this.$emit('input', this.$refs[this.uiReference].value)
     },
 
     handleKeyUp(ev) {
