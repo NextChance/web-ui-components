@@ -7,7 +7,7 @@
     >
       <div class="nc-card-item__image">
         <slot v-if="$slots['image']" name="image" />
-        <img v-else="image"
+        <img v-else-if="image"
           alt="imageAlt"
           class="nc-card-item__image__content"
           :src="image"
