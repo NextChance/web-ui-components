@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.9.1
+### Fixed
+- nc-card-item draws an image if image slot is not present and component has image property
+
+## v1.9.0
+### Changed
+- nc-card-item allows image as slot keeping the default one if slot is not passed
+
 ## v1.8.3
 ### Changed
 - nc-text-input will not trim always
