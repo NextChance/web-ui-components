@@ -1,7 +1,7 @@
 <template>
 <div class="nc-textarea">
-  <div 
-    class="nc-textarea__container" 
+  <div
+    class="nc-textarea__container"
       :class="[{
         'is-focused': isFocused,
         'has-value': hasValue,
@@ -12,8 +12,8 @@
       @click="focusInput"
     >
     <div
-      :class="['icon-left', {'has-pointer': iconLeftHasPointer}]" 
-      v-if="hasIconLeft" 
+      :class="['icon-left', {'has-pointer': iconLeftHasPointer}]"
+      v-if="hasIconLeft"
       @click="handleIconLeft($event)"
     >
       <slot name="iconLeft"></slot>
@@ -21,7 +21,6 @@
     <div class="input-content">
       <label
         class="input-content__label"
-        :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
@@ -45,7 +44,7 @@
       ></textarea>
     </div>
     <div
-      :class="['icon-right', {'has-pointer': iconRightHasPointer}]" 
+      :class="['icon-right', {'has-pointer': iconRightHasPointer}]"
       v-if="hasIconRight"
       @click="handleIconRight($event)"
     >
@@ -55,12 +54,11 @@
   <div
     class="nc-textarea__error"
     v-if="error"
-    :style="{ 'color': errorColor }"
   >
-    {{ $t(error) }}
+    {{ $t(computedError.text, computedError.variables) }}
   </div>
-  <div 
-    class="nc-textarea__extra-text" 
+  <div
+    class="nc-textarea__extra-text"
     v-if="extraText"
   >
     {{ extraText }}
@@ -84,11 +82,7 @@ export default {
       default: false
     },
     error: {
-      type: String,
-      default: ''
-    },
-    errorColor: {
-      type: String,
+      type: [String, Object],
       default: ''
     },
     extraText: {
@@ -113,14 +107,6 @@ export default {
     },
     id: String,
     inputClasses: String,
-    inputContentIsFocusedLabelColor: {
-      type: String,
-      default: ''
-    },
-    inputContentLabelColor: {
-      type: String,
-      default: ''
-    },
     inputOptions: {
       type: Object,
       default: () => ({})
@@ -169,6 +155,14 @@ export default {
   computed: {
     hasValue: function() {
       return !!this.inputValue
+    },
+    computedError: function() {
+      return typeof this.error === 'string'
+        ? {
+          text: this.error,
+          variables: {}
+        }
+        : this.error
     }
   },
 

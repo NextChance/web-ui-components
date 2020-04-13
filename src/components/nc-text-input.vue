@@ -23,7 +23,6 @@
     <div class="input-content">
       <label
         class="input-content__label"
-        :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
@@ -56,9 +55,8 @@
   <div
     class="nc-text-input__error"
     v-if="error"
-    :style="{ 'color': errorColor }"
   >
-    {{ $t(error) }}
+    {{ $t(computedError.text, computedError.variables) }}
   </div>
   <div
     class="nc-text-input__extra-text"
@@ -89,12 +87,8 @@ export default {
       default: false
     },
     error: {
-      type: String,
+      type: [String, Object],
       default: ''
-    },
-    errorColor: {
-      type: String,
-      default: '$errorColor'
     },
     extraText: {
       type: String,
@@ -118,14 +112,6 @@ export default {
     },
     id: String,
     inputClasses: String,
-    inputContentIsFocusedLabelColor: {
-      type: String,
-      default: '$containerIsFocusedColor'
-    },
-    inputContentLabelColor: {
-      type: String,
-      default: '$inputContentLabelColor'
-    },
     inputOptions: {
       type: Object,
       default: () => ({})
@@ -179,6 +165,14 @@ export default {
   computed: {
     hasValue: function() {
       return !!this.value
+    },
+    computedError: function() {
+      return typeof this.error === 'string'
+        ? {
+          text: this.error,
+          variables: {}
+        }
+        : this.error
     }
   },
 
