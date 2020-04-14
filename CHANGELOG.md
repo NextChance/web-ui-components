@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## v1.9.2
+## v1.9.3
 ### Added
 - nc-text-input error tag with parameters
 - nc-textarea error tag with parameters
@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - nc-image-uploader forced inline styles
 ### Fixed
 - nc-phone-input validation event emit
+
+
+## v1.9.2 >> invalid
+
 
 ## v1.9.1
 ### Fixed
