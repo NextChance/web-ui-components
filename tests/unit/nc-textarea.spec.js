@@ -2,44 +2,10 @@
 import { mount } from '@vue/test-utils'
 import ncTextarea from '@/components/nc-textarea.vue'
 import {
-  defaultProps,
-  testText,
-  propsWithValue
+  testText
 } from './fixtures/nc-textarea.fixture'
 
 describe('ncTextarea', () => {
-  describe('when mounted with default props', () => {
-    let wrapper
-    let result
-
-    beforeAll(() => {
-      wrapper = mount(ncTextarea)
-      result = wrapper.props()
-    })
-
-    it('should set all its default props', () => {
-      expect(result).toStrictEqual(defaultProps)
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(false)
-    })
-  })
-
-  describe('when mounted with a value', () => {
-    let wrapper
-
-    beforeAll(() => {
-      wrapper = mount(ncTextarea, {
-        propsData: propsWithValue
-      })
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(true)
-    })
-  })
-
   describe('methods', () => {
     describe('handleFocus()', () => {
       let wrapper

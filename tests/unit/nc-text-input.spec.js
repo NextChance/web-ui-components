@@ -2,44 +2,10 @@
 import { mount } from '@vue/test-utils'
 import ncTextInput from '@/components/nc-text-input.vue'
 import {
-  defaultProps,
-  testText,
-  propsWithValue
+  testText
 } from './fixtures/nc-text-input'
 
 describe('ncTextInput', () => {
-  describe('when mounted with default props', () => {
-    let wrapper
-    let result
-
-    beforeAll(() => {
-      wrapper = mount(ncTextInput)
-      result = wrapper.props()
-    })
-
-    it('should set all its default props', () => {
-      expect(result).toStrictEqual(defaultProps)
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(false)
-    })
-  })
-
-  describe('when mounted with a value', () => {
-    let wrapper
-
-    beforeAll(() => {
-      wrapper = mount(ncTextInput, {
-        propsData: propsWithValue
-      })
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(true)
-    })
-  })
-
   describe('methods', () => {
     describe('handleFocus()', () => {
       let wrapper

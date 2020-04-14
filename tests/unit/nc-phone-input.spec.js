@@ -4,56 +4,20 @@ import ncPhoneInput from '@/components/nc-phone-input.vue'
 const localVue = createLocalVue()
 
 describe('ncPhoneInput', () => {
-  const defaultProps = {
-    value: undefined,
-    placeholder: '',
-    disabled: false,
-    formattingDisabled: false,
-    invalidMsg: 'Wrong phone number',
-    countryCodeEnabled: true,
-    sendInvalidPhone: false,
-    required: false,
-    name: 'telephone',
-    wrapperClasses: '',
-    isDisabled: false,
-    selectedCountry: {
-      dialCode: '+34',
-      iso: 'ES'
-    },
-    inputClasses: '',
-    inputOptions: {},
-    maxLength: 15,
-    uiReference: undefined,
-    type: 'number'
-  }
-
-  describe('when mounted without props', () => {
-    let wrapper
-    let result
-
-    beforeAll(() => {
-      wrapper = mount(ncPhoneInput, {
-        localVue
-      })
-      result = wrapper.props()
-    })
-
-    it('should set all its default props', () => {
-      expect(result).toStrictEqual(defaultProps)
-    })
-  })
-
   describe('when a value with a + as first character is given', () => {
     let wrapper
     const defaultProps = {
       value: '+666666666'
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -68,11 +32,14 @@ describe('ncPhoneInput', () => {
       value: '0666666666'
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -87,11 +54,14 @@ describe('ncPhoneInput', () => {
       value: '666666666'
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -107,11 +77,14 @@ describe('ncPhoneInput', () => {
       formattingDisabled: true
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -127,11 +100,14 @@ describe('ncPhoneInput', () => {
       formattingDisabled: true
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -148,11 +124,14 @@ describe('ncPhoneInput', () => {
       formattingDisabled: true
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         attachToDocument: true,
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
@@ -183,10 +162,13 @@ describe('ncPhoneInput', () => {
       formattingDisabled: true
     }
 
-    beforeAll(() => {
+    beforeEach(() => {
       wrapper = mount(ncPhoneInput, {
         localVue,
-        propsData: defaultProps
+        propsData: defaultProps,
+        mocks: {
+          $t: a => a
+        }
       })
     })
 
