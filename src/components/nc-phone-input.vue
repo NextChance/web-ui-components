@@ -62,7 +62,7 @@ export default {
       default: false
     },
     error: {
-      default: 'Wrong phone number',
+      default: '',
       type: String
     },
     countryCodeEnabled: {
