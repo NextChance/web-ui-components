@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.9.2
+### Added
+- nc-text-input error tag with parameters
+- nc-textarea error tag with parameters
+### Removed
+- nc-image-uploader forced inline styles
+### Fixed
+- nc-phone-input validation event emit
+
 ## v1.9.1
 ### Fixed
 - nc-card-item draws an image if image slot is not present and component has image property

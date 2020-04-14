@@ -1,58 +1,40 @@
 <template>
   <div class="image-uploader__container">
     <figure
-      v-if="withData"
-      class="nc-delete_icon"
-      :style="{
-        transform: emptyIconScale
-      }"
-      @click="handleClickRemove"
+        v-if="!!bgImage"
+        class="nc-delete_icon"
+        @click="handleClickRemove"
     >
       <slot name="withDataState">
         <!-- icon for with a background-image -->
       </slot>
     </figure>
-      <label
+    <label
         :class="['nc-image-uploader_background','nc-uploader_label', hasError ? 'error' : '']"
         :style="{
           borderRadius: radius,
           backgroundImage: bgImage ? `url(${bgImage})` : `url('')`
         }"
-        >
-            <figure v-if="isEmpty"
-            :style="{
-              transform: emptyIconScale
-            }">
-              <slot name="isEmptyState">
-                <!-- icon for empty input -->
-              </slot>
-            </figure>
-            <figure v-if="isLoading"
-              :style="{
-                transform: loaderIconScale,
-                height: loaderIconHeigth,
-                width: loaderIconWidth
-              }">
-              <slot name="isLoadingState">
-                <!-- icon for loading -->
-              </slot>
-            </figure>
-
-            <input
-              class="image-uploader_input"
-              type="file"
-              :id="id"
-              :disabled="withData"
-              @change="handleFileChange"
-            >
-        </label>
-    <div
-      class="image-uploader__error"
-      v-if="hasError"
-      :style="{ 'color': errorColor }"
     >
-      {{ $t(errorMsg) }}
-    </div>
+      <figure v-if="isEmpty">
+        <slot name="isEmptyState">
+          <!-- icon for empty input -->
+        </slot>
+      </figure>
+      <figure v-if="isLoading">
+        <slot name="isLoadingState">
+          <!-- icon for loading -->
+        </slot>
+      </figure>
+
+      <input
+          class="image-uploader_input"
+          type="file"
+          :id="id"
+          :disabled="!!bgImage"
+          @change="handleFileChange"
+      >
+    </label>
   </div>
 </template>
 <script>
@@ -63,45 +45,13 @@ export default {
       type: String,
       default: ''
     },
-    defaultBackground: {
-      type: String,
-      default: ''
-    },
     hasError: {
       type: Boolean,
       default: false
     },
-    errorMsg: {
-      type: String,
-      default: ''
-    },
-    errorColor: {
-      type: String,
-      default: '$errorColor'
-    },
     bgImage: {
       type: String,
       default: ''
-    },
-    containerBorderColor: {
-      type: String,
-      default: '$containerBorderColor'
-    },
-    loaderIconHeigth: {
-      type: String,
-      default: '20px'
-    },
-    loaderIconScale: {
-      type: String,
-      default: 'scale(0.5)'
-    },
-    loaderIconWidth: {
-      type: String,
-      default: '20px'
-    },
-    emptyIconScale: {
-      type: String,
-      default: 'scale(1.0)'
     },
     radius: {
       type: String,
@@ -113,7 +63,6 @@ export default {
       isDisabled: false,
       isEmpty: true,
       isLoading: false,
-      withData: false
     }
   },
   methods: {
@@ -121,7 +70,6 @@ export default {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = false
-      this.withData = false
     },
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
@@ -133,8 +81,6 @@ export default {
         this.isEmpty = false
         this.isLoading = true
         this.isDisabled = true
-        this.withData = false
-        this.errorMsg = ''
       }
     },
     handleClickRemove: function() {
@@ -147,13 +93,11 @@ export default {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
-      this.withData = false
 
       if (newImage !== '') {
         this.isEmpty = false
         this.isLoading = false
         this.isDisabled = false
-        this.withData = true
       }
     },
     hasError(hasErrorNewVal) {

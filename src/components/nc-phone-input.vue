@@ -8,6 +8,7 @@
       has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
       :ui-reference="uiReference"
+      :error="error"
       :label="placeholder"
       :value="value"
       :size="maxLength"
@@ -60,7 +61,7 @@ export default {
       type: Boolean,
       default: false
     },
-    invalidMsg: {
+    error: {
       default: 'Wrong phone number',
       type: String
     },
@@ -224,6 +225,7 @@ export default {
         this.phone = this.formattedResult
       }
       this.$emit('onValidate', this.response)
+      this.$emit('onInput', this.response)
     },
     value() {
       this.phone = this.value
@@ -270,7 +272,6 @@ export default {
 }
 .nc-phone-input {
   width: 300px;
-  height: 60px;
 
   &__country-code {
     display: flex;
