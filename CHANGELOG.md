@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+## [UNRELEASED]
+### Added
+- nc-slideshow button next/previous now have slot to add any icon
+
+
 ## v1.9.3
 ### Added
 - nc-text-input error tag with parameters
