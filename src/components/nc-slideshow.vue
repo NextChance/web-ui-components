@@ -46,6 +46,7 @@
           :style="leftLinkStyle"
           role="button"
       >
+       <slot name="imageButtonIconLeft" />
         {{ leftLinkText }}
       </button>
       <button
@@ -56,6 +57,7 @@
           :style="rightLinkStyle"
           role="button"
       >
+       <slot name="imageButtonIconRight" />
         {{ rightLinkText }}
       </button>
     </template>
