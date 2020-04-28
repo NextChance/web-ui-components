@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
-## [UNRELEASED]
+## v1.10.1
 ### Changed
 - nc-slideshow buttons now appear or disappear depending on the number of slide displayed
 
