@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
-## [UNRELEASED]
+## v1.10.0
 ### Added
 - nc-slideshow button next/previous now have slot to add any icon
 
