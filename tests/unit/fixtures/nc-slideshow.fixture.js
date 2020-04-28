@@ -1,8 +1,7 @@
 export const defaultProps = {
   paginationActiveClass: 'active',
   paginationStyle: undefined,
-  hasLinkLeft: false,
-  hasLinkRight: false,
+  hideButtons: false,
   leftLinkText: 'Previous',
   rightLinkText: 'Next',
   linksDefaultAction: false,
@@ -16,8 +15,7 @@ export const defaultProps = {
 export const propsWithButtons = {
   paginationActiveClass: 'active',
   paginationStyle: undefined,
-  hasLinkLeft: true,
-  hasLinkRight: true,
+  hideButtons: false,
   leftLinkText: 'Previous',
   rightLinkText: 'Next',
   linksDefaultAction: true,
@@ -31,8 +29,7 @@ export const propsWithButtons = {
 export const propsWithImages = {
   paginationActiveClass: 'active',
   paginationStyle: undefined,
-  hasLinkLeft: true,
-  hasLinkRight: true,
+  hideButtons: false,
   leftLinkText: 'Previous',
   rightLinkText: 'Next',
   linksDefaultAction: true,
