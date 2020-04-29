@@ -39,23 +39,25 @@
         </ul>
       </div>
       <button
-          v-if="hasLinkLeft"
+          v-if="!hideButtons && hasLinkLeft"
           class="nc-slideshow__link--left"
           @click="leftLinkHandler($event)"
           :data-slide-to="slideIndex + 1"
           :style="leftLinkStyle"
           role="button"
       >
+       <slot name="imageButtonIconLeft" />
         {{ leftLinkText }}
       </button>
       <button
-          v-if="hasLinkRight"
+          v-if="!hideButtons && hasLinkRight"
           class="nc-slideshow__link--right"
           @click="rightLinkHandler($event)"
           :data-slide-to="slideIndex + 1"
           :style="rightLinkStyle"
           role="button"
       >
+       <slot name="imageButtonIconRight" />
         {{ rightLinkText }}
       </button>
     </template>
@@ -75,14 +77,6 @@ export default {
     },
     paginationStyle: {
       type: Object
-    },
-    hasLinkLeft: {
-      type: Boolean,
-      default: false
-    },
-    hasLinkRight: {
-      type: Boolean,
-      default: false
     },
     leftLinkText: {
       type: String,
@@ -114,7 +108,19 @@ export default {
       type: Array,
       default: () => []
     },
-    defaultImage: String
+    defaultImage: String,
+    hideButtons: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    hasLinkLeft() {
+      return this.slideIndex > 0
+    },
+    hasLinkRight() {
+      return this.slideIndex < this.slideLength - 1
+    }
   },
   data() {
     return {
