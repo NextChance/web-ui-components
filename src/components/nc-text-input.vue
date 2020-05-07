@@ -38,6 +38,7 @@
         :size="size"
         :type="inputType"
         :value="value"
+        :readonly="isReadonly"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"
@@ -151,6 +152,10 @@ export default {
     },
     wrapperClasses: String,
     hideFloatingPlaceholder: {
+      type: Boolean,
+      default: false
+    },
+    isReadonly: {
       type: Boolean,
       default: false
     }

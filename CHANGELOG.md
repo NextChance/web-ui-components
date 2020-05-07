@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
+## v1.10.2
+### Added
+- nc-text-input add property readonly
+
 
 ## v1.10.1
 ### Changed
