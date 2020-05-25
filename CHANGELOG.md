@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
+## v1.10.3
+### Added
+- nc-text-input and nc-phone-input now has disabled styles
+
+
 ## v1.10.2
 ### Added
 - nc-text-input add property readonly
