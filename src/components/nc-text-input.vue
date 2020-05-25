@@ -28,7 +28,13 @@
       </label>
       <input
         class="input-content__input"
-        :class="[inputClasses, {'disable-spinButton': disableSpinButton}]"
+        :class="[
+          inputClasses,
+          {
+            'disable-spinButton': disableSpinButton,
+            'input-content__input--disabled': disabled
+          }
+        ]"
         :disabled="disabled"
         :id="id"
         :maxlength="maxLength"
@@ -318,8 +324,13 @@ $errorColor: red;
         font-size: 17px;
         z-index: 1;
         transform: translateZ(0);
+
         &:focus {
           outline: 0;
+        }
+
+        &--disabled {
+          color: #aaaaaa;
         }
       }
     }

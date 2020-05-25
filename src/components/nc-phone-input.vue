@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['nc-phone-input', wrapperClasses, { disabled: disabled }]"
+    :class="['nc-phone-input', wrapperClasses, { 'nc-phone-input--disabled': isDisabled }]"
     :selected-country="selectedCountry">
     <nc-text-input
       ref="phoneCountryCode"
@@ -271,7 +271,16 @@ export default {
   border: 1px solid #d8d8d8;
 }
 .nc-phone-input {
+  $ncPhoneInput: &;
+
   width: 300px;
+
+  &--disabled {
+    #{$ncPhoneInput}__country-code {
+      cursor: default;
+      color: #7f828b;
+    }
+  }
 
   &__country-code {
     display: flex;
