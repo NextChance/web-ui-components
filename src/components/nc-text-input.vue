@@ -312,6 +312,7 @@ $errorColor: red;
         transition: font 0.2s;
         padding: 19px 0;
         font-size: 17px;
+        z-index: 2;
       }
 
       &__input {
