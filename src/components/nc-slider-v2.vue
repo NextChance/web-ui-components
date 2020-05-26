@@ -1,5 +1,5 @@
 <template>
-  <div class="nc-slider">
+  <div class="nc-slider" :class="{'nc-slider--disabled': isDisabled}">
     <div
         class="nc-slider__container"
         ref="nc-slider__container"
@@ -90,6 +90,10 @@ export default {
     sliderMinGap: {
       type: Number,
       default: 0.02
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -221,6 +225,7 @@ export default {
 $color-coral: #fa5a5a;
 $color-stone: #d8d8d8;
 $color-white: #ffffff;
+$color-gray:  #aaaaaa;
 $triggerBorder: 3;
 $triggerSize: 18;
 $triggerBounds: (2 * $triggerBorder) + $triggerSize;
@@ -231,6 +236,19 @@ $triggerBounds: (2 * $triggerBorder) + $triggerSize;
   justify-content: space-between;
   padding: 0 ($triggerBounds / 2) + 0px;
   width: 100%;
+
+  $slider: &;
+  &--disabled{
+    pointer-events: none;
+    #{$slider}__selected{
+      &-track{
+        background-color: $color-gray;
+      }
+    }
+    #{$slider}__trigger{
+      border-color: $color-gray;
+    }
+  }
 
   &__container {
     height: $triggerBounds + 0px;
