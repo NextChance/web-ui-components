@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.11.1
+### Fixed
+- Paralel package version blended
+
+## v1.11.0
+### Added
+- nc-slider-v2 add property isDisabled and update styles
+
 
 ## v1.10.3
 ### Added
