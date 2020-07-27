@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+## v1.12.0
+### Fixed
+- Add z-index in nc-text-input label to display also when a field has been autocompleted
+
+
 ## v1.11.1
 ### Fixed
 - Paralel package version blended
