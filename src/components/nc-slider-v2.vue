@@ -174,6 +174,7 @@ export default {
     },
     touchStartHandler() {
       this.isDragging = true
+      // test
     },
     touchMoveHandler(e) {
       this.isFloorTrigger = e.target.classList.contains(
