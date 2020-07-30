@@ -128,39 +128,43 @@
     },
     methods: {
       calculateInitialCeilRelativePosition() {
-        const idx = this.stepConfig.values.findIndex(value => value === this.ceilValue)
-        this.ceilRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : this.stepConfig.percentages.length - 1]
+        const nearValue = this.getValidPosition(this.stepConfig.values, this.ceilValue)
+        this.ceilRelativePosition = this.stepConfig.percentages[nearValue.index]
       },
       calculateInitialFloorRelativePosition() {
-        const idx = this.stepConfig.values.findIndex(value => value === this.floorValue)
-        this.floorRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : 0]
+        const nearValue = this.getValidPosition(this.stepConfig.values, this.floorValue)
+        this.floorRelativePosition = this.stepConfig.percentages[nearValue.index]
       },
-      getValidPosition(position) {
+      getValidPosition(group, value) {
         let diff = 1
         let validStep = 0
-        for (let i = 0; i < this.stepConfig.total; i++) {
-          const _diff = Math.abs(this.stepConfig.percentages[i] - position)
+        for (let i = 0; i < group.length; i++) {
+          const _diff = Math.abs(group[i] - value)
           if (_diff > diff) {
-            i = this.stepConfig.total
+            i = group.length
           } else {
             diff = _diff
             validStep = i
           }
         }
-        return this.stepConfig.percentages[validStep]
+        return {
+          value: group[validStep],
+          index: validStep
+        }
       },
       setFloorTriggerPosition(dragOffset, dragPosition) {
-        const ceil = this.getValidPosition(this.ceilRelativePosition - this._sliderMinGap)
+        const ceil = this.getValidPosition(this.stepConfig.percentages, this.ceilRelativePosition - this._sliderMinGap).value
         this.floorRelativePosition =
-          dragPosition > 0 ? (dragPosition < ceil ? this.getValidPosition(dragPosition) : ceil) : 0
+          dragPosition > 0 ? (dragPosition < ceil ? this.getValidPosition(this.stepConfig.percentages, dragPosition).value : ceil) : 0
         this.$emit('drag', [this._floorValue, this._ceilValue])
       },
       setCeilTriggerPosition(dragOffset, dragPosition) {
-        const floor = this.getValidPosition(this.floorRelativePosition + (this.isDouble ? this._sliderMinGap : 0))
+        const nearLimitValue = this.floorRelativePosition + (this.isDouble ? this._sliderMinGap : 0)
+        const floor = this.getValidPosition(this.stepConfig.percentages, nearLimitValue).value
         this.ceilRelativePosition =
           dragPosition > floor
             ? (dragPosition < 1
-              ? this.getValidPosition(dragPosition)
+              ? this.getValidPosition(this.stepConfig.percentages, dragPosition).value
               : 1)
             : floor
         this.$emit('drag', [this._floorValue, this._ceilValue])
