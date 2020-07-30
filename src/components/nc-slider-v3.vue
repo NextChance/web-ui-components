@@ -150,13 +150,13 @@
         return this.stepConfig.percentages[validStep]
       },
       setFloorTriggerPosition(dragOffset, dragPosition) {
-        const ceil = this.ceilRelativePosition - this._sliderMinGap
+        const ceil = this.getValidPosition(this.ceilRelativePosition - this._sliderMinGap)
         this.floorRelativePosition =
           dragPosition > 0 ? (dragPosition < ceil ? this.getValidPosition(dragPosition) : ceil) : 0
         this.$emit('drag', [this._floorValue, this._ceilValue])
       },
       setCeilTriggerPosition(dragOffset, dragPosition) {
-        const floor = this.floorRelativePosition + (this.isDouble ? this._sliderMinGap : 0)
+        const floor = this.getValidPosition(this.floorRelativePosition + (this.isDouble ? this._sliderMinGap : 0))
         this.ceilRelativePosition =
           dragPosition > floor
             ? (dragPosition < 1
