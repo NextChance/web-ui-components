@@ -136,11 +136,11 @@
         this.floorRelativePosition = this.stepConfig.percentages[nearValue.index]
       },
       getValidPosition(group, value) {
-        let diff = Math.abs(group[group.length - 1] - group[0])
+        let diff
         let validStep = 0
         for (let i = 0; i < group.length; i++) {
           const _diff = Math.abs(group[i] - value)
-          if (_diff > diff) {
+          if (diff && _diff > diff) {
             i = group.length
           } else {
             diff = _diff
