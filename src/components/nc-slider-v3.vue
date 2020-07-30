@@ -6,7 +6,6 @@
         ref="nc-slider__container"
         @click="clickTrack"
     >
-
       <div class="nc-slider__total-track"></div>
       <div
           class="nc-slider__selected-track"
@@ -72,10 +71,6 @@
         type: Number,
         default: 0
       },
-      minValue: {
-        type: Number,
-        default: 0
-      },
       ceilLabel: {
         type: String,
         default: ' '
@@ -83,14 +78,6 @@
       ceilValue: {
         type: Number,
         default: 0
-      },
-      maxValue: {
-        type: Number,
-        default: 100
-      },
-      sliderMinGap: {
-        type: Number,
-        default: 0.02
       },
       isDisabled: {
         type: Boolean,
@@ -103,28 +90,12 @@
     },
     computed: {
       _floorValue() {
-        if (this.hasStepConfig) {
-          const idx = this.stepConfig.percentages.findIndex(percentage => percentage === this.floorRelativePosition)
-          return this.stepConfig.values[this.isDouble ? idx : 0]
-        } else {
-          return this.isDouble
-            ? Math.round(
-            (this.maxValue - this.minValue) * this.floorRelativePosition
-          ) + this.minValue
-            : this.minValue
-        }
+        const idx = this.stepConfig.percentages.findIndex(percentage => percentage === this.floorRelativePosition)
+        return this.stepConfig.values[this.isDouble ? idx : 0]
       },
       _ceilValue() {
-        if (this.hasStepConfig) {
-          const idx = this.stepConfig.percentages.findIndex(percentage => percentage === this.ceilRelativePosition)
-          return this.stepConfig.values[idx]
-        } else {
-          return (
-            Math.round(
-              (this.maxValue - this.minValue) * this.ceilRelativePosition
-            ) + this.minValue
-          )
-        }
+        const idx = this.stepConfig.percentages.findIndex(percentage => percentage === this.ceilRelativePosition)
+        return this.stepConfig.values[idx]
       },
       stepConfig() {
         const total = this.availableSteps.length
@@ -137,14 +108,10 @@
           percentages: [],
           total
         } )
-        console.log('config', config)
         return config
       },
-      hasStepConfig() {
-        return this.stepConfig.total
-      },
       _sliderMinGap() {
-        return this.hasStepConfig ? 1 / this.stepConfig.total : this.sliderMinGap
+        return 1 / this.stepConfig.total
       }
     },
     watch: {
@@ -161,42 +128,26 @@
     },
     methods: {
       calculateInitialCeilRelativePosition() {
-        let ceilRelativePosition = 1
-        if (this.hasStepConfig) {
-          const idx = this.stepConfig.values.findIndex(value => value === this.ceilValue)
-          ceilRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : this.stepConfig.percentages.length - 1]
-        } else if (this.maxValue >= this.ceilValue) {
-          ceilRelativePosition = (this.ceilValue - this.minValue) / (this.maxValue - this.minValue)
-        }
-        this.ceilRelativePosition = ceilRelativePosition
+        const idx = this.stepConfig.values.findIndex(value => value === this.ceilValue)
+        this.ceilRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : this.stepConfig.percentages.length - 1]
       },
       calculateInitialFloorRelativePosition() {
-        let floorRelativePosition = 0
-        if (this.hasStepConfig) {
-          const idx = this.stepConfig.values.findIndex(value => value === this.floorValue)
-          floorRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : 0]
-        } else if (this.minValue <= this.floorValue && this.isDouble) {
-          floorRelativePosition = (this.floorValue - this.minValue) / (this.maxValue - this.minValue)
-        }
-        this.floorRelativePosition = floorRelativePosition
+        const idx = this.stepConfig.values.findIndex(value => value === this.floorValue)
+        this.floorRelativePosition = this.stepConfig.percentages[idx >= 0 ? idx : 0]
       },
       getValidPosition(position) {
-        if (this.stepConfig.total) {
-          let diff = 1
-          let validStep = 0
-          for (let i = 0; i < this.stepConfig.total; i++) {
-            const _diff = Math.abs(this.stepConfig.percentages[i] - position)
-            if (_diff > diff) {
-              i = this.stepConfig.total
-            } else {
-              diff = _diff
-              validStep = i
-            }
+        let diff = 1
+        let validStep = 0
+        for (let i = 0; i < this.stepConfig.total; i++) {
+          const _diff = Math.abs(this.stepConfig.percentages[i] - position)
+          if (_diff > diff) {
+            i = this.stepConfig.total
+          } else {
+            diff = _diff
+            validStep = i
           }
-          return this.stepConfig.percentages[validStep]
-        } else {
-          return position
         }
+        return this.stepConfig.percentages[validStep]
       },
       setFloorTriggerPosition(dragOffset, dragPosition) {
         const ceil = this.ceilRelativePosition - this._sliderMinGap
@@ -209,8 +160,8 @@
         this.ceilRelativePosition =
           dragPosition > floor
             ? (dragPosition < 1
-            ? this.getValidPosition(dragPosition)
-            : 1)
+              ? this.getValidPosition(dragPosition)
+              : 1)
             : floor
         this.$emit('drag', [this._floorValue, this._ceilValue])
       },
@@ -275,9 +226,6 @@
         }
         this[methodName](clickOffset, clickPosition)
         this.$emit('change', [this._floorValue, this._ceilValue])
-      },
-      closestStep() {
-
       }
     },
     mounted() {
