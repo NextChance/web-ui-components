@@ -1,0 +1,33 @@
+.test {
+  width: 100%;
+  height: 250px;
+}
+
+.slideshow {
+  width: 80vw;
+  height: 30vh;
+  overflow: hidden;
+  margin: auto;
+}
+
+.nc-phone-input-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nc-button-container button {
+  margin: 10px;
+}
+
+.home-nc-text-input-container {
+  width: 300px;
+  margin: auto;
+}
+
+.nc-card-item-container {
+  width: 220px;
+  margin: auto;
+  font-size: 17px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+}
