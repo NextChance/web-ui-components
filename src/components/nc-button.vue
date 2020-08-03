@@ -6,13 +6,16 @@
   >
     <slot></slot>
   </button>
-  
+
 </template>
 
 <script>
 export default {
   name: 'nc-button',
   props: {
+    /***
+     * List of class
+     */
     className: String,
     disabled: {
       type: Boolean,
