@@ -1,8 +1,7 @@
 import { action } from '@storybook/addon-actions'
+import i18n from '../src/lang'
 
 import ncTextInput from '../src/components/nc-text-input'
-
-const errorInputValidation = 'Revise los datos'
 
 export default {
     title: 'NC-text-input',
@@ -28,7 +27,7 @@ export const withClearOption = () => ({
     components: { ncTextInput },
     data() {
         return {
-            newValueToDelete: null,
+            newValueToDelete: 'lorem ipsum',
             error: null
         }
     },
@@ -38,11 +37,21 @@ export const withClearOption = () => ({
             '<template v-slot:iconRight> <i class="fas fa-times-circle"></i> </template> ' +
         '</nc-text-input> </div>',
     methods: {action: action('clear')}
+
 });
 
 
 export const withValidation = () => ({
     components: { ncTextInput },
-    template: '<div class="nc-story-container"> <nc-text-input value="text" :error="error" label="label" @input="action"></nc-text-input> </div>',
-    methods: {action: action('input')}
+    data(){
+        return {
+            errorInputValidation: {
+                text: 'lorem ipsum error',
+                variables: {}
+            }
+        }
+    },
+    template: '<div class="nc-story-container"> <nc-text-input value="lorem ipsum" :error="errorInputValidation" label="label" @input="action"></nc-text-input> </div>',
+    methods: {action: action('input')},
+    i18n
 });
