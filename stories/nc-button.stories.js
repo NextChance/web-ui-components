@@ -1,6 +1,6 @@
 import { action } from '@storybook/addon-actions';
 
-import NcButton from './nc-button';
+import NcButton from '../src/components/nc-button';
 
 export default {
     title: 'NC-BUTTON',
