@@ -1,14 +1,13 @@
-import { action } from '@storybook/addon-actions';
-
-import NcText from '../src/components/nc-text-input';
+import { action } from '@storybook/addon-actions'
+import ncTextInput from '../src/components/nc-text-input'
 
 export default {
     title: 'NC-text-input',
-    component: NcText,
+    component: ncTextInput,
 };
 
 export const regular = () => ({
-    components: { NcText },
-    template: '<div class="nc-phone-input-container"> <nc-text-input/> </div> ',
+    components: { ncTextInput },
+    template: '<div class="nc-story-container"> <nc-text-input/> </div> ',
     methods: { action: action('clicked') },
 });
