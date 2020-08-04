@@ -9,8 +9,6 @@
     "build-storybook": "build-storybook",
     "precommit": "npm run lint",
     "storybook": "start-storybook -p 6006",
-    "storybook:build": "vue-cli-service storybook:build -c config/storybook",
-    "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook",
     "test": "vue-cli-service test:unit",
     "test:debug": "node --inspect-brk ./node_modules/@vue/cli-service/bin/vue-cli-service.js test:unit --runInBand"
   },
