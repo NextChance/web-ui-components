@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v1.13.0
 ### Added
 - Slider-V3 component. Now with predefined steps to force slider to pass just values given as config.
 
