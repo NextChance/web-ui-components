@@ -2,44 +2,10 @@
 import { mount } from '@vue/test-utils'
 import ncTextarea from '@/components/nc-textarea.vue'
 import {
-  defaultProps,
-  testText,
-  propsWithValue
+  testText
 } from './fixtures/nc-textarea.fixture'
 
 describe('ncTextarea', () => {
-  describe('when mounted with default props', () => {
-    let wrapper
-    let result
-
-    beforeAll(() => {
-      wrapper = mount(ncTextarea)
-      result = wrapper.props()
-    })
-
-    it('should set all its default props', () => {
-      expect(result).toStrictEqual(defaultProps)
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(false)
-    })
-  })
-
-  describe('when mounted with a value', () => {
-    let wrapper
-
-    beforeAll(() => {
-      wrapper = mount(ncTextarea, {
-        propsData: propsWithValue
-      })
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(true)
-    })
-  })
-
   describe('methods', () => {
     describe('handleFocus()', () => {
       let wrapper
@@ -131,6 +97,7 @@ describe('ncTextarea', () => {
 
     describe('on click left icon', () => {
       let wrapper
+      let ev = {}
       beforeAll(() => {
         wrapper = mount(ncTextarea, {
           attachToDocument: true,
@@ -139,7 +106,7 @@ describe('ncTextarea', () => {
           }
         })
         wrapper.setProps({ hasIconLeft: true })
-        wrapper.find('.icon-left').trigger('click')
+        wrapper.vm.handleIconLeft(ev)
       })
 
       it('the event input-key-up-event is emitted', () => {
@@ -149,6 +116,7 @@ describe('ncTextarea', () => {
 
     describe('on click right icon', () => {
       let wrapper
+      let ev = {}
       beforeAll(() => {
         wrapper = mount(ncTextarea, {
           attachToDocument: true,
@@ -157,7 +125,7 @@ describe('ncTextarea', () => {
           }
         })
         wrapper.setProps({ hasIconRight: true })
-        wrapper.find('.icon-right').trigger('click')
+        wrapper.vm.handleIconRight(ev)
       })
 
       it('the event input-right-icon-event is emitted', () => {

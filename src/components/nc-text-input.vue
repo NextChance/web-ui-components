@@ -7,6 +7,7 @@
         'has-value': hasValue,
         'has-error': error,
         'has-icon-right-on-focus': hasIconRightOnFocus,
+        'hide-floating-placeholder': hideFloatingPlaceholder,
         wrapperClasses
         }]"
       :style="[isFocused ? { 'border-color': containerIsFocusedBorderColor } : { 'border-color': containerBorderColor }]"
@@ -22,13 +23,18 @@
     <div class="input-content">
       <label
         class="input-content__label"
-        :style="[ isFocused ? {'color': inputContentIsFocusedLabelColor} : {'color': inputContentLabelColor}]"
       >
         {{ label }}
       </label>
       <input
         class="input-content__input"
-        :class="[inputClasses, {'disable-spinButton': disableSpinButton}]"
+        :class="[
+          inputClasses,
+          {
+            'disable-spinButton': disableSpinButton,
+            'input-content__input--disabled': disabled
+          }
+        ]"
         :disabled="disabled"
         :id="id"
         :maxlength="maxLength"
@@ -38,6 +44,7 @@
         :size="size"
         :type="inputType"
         :value="value"
+        :readonly="isReadonly"
         @input="handleInput"
         @keyup="handleKeyUp"
         @focus="handleFocus"
@@ -55,9 +62,8 @@
   <div
     class="nc-text-input__error"
     v-if="error"
-    :style="{ 'color': errorColor }"
   >
-    {{ $t(error) }}
+    {{ $t(computedError.text, computedError.variables) }}
   </div>
   <div
     class="nc-text-input__extra-text"
@@ -88,12 +94,8 @@ export default {
       default: false
     },
     error: {
-      type: String,
+      type: [String, Object],
       default: ''
-    },
-    errorColor: {
-      type: String,
-      default: '$errorColor'
     },
     extraText: {
       type: String,
@@ -117,14 +119,6 @@ export default {
     },
     id: String,
     inputClasses: String,
-    inputContentIsFocusedLabelColor: {
-      type: String,
-      default: '$containerIsFocusedColor'
-    },
-    inputContentLabelColor: {
-      type: String,
-      default: '$inputContentLabelColor'
-    },
     inputOptions: {
       type: Object,
       default: () => ({})
@@ -160,9 +154,17 @@ export default {
     },
     value: {
       type: String,
-      default:''
+      default: ''
     },
-    wrapperClasses: String
+    wrapperClasses: String,
+    hideFloatingPlaceholder: {
+      type: Boolean,
+      default: false
+    },
+    isReadonly: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -174,6 +176,14 @@ export default {
   computed: {
     hasValue: function() {
       return !!this.value
+    },
+    computedError: function() {
+      return typeof this.error === 'string'
+        ? {
+          text: this.error,
+          variables: {}
+        }
+        : this.error
     }
   },
 
@@ -204,7 +214,7 @@ export default {
     },
 
     handleInput() {
-      this.$emit('input', this.$refs[this.uiReference].value.trim())
+      this.$emit('input', this.$refs[this.uiReference].value)
     },
 
     handleKeyUp(ev) {
@@ -229,12 +239,6 @@ $inputContentLabelColor: #aaaaaa;
 $errorColor: red;
 
 .nc-text-input {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-  }
-
   position: relative;
   text-align: left;
 
@@ -242,6 +246,7 @@ $errorColor: red;
     position: relative;
     border: solid 1px $containerBorderColor;
     box-sizing: border-box;
+    padding: 0 8px 0 16px;
     position: relative;
     height: 60px;
     width: 100%;
@@ -253,12 +258,15 @@ $errorColor: red;
     &.is-focused {
       border-color: $containerIsFocusedColor;
       outline: 0;
-      .input-content__label {
-        color: $containerIsFocusedColor;
-        font-size: 70%;
-        padding: 9px 8px 9px 16px;
-        z-index: 2;
+      &:not(.hide-floating-placeholder) {
+        .input-content__label {
+          color: $containerIsFocusedColor;
+          font-size: 70%;
+          padding: 9px 0;
+          z-index: 2;
+        }
       }
+
     }
 
     &.has-icon-right-on-focus {
@@ -276,9 +284,16 @@ $errorColor: red;
     }
 
     &.has-value {
-      .input-content__label {
-        padding: 9px 8px 9px 16px;
-        font-size: 70%;
+      &:not(.hide-floating-placeholder) {
+        .input-content__label {
+          padding: 9px 0;
+          font-size: 70%;
+        }
+      }
+      &.hide-floating-placeholder {
+        .input-content__label {
+          display: none;
+        }
       }
     }
 
@@ -295,38 +310,41 @@ $errorColor: red;
         left: 0;
         position: absolute;
         transition: font 0.2s;
-        padding: 19px 8px 19px 18px;
+        padding: 19px 0;
         font-size: 17px;
+        z-index: 2;
       }
 
       &__input {
-        padding: 27px 8px 15px 16px;
+        padding: 27px 0 15px 0;
         height: 58px;
-        width: 100%;
+        width: calc(100% - 2px);
         box-sizing: border-box;
         border: none;
         background: none;
         font-size: 17px;
         z-index: 1;
         transform: translateZ(0);
+
         &:focus {
           outline: 0;
+        }
+
+        &--disabled {
+          color: #aaaaaa;
         }
       }
     }
 
-    .icon-left {
-      padding-left: 16px;
-      flex-grow: 0;
-      &+div.input-content {    
-        .input-content__label {
-          padding-left: 8px;
-        }
-        .input-content__input {
-          padding-left: 8px;
-        }
-        
+    &.hide-floating-placeholder {
+      .input-content__input {
+        padding: 0;
       }
+    }
+
+    .icon-left {
+      margin-right: 8px;
+      flex-grow: 0;
       &.has-pointer {
         cursor: pointer;
       }
@@ -343,15 +361,17 @@ $errorColor: red;
 
   &__extra-text {
     font-size: 12px;
+    margin-top: 4px;
   }
 
   &__error {
     color: $errorColor;
     font-size: 12px;
+    margin-top: 4px;
   }
 
   .disable-spinButton::-webkit-inner-spin-button,
-  .disable-spinButton::-webkit-outer-spin-button{
+  .disable-spinButton::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }

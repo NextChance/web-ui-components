@@ -15,12 +15,111 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Added
+- Slider-V3 component. Now with predefined steps to force slider to pass just values given as config.
 
-## v1.0.3
+
+## v1.12.0
 ### Fixed
-- ncPhoneInput label issues on error cases
-- ncInputText remove autofill styles
+- Add z-index in nc-text-input label to display also when a field has been autocompleted
 
+
+## v1.11.1
+### Fixed
+- Paralel package version blended
+
+## v1.11.0
+### Added
+- nc-slider-v2 add property isDisabled and update styles
+
+
+## v1.10.3
+### Added
+- nc-text-input and nc-phone-input now has disabled styles
+
+
+## v1.10.2
+### Added
+- nc-text-input add property readonly
+
+
+## v1.10.1
+### Changed
+- nc-slideshow buttons now appear or disappear depending on the number of slide displayed
+
+## v1.10.0
+### Added
+- nc-slideshow button next/previous now have slot to add any icon
+
+
+## v1.9.3
+### Added
+- nc-text-input error tag with parameters
+- nc-textarea error tag with parameters
+### Removed
+- nc-image-uploader forced inline styles
+### Fixed
+- nc-phone-input validation event emit
+
+
+## v1.9.2 >> invalid
+
+
+## v1.9.1
+### Fixed
+- nc-card-item draws an image if image slot is not present and component has image property
+
+## v1.9.0
+### Changed
+- nc-card-item allows image as slot keeping the default one if slot is not passed
+
+## v1.8.3
+### Changed
+- nc-text-input will not trim always
+- nc-phone-input will trim always
+
+## v1.8.2
+### Fixed
+- nc-text-input error and extra content margin top
+
+## v1.8.1
+### Fixed
+- nc-text-input and nc-card-item test
+
+## v1.8.0
+### Changed
+- nc-list and nc-text-input due to UiKit update
+
+## v1.7.0
+### Added
+- User can click on ncSliderV2 to move closest trigger.
+
+## v1.6.0
+### Changed
+- ncCardItem new slots for caption, and header
+
+## v1.5.0
+### Fixed
+- Remove double background on ncImageLoader to not show it on transparent uploads.
+### Changed
+- ncPhoneInput now sends formatted phone without spaces. When we introduce a valid phone number (including dashed, spaced or split with dash bars) the result will be the same.
+
+## v1.4.0
+### Changed
+- ncCardItem new slot inside subheader
+
+## v1.3.0
+### Changed
+- ncPhoneInput, input type as prop
+
+## v1.2.0
+### Changed
+- ncCardItem has no default values to hide those elements where a value is not passed
+
+## v1.1.0
+### Added
+- ncSlideshow shows pagination just when there is more than one page to show
 
 ## v1.0.2
 ### Changed

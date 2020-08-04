@@ -2,44 +2,10 @@
 import { mount } from '@vue/test-utils'
 import ncTextInput from '@/components/nc-text-input.vue'
 import {
-  defaultProps,
-  testText,
-  propsWithValue
+  testText
 } from './fixtures/nc-text-input'
 
 describe('ncTextInput', () => {
-  describe('when mounted with default props', () => {
-    let wrapper
-    let result
-
-    beforeAll(() => {
-      wrapper = mount(ncTextInput)
-      result = wrapper.props()
-    })
-
-    it('should set all its default props', () => {
-      expect(result).toStrictEqual(defaultProps)
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(false)
-    })
-  })
-
-  describe('when mounted with a value', () => {
-    let wrapper
-
-    beforeAll(() => {
-      wrapper = mount(ncTextInput, {
-        propsData: propsWithValue
-      })
-    })
-
-    it('should set hasValue prop to true', () => {
-      expect(wrapper.vm.hasValue).toBe(true)
-    })
-  })
-
   describe('methods', () => {
     describe('handleFocus()', () => {
       let wrapper
@@ -139,10 +105,10 @@ describe('ncTextInput', () => {
           }
         })
         wrapper.setProps({ hasIconLeft: true })
-        wrapper.find('.icon-left').trigger('click')
+        wrapper.vm.handleIconLeft({})
       })
 
-      it('the event input-key-up-event is emitted', () => {
+      it('the event input-left-icon-event is emitted', () => {
         expect(wrapper.emitted('input-left-icon-event')).toBeTruthy()
       })
     })
@@ -157,7 +123,7 @@ describe('ncTextInput', () => {
           }
         })
         wrapper.setProps({ hasIconRight: true })
-        wrapper.find('.icon-right').trigger('click')
+        wrapper.vm.handleIconRight({})
       })
 
       it('the event input-right-icon-event is emitted', () => {
@@ -177,7 +143,6 @@ describe('ncTextInput', () => {
 
       it('the event input is emitted', () => {
         expect(wrapper.emitted('input')).toBeTruthy()
-
       })
 
       it('the value emitted is the same as that the value set', () => {

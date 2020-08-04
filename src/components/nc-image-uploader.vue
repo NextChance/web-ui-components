@@ -1,58 +1,40 @@
 <template>
   <div class="image-uploader__container">
     <figure
-      v-if="withData"
-      class="nc-delete_icon"
-      :style="{
-        transform: emptyIconScale
-      }"
-      @click="handleClickRemove"
+        v-if="!!bgImage"
+        class="nc-delete_icon"
+        @click="handleClickRemove"
     >
       <slot name="withDataState">
         <!-- icon for with a background-image -->
       </slot>
     </figure>
-      <label
+    <label
         :class="['nc-image-uploader_background','nc-uploader_label', hasError ? 'error' : '']"
         :style="{
           borderRadius: radius,
-          backgroundImage: `url(${bgImage}), url(${bgImage != '' ? defaultBackground : ''})`
+          backgroundImage: bgImage ? `url(${bgImage})` : `url('')`
         }"
-        >
-            <figure v-if="isEmpty"
-            :style="{
-              transform: emptyIconScale
-            }">
-              <slot name="isEmptyState">
-                <!-- icon for empty input -->
-              </slot>
-            </figure>
-            <figure v-if="isLoading"
-              :style="{
-                transform: loaderIconScale,
-                height: loaderIconHeigth,
-                width: loaderIconWidth
-              }">
-              <slot name="isLoadingState">
-                <!-- icon for loading -->
-              </slot>
-            </figure>
-
-            <input
-              class="image-uploader_input"
-              type="file"
-              :id="id"
-              :disabled="withData"
-              @change="handleFileChange"
-            >
-        </label>
-    <div
-      class="image-uploader__error"
-      v-if="hasError"
-      :style="{ 'color': errorColor }"
     >
-      {{ $t(errorMsg) }}
-    </div>
+      <figure v-if="isEmpty">
+        <slot name="isEmptyState">
+          <!-- icon for empty input -->
+        </slot>
+      </figure>
+      <figure v-if="isLoading">
+        <slot name="isLoadingState">
+          <!-- icon for loading -->
+        </slot>
+      </figure>
+
+      <input
+          class="image-uploader_input"
+          type="file"
+          :id="id"
+          :disabled="!!bgImage"
+          @change="handleFileChange"
+      >
+    </label>
   </div>
 </template>
 <script>
@@ -63,57 +45,24 @@ export default {
       type: String,
       default: ''
     },
-    defaultBackground: {
-      type: String,
-      default: ''
-    },
     hasError: {
       type: Boolean,
       default: false
     },
-    errorMsg: {
-      type: String,
-      default: ''
-    },
-    errorColor: {
-      type: String,
-      default: '$errorColor'
-    },
     bgImage: {
       type: String,
       default: ''
-    },
-    containerBorderColor: {
-      type: String,
-      default: '$containerBorderColor'
-    },
-    loaderIconHeigth: {
-      type: String,
-      default: '20px'
-    },
-    loaderIconScale: {
-      type: String,
-      default: 'scale(0.5)'
-    },
-    loaderIconWidth: {
-      type: String,
-      default: '20px'
-    },
-    emptyIconScale: {
-      type: String,
-      default: 'scale(1.0)'
     },
     radius: {
       type: String,
       default: '4px'
     }
   },
-  data () {
+  data() {
     return {
       isDisabled: false,
       isEmpty: true,
       isLoading: false,
-      withData: false
     }
   },
   methods: {
@@ -121,22 +70,22 @@ export default {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = false
-      this.withData = false
     },
     handleFileChange(ev) {
       const files = ev.target.files || ev.dataTransfer.files
-        if (files.length > 0) {
-          this.$emit('input-image-uploader-event', {file: files[0], imgId: this.id})
-          this.isEmpty = false
-          this.isLoading = true
-          this.isDisabled = true
-          this.withData = false
-          this.errorMsg = ''
-        }
+      if (files.length > 0) {
+        this.$emit('input-image-uploader-event', {
+          file: files[0],
+          imgId: this.id
+        })
+        this.isEmpty = false
+        this.isLoading = true
+        this.isDisabled = true
+      }
     },
-    handleClickRemove: function (ev) {
-      this.$emit('input-image-remove-event', {file: '', imgId: this.id})
-      this._resetStatus();
+    handleClickRemove: function() {
+      this.$emit('input-image-remove-event', { file: '', imgId: this.id })
+      this._resetStatus()
     }
   },
   watch: {
@@ -144,13 +93,11 @@ export default {
       this.isEmpty = true
       this.isLoading = false
       this.isDisabled = true
-      this.withData = false
 
-      if(newImage !== '') {
+      if (newImage !== '') {
         this.isEmpty = false
         this.isLoading = false
         this.isDisabled = false
-        this.withData = true
       }
     },
     hasError(hasErrorNewVal) {
@@ -162,8 +109,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  $containerBorderColor: #d8d8d8;
-  $errorColor: red;
+$containerBorderColor: #d8d8d8;
+$errorColor: red;
 
 .image-uploader__container {
   position: relative;
@@ -182,8 +129,8 @@ export default {
 }
 .nc-delete_icon {
   position: absolute;
-   z-index: 1;
-   margin: 0;
+  z-index: 1;
+  margin: 0;
 }
 .nc-uploader_label {
   position: relative;
@@ -197,8 +144,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-   &.error {
-      border: 1px solid $errorColor;
+  &.error {
+    border: 1px solid $errorColor;
   }
 }
 .nc-image-uploader_background {
@@ -207,6 +154,6 @@ export default {
   background-size: cover;
 }
 .image-uploader__error {
-  color: $errorColor
+  color: $errorColor;
 }
 </style>

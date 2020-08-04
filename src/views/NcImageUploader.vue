@@ -34,7 +34,7 @@
 <script>
 import ncImageUploader from '@/components/nc-image-uploader.vue'
 import ncLoader from '@/components/nc-loader.vue'
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 
 export default {
   components: {
@@ -64,7 +64,7 @@ export default {
 .nc-image__container {
   width: 30%;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 
 .nc-image {

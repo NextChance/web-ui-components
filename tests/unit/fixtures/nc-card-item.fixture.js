@@ -1,16 +1,14 @@
 export const defaultProps = {
   cardItemReference: 'cardItemRef',
-  caption: 'Caption',
+  contentStyle: '',
   extraContentStyle: undefined,
-  description: 'Description',
+  description: '',
   descriptionLineEllipsis: 3,
   hasExtraContent: false,
-  header: 'Header',
   image: '',
   imageAlt: 'Default image',
   imageStyle: undefined,
-  subheader: 'Subheader',
-  title: 'Title',
+  title: '',
   titleLineEllipsis: 2,
   wrapperClass: ''
 }

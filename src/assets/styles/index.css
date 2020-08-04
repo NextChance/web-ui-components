@@ -1,0 +1,28 @@
+html {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+.slideshow {
+  width: 80vw;
+  height: 30vh;
+  overflow: hidden;
+  margin: auto;
+}
+
+.nc-story-container {
+  display: flex;
+  margin: 10px;
+  justify-content: flex-start;
+  max-width: 300px;
+}
+
+.nc-card-item-container {
+  width: 220px;
+  margin: auto;
+  font-size: 17px;
+  border-radius: 8px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+}

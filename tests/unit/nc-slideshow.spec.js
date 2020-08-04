@@ -65,6 +65,9 @@ describe('ncSlideshow', () => {
       it('slideshow-last-slide is emitted', () => {
         expect(wrapper.emitted('slideshow-last-slide')).toBeTruthy()
       })
+      it('link right should be hidden', () => {
+        expect(wrapper.vm.hasLinkRight).toBe(false)
+      })
     })
 
     describe('when right link is clicked first time', () => {
@@ -83,26 +86,14 @@ describe('ncSlideshow', () => {
       it('the event slideshow-click-right-link is emitted', () => {
         expect(wrapper.emitted('slideshow-click-right-link')).toBeTruthy()
       })
+      it('link right should be displayed', () => {
+        expect(wrapper.vm.hasLinkRight).toBe(true)
+      })
     })
   })
 
   describe('.selectSlide()', () => {
     const index = 1
-    describe('when a dot is clicked', () => {
-      let wrapper
-      beforeAll(() => {
-        wrapper = mount(ncSlideshow, {
-          localVue,
-          propsData: defaultProps
-        })
-      })
-      it('should be called', () => {
-        let stub = jest.fn()
-        wrapper.setMethods({ selectSlide: stub })
-        wrapper.find('.dots li:nth-of-type(1) button').trigger('click')
-        expect(stub).toBeCalled()
-      })
-    })
 
     describe('when called with a valid number', () => {
       let wrapper
@@ -136,8 +127,11 @@ describe('ncSlideshow', () => {
       it('the event slideshow-click-left-link is emitted', () => {
         expect(wrapper.emitted('slideshow-click-left-link')).toBeTruthy()
       })
+      it('link left should be displayed', () => {
+        expect(wrapper.vm.hasLinkLeft).toBe(true)
+      })
     })
-    describe('when left link is clicked and the last slide is displayed', () => {
+    describe('when left link is clicked and the first slide is displayed', () => {
       let wrapper
       const slideIndex = 0
       beforeAll(() => {
@@ -153,6 +147,9 @@ describe('ncSlideshow', () => {
       })
       it('slideshow-last-slide is emitted', () => {
         expect(wrapper.emitted('slideshow-first-slide')).toBeTruthy()
+      })
+      it('link left should be hidden', () => {
+        expect(wrapper.vm.hasLinkLeft).toBe(false)
       })
     })
   })

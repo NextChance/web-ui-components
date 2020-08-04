@@ -4,14 +4,26 @@
       v-show="hasSearch"
       v-model="search"
       class="nc-list__search"
-      :has-icon-left="true"
+      has-icon-left
       :label="searchLabel"
+      hide-floating-placeholder
+      has-icon-right
+      has-icon-right-on-focus
+      @input-right-icon-event="clearInput"
     >
       <template v-slot:iconLeft>
         <img
           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+CiAgPHBhdGggZmlsbD0iI0FBQUFBQSIgZD0iTTIxLjEzNCAxOS4zNzZsNC4xOTkgNC4xOTktMS43NTggMS43NTgtNC4xOTktNC4xOTlhOCA4IDAgMSAxIDEuNzU3LTEuNzU3em0tNi40NjcuNzY0YTUuNDc0IDUuNDc0IDAgMSAwIDAtMTAuOTQ5IDUuNDc0IDUuNDc0IDAgMCAwIDAgMTAuOTQ5eiIvPgo8L3N2Zz4K"
-          class="search-icon"
+          class="nc-list__search__icon search-icon"
         >
+      </template>
+      <template v-slot:iconRight>
+        <button class="nc-list__search__button-delete">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iOSIgZmlsbD0iI0Q4RDhEOCIvPgogICAgICAgIDxwYXRoIGZpbGw9IiMyNzI3MjciIGQ9Ik0xMS4wODMgMy43MzNMMTAuMjY3IDIuOTE3IDcgNi4xODMgMy43MzMgMi45MTcgMi45MTcgMy43MzMgNi4xODMgNyAyLjkxNyAxMC4yNjcgMy43MzMgMTEuMDgzIDcgNy44MTcgMTAuMjY3IDExLjA4MyAxMS4wODMgMTAuMjY3IDcuODE3IDd6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1IDUpIi8+CiAgICA8L2c+Cjwvc3ZnPgo="
+            class="nc-list__search__icon delete-icon"
+          >
+        </button>
       </template>
     </nc-text-input>
     <ul v-if="items.length" class="nc-list__items">
@@ -21,6 +33,8 @@
         :key="index"
         :style="itemStyle"
         @click="onItemSelected(item, index)"
+        @keyup.enter="onItemSelected(item, index)"
+        tabindex="0"
       >
         <div class="nc-list__item-slot">
           <slot :item="item"></slot>
@@ -117,12 +131,18 @@ export default {
   },
 
   methods: {
-    onItemSelected(item, index) {
+    onItemSelected(item) {
       this.itemSelected = item.id
       this.$emit('item-selected', item)
     },
     _itemParser(item) {
-      return item.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+      return item
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+    },
+    clearInput() {
+      this.search = ''
     }
   },
 
@@ -144,12 +164,20 @@ $iconColor: #ccc;
 .nc-list {
   &__search {
     margin-bottom: 16px;
-    .search-icon {
-      margin-left: 14px;
+    &__icon {
       display: block;
       width: 24px;
       height: 24px;
     }
+
+    &__button-delete {
+      margin-right: 14px;
+    }
+
+    .search-icon {
+      margin-left: 14px;
+    }
+
     .nc-text-input__container {
       border-radius: 25px;
       height: 50px;

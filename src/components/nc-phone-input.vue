@@ -1,13 +1,14 @@
 <template>
   <div
-    :class="['nc-phone-input', wrapperClasses, { disabled: disabled }]"
+    :class="['nc-phone-input', wrapperClasses, { 'nc-phone-input--disabled': isDisabled }]"
     :selected-country="selectedCountry">
     <nc-text-input
       ref="phoneCountryCode"
-      input-type="tel"
+      :input-type="type"
       has-icon-left
       :class="['nc-phone-input__phone', inputClasses]"
       :ui-reference="uiReference"
+      :error="error"
       :label="placeholder"
       :value="value"
       :size="maxLength"
@@ -60,8 +61,8 @@ export default {
       type: Boolean,
       default: false
     },
-    invalidMsg: {
-      default: 'Wrong phone number',
+    error: {
+      default: '',
       type: String
     },
     countryCodeEnabled: {
@@ -111,6 +112,10 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: 'number'
     }
   },
   mounted() {
@@ -158,6 +163,9 @@ export default {
       if (!this.displayMode) {
         return ''
       }
+      if (this.formattingDisabled) {
+        return this.phone
+      }
       let phone = this.phone
       if (this.displayMode === 'code') {
         // If user manually type the country code
@@ -168,14 +176,15 @@ export default {
         // Ex: 0432421999
         phone = this.phone.slice(1)
       }
-      if (this.formattingDisabled) {
-        return this.phone
-      }
-      return formatNumber(
+      const _formattedResult =  formatNumber(
         phone,
         this.selectedCountry && this.selectedCountry.iso.toUpperCase(),
         this.format[0]
       )
+      const _removeSpaces = phoneNumber => {
+        return Array.prototype.filter.call(phoneNumber, char => char !== ' ').join('')
+      }
+      return _removeSpaces(_formattedResult)
     },
     isValid() {
       return isValidNumber(
@@ -216,6 +225,7 @@ export default {
         this.phone = this.formattedResult
       }
       this.$emit('onValidate', this.response)
+      this.$emit('onInput', this.response)
     },
     value() {
       this.phone = this.value
@@ -232,13 +242,13 @@ export default {
       this.isCountryCodeListOpen = true
     },
     onInput(value) {
-      this.phone = value
+      this.phone = value.trim()
       // TODO: Replace with our custom validation
       // this.$refs.input.setCustomValidity(this.response.isValid ? '' : this.invalidMsg);
       // Emit input event in case v-model is used in the parent
       this.$emit('input', this.response.number)
       this.$emit('onInput', this.response)
-      if (this.sendInvalidPhone && !(this.response.isValid)) {
+      if (this.sendInvalidPhone && !this.response.isValid) {
         this.$emit('onValidate', this.response)
       }
     },
@@ -261,8 +271,16 @@ export default {
   border: 1px solid #d8d8d8;
 }
 .nc-phone-input {
+  $ncPhoneInput: &;
+
   width: 300px;
-  height: 60px;
+
+  &--disabled {
+    #{$ncPhoneInput}__country-code {
+      cursor: default;
+      color: #7f828b;
+    }
+  }
 
   &__country-code {
     display: flex;

@@ -1,10 +1,5 @@
 <template>
   <div class="home">
-    <h1>COMPONENTS</h1>
-    <h2>DUMB COMPONENT</h2>
-    <Dumb/>
-    <hr>
-    <br>
     <h2>NC-LOADER COMPONENT</h2>
     <div class="test">
       <nc-loader
@@ -74,7 +69,7 @@
         <button>boton!</button>
       </template>
     </nc-modal>
-    
+
     <button @click="currentModal = 'modal1'">Show  example modal 1</button>
     <button @click="currentModal = 'modal2'">Show  example modal 2</button>
 
@@ -166,7 +161,7 @@
 
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
-      <nc-phone-input 
+      <nc-phone-input
       :placeholder="ncPhoneInputLabel"
     />
     </div>
@@ -290,6 +285,17 @@
         :ceilValue="sliderV2_values2[1]"
         @change="sliderV2Change2"
       />
+      <nc-slider-v2
+        isDisabled
+        :isDouble="true"
+        :floorLabel="`${sliderV2_values2[0]}%`"
+        :minValue="15"
+        :floorValue="sliderV2_values2[0]"
+        :ceilLabel="`${sliderV2_values2[1]}%`"
+        :maxValue="100"
+        :ceilValue="sliderV2_values2[1]"
+        @change="sliderV2Change2"
+      />
     </div>
     <br>
     <br>
@@ -298,7 +304,6 @@
 
 
 <script>
-import Dumb from '@/components/Dumb.vue'
 import ncLoader from '@/components/nc-loader.vue'
 import ncList from '@/components/nc-list.vue'
 import ncModal from '@/components/nc-modal.vue'
@@ -316,7 +321,6 @@ import ncTextarea from '@/components/nc-textarea.vue'
 export default {
   name: 'home',
   components: {
-    Dumb,
     ncLoader,
     ncList,
     ncModal,
@@ -425,7 +429,6 @@ export default {
     },
 
     sliderV2Change2(values) {
-      console.log('asdsa')
       this.sliderV2_values2 = values
     },
 
