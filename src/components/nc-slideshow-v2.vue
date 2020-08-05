@@ -1,6 +1,6 @@
 <template>
     <div class="nc-slideshow">
-        <ul class="nc-slideshow__content">
+        <ul class="nc-slideshow__content" ref="nc-slideshow-list" :style="{transform: getTransformStyle}">
             <template>
                 <li v-for="(item, index) in images" :key="index" class="nc-slideshow__content__item">
                     <a :href="item.url"><img :src="item.src" :alt="item.alt"></a>
@@ -8,12 +8,12 @@
             </template>
         </ul>
         <template v-if="hasSlideNavigation">
-            <button class="nc-slideshow__button nc-slideshow__button--left">left</button>
-            <button class="nc-slideshow__button nc-slideshow__button--right">right</button>
+            <button class="nc-slideshow__button nc-slideshow__button--left" @click="prevSlide">left</button>
+            <button class="nc-slideshow__button nc-slideshow__button--right" @click="nextSlide">right</button>
         </template>
         <template v-if="hasSlideNavigation">
             <div class="nc-slideshow__dots">
-                <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`"></span>
+                <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`" @click="goToIndex(indexDot)"></span>
             </div>
         </template>
     </div>
@@ -28,12 +28,35 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      currentIndex: 0
+    }
+  },
   computed: {
     hasSlideNavigation() {
       return this.images.length > 1
-    }
+    },
+      getTransformStyle() {
+        const offsetWidth = this.$refs['nc-slideshow-list'] ? this.$refs['nc-slideshow-list'].offsetWidth : 0
+        return `translate3d(-${this.currentIndex * offsetWidth}px, 0, 0)`
+      }
   },
-  methods: {}
+  methods: {
+    goToIndex(index) {
+      this.currentIndex = index
+    },
+    nextSlide() {
+      if (this.currentIndex < this.images.length - 1) {
+        ++this.currentIndex
+      }
+    },
+    prevSlide() {
+      if (this.currentIndex > 0) {
+        --this.currentIndex
+      }
+    }
+  }
 }
 </script>
 
@@ -50,6 +73,7 @@ export default {
     list-style: none;
     padding: 0;
     margin: 0;
+    transition: transform 0.5s ease;
     &__item {
       width: 100%;
       display: inline-block;
