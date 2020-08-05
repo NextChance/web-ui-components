@@ -1,22 +1,23 @@
 <template>
-    <div class="nc-slideshow">
-        <ul class="nc-slideshow__content" ref="nc-slideshow-list" :style="{transform: getTransformStyle}">
-            <template>
-                <li v-for="(item, index) in images" :key="index" class="nc-slideshow__content__item">
-                    <a :href="item.url"><img :src="item.src" :alt="item.alt"></a>
-                </li>
-            </template>
-        </ul>
-        <template v-if="hasSlideNavigation">
-            <button class="nc-slideshow__button nc-slideshow__button--left" @click="prevSlide">left</button>
-            <button class="nc-slideshow__button nc-slideshow__button--right" @click="nextSlide">right</button>
-        </template>
-        <template v-if="hasSlideNavigation">
-            <div class="nc-slideshow__dots">
-                <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`" @click="goToIndex(indexDot)"></span>
-            </div>
-        </template>
-    </div>
+  <div class="nc-slideshow">
+    <pre>{{currentIndex}}</pre>
+    <ul class="nc-slideshow__content" ref="nc-slideshow-list" :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
+      <template>
+        <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
+          <a :href="item.url"><img :src="item.src" :alt="item.alt"></a>
+        </li>
+      </template>
+    </ul>
+    <template v-if="hasSlideNavigation">
+      <button class="nc-slideshow__button nc-slideshow__button--left" @click="prevSlide">left</button>
+      <button class="nc-slideshow__button nc-slideshow__button--right" @click="nextSlide">right</button>
+    </template>
+    <template v-if="hasSlideNavigation">
+      <div class="nc-slideshow__dots">
+        <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`" @click="goToIndex(indexDot)"></span>
+      </div>
+    </template>
+  </div>
 </template>
 
 <script>
@@ -26,37 +27,91 @@ export default {
     images: {
       type: Array,
       default: () => []
+    },
+    autoplayTime: {
+        type: Number,
+        default: 0
     }
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      isTransitionDisabled: false,
+      transitionStyle: 'transform 0.5s ease',
+      animationRateHandler: undefined,
+      animationStart: 0,
+      slidePosition: 0,
+      prevIndex: 0
     }
   },
   computed: {
+    virtualImages() {
+      return [...this.images, this.images[0]]
+    },
     hasSlideNavigation() {
       return this.images.length > 1
     },
-      getTransformStyle() {
-        const offsetWidth = this.$refs['nc-slideshow-list'] ? this.$refs['nc-slideshow-list'].offsetWidth : 0
-        return `translate3d(-${this.currentIndex * offsetWidth}px, 0, 0)`
-      }
+    getOffsetSlides() {
+      return this.$refs['nc-slideshow-list']
+        ? this.$refs['nc-slideshow-list'].offsetWidth
+        : 0
+    }
   },
   methods: {
     goToIndex(index) {
       this.currentIndex = index
     },
     nextSlide() {
-      if (this.currentIndex < this.images.length - 1) {
-        ++this.currentIndex
-      }
+        if (!this.animationStart && this.currentIndex < this.virtualImages.length - 1){
+            this.prevIndex = this.currentIndex
+            ++this.currentIndex
+            this.animationRateHandler = window.requestAnimationFrame(
+                this.slideAnimation
+            )
+        }
     },
     prevSlide() {
-      if (this.currentIndex > 0) {
-        --this.currentIndex
+        if (!this.animationStart){
+            if (this.currentIndex === 0) {
+                this.currentIndex = this.virtualImages.length - 1
+                this.slidePosition = this.currentIndex * this.getOffsetSlides
+            }
+            this.prevIndex = this.currentIndex
+            --this.currentIndex
+            this.animationRateHandler = window.requestAnimationFrame(
+                this.slideAnimation
+            )
+        }
+    },
+    slideAnimation(timestamp) {
+      if (!this.animationStart) {
+        this.animationStart = timestamp
+      }
+
+      const progress = (timestamp - this.animationStart) / 500
+      if (progress < 1) {
+        this.slidePosition =
+          this.prevIndex * this.getOffsetSlides +
+          progress *
+            ((this.currentIndex - this.prevIndex) * this.getOffsetSlides)
+        this.animationRateHandler = window.requestAnimationFrame(
+          this.slideAnimation
+        )
+      } else {
+        this.animationStart = 0
+        if (this.currentIndex === this.virtualImages.length - 1) {
+          this.currentIndex = 0
+        }
+        this.slidePosition = this.currentIndex * this.getOffsetSlides
+        window.cancelAnimationFrame(this.animationRateHandler)
       }
     }
-  }
+  },
+    mounted() {
+      if (!!this.autoplayTime && this.images.length > 1 ) {
+          setInterval(this.nextSlide, this.autoplayTime)
+      }
+    }
 }
 </script>
 
@@ -65,15 +120,12 @@ export default {
   box-sizing: border-box;
   max-width: 100%;
   position: relative;
-  display: flex;
   overflow: hidden;
-  align-items: flex-start;
   &__content {
     white-space: nowrap;
     list-style: none;
     padding: 0;
     margin: 0;
-    transition: transform 0.5s ease;
     &__item {
       width: 100%;
       display: inline-block;
