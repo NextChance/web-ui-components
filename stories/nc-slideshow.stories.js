@@ -5,12 +5,12 @@ import NcSlideshow from '../src/components/nc-slideshow-v2'
 const imagesMock = [
   {
     url: 'https://google.com',
-    src: 'https://www.w3schools.com/howto/img_nature_wide.jpg',
+    image: 'https://www.w3schools.com/howto/img_nature_wide.jpg',
     alt: 'test'
   },
   {
     url: 'https://marca.es',
-    src: 'https://www.w3schools.com/howto/img_snow_wide.jpg',
+    image: 'https://www.w3schools.com/howto/img_snow_wide.jpg',
     alt: 'test 2'
   }
 ]

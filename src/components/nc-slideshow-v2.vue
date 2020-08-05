@@ -1,10 +1,9 @@
 <template>
   <div class="nc-slideshow">
-    <pre>{{currentIndex}}</pre>
     <ul class="nc-slideshow__content" ref="nc-slideshow-list" :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url"><img :src="item.src" :alt="item.alt"></a>
+          <a :href="item.url"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
     </ul>
@@ -14,7 +13,13 @@
     </template>
     <template v-if="hasSlideNavigation">
       <div class="nc-slideshow__dots">
-        <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`" @click="goToIndex(indexDot)"></span>
+        <span
+            v-for="(dot, indexDot) in images"
+            :key="`dot-${indexDot}`"
+            class="nc-slideshow__dots__item"
+            :class="[currentIndex === indexDot || (currentIndex === virtualImages.length -1 && indexDot === 0 ) ? 'nc-slideshow__dots__item--active' : 'nc-slideshow__dots__item--regular']"
+            @click="goToIndex(indexDot)">
+        </span>
       </div>
     </template>
   </div>
@@ -29,8 +34,8 @@ export default {
       default: () => []
     },
     autoplayTime: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -62,32 +67,34 @@ export default {
       this.currentIndex = index
     },
     nextSlide() {
-        if (!this.animationStart && this.currentIndex < this.virtualImages.length - 1){
-            this.prevIndex = this.currentIndex
-            ++this.currentIndex
-            this.animationRateHandler = window.requestAnimationFrame(
-                this.slideAnimation
-            )
-        }
+      if (
+        !this.animationStart &&
+        this.currentIndex < this.virtualImages.length - 1
+      ) {
+        this.prevIndex = this.currentIndex
+        ++this.currentIndex
+        this.animationRateHandler = window.requestAnimationFrame(
+          this.slideAnimation
+        )
+      }
     },
     prevSlide() {
-        if (!this.animationStart){
-            if (this.currentIndex === 0) {
-                this.currentIndex = this.virtualImages.length - 1
-                this.slidePosition = this.currentIndex * this.getOffsetSlides
-            }
-            this.prevIndex = this.currentIndex
-            --this.currentIndex
-            this.animationRateHandler = window.requestAnimationFrame(
-                this.slideAnimation
-            )
+      if (!this.animationStart) {
+        if (this.currentIndex === 0) {
+          this.currentIndex = this.virtualImages.length - 1
+          this.slidePosition = this.currentIndex * this.getOffsetSlides
         }
+        this.prevIndex = this.currentIndex
+        --this.currentIndex
+        this.animationRateHandler = window.requestAnimationFrame(
+          this.slideAnimation
+        )
+      }
     },
     slideAnimation(timestamp) {
       if (!this.animationStart) {
         this.animationStart = timestamp
       }
-
       const progress = (timestamp - this.animationStart) / 500
       if (progress < 1) {
         this.slidePosition =
@@ -107,11 +114,11 @@ export default {
       }
     }
   },
-    mounted() {
-      if (!!this.autoplayTime && this.images.length > 1 ) {
-          setInterval(this.nextSlide, this.autoplayTime)
-      }
+  mounted() {
+    if (!!this.autoplayTime && this.images.length > 1) {
+      setInterval(this.nextSlide, this.autoplayTime)
     }
+  }
 }
 </script>
 
@@ -153,7 +160,7 @@ export default {
     right: 0;
     text-align: center;
     bottom: 12px;
-    span {
+    &__item {
       cursor: pointer;
       height: 10px;
       width: 10px;
@@ -162,6 +169,9 @@ export default {
       display: inline-block;
       &:nth-child(2) {
         margin-left: 8px;
+      }
+      &--active {
+        background-color: red;
       }
     }
   }
