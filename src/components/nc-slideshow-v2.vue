@@ -2,7 +2,7 @@
     <div class="nc-slideshow">
         <ul class="nc-slideshow__content">
             <template>
-                <li v-for="(item, index) in data.images" :key="index" class="nc-slideshow__content__item">
+                <li v-for="(item, index) in images" :key="index" class="nc-slideshow__content__item">
                     <a :href="item.url"><img :src="item.src" :alt="item.alt"></a>
                 </li>
             </template>
@@ -13,7 +13,7 @@
         </template>
         <template v-if="hasSlideNavigation">
             <div class="nc-slideshow__dots">
-                <span v-for="(dot, indexDot) in data.images" :key="`dot-${indexDot}`"></span>
+                <span v-for="(dot, indexDot) in images" :key="`dot-${indexDot}`"></span>
             </div>
         </template>
     </div>
@@ -23,23 +23,17 @@
 export default {
   name: 'nc-slideshow-v2',
   props: {
-    data: {
-      type: Object,
-      default: function() {
-        return {
-          images: []
-        }
-      }
+    images: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
     hasSlideNavigation() {
-      return this.data.images.length > 1
+      return this.images.length > 1
     }
   },
-  methods: {
-    
-  }
+  methods: {}
 }
 </script>
 

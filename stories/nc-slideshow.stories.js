@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 
 import NcSlideshow from '../src/components/nc-slideshow-v2';
 
-const images = [
+const imagesMock = [
     {
         url: 'https://google.com',
         src: 'https://www.w3schools.com/howto/img_nature_wide.jpg',
@@ -24,11 +24,9 @@ export const regular = () => ({
     components: { NcSlideshow },
     data(){
         return {
-            data: {
-                images
-            }
+          images: imagesMock
         }
     },
-    template: '<div class="nc-slides-container"> <nc-slideshow :data="data"></nc-slideshow> </div> <script>',
+    template: '<div class="nc-slides-container"> <nc-slideshow :images="images"></nc-slideshow> </div>',
     methods: { action: action('clicked') },
 })
