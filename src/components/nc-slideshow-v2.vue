@@ -149,18 +149,30 @@ $breakpoint-desktop: 1024px;
 .nc-slideshow {
   box-sizing: border-box;
   max-width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   &__content {
+    height: 100%;
     white-space: nowrap;
     list-style: none;
     padding: 0;
     margin: 0;
     &__item {
       width: 100%;
+      height: 100%;
       display: inline-block;
+      overflow: hidden;
+      a{
+        height: 100%;
+        display: block;
+        position: relative;
+      }
       img {
-        width: 100%;
+        position: absolute;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }

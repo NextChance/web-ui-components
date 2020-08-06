@@ -28,6 +28,6 @@ export const regular = () => ({
     }
   },
   template:
-    '<div class="nc-slides-container"> <nc-slideshow :images="images" :autoplay-time="4000"></nc-slideshow> </div>',
+    '<div class="nc-slides-container" style="height: 300px"> <nc-slideshow :images="images" :autoplay-time="4000"></nc-slideshow> </div>',
   methods: { action: action('clicked') }
 })
