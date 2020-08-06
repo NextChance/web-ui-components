@@ -62,7 +62,8 @@ export default {
       animationRateHandler: undefined,
       animationStart: 0,
       slidePosition: 0,
-      prevIndex: 0
+      prevIndex: 0,
+      offsetSlides: 0
     }
   },
   computed: {
@@ -71,11 +72,6 @@ export default {
     },
     hasSlideNavigation() {
       return this.images.length > 1
-    },
-    getOffsetSlides() {
-      return this.$refs['nc-slideshow-list']
-        ? this.$refs['nc-slideshow-list'].offsetWidth
-        : 0
     }
   },
   methods: {
@@ -98,7 +94,7 @@ export default {
       if (!this.animationStart) {
         if (this.currentIndex === 0) {
           this.currentIndex = this.virtualImages.length - 1
-          this.slidePosition = this.currentIndex * this.getOffsetSlides
+          this.slidePosition = this.currentIndex * this.offsetSlides
         }
         this.prevIndex = this.currentIndex
         --this.currentIndex
@@ -114,9 +110,8 @@ export default {
       const progress = (timestamp - this.animationStart) / 500
       if (progress < 1) {
         this.slidePosition =
-          this.prevIndex * this.getOffsetSlides +
-          progress *
-            ((this.currentIndex - this.prevIndex) * this.getOffsetSlides)
+          this.prevIndex * this.offsetSlides +
+          progress * ((this.currentIndex - this.prevIndex) * this.offsetSlides)
         this.animationRateHandler = window.requestAnimationFrame(
           this.slideAnimation
         )
@@ -125,15 +120,26 @@ export default {
         if (this.currentIndex === this.virtualImages.length - 1) {
           this.currentIndex = 0
         }
-        this.slidePosition = this.currentIndex * this.getOffsetSlides
+        this.slidePosition = this.currentIndex * this.offsetSlides
         window.cancelAnimationFrame(this.animationRateHandler)
       }
+    },
+    resizeSlideshow() {
+      this.offsetSlides = this.$refs['nc-slideshow-list']
+        ? this.$refs['nc-slideshow-list'].offsetWidth
+        : 0
+      this.slidePosition = this.currentIndex * this.offsetSlides
     }
   },
   mounted() {
+    window.addEventListener('resize', this.resizeSlideshow)
+    this.resizeSlideshow()
     if (!!this.autoplayTime && this.images.length > 1) {
       setInterval(this.nextSlide, this.autoplayTime)
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeSlideshow)
   }
 }
 </script>
@@ -174,14 +180,14 @@ $breakpoint-desktop: 1024px;
     height: 24px;
     padding: 5px;
 
-    svg{
+    svg {
       display: block;
       width: 14px;
       height: 14px;
     }
     &--left {
       left: 20px;
-      svg{
+      svg {
         transform: rotate(90deg);
       }
     }
@@ -211,7 +217,7 @@ $breakpoint-desktop: 1024px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
-      opacity: .5;
+      opacity: 0.5;
       &:nth-child(2) {
         margin-left: 8px;
       }
