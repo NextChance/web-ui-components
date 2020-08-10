@@ -1,8 +1,8 @@
 <template>
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" :href="element.url">
-      <img :src="element.image.src" class="nc-featured-detail__link__image" :alt="element.image.alt">
+    <a class="nc-featured-detail__link" :href="url">
+      <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
   </div>
 </template>
@@ -15,18 +15,13 @@ export default {
       type: String,
       default: ''
     },
-    element: {
+    url: {
+      type: String,
+      default: ''
+    },
+    image: {
       type: Object,
-      default: () => {
-        return {
-          url: '',
-          caption: '',
-          image: {
-            src: '',
-            alt: ''
-          }
-        }
-      }
+      default: () => {}
     }
   }
 }
