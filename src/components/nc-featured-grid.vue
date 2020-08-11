@@ -54,11 +54,13 @@ $color-coral: #fa5a5a;
   padding: 16px;
   width: 100%;
   @media (min-width: $breakpoint-tablet) {
+    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     padding: 20px 24px 24px;
   }
 
   &__title {
+    font-size: 16px;
     margin: 0 0 12px;
     max-height: 40px;
     text-overflow: ellipsis;
@@ -72,6 +74,7 @@ $color-coral: #fa5a5a;
   }
 
   &__subtitle {
+    font-size: 13px;
     margin: 12px 0 0;
     max-height: 40px;
     text-overflow: ellipsis;
@@ -105,16 +108,26 @@ $color-coral: #fa5a5a;
           padding-left: 4px;
         }
       }
+      &:nth-child(n + 3) {
+        margin-top: 8px;
+        @media (min-width: $breakpoint-tablet) {
+          margin-top: 4px;
+        }
+      }
       &__link {
         display: block;
+        height: 120px;
+        overflow: hidden;
+        border-radius: 4px;
         img {
-          width: 100%;
-          height: 120px;
-          border-radius: 4px;
+          display: block;
+          height: 100%;
         }
       }
 
       &__caption {
+        font-size: 13px;
+        height: 32px;
         margin: 4px 0 0;
       }
     }
