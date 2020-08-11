@@ -7,8 +7,7 @@ const itemsMock = [
     caption: 'Item 1',
     url: 'http://localhost:6006/item1',
     image: {
-      src:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTsvBktz7XlUXCPjnqKw0LiOQBU7sHFLrQTfosq1kVEjNAh6Q&s',
+      src: 'https://www.franquicia.net/images/nautalia-avion.jpg',
       alt: 'alt item 1'
     }
   },
@@ -16,8 +15,7 @@ const itemsMock = [
     caption: 'Item 2',
     url: 'http://localhost:6006/item2',
     image: {
-      src:
-        'https://i.pinimg.com/originals/29/7f/53/297f534ba2a2adb3633c65dd00157c16.jpg',
+      src: 'https://www.franquicia.net/images/playa8-160.jpg',
       alt: 'alt item 2'
     }
   },
@@ -26,7 +24,7 @@ const itemsMock = [
     url: 'http://localhost:6006/item3',
     image: {
       src:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAa59NQ4kCxd1WSIttTdUreZ1YlZpp72zBJb1lLwyTOGpcIRk&s',
+        'https://www.travelbookingturkey.com/files/2015/11/shutterstock_212571667-160x120.jpg',
       alt: 'alt item 3'
     }
   },
@@ -34,7 +32,8 @@ const itemsMock = [
     caption: 'Item 4',
     url: 'http://localhost:6006/item4',
     image: {
-      src: 'https://roatanvideo.com/wp-content/themes/roatan/images/rr.jpg',
+      src:
+        'https://i.pinimg.com/474x/1f/65/8a/1f658ae5d8defbb215e112d701ee6be4--coban-travel-guide.jpg',
       alt: 'alt item 4'
     }
   }
