@@ -38,6 +38,7 @@ $breakpoint-desktop-m: 1366px;
   width: 100%;
 
   @media (min-width: $breakpoint-tablet) {
+    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     padding: 20px 24px 24px;
   }
