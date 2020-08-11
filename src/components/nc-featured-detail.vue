@@ -50,6 +50,7 @@ $breakpoint-desktop-m: 1366px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    font-size: 16px;
 
     @media (min-width: $breakpoint-tablet) {
       margin: 0 0 4px;
