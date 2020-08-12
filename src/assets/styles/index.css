@@ -16,7 +16,7 @@ html {
   display: flex;
   margin: 10px;
   justify-content: flex-start;
-  max-width: 350px;
+  max-width: 360px;
 }
 
 .nc-card-item-container {
