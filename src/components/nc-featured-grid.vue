@@ -59,7 +59,7 @@ $color-coral: #fa5a5a;
   &__title {
     font-size: 16px;
     margin: 0 0 12px;
-    max-height: 40px;
+    height: 40px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -73,7 +73,7 @@ $color-coral: #fa5a5a;
   &__subtitle {
     font-size: 13px;
     margin: 12px 0 0;
-    max-height: 40px;
+    height: 40px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -116,9 +116,13 @@ $color-coral: #fa5a5a;
         height: 120px;
         overflow: hidden;
         border-radius: 4px;
+        position: relative;
         img {
           display: block;
-          height: 100%;
+          height: unset;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
 
