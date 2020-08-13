@@ -42,7 +42,7 @@ export default {
 
   &__title {
     margin: 0 0 12px;
-    max-height: 40px;
+    height: 40px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -68,7 +68,10 @@ export default {
 
     &__image {
       width: 100%;
-      height: 100%;
+      height: unset;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 }
