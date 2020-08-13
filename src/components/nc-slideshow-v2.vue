@@ -68,7 +68,16 @@ export default {
       animationStart: 0,
       slidePosition: 0,
       prevIndex: 0,
-      offsetSlides: 0
+      offsetSlides: 0,
+      handleInterval: null
+    }
+  },
+  watch: {
+    autoplayTime(val, oldVal) {
+      if (val !== oldVal) {
+        clearInterval(this.handleInterval)
+        this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
+      }
     }
   },
   computed: {
@@ -145,11 +154,12 @@ export default {
     window.addEventListener('resize', this.resizeSlideshow)
     this.resizeSlideshow()
     if (!!this.autoplayTime && this.images.length > 1) {
-      setInterval(this.nextSlide, this.autoplayTime)
+      this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
     }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeSlideshow)
+    clearInterval(this.handleInterval)
   }
 }
 </script>
