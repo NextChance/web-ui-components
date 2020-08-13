@@ -145,7 +145,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$breakpoint-desktop: 1024px;
 .nc-slideshow {
   box-sizing: border-box;
   max-width: 100%;
@@ -163,7 +162,7 @@ $breakpoint-desktop: 1024px;
       height: 100%;
       display: inline-block;
       overflow: hidden;
-      a{
+      a {
         height: 100%;
         display: block;
         position: relative;
@@ -219,7 +218,7 @@ $breakpoint-desktop: 1024px;
     right: 0;
     text-align: center;
     bottom: 8px;
-    @media (min-width: $breakpoint-desktop) {
+    @media (min-width: $breakpoint-desktop-s) {
       bottom: 12px;
     }
     &__item {

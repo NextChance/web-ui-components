@@ -1,4 +1,5 @@
 const path = require('path');
+const rootPath = path.resolve(__dirname, '../src')
 
 module.exports = {
   stories: ['../stories/**/*.stories.js'],
@@ -6,9 +7,23 @@ module.exports = {
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../'),
-    });
+      use: [
+        'vue-style-loader',
+        'css-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            data: `
+                      @import "@/assets/scss/_config.scss";
+					`
+          }
+        }
+      ],
+    })
+
+    config.resolve.alias['@'] = rootPath
+    config.resolve.alias['~'] = rootPath
+
     return config;
   }
 };

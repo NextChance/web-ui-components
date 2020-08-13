@@ -44,9 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$breakpoint-tablet: 768px;
-$breakpoint-desktop-s: 1024px;
-$breakpoint-desktop-m: 1366px;
 $color-coral: #fa5a5a;
 .nc-featured-grid {
   background: white;
