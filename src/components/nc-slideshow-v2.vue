@@ -1,6 +1,11 @@
 <template>
   <div class="nc-slideshow">
-    <ul class="nc-slideshow__content" ref="nc-slideshow-list" :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
+    <ul
+        v-touch:swipe.right="prevSlide"
+        v-touch:swipe.left="nextSlide"
+        class="nc-slideshow__content"
+        ref="nc-slideshow-list"
+        :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
           <a :href="item.url"><img :src="item.image" :alt="item.alt"></a>
@@ -63,7 +68,16 @@ export default {
       animationStart: 0,
       slidePosition: 0,
       prevIndex: 0,
-      offsetSlides: 0
+      offsetSlides: 0,
+      handleInterval: null
+    }
+  },
+  watch: {
+    autoplayTime(val, oldVal) {
+      if (val !== oldVal) {
+        clearInterval(this.handleInterval)
+        this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
+      }
     }
   },
   computed: {
@@ -76,7 +90,12 @@ export default {
   },
   methods: {
     goToIndex(index) {
-      this.currentIndex = index
+      if (this.currentIndex !== index) {
+        this.currentIndex = index
+        this.animationRateHandler = window.requestAnimationFrame(
+          this.slideAnimation
+        )
+      }
     },
     nextSlide() {
       if (
@@ -135,17 +154,19 @@ export default {
     window.addEventListener('resize', this.resizeSlideshow)
     this.resizeSlideshow()
     if (!!this.autoplayTime && this.images.length > 1) {
-      setInterval(this.nextSlide, this.autoplayTime)
+      this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
     }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeSlideshow)
+    clearInterval(this.handleInterval)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .nc-slideshow {
+  background-color: $color-white;
   box-sizing: border-box;
   max-width: 100%;
   height: 100%;
@@ -177,6 +198,7 @@ export default {
   }
 
   &__button {
+    display: none;
     outline: none;
     cursor: pointer;
     position: absolute;
@@ -190,6 +212,10 @@ export default {
     transform: translateY(-50%);
     height: 24px;
     padding: 5px;
+
+    @media (min-width: $breakpoint-desktop-s) {
+      display: block;
+    }
 
     svg {
       display: block;
