@@ -44,7 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color-coral: #fa5a5a;
 .nc-featured-grid {
   background: white;
   box-sizing: border-box;
@@ -127,6 +126,7 @@ $color-coral: #fa5a5a;
       }
 
       &__caption {
+        color: $color-gray-2;
         font-size: 13px;
         height: 32px;
         margin: 4px 0 0;
