@@ -56,6 +56,7 @@ export default {
   }
 
   &__link {
+    position: relative;
     display: block;
     border-radius: 4px;
     overflow: hidden;
