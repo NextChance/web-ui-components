@@ -52,7 +52,11 @@ export default {
   @media (min-width: $breakpoint-tablet) {
     box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     border-radius: 8px;
-    padding: 20px 24px 24px;
+    padding: 24px 20px 20px;
+  }
+
+  @media (min-width: $breakpoint-desktop-m) {
+    padding: 24px 32px 20px;
   }
 
   &__title {
@@ -72,12 +76,15 @@ export default {
   &__subtitle {
     font-size: 13px;
     margin: 12px 0 0;
-    height: 40px;
+    height: 20px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    @media (min-width: $breakpoint-tablet) {
+      margin: 8px 0 0;
+    }
     &--link {
       color: #fa5a5a;
       text-decoration: none;
@@ -88,9 +95,10 @@ export default {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
     &__item {
       box-sizing: border-box;
-      display: inline-block;
       width: 50%;
       &:nth-child(odd) {
         padding-right: 8px;
@@ -113,6 +121,9 @@ export default {
       &__link {
         display: block;
         height: 120px;
+        @media (min-width: $breakpoint-desktop-m) {
+          height: 124px;
+        }
         overflow: hidden;
         border-radius: 4px;
         position: relative;
