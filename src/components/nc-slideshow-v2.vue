@@ -172,6 +172,9 @@ export default {
   height: 100%;
   position: relative;
   overflow: hidden;
+  @media (min-width: $breakpoint-desktop-s) {
+    border-radius: 8px;
+  }
   &__content {
     height: 100%;
     white-space: nowrap;
@@ -243,6 +246,7 @@ export default {
     left: 0;
     right: 0;
     text-align: center;
+    line-height: 0;
     bottom: 8px;
     @media (min-width: $breakpoint-desktop-s) {
       bottom: 12px;
@@ -255,7 +259,7 @@ export default {
       border-radius: 50%;
       display: inline-block;
       opacity: 0.5;
-      &:nth-child(2) {
+      &:nth-child(n + 2) {
         margin-left: 8px;
       }
       &--active {
