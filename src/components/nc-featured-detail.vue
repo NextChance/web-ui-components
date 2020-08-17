@@ -37,7 +37,11 @@ export default {
   @media (min-width: $breakpoint-tablet) {
     box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     border-radius: 8px;
-    padding: 20px 24px 24px;
+    padding: 24px 20px 20px;
+  }
+
+  @media (min-width: $breakpoint-desktop-m) {
+    padding: 24px 32px 32px;
   }
 
   &__title {
