@@ -29,7 +29,7 @@ const itemsMock = [
     }
   },
   {
-    caption: 'Item 4',
+    caption: 'Item 4vakj aksdhjash aslhdñasjkhd ñashdñ ',
     url: 'http://localhost:6006/item4',
     image: {
       src:
@@ -43,6 +43,20 @@ export default {
   title: 'NC-featured-grid',
   component: NcFeaturedGrid
 }
+
+export const Grid = () => ({
+  components: { NcFeaturedGrid },
+  data() {
+    return {
+      title: 'Lorem ipsum',
+      subtitle: '',
+      url: '',
+      items: itemsMock
+    }
+  },
+  template:
+    '<div class="nc-story-container"> <nc-featured-grid :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>'
+})
 
 export const GridWithoutUrl = () => ({
   components: { NcFeaturedGrid },
