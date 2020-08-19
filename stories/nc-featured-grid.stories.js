@@ -55,7 +55,8 @@ export const Grid = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>'
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+  methods: { action: action('clicked') }
 })
 
 export const GridWithoutUrl = () => ({
@@ -68,7 +69,8 @@ export const GridWithoutUrl = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid :title="title" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>'
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+  methods: { action: action('clicked') }
 })
 
 export const GridWithUrl = () => ({
@@ -82,5 +84,6 @@ export const GridWithUrl = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>'
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+  methods: { action: action('clicked') }
 })
