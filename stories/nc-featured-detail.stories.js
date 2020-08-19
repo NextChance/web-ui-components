@@ -21,7 +21,8 @@ export const regular = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail :title="title" :url="url" :image="image">Hello Button</nc-featured-detail> </div> '
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :url="url" :image="image">Hello Button</nc-featured-detail> </div> ',
+  methods: { action: action('clicked') }
 })
 
 export const titleTwoLines = () => ({
@@ -39,5 +40,6 @@ export const titleTwoLines = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail  :title="title" :url="url" :image="image">Hello Button</nc-featured-detail> </div> '
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action"  :title="title" :url="url" :image="image">Hello Button</nc-featured-detail> </div> ',
+  methods: { action: action('clicked') }
 })

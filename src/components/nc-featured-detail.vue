@@ -1,7 +1,7 @@
 <template>
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" :href="url">
+    <a class="nc-featured-detail__link" :href="url" @click="handleClick(url)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
   </div>
@@ -22,6 +22,11 @@ export default {
     image: {
       type: Object,
       default: () => {}
+    }
+  },
+  methods: {
+    handleClick(url) {
+      this.$emit('on-analytics', { destination: url })
     }
   }
 }
