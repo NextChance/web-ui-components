@@ -8,7 +8,7 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url"><img :src="item.image" :alt="item.alt"></a>
+          <a :href="item.url" @click="handleClick(item.url)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
     </ul>
@@ -75,8 +75,8 @@ export default {
   watch: {
     autoplayTime(val, oldVal) {
       if (val !== oldVal) {
-        clearInterval(this.handleInterval)
-        this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
+        clearTimeout(this.handleInterval)
+        this.handleInterval = setTimeout(this.nextSlide, val)
       }
     }
   },
@@ -141,6 +141,7 @@ export default {
         }
         this.slidePosition = this.currentIndex * this.offsetSlides
         window.cancelAnimationFrame(this.animationRateHandler)
+        setTimeout(this.nextSlide, this.autoplayTime)
       }
     },
     resizeSlideshow() {
@@ -148,18 +149,21 @@ export default {
         ? this.$refs['nc-slideshow-list'].offsetWidth
         : 0
       this.slidePosition = this.currentIndex * this.offsetSlides
+    },
+    handleClick(url) {
+      this.$emit('on-analytics', { destination: url })
     }
   },
   mounted() {
     window.addEventListener('resize', this.resizeSlideshow)
     this.resizeSlideshow()
     if (!!this.autoplayTime && this.images.length > 1) {
-      this.handleInterval = setInterval(this.nextSlide, this.autoplayTime)
+      this.handleInterval = setTimeout(this.nextSlide, this.autoplayTime)
     }
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeSlideshow)
-    clearInterval(this.handleInterval)
+    clearTimeout(this.handleInterval)
   }
 }
 </script>
