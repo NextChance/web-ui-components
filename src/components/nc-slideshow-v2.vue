@@ -141,7 +141,8 @@ export default {
         }
         this.slidePosition = this.currentIndex * this.offsetSlides
         window.cancelAnimationFrame(this.animationRateHandler)
-        setTimeout(this.nextSlide, this.autoplayTime)
+        clearTimeout(this.handleInterval)
+        this.handleInterval = setTimeout(this.nextSlide, this.autoplayTime)
       }
     },
     resizeSlideshow() {
