@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v1.14.0
 ### Added
 - Add storybook and create stories
 - Create new slideshow component
