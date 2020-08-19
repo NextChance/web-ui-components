@@ -10,7 +10,7 @@
       </li>
     </ul>
     <p v-if="!hasSubtitleLink" class="nc-featured-grid__subtitle">{{subtitle}}</p>
-    <a v-else :href="url" class="nc-featured-grid__subtitle nc-featured-grid__subtitle--link">{{subtitle}}</a>
+    <a v-else :href="url" @click="handleClick(url)" class="nc-featured-grid__subtitle nc-featured-grid__subtitle--link">{{subtitle}}</a>
   </div>
 </template>
 
