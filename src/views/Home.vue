@@ -3,13 +3,13 @@
     <h2>NC-LOADER COMPONENT</h2>
     <div class="test">
       <nc-loader
-        icon-color="#272727"
-        text-color="#272727"
-        veil-color="#FFF"
-        :has-text="true"
-        :has-veil="true"
-        :active="true"
-        :text="$t('lang.loading.msg')"
+          icon-color="#272727"
+          text-color="#272727"
+          veil-color="#FFF"
+          :has-text="true"
+          :has-veil="true"
+          :active="true"
+          :text="$t('lang.loading.msg')"
       />
     </div>
     <hr>
@@ -17,12 +17,12 @@
     <h2>NC-LIST COMPONENT</h2>
     <div class="nc-list-container">
       <nc-list
-        search-label="Buscar"
-        search-icon="../assets/svg/category.png"
-        :has-search="true"
-        :show-checked-icon="true"
-        :items="items"
-        @item-selected="onItemSelected"
+          search-label="Buscar"
+          search-icon="../assets/svg/category.png"
+          :has-search="true"
+          :show-checked-icon="true"
+          :items="items"
+          @item-selected="onItemSelected"
       >
         <template slot-scope="{item}">
           <span class="item-on-left">{{ item.name }}</span>
@@ -34,11 +34,11 @@
     <br>
     <h1>NC_MODAL</h1>
     <nc-modal
-      v-if="currentModal === 'modal1'"
-      has-header
-      has-footer
-      @close="currentModal = null"
-      >
+        v-if="currentModal === 'modal1'"
+        has-header
+        has-footer
+        @close="currentModal = null"
+    >
       <template v-slot:header>
         <h1>Comparte los beneficios de Billionhands</h1>
       </template>
@@ -53,12 +53,12 @@
     </nc-modal>
 
     <nc-modal
-      v-if="currentModal === 'modal2'"
-      has-header
-      has-footer
-      closeOnOverlayClick
-      @close="currentModal = null"
-      >
+        v-if="currentModal === 'modal2'"
+        has-header
+        has-footer
+        closeOnOverlayClick
+        @close="currentModal = null"
+    >
       <template v-slot:header>
         <h1>texto del header</h1>
       </template>
@@ -78,31 +78,31 @@
     <h2>NC-SLIDER COMPONENT</h2>
     <div id="slider" class="slider">
       <nc-slider
-        minValue="1"
-        :max="maxDistanceLimit"
-        :maxLabel="maxDistance"
-        :maxValue="maxDistance"
-        @slider-stop-drag="sliderStopDistance">
+          minValue="1"
+          :max="maxDistanceLimit"
+          :maxLabel="maxDistance"
+          :maxValue="maxDistance"
+          @slider-stop-drag="sliderStopDistance">
       </nc-slider>
 
       <nc-slider
-        :min="minPriceLimit"
-        :minLabel="minPrice"
-        :minValue="minPrice"
-        :max="maxPriceLimit"
-        :maxLabel="maxPrice"
-        :maxValue="maxPrice"
-        @slider-stop-drag="sliderStopPrice">
+          :min="minPriceLimit"
+          :minLabel="minPrice"
+          :minValue="minPrice"
+          :max="maxPriceLimit"
+          :maxLabel="maxPrice"
+          :maxValue="maxPrice"
+          @slider-stop-drag="sliderStopPrice">
       </nc-slider>
 
       <nc-slider
-        :min="minPercentageLimit"
-        :minLabel="minPercentage"
-        :minValue="minPercentage"
-        :max="maxPercentageLimit"
-        :maxLabel="maxPercentage"
-        :maxValue="maxPercentage"
-        @slider-stop-drag="sliderStopDiscount">
+          :min="minPercentageLimit"
+          :minLabel="minPercentage"
+          :minValue="minPercentage"
+          :max="maxPercentageLimit"
+          :maxLabel="maxPercentage"
+          :maxValue="maxPercentage"
+          @slider-stop-drag="sliderStopDiscount">
       </nc-slider>
     </div>
     <hr>
@@ -110,14 +110,14 @@
     <h2>NC-SLIDESHOW COMPONENT</h2>
     <div class="slideshow">
       <nc-slideshow
-        :has-link-right="true"
-        :has-link-left="true"
-        :links-default-action="true"
-        :images="['http://via.placeholder.com/640x360', 'http://via.placeholder.com/640x560', 'http://via.placeholder.com/800x360']"
-        @slideshow-click-left-link="clickSlideshowLinkLeft"
-        @slideshow-click-right-link="clickSlideshowLinkRight"
-        @slideshow-last-slide="lastSlide"
-        @slideshow-first-slide="firstSlide"
+          :has-link-right="true"
+          :has-link-left="true"
+          :links-default-action="true"
+          :images="['http://via.placeholder.com/640x360', 'http://via.placeholder.com/640x560', 'http://via.placeholder.com/800x360']"
+          @slideshow-click-left-link="clickSlideshowLinkLeft"
+          @slideshow-click-right-link="clickSlideshowLinkRight"
+          @slideshow-last-slide="lastSlide"
+          @slideshow-first-slide="firstSlide"
       />
     </div>
     <hr>
@@ -162,8 +162,8 @@
     <h1>NC_PHONE_INPUT</h1>
     <div class="nc-phone-input-container">
       <nc-phone-input
-      :placeholder="ncPhoneInputLabel"
-    />
+          :placeholder="ncPhoneInputLabel"
+      />
     </div>
     <br>
     <br>
@@ -177,12 +177,12 @@
     <h1>NC_CARD-ITEM</h1>
     <div class="nc-card-item-container">
       <nc-card-item
-        :caption-style="ncCardCaptionStyle"
-        :image="ncCardItemImage"
-        :title="ncCardItemTitle"
-        :title-line-ellipsis="ncTitleLineEllipsis"
-        :description="ncCardItemDescription"
-        :description-line-ellipsis="ncDescritionLineEllipsis"
+          :caption-style="ncCardCaptionStyle"
+          :image="ncCardItemImage"
+          :title="ncCardItemTitle"
+          :title-line-ellipsis="ncTitleLineEllipsis"
+          :description="ncCardItemDescription"
+          :description-line-ellipsis="ncDescritionLineEllipsis"
       />
     </div>
 
@@ -198,13 +198,13 @@
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
-          icon-color="#272727"
-          text-color="#272727"
-          veil-color="#FFF"
-          :has-text="true"
-          :has-veil="true"
-          :active="true"
-          :text="$t('lang.loading.msg')"
+            icon-color="#272727"
+            text-color="#272727"
+            veil-color="#FFF"
+            :has-text="true"
+            :has-veil="true"
+            :active="true"
+            :text="$t('lang.loading.msg')"
         />
       </template>
       <template v-slot:withDataState>
@@ -220,12 +220,12 @@
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
-          icon-color="#272727"
-          text-color="#272727"
-          veil-color="#FFF"
-          :has-text="false"
-          :has-veil="true"
-          :active="true"
+            icon-color="#272727"
+            text-color="#272727"
+            veil-color="#FFF"
+            :has-text="false"
+            :has-veil="true"
+            :active="true"
         />
       </template>
       <template v-slot:withDataState>
@@ -241,13 +241,13 @@
       </template>
       <template v-slot:isLoadingState>
         <nc-loader
-          icon-color="#272727"
-          text-color="#272727"
-          veil-color="#FFF"
-          :has-text="true"
-          :has-veil="true"
-          :active="true"
-          :text="$t('lang.loading.msg')"
+            icon-color="#272727"
+            text-color="#272727"
+            veil-color="#FFF"
+            :has-text="true"
+            :has-veil="true"
+            :active="true"
+            :text="$t('lang.loading.msg')"
         />
       </template>
       <template v-slot:withDataState>
@@ -266,35 +266,35 @@
     <h1>NC_SLIDER_V2</h1>
     <div class="home__nc-slider-v2__container">
       <nc-slider-v2
-        :isDouble="false"
-        :floorLabel="`${sliderV2_values[0]} km`"
-        :minValue="0"
-        :floorValue="sliderV2_values[0]"
-        :ceilLabel="`${sliderV2_values[1]} km`"
-        :maxValue="1000"
-        :ceilValue="sliderV2_values[1]"
-        @change="sliderV2Change"
+          :isDouble="false"
+          :floorLabel="`${sliderV2_values[0]} km`"
+          :minValue="0"
+          :floorValue="sliderV2_values[0]"
+          :ceilLabel="`${sliderV2_values[1]} km`"
+          :maxValue="1000"
+          :ceilValue="sliderV2_values[1]"
+          @change="sliderV2Change"
       />
       <nc-slider-v2
-        :isDouble="true"
-        :floorLabel="`${sliderV2_values2[0]}%`"
-        :minValue="15"
-        :floorValue="sliderV2_values2[0]"
-        :ceilLabel="`${sliderV2_values2[1]}%`"
-        :maxValue="100"
-        :ceilValue="sliderV2_values2[1]"
-        @change="sliderV2Change2"
+          :isDouble="true"
+          :floorLabel="`${sliderV2_values2[0]}%`"
+          :minValue="15"
+          :floorValue="sliderV2_values2[0]"
+          :ceilLabel="`${sliderV2_values2[1]}%`"
+          :maxValue="100"
+          :ceilValue="sliderV2_values2[1]"
+          @change="sliderV2Change2"
       />
       <nc-slider-v2
-        isDisabled
-        :isDouble="true"
-        :floorLabel="`${sliderV2_values2[0]}%`"
-        :minValue="15"
-        :floorValue="sliderV2_values2[0]"
-        :ceilLabel="`${sliderV2_values2[1]}%`"
-        :maxValue="100"
-        :ceilValue="sliderV2_values2[1]"
-        @change="sliderV2Change2"
+          isDisabled
+          :isDouble="true"
+          :floorLabel="`${sliderV2_values2[0]}%`"
+          :minValue="15"
+          :floorValue="sliderV2_values2[0]"
+          :ceilLabel="`${sliderV2_values2[1]}%`"
+          :maxValue="100"
+          :ceilValue="sliderV2_values2[1]"
+          @change="sliderV2Change2"
       />
     </div>
     <br>
