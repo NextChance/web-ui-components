@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.2
+### Fixed
+- slideshow-v2: ClearTimeout in animation
+
 ## v1.14.1
 ### Fixed
 - featured-grid: Emit event when click in subtitle link
