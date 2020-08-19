@@ -3,7 +3,7 @@
     <p class="nc-featured-grid__title">{{title}}</p>
     <ul class="nc-featured-grid__content">
       <li v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
-        <a :href="item.url" class="nc-featured-grid__content__item__link">
+        <a :href="item.url" @click="handleClick(item.url)" class="nc-featured-grid__content__item__link">
           <img :src="item.image.src" :alt="item.image.alt">
         </a>
         <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
@@ -38,6 +38,11 @@ export default {
   computed: {
     hasSubtitleLink() {
       return this.subtitle !== '' && this.url !== ''
+    }
+  },
+  methods: {
+    handleClick(url) {
+      this.$emit('on-analytics', { destination: url })
     }
   }
 }
