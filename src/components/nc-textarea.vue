@@ -220,8 +220,10 @@ export default {
     handleAutoResize() {
       if (this.isAutoResizable) {
         this.textAreaHeight = '0px'
+        this.$refs[this.uiReference].blur()
         this.$nextTick(function() {
           this.textAreaHeight = this.$refs[this.uiReference].scrollHeight + 'px'
+          this.$refs[this.uiReference].focus()
         })
       }
     }
