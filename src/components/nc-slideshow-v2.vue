@@ -17,7 +17,7 @@
         <slot v-if="$slots['button_left']"></slot>
         <div v-else>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-            <title>arrow_down</title>
+            <title>Anterior</title>
             <path d="M7.822 10.667l8.178 7.886 8.178-7.886 2.489 2.4-10.667 10.286-10.667-10.286z"></path>
           </svg>
         </div>
@@ -26,7 +26,7 @@
         <slot v-if="$slots['button_right']"></slot>
         <div v-else>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-            <title>arrow_down</title>
+            <title>Siguiente</title>
             <path d="M7.822 10.667l8.178 7.886 8.178-7.886 2.489 2.4-10.667 10.286-10.667-10.286z"></path>
           </svg>
         </div>
@@ -74,7 +74,7 @@ export default {
   },
   watch: {
     autoplayTime(val, oldVal) {
-      if (val !== oldVal) {
+      if (val !== oldVal && !!this.autoplayTime && this.images.length > 1) {
         clearTimeout(this.handleInterval)
         this.handleInterval = setTimeout(this.nextSlide, val)
       }

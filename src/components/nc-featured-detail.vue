@@ -71,17 +71,18 @@ export default {
     overflow: hidden;
     height: 330px;
     width: 100%;
-
+    max-width: 36.25rem;
+    margin: auto;
     @media (min-width: $breakpoint-tablet) {
       height: 340px;
     }
 
     &__image {
-      width: 100%;
-      height: unset;
+      height: 100%;
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
     }
   }
 }
