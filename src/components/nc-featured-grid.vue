@@ -132,6 +132,8 @@ export default {
         overflow: hidden;
         border-radius: 4px;
         position: relative;
+        margin: auto;
+        max-width: 12.75rem;
         img {
           display: block;
           height: 100%;
@@ -146,7 +148,8 @@ export default {
         color: $color-gray-2;
         font-size: 13px;
         height: 32px;
-        margin: 4px 0 0;
+        margin: 4px auto 0;
+        max-width: 12.75rem;
       }
     }
   }
