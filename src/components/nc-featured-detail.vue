@@ -72,6 +72,7 @@ export default {
     height: 330px;
     width: 100%;
     max-width: 36.25rem;
+    margin: auto;
     @media (min-width: $breakpoint-tablet) {
       height: 340px;
     }
