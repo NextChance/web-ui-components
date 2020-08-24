@@ -77,11 +77,11 @@ export default {
     }
 
     &__image {
-      width: 100%;
-      height: unset;
+      height: 100%;
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
     }
   }
 }
