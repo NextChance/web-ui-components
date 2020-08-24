@@ -71,7 +71,7 @@ export default {
     overflow: hidden;
     height: 330px;
     width: 100%;
-
+    max-width: 36.25rem;
     @media (min-width: $breakpoint-tablet) {
       height: 340px;
     }
