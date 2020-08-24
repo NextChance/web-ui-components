@@ -22,6 +22,14 @@ const imagesMock = [
   }
 ]
 
+const oneImages = [
+  {
+    url: 'https://google.com',
+    image: 'https://www.etsan.at/wp-content/uploads/2016/01/about-cover-1.jpg',
+    alt: 'test'
+  }
+]
+
 export default {
   title: 'NC-slideshow',
   component: NcSlideshow
@@ -32,6 +40,18 @@ export const regular = () => ({
   data() {
     return {
       images: imagesMock
+    }
+  },
+  template:
+    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action"></nc-slideshow> </div>',
+  methods: { action: action('clicked') }
+})
+
+export const oneImg = () => ({
+  components: { NcSlideshow },
+  data() {
+    return {
+      images: oneImages
     }
   },
   template:
