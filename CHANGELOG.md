@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+
+## v1.14.3
+### Fixed
+- Handle focus on textarea autogrow 
+
+
 ## v1.14.2
 ### Fixed
 - slideshow-v2: ClearTimeout in animation
