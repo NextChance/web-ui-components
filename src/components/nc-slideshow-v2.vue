@@ -91,6 +91,7 @@ export default {
   methods: {
     goToIndex(index) {
       if (this.currentIndex !== index) {
+        this.prevIndex = this.currentIndex
         this.currentIndex = index
         this.animationRateHandler = window.requestAnimationFrame(
           this.slideAnimation

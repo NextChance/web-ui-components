@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [UNRELEASED]
 ### Fixed
+- Update animation nc-slidesdhow-v2
+
+## v1.14.4
+### Fixed
 - Update styles for cms-components
 
 
