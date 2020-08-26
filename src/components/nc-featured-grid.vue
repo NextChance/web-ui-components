@@ -65,15 +65,19 @@ export default {
   }
 
   &__title {
-    font-size: 16px;
-    margin: 0 0 12px;
-    height: 40px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
+    $font-size: 20px;
+    $line-height: 1.25;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    display: -webkit-box;
+    font-size: $font-size;
+    line-height: $line-height;
+    margin: 0 0 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     @media (min-width: $breakpoint-tablet) {
+      height: 2 * $line-height * $font-size;
       margin: 0 0 4px;
     }
   }
@@ -111,45 +115,57 @@ export default {
           padding-right: 4px;
         }
       }
-      &:nth-child(even) {
-        padding-left: 8px;
-        @media (min-width: $breakpoint-tablet) {
-          padding-left: 4px;
-        }
+
+      &:nth-child(odd) {
+        padding-right: 4px;
       }
+
+      &:nth-child(even) {
+        padding-left: 4px;
+      }
+
       &:nth-child(n + 3) {
         margin-top: 8px;
         @media (min-width: $breakpoint-tablet) {
           margin-top: 4px;
         }
       }
+
       &__link {
+        border-radius: 4px;
         display: block;
         height: 120px;
+        margin: auto;
+        max-width: 12.75rem;
+        overflow: hidden;
+        position: relative;
+
         @media (min-width: $breakpoint-desktop-m) {
           height: 124px;
         }
-        overflow: hidden;
-        border-radius: 4px;
-        position: relative;
-        margin: auto;
-        max-width: 12.75rem;
+
         img {
           display: block;
           height: 100%;
+          left: 50%;
           position: absolute;
           top: 50%;
-          left: 50%;
           transform: translateY(-50%) translateX(-50%);
         }
       }
 
       &__caption {
+        $font-size: 15px;
+        $line-height: 1.25;
         color: $color-gray-2;
-        font-size: 13px;
-        height: 32px;
+        font-size: $font-size;
+        line-height: $line-height;
         margin: 4px auto 0;
         max-width: 12.75rem;
+
+        @media (min-width: $breakpoint-tablet) {
+          height: 2 * $font-size * $line-height;
+        }
       }
     }
   }
