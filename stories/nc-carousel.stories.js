@@ -1,19 +1,23 @@
 import { action } from '@storybook/addon-actions'
 
-import NcProductCarousel from '../src/components/nc-product-carousel'
+import NcCarousel from '../src/components/nc-carousel'
 
 const itemsMock = [
   {
-    title: '',
+    title: 'Descripción cómo máximo de 2 líneas Descripción cómo máximo bla',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.google.com',
     image: {
       src:
-        'https://blog.laminasyaceros.com/hs-fs/hubfs/Rolando%20Sarabia/Peces/laminas%20y%20aceros%20peces.jpg?width=473&name=laminas%20y%20aceros%20peces.jpg',
+        'https://images-eu.ssl-images-amazon.com/images/I/51o9u5TmOgL._AC_SY400_.jpg',
       alt: 'image1'
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -22,7 +26,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.google.com',
     image: {
       src:
@@ -31,7 +37,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.google.com',
     image: {
       src:
@@ -40,7 +48,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -49,7 +59,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -58,7 +70,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -67,7 +81,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -76,7 +92,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -85,7 +103,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src: 'https://img2.rtve.es/i/?w=1600&i=1562502992232.jpg',
@@ -93,7 +113,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -102,7 +124,9 @@ const itemsMock = [
     }
   },
   {
-    title: '',
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
     url: 'https://www.marca.com',
     image: {
       src:
@@ -113,21 +137,49 @@ const itemsMock = [
 ]
 
 export default {
-  title: 'NC-product-carousel',
-  component: NcProductCarousel
+  title: 'NC-carousel',
+  component: NcCarousel
 }
 
-export const ProductCarousel = () => ({
-  components: { NcProductCarousel },
+export const carousel = () => ({
+  components: { NcCarousel },
   data() {
     return {
-      title: 'Prueba',
-      url: '',
-      secondaryText: 'soy texto',
+      title: 'Título de 65 carácteres',
       items: itemsMock
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-product-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-product-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const carouselWithUrl = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 65 carácteres máximo Título de 65 carácteres máximo Título de',
+      url: 'Enlace',
+      secondaryText: '',
+      items: itemsMock
+    }
+  },
+  template:
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const carouselWithSecondaryText = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 65 ',
+      url: '',
+      secondaryText: 'Text',
+      items: itemsMock
+    }
+  },
+  template:
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
