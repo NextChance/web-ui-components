@@ -50,17 +50,20 @@ export default {
   }
 
   &__title {
-    margin: 0 0 12px;
-    height: 40px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
+    $font-size: 20px;
+    $line-height: 1.25;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    font-size: 16px;
+    display: -webkit-box;
+    font-size: $font-size;
+    line-height: $line-height;
+    margin: 0 0 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     @media (min-width: $breakpoint-tablet) {
       margin: 0 0 4px;
+      height: 2 * $line-height * $font-size;
     }
   }
 
