@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## v1.14.7
+## v1.14.8
 ### Fixed
 - Scoped styles nc-slideshow
 
