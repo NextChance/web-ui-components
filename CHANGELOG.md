@@ -15,6 +15,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.8
+### Fixed
+- Scoped styles nc-slideshow
+
+
+## v1.14.7
+### Changed
+- Title font sizes on NcFeaturedDetail
+
+## v1.14.6
+### Changed
+- Title font sizes on NcFeaturedGrid
+
+## v1.14.5
+### Fixed
+- Update animation nc-slidesdhow-v2
+
 ## v1.14.4
 ### Fixed
 - Update styles for cms-components
