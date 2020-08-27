@@ -114,14 +114,16 @@ export default {
     padding: 24px 0 24px 32px;
   }
   &__title {
-    font-size: 20px;
+    $font-size: 20px;
+    $line-height: 1.25;
+    font-size: $font-size;
     color: #272727;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    max-height: 50px;
+    max-height: 2 * $line-height * $font-size;
     margin-bottom: 12px;
     @media (min-width: $breakpoint-tablet) {
       margin-right: 0;
@@ -273,6 +275,9 @@ export default {
         }
         .image-shadow {
           top: 166px;
+          @media (min-width: $breakpoint-desktop-m) {
+            top: 170px;
+          }
         }
         .item-image-container {
           width: 118px;
@@ -285,6 +290,9 @@ export default {
             min-width: 124px;
             height: 168px;
             margin-right: 0;
+          }
+          @media (min-width: $breakpoint-desktop-m) {
+            height: 172px;
           }
         }
         .item-extra-content {
@@ -304,15 +312,17 @@ export default {
             }
           }
           .item-description {
-            min-width: 198px;
-            padding-bottom: 4px;
-            max-height: 32px;
+            $font-size: 13px;
+            $line-height: 1.25;
+            font-size: $font-size;
+            max-height: 2 * $line-height * $font-size;
             text-overflow: ellipsis;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            font-size: 13px;
+            min-width: 198px;
+            padding-bottom: 4px;
             @media (min-width: $breakpoint-tablet) {
               display: none;
             }
