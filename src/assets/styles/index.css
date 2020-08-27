@@ -29,6 +29,13 @@ p {
   justify-content: flex-start;
 }
 
+
+.nc-story-container-2 {
+  display: flex;
+  margin: 0;
+  justify-content: flex-start;
+}
+
 .nc-card-item-container {
   width: 220px;
   margin: auto;

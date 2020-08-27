@@ -4,7 +4,7 @@
         <slot/>
       </div>
       <template v-if="hasSlideNavigation">
-        <button class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--left" @click="moveToLeft" v-show="!isMinScroll">
+        <button class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--left" @click="moveToLeft" v-show="!isMinScroll" :style="{ 'top': buttonsPosition }">
           <slot v-if="$slots['button_left']"></slot>
           <div v-else>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -13,7 +13,7 @@
             </svg>
           </div>
         </button>
-        <button class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--right" @click="moveToRight"  v-show="!isMaxScroll">
+        <button class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--right" @click="moveToRight"  v-show="!isMaxScroll" :style="{ 'top': buttonsPosition }">
           <slot v-if="$slots['button_right']"></slot>
           <div v-else>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -34,6 +34,10 @@ export default {
     listLength: {
       type: Number,
       default: 0
+    },
+    buttonsPosition: {
+      type: String,
+      default: '43%'
     }
   },
   data() {
@@ -45,6 +49,10 @@ export default {
     }
   },
   computed: {
+    prueba() {
+      debugger
+      return this.buttonsPosition
+    },
     translate() {
       return this.width * (this.listLength / 2)
     },
@@ -74,7 +82,7 @@ export default {
     },
     moveToRight() {
       let maxTranslation =
-        this.$parent.$refs.carouselList && this.$parent.$refs.carouselList.offsetWidth - this.containerWidth
+        this.$parent.$refs.carouselContent && this.$parent.$refs.carouselContent.offsetWidth - this.containerWidth
       let position = this.$refs.carousel.scrollLeft
       position += this.translate
       if (position > maxTranslation) {
@@ -92,7 +100,7 @@ export default {
     },
     setScrollStatus() {
       let maxTranslation =
-        this.$parent.$refs.carouselList && this.$parent.$refs.carouselList.offsetWidth - this.containerWidth
+        this.$parent.$refs.carouselContent && this.$parent.$refs.carouselContent.offsetWidth - this.containerWidth
       if (!this.isScrollInitiated) {
         this.isScrollInitiated = true
       }
@@ -111,6 +119,7 @@ export default {
   display: flex;
   align-items: center;
   &__container {
+    position: relative;
     scrollbar-width: none;
     height: 100%;
     width: 100%;
@@ -136,13 +145,11 @@ export default {
     border-radius: 50%;
     border: none;
     background-color: white;
-    //opacity: 0.6; opacidad?
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
     padding: 5px;
     @media (min-width: $breakpoint-desktop-s) {
       display: block;
       position: absolute;
-      top: 74px;
       svg {
         display: block;
         width: 14px;

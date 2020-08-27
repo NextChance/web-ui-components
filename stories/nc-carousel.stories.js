@@ -136,6 +136,140 @@ const itemsMock = [
   }
 ]
 
+const itemsMock2 = [
+  {
+    title: 'Descripción cómo máximo de 2 líneas Descripción cómo máximo bla',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.google.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image1'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.google.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image1'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.google.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image1'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src: 'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  },
+  {
+    title: 'Titulo producto',
+    firstText: '190,8€',
+    secondText: '490,8€',
+    url: 'https://www.marca.com',
+    image: {
+      src:
+        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
+      alt: 'image2'
+    }
+  }
+]
+
 export default {
   title: 'NC-carousel',
   component: NcCarousel
@@ -145,7 +279,7 @@ export const carousel = () => ({
   components: { NcCarousel },
   data() {
     return {
-      title: 'Título de 65 carácteres',
+      title: 'Título de 45 carácteres',
       items: itemsMock
     }
   },
@@ -158,7 +292,7 @@ export const carouselWithUrl = () => ({
   components: { NcCarousel },
   data() {
     return {
-      title: 'Título de 65 carácteres máximo Título de 65 carácteres máximo Título de',
+      title: 'Título de 45 carácteres máximo Título de 45 caracteres',
       url: 'Enlace',
       secondaryText: '',
       items: itemsMock
@@ -173,7 +307,7 @@ export const carouselWithSecondaryText = () => ({
   components: { NcCarousel },
   data() {
     return {
-      title: 'Título de 65 ',
+      title: 'Título de 45 ',
       url: '',
       secondaryText: 'Text',
       items: itemsMock
@@ -181,5 +315,50 @@ export const carouselWithSecondaryText = () => ({
   },
   template:
     '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const mosaicCarousel = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 45 carácteres',
+      items: itemsMock2,
+      isMosaicType: true,
+    }
+  },
+  template:
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const mosaicCarouselWithUrl = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 45 carácteres',
+      items: itemsMock2,
+      isMosaicType: true,
+      url: 'enlace'
+    }
+  },
+  template:
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const mosaicCarouselWithSecondaryText = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 45 carácteres Título de 45 carácteres Título de 45 carácteres Título de 45 carácteres',
+      items: itemsMock2,
+      isMosaicType: true,
+      secondaryText: 'secondary text 30 caracteres 30'
+
+    }
+  },
+  template:
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
