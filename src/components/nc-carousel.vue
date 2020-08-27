@@ -43,7 +43,7 @@
 import ncCoreCarousel from './nc-core-carousel'
 
 export default {
-  name: 'NcListCarousel',
+  name: 'NcCarousel',
   components: {
     ncCoreCarousel
   },

@@ -284,7 +284,7 @@ export const carousel = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -299,7 +299,7 @@ export const carouselWithUrl = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -314,7 +314,7 @@ export const carouselWithSecondaryText = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -328,7 +328,7 @@ export const mosaicCarousel = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -343,7 +343,7 @@ export const mosaicCarouselWithUrl = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -359,6 +359,6 @@ export const mosaicCarouselWithSecondaryText = () => ({
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type><template><p>Bla bla bla</p><p>Precio</p></template></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
