@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 ## v1.14.7
+### Fixed
+- Scoped styles nc-slideshow
+
+
+## v1.14.7
 ### Changed
 - Title font sizes on NcFeaturedDetail
 
