@@ -49,10 +49,6 @@ export default {
     }
   },
   computed: {
-    prueba() {
-      debugger
-      return this.buttonsPosition
-    },
     translate() {
       return this.width * (this.listLength / 2)
     },

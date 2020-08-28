@@ -80,12 +80,21 @@ export default {
     }
   },
   mounted() {
-    this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight * 0.44}px`
+    window.addEventListener('resize', this.initializeValues)
+    this.initializeValues()
   },
   methods: {
     handleClick(url) {
       this.$emit('on-analytics', { destination: url })
+    },
+    initializeValues() {
+      if (this.$refs.carouselImage && this.$refs.carouselImage.length > 0) {
+        this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight * 0.44}px`
+      }
     }
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.initializeValues)
   }
 }
 </script>
