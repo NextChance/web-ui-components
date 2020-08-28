@@ -323,7 +323,7 @@ export const mosaicCarousel = () => ({
   data() {
     return {
       title: 'Título de 45 carácteres',
-      items: itemsMock2,
+      items: itemsMock,
       isMosaicType: true,
     }
   },

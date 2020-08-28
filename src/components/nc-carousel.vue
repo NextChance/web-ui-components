@@ -366,6 +366,8 @@ export default {
         margin: 4px 0;
         overflow: hidden;
         padding: 0;
+        justify-content: center;
+        border-radius: 4px;
         &:nth-child(3n + 2) {
           margin: 4px 8px;
         }
@@ -376,6 +378,8 @@ export default {
           }
         }
         @media (min-width: $breakpoint-tablet) {
+          width:auto;
+          height: auto;
           margin: 0 16px 0 0;
           max-height: 189px;
           max-width: 189px;
@@ -384,7 +388,7 @@ export default {
             margin-right: 0;
           }
           &:nth-child(3n + 2) {
-            margin: 0 20px 0 0;
+            margin: 0 16px 0 0;
           }
         }
         @media (min-width: $breakpoint-desktop-m) {
@@ -400,10 +404,11 @@ export default {
           padding: 0;
           @media (min-width: $breakpoint-tablet) {
             height: 189px;
+            width: auto;
           }
           .item-image {
-            width: 100%;
-            height: auto;
+            width: auto;
+            height: 100%;
           }
         }
         .item-extra-content {
