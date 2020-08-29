@@ -5,6 +5,10 @@ html {
   color: #2c3e50;
 }
 
+p {
+  margin:4px;
+}
+
 .slideshow {
   width: 80vw;
   height: 30vh;
@@ -17,6 +21,19 @@ html {
   margin: 10px;
   justify-content: flex-start;
   max-width: 376px;
+}
+
+.nc-story-container-2 {
+  display: flex;
+  margin: 10px;
+  justify-content: flex-start;
+}
+
+
+.nc-story-container-2 {
+  display: flex;
+  margin: 0;
+  justify-content: flex-start;
 }
 
 .nc-card-item-container {
