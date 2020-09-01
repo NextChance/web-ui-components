@@ -16,15 +16,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 ## v1.14.12
-### Added
+### Changed
+- Update styles nc-product-detail
+
+## v1.14.12
+### Changed
 - Update styles
 
 ## v1.14.11
-### Added
+### Changed
 - Fix color name
 
 ## v1.14.10
-### Added
+### Changed
 - Update styles
 
 ## v1.14.9
