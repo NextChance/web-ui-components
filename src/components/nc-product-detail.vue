@@ -126,7 +126,7 @@ export default {
     }
     &--link {
       text-decoration: none;
-      color: $color-coral;
+      color: #fa5a5a;
     }
   }
 
