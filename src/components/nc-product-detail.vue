@@ -57,6 +57,7 @@ export default {
   box-sizing: border-box;
   padding: 16px;
   width: 100%;
+  height: 100%;
 
   @media (min-width: $breakpoint-tablet) {
     box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
@@ -83,7 +84,7 @@ export default {
 
     @media (min-width: $breakpoint-tablet) {
       margin: 0 0 4px;
-      max-height: 2 * $line-height * $font-size;
+      height: 2 * $line-height * $font-size;
     }
   }
 
@@ -135,13 +136,19 @@ export default {
     display: block;
     border-radius: 4px;
     overflow: hidden;
-    height: 330px;
+    height: 296px;
     width: 100%;
     max-width: 36.25rem;
     margin: auto;
     cursor: pointer;
     @media (min-width: $breakpoint-tablet) {
-      height: 340px;
+      height: 255px;
+    }
+    @media (min-width: $breakpoint-desktop-s) {
+      height: 220px;
+    }
+    @media (min-width: $breakpoint-desktop-m) {
+      height: 260px;
     }
 
     img {
