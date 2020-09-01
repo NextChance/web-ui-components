@@ -32,7 +32,7 @@ export default {
     },
     product: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     }
   },
   computed: {
