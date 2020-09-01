@@ -57,6 +57,7 @@ export default {
   box-sizing: border-box;
   padding: 16px;
   width: 100%;
+  height: 100%;
 
   @media (min-width: $breakpoint-tablet) {
     box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
@@ -83,14 +84,16 @@ export default {
 
     @media (min-width: $breakpoint-tablet) {
       margin: 0 0 4px;
-      max-height: 2 * $line-height * $font-size;
+      height: 2 * $line-height * $font-size;
     }
   }
 
   &__description {
+    $font-size: 15px;
+    $line-height: 1.25;
+
+    font-size: $font-size;
     color: $color-gray-2;
-    $font-size: 13px;
-    $line-height: 1.7;
     margin: $space-xs 0 0;
     max-height: 2 * $line-height * $font-size;
     overflow: hidden;
@@ -99,8 +102,6 @@ export default {
     -webkit-box-orient: vertical;
     display: -webkit-box;
     @media (min-width: $breakpoint-tablet) {
-      $font-size: 15px;
-      $line-height: 1.5;
       margin: $space-xxs 0 0;
       max-height: 2 * $line-height * $font-size;
     }
@@ -113,7 +114,7 @@ export default {
       color: $color-gray-1;
     }
     &--sale-price {
-      color: $color-coral;
+      color: #fa5a5a;
     }
   }
 
@@ -126,7 +127,7 @@ export default {
     }
     &--link {
       text-decoration: none;
-      color: $color-coral;
+      color: #fa5a5a;
     }
   }
 
@@ -135,13 +136,13 @@ export default {
     display: block;
     border-radius: 4px;
     overflow: hidden;
-    height: 330px;
+    height: 296px;
     width: 100%;
     max-width: 36.25rem;
     margin: auto;
     cursor: pointer;
     @media (min-width: $breakpoint-tablet) {
-      height: 340px;
+      height: 260px;
     }
 
     img {

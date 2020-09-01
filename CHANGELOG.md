@@ -15,6 +15,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.16
+### Fixed
+- Update styles nc-product-detail
+
+
+## v1.14.15
+### Fixed
+- Update styles nc-product-detail, fixed image height
+
+## v1.14.14
+### Fixed
+- Update styles nc-product-detail, fixed line-height
+
+
+## v1.14.13
+### Changed
+- Update styles nc-product-detail
+
+## v1.14.12
+### Changed
+- Update styles
+
+## v1.14.11
+### Changed
+- Fix color name
+
+## v1.14.10
+### Changed
+- Update styles
+
 ## v1.14.9
 ### Added
 - New component nc-product-carousel [BH-4038]

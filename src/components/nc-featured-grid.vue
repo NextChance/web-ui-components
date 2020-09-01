@@ -162,9 +162,13 @@ export default {
         line-height: $line-height;
         margin: 4px auto 0;
         max-width: 12.75rem;
+        webkit-box-orient: vertical;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        overflow: hidden;
 
         @media (min-width: $breakpoint-tablet) {
-          height: 2 * $font-size * $line-height;
+          max-height: 2 * $font-size * $line-height;
         }
       }
     }
