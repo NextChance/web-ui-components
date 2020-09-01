@@ -88,9 +88,11 @@ export default {
   }
 
   &__description {
-    color: $color-gray-2;
     $font-size: 13px;
     $line-height: 1.7;
+
+    font-size: $font-size;
+    color: $color-gray-2;
     margin: $space-xs 0 0;
     max-height: 2 * $line-height * $font-size;
     overflow: hidden;
@@ -101,6 +103,7 @@ export default {
     @media (min-width: $breakpoint-tablet) {
       $font-size: 15px;
       $line-height: 1.5;
+      font-size: $font-size;
       margin: $space-xxs 0 0;
       max-height: 2 * $line-height * $font-size;
     }

@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.12
+### Added
+- Update styles
+
 ## v1.14.11
 ### Added
 - Fix color name
