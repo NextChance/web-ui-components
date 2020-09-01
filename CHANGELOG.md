@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.9
+### Added
+- New component nc-product-carousel [BH-4038]
+- New component nc-product-detail [BH-4044]
+
 ## v1.14.8
 ### Fixed
 - Scoped styles nc-slideshow
