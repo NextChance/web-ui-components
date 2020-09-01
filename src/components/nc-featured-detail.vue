@@ -1,7 +1,7 @@
 <template>
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" :href="url" @click="handleClick(url)">
+    <a class="nc-featured-detail__link" :href="url" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick(url)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
   </div>
@@ -21,7 +21,11 @@ export default {
     },
     image: {
       type: Object,
-      default: () => {}
+      default: ({})
+    },
+    isExternalUrl: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

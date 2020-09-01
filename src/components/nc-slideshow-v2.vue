@@ -8,7 +8,7 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url" @click="handleClick(item.url)"><img :src="item.image" :alt="item.alt"></a>
+          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick(item.url)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
     </ul>
