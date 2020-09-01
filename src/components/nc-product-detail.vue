@@ -142,12 +142,6 @@ export default {
     margin: auto;
     cursor: pointer;
     @media (min-width: $breakpoint-tablet) {
-      height: 255px;
-    }
-    @media (min-width: $breakpoint-desktop-s) {
-      height: 220px;
-    }
-    @media (min-width: $breakpoint-desktop-m) {
       height: 260px;
     }
 
