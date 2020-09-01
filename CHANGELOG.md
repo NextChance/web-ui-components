@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## v1.14.12
+## v1.14.13
 ### Changed
 - Update styles nc-product-detail
 
