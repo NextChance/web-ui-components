@@ -113,7 +113,7 @@ export default {
       color: $color-gray-1;
     }
     &--sale-price {
-      color: $color-coral;
+      color: #fa5a5a;
     }
   }
 
