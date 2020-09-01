@@ -89,7 +89,7 @@ export default {
 
   &__description {
     $font-size: 15px;
-    $line-height: 1.5;
+    $line-height: 1.25;
 
     font-size: $font-size;
     color: $color-gray-2;

@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.14
+### Fixed
+- Update styles nc-product-detail, fixed line-height
+
+
 ## v1.14.13
 ### Changed
 - Update styles nc-product-detail
