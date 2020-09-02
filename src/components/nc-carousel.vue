@@ -13,7 +13,7 @@
             class="nc-carousel__list__item"
           >
             <div class="image-shadow"></div>
-            <a :href="item.url" @click="handleClick(item.url)" 
+            <a :href="item.url" @click="handleClick(item.url)"
             class="link">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
@@ -31,10 +31,8 @@
       </template>
     </nc-core-carousel>
     <div class="nc-carousel__secondary-content">
-      <template v-if="hasSecondaryText">
-        <p v-if="secondaryText" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
-        <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ url }}</a>
-      </template>
+        <p v-if="hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
+        <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ secondaryText }}</a>
     </div>
   </div>
 </template>
@@ -75,8 +73,8 @@ export default {
     }
   },
   computed: {
-    hasSecondaryText() {
-      return this.url || this.secondaryText
+    hasSubtitleLink() {
+      return this.subtitle !== '' && this.url !== ''
     }
   },
   mounted() {
@@ -89,7 +87,8 @@ export default {
     },
     initializeValues() {
       if (this.$refs.carouselImage && this.$refs.carouselImage.length > 0) {
-        this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight * 0.44}px`
+        this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight *
+          0.44}px`
       }
     }
   },
@@ -241,11 +240,12 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       color: #272727;
+      line-height: 1;
       @media (min-width: $breakpoint-desktop-s) {
         border-left: 1px solid #d8d8d8;
         border-radius: 0.5px;
         padding-left: 8px;
-        padding-top: 7px;
+        padding-top: 4px;
       }
       &--link {
         color: #fa5a5a;
@@ -342,7 +342,6 @@ export default {
   }
   /* END CARROUSEL LIST */
 
-
   /* START CARROUSEL MOSAIC */
   &--mosaic {
     @media (min-width: $breakpoint-tablet) {
@@ -378,7 +377,7 @@ export default {
           }
         }
         @media (min-width: $breakpoint-tablet) {
-          width:auto;
+          width: auto;
           height: auto;
           margin: 0 16px 0 0;
           max-height: 189px;

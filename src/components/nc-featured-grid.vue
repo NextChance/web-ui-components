@@ -83,6 +83,7 @@ export default {
   }
 
   &__subtitle {
+    display: block;
     font-size: 13px;
     margin: 12px 0 0;
     height: 20px;
@@ -91,8 +92,9 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    margin: $space-unit 0 0;
     @media (min-width: $breakpoint-tablet) {
-      margin: 8px 0 0;
+      margin: $space-mdl 0 0;
     }
     &--link {
       color: #fa5a5a;

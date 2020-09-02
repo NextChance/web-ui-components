@@ -111,6 +111,7 @@ export default {
     margin: 0;
     font-size: 16px;
     &--full-price {
+      text-decoration: line-through;
       color: $color-gray-1;
     }
     &--sale-price {
@@ -119,12 +120,10 @@ export default {
   }
 
   &__subtitle {
+    display: block;
     color: $color-gray-1;
     margin: $space-unit 0 0;
     font-size: 13px;
-    @media (min-width: $breakpoint-tablet) {
-      margin: $space-unit 0 0;
-    }
     &--link {
       text-decoration: none;
       color: #fa5a5a;
