@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.19
+### Fixed
+- nc-carousel template error
+
+
 ## v1.14.18
 ### Fixed
 - Change const name in computed

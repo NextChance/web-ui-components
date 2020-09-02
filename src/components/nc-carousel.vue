@@ -31,7 +31,7 @@
       </template>
     </nc-core-carousel>
     <div class="nc-carousel__secondary-content">
-        <p v-if="hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
+        <p v-if="!hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
         <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ secondaryText }}</a>
     </div>
   </div>
