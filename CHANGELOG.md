@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## v1.14.19
 ### Fixed
+- Update components nc-product-detail and nc-carousel
+
+
+## v1.14.19
+### Fixed
 - nc-carousel template error
 
 

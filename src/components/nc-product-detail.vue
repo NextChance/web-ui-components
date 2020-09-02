@@ -33,6 +33,10 @@ export default {
     product: {
       type: Object,
       default: () => ({})
+    },
+    isExternalUrl: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

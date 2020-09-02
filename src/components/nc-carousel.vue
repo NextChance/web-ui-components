@@ -4,17 +4,17 @@
     <nc-core-carousel :list-length="items.length" :buttons-position="buttonsPosition" class="nc-carousel__cards-container">
       <template>
         <ul
-          ref="carouselContent"
-          class="nc-carousel__list"
+            ref="carouselContent"
+            class="nc-carousel__list"
         >
           <li
-            v-for="(item, index) in items"
-            :key="`carousel-${index}`"
-            class="nc-carousel__list__item"
+              v-for="(item, index) in items"
+              :key="`carousel-${index}`"
+              class="nc-carousel__list__item"
           >
             <div class="image-shadow"></div>
-            <a :href="item.url" @click="handleClick(item.url)"
-            class="link">
+            <div @click="goToProduct(item)"
+                 class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
               </div>
@@ -25,14 +25,14 @@
                 <span class="item-caption item-caption--first">{{ item.firstText }}</span>
                 <span class="item-caption item-caption--second">{{ item.secondText }}</span>
               </div>
-            </a>
+            </div>
           </li>
         </ul>
       </template>
     </nc-core-carousel>
     <div class="nc-carousel__secondary-content">
-        <p v-if="!hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
-        <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ secondaryText }}</a>
+      <p v-if="!hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
+      <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ secondaryText }}</a>
     </div>
   </div>
 </template>
@@ -90,6 +90,10 @@ export default {
         this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight *
           0.44}px`
       }
+    },
+    goToProduct(item) {
+      this.$emit('on-analytics', { destination: item.url })
+      this.$emit('on-item-click', { id: item.id, url: item.url })
     }
   },
   beforeDestroy() {
@@ -177,36 +181,37 @@ export default {
             #737373 1%
           );
         }
-      }
-      .link {
-        display: flex;
-        text-decoration: none;
-        color: #737373;
-        &:visited,
-        &:hover {
-          color: #737373;
-        }
-        @media (min-width: $breakpoint-tablet) {
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: auto;
-          border-radius: 4px;
-        }
-        .item-image-container {
-          position: relative;
+        &__content {
+          cursor: pointer;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: row;
-          border-radius: 4px;
-          overflow: hidden;
-          .item-image {
-            border-radius: 4px;
-            height: 100%;
+          text-decoration: none;
+          color: #737373;
+          &:visited,
+          &:hover {
+            color: #737373;
+          }
+          @media (min-width: $breakpoint-tablet) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             width: auto;
-            @media (min-width: $breakpoint-tablet) {
-              max-height: 100%;
+            border-radius: 4px;
+          }
+          .item-image-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            border-radius: 4px;
+            overflow: hidden;
+            .item-image {
+              border-radius: 4px;
+              height: 100%;
+              width: auto;
+              @media (min-width: $breakpoint-tablet) {
+                max-height: 100%;
+              }
             }
           }
         }
