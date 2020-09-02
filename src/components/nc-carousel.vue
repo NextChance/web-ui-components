@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     hasSubtitleLink() {
-      return this.subtitle !== '' && this.url !== ''
+      return this.secondaryText !== '' && this.url !== ''
     }
   },
   mounted() {
