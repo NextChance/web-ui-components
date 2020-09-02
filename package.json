@@ -1,6 +1,6 @@
 {
   "name": "web-ui-components",
-  "version": "1.14.19",
+  "version": "1.14.20",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
