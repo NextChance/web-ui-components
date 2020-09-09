@@ -8,7 +8,7 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick(item.url)"><img :src="item.image" :alt="item.alt"></a>
+          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
     </ul>
@@ -152,8 +152,10 @@ export default {
         : 0
       this.slidePosition = this.currentIndex * this.offsetSlides
     },
-    handleClick(url) {
+    handleClick($event, url) {
+      $event.preventDefault()
       this.$emit('on-analytics', { destination: url })
+      this.$emit('on-navigate', url)
     }
   },
   mounted() {
