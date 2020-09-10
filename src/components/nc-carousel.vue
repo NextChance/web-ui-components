@@ -3,16 +3,12 @@
     <p class="nc-carousel__title">{{ title }}</p>
     <nc-core-carousel :list-length="items.length" :buttons-position="buttonsPosition" class="nc-carousel__cards-container">
       <template>
-        <ul
-            ref="carouselContent"
-            class="nc-carousel__list"
-        >
+        <ul class="nc-carousel__list">
           <li
               v-for="(item, index) in items"
               :key="`carousel-${index}`"
               class="nc-carousel__list__item"
           >
-            <div class="image-shadow"></div>
             <a :href="item.url" @click="handleClick($event, item.url)"
                class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
@@ -22,18 +18,20 @@
                 <div class="item-description">
                   {{ item.title }}
                 </div>
-                <span class="item-caption item-caption--first">{{ item.firstText }}</span>
-                <span class="item-caption item-caption--second">{{ item.secondText }}</span>
+                <div>
+                  <span class="item-caption item-caption--first">{{ item.firstText }}</span>
+                  <span class="item-caption item-caption--second">{{ item.secondText }}</span>
+                </div>
               </div>
             </a>
           </li>
         </ul>
       </template>
     </nc-core-carousel>
-    <div class="nc-carousel__secondary-content">
-      <p v-if="!hasSubtitleLink" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
-      <a v-else :href="url" @click="handleClick($event, url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ secondaryText }}</a>
-    </div>
+    <template v-if="secondaryText">
+      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url)" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
+      <p v-else class="nc-carousel__secondary-content">{{ secondaryText }}</p>
+    </template>
   </div>
 </template>
 
@@ -113,15 +111,15 @@ export default {
   &__title {
     $font-size: 20px;
     $line-height: 1.25;
-    font-size: $font-size;
-    color: #272727;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    color: #272727;
+    display: -webkit-box;
+    font-size: $font-size;
     max-height: 2 * $line-height * $font-size;
-    margin-bottom: 12px;
+    margin: 0 0 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__list {
@@ -169,25 +167,21 @@ export default {
 
 
   &__secondary-content {
-    p {
-      margin: 0;
-    }
+    margin: 0;
+
+    color: #272727;
+    font-size: 13px;
+    line-height: 1;
+    overflow: hidden;
     padding-top: 16px;
+    text-overflow: ellipsis;
+    width: 180px;
+    white-space: nowrap;
 
-    &__text {
-      font-size: 13px;
-      width: 180px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: #272727;
-      line-height: 1;
-
-      &--link {
-        color: #fa5a5a;
-        display: block;
-        text-decoration: none;
-      }
+    &--link {
+      color: #fa5a5a;
+      display: block;
+      text-decoration: none;
     }
   }
 
@@ -195,6 +189,7 @@ export default {
   &--list {
     #{$ncCarousel}__list {
       &__item {
+        flex-shrink: 0;
         margin-bottom: 8px;
         &:nth-child(n + 4) {
           display: none;
@@ -203,20 +198,20 @@ export default {
           margin-bottom: 0;
         }
 
-        .image-shadow {
-          top: 166px;
-        }
-
         .item-image-container {
-          width: 118px;
-          min-width: 118px;
+          flex-shrink: 0;
           height: 80px;
           margin-right: 12px;
+          width: 118px;
         }
 
         .item-extra-content {
-          width: 100%;
+          display: flex;
+          flex-direction: column;
+          flex-shrink: 0;
+          flex-wrap: wrap;
           padding-top: 12px;
+          width: 100%;
 
           .item-caption {
             font-size: 16px;
@@ -233,20 +228,19 @@ export default {
               color: #fa5a5a;
             }
           }
+        }
 
-          .item-description {
-            $font-size: 13px;
-            $line-height: 1.25;
-            font-size: $font-size;
-            max-height: 2 * $line-height * $font-size;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            min-width: 198px;
-            padding-bottom: 4px;
-          }
+        .item-description {
+          $font-size: 13px;
+          $line-height: 1.25;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
+          font-size: $font-size;
+          max-height: 2 * $line-height * $font-size;
+          overflow: hidden;
+          padding-bottom: 4px;
+          text-overflow: ellipsis;
         }
       }
 
@@ -257,10 +251,11 @@ export default {
     #{$ncCarousel}__list {
       flex-wrap: wrap;
       flex-direction: row;
+      justify-content: center;
 
       &__item {
-        width: 27.6vw;
-        height: 27.6vw;
+        width: 28.88vw;
+        height: 28.88vw;
         margin: 4px 0;
         overflow: hidden;
         padding: 0;
@@ -273,9 +268,6 @@ export default {
           display: none;
         }
 
-        .image-shadow {
-          top: 187px;
-        }
         .item-image-container {
           width: unset;
           height: unset;
@@ -311,24 +303,11 @@ export default {
     }
 
     &__list {
+      align-items: flex-start;
       flex-direction: row;
 
       &__item {
         margin-bottom: 0;
-
-        .image-shadow {
-          position: absolute;
-          height: 2px;
-          width: 100%;
-          z-index: 8;
-          opacity: 0.1;
-          background-image: linear-gradient(
-                  to bottom,
-                  rgba(115, 115, 115, 0),
-                  rgba(115, 115, 115, 0.98) 46%,
-                  #737373 1%
-          );
-        }
 
         &__content {
           flex-direction: column;
@@ -354,12 +333,22 @@ export default {
     }
 
     &--list {
+      padding-left: 20px;
+      padding-right: 20px;
+
       #{$ncCarousel}__list {
         &__item {
-          margin-right: 20px;
+          margin-right: 0;
+          padding: 0 10px;
+          &:first-child {
+            padding-left: 0;
+          }
+          &:last-child {
+            padding-right: 0;
+          }
 
           &:last-child {
-            margin-right: 0;
+            // margin-right: 0;
           }
 
           &:nth-child(n + 4) {
@@ -376,6 +365,27 @@ export default {
 
           .item-description {
             display: none;
+          }
+
+          .item-extra-content {
+            position: relative;
+            max-width: 188px;
+            min-width: 124px;
+
+            &:before {
+              background-image: linear-gradient(
+                      to bottom,
+                      rgba(115, 115, 115, 0),
+                      rgba(115, 115, 115, 0.98) 46%,
+                      #737373 1%
+              );
+              content: '';
+              height: 2px;
+              opacity: 0.1;
+              position: absolute;
+              top: 0;
+              width: 100%;
+            }
           }
         }
       }
@@ -417,7 +427,7 @@ export default {
   }
 
   @media (min-width: $breakpoint-desktop-s) {
-    padding: 24px 0 16px 20px;
+    padding: 24px 0 16px;
     box-sizing: border-box;
 
     &__cards-container {
@@ -425,29 +435,22 @@ export default {
     }
 
     &__secondary-content {
-      height: 22px;
+      border-left: 1px solid #d8d8d8;
+      border-radius: 0.5px;
       margin-top: 4px;
-      padding: 0 0 0 8px;
+      margin-left: 8px;
       line-height: unset;
+      padding: 6px 0 0 8px;
       width: auto;
-
-      &__text {
-        border-left: 1px solid #d8d8d8;
-        border-radius: 0.5px;
-        padding-left: 8px;
-        padding-top: 4px;
-
-        &--link {
-          padding-left: 8px;
-          padding-top: 6px;
-        }
-      }
     }
 
     &--list {
+      padding-left: 32px;
+      padding-right: 32px;
+
       #{$ncCarousel}__list {
         &__item {
-          margin-right: 32px;
+          padding: 0 16px;
         }
       }
     }
@@ -463,10 +466,6 @@ export default {
     &--list {
       #{$ncCarousel}__list {
         &__item {
-          .image-shadow {
-            top: 170px;
-          }
-
           .item-image-container {
             height: 172px;
           }
