@@ -26,13 +26,13 @@ const itemsMock = [
     }
   },
   {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
+    title: 'Titulo producto largo largo de mas de una linea porque tengo tiempo',
+    firstText: '190.000,8€',
+    secondText: '490.000,80€',
     url: 'https://www.google.com',
     image: {
       src:
-        'https://blog.laminasyaceros.com/hs-fs/hubfs/Rolando%20Sarabia/Peces/laminas%20y%20aceros%20pez%20mandarin.jpg?width=495&name=laminas%20y%20aceros%20pez%20mandarin.jpg',
+        'https://theoutpostlife.com/images/bass150.png',
       alt: 'image1'
     }
   },
@@ -136,140 +136,6 @@ const itemsMock = [
   }
 ]
 
-const itemsMock2 = [
-  {
-    title: 'Descripción cómo máximo de 2 líneas Descripción cómo máximo bla',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.google.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image1'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.google.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image1'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.google.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image1'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src: 'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  },
-  {
-    title: 'Titulo producto',
-    firstText: '190,8€',
-    secondText: '490,8€',
-    url: 'https://www.marca.com',
-    image: {
-      src:
-        'https://www.americasfinestlabels.com/includes/work/image_cache/ce0b18b121df13e632a58704a4f53e51.thumb.jpg',
-      alt: 'image2'
-    }
-  }
-]
-
 export default {
   title: 'NC-carousel',
   component: NcCarousel
@@ -292,7 +158,7 @@ export const carouselWithUrl = () => ({
   components: { NcCarousel },
   data() {
     return {
-      title: 'Título de 45 carácteres máximo Título de 45 caracteres',
+      title: 'Lorem ipsum dolor sit amet, consectetur adipa',
       url: 'Enlace',
       secondaryText: '',
       items: itemsMock
@@ -309,6 +175,21 @@ export const carouselWithSecondaryText = () => ({
     return {
       title: 'Título de 45 ',
       url: '',
+      secondaryText: 'Text',
+      items: itemsMock
+    }
+  },
+  template:
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
+  methods: { action: action('clicked') }
+})
+
+export const carouselWithSecondaryLink = () => ({
+  components: { NcCarousel },
+  data() {
+    return {
+      title: 'Título de 45 ',
+      url: 'www.marca.com',
       secondaryText: 'Text',
       items: itemsMock
     }
@@ -337,7 +218,7 @@ export const mosaicCarouselWithUrl = () => ({
   data() {
     return {
       title: 'Título de 45 carácteres',
-      items: itemsMock2,
+      items: itemsMock,
       isMosaicType: true,
       url: 'enlace'
     }
@@ -351,8 +232,8 @@ export const mosaicCarouselWithSecondaryText = () => ({
   components: { NcCarousel },
   data() {
     return {
-      title: 'Título de 45 carácteres Título de 45 carácteres Título de 45 carácteres Título de 45 carácteres',
-      items: itemsMock2,
+      title: 'Lorem ipsum dolor sit amet, consectetur adipa',
+      items: itemsMock,
       isMosaicType: true,
       secondaryText: 'secondary text 30 caracteres 30'
 
