@@ -76,7 +76,7 @@ const itemsMock = [
     url: 'https://www.marca.com',
     image: {
       src:
-        'https://i2.bssl.es/faunatura/2018/07/pez-estandarte-faunatura-1024x682.jpg',
+        'https://s3.eu-west-1.amazonaws.com/strapi.billionhands.com/strapi.billionhands.com/204x120_12_be5a2b1591_4809b87bd8.jpg',
       alt: 'image2'
     }
   },

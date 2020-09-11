@@ -146,7 +146,7 @@ export default {
     padding: 5px;
     top: 0;
     bottom: 0;
-    margin: 0 auto;
+    margin: auto;
     @media (min-width: $breakpoint-desktop-s) {
       display: block;
       position: absolute;

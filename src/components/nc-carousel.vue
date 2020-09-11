@@ -155,11 +155,13 @@ export default {
           flex-direction: row;
           border-radius: 4px;
           overflow: hidden;
-          .item-image {
-            border-radius: 4px;
-            height: 100%;
-            width: auto;
-          }
+        }
+
+        .item-image {
+          border-radius: 4px;
+          flex-shrink: 0;
+          height: 100%;
+          width: auto;
         }
       }
     }
@@ -252,8 +254,8 @@ export default {
           padding: 0;
 
           .item-image {
-            width: auto;
             height: 100%;
+            width: auto;
           }
         }
         .item-extra-content {
@@ -283,7 +285,7 @@ export default {
       align-items: flex-start;
       flex-direction: row;
 
-      &__item {
+      & &__item {
         margin-bottom: 0;
         margin-right: 0;
         padding: 0 10px;
@@ -342,10 +344,6 @@ export default {
       }
       #{$ncCarousel}__list {
         &__item {
-          &:last-child {
-            // margin-right: 0;
-          }
-
           &:nth-child(n + 4) {
             display: block;
           }
@@ -387,6 +385,7 @@ export default {
     }
 
     &--mosaic {
+      $imageSize: 189px;
       #{$ncCarousel}__list {
         flex-wrap: nowrap;
         justify-content: flex-start;
@@ -394,16 +393,18 @@ export default {
         &__item {
           width: auto;
           height: auto;
-          max-height: 189px;
-          max-width: 189px;
-          min-width: 189px;
+          margin: 0 !important;
+          max-height: $imageSize;
+          max-width: $imageSize;
+          min-width: $imageSize;
 
           &:nth-child(n + 10) {
             display: block;
           }
 
           .item-image-container {
-            height: 189px;
+            height: $imageSize;
+            max-width: $imageSize;
             width: auto;
           }
         }
@@ -441,8 +442,9 @@ export default {
     }
 
     &__list {
-      &__item {
+      & &__item {
         padding: 0 16px;
+
         &:first-child {
           padding-left: 32px;
         }
@@ -476,12 +478,6 @@ export default {
 
     &--mosaic {
       padding: 24px 0 32px 32px;
-
-      #{$ncCarousel}__list {
-        &__item {
-          margin: 0 20px 0 0;
-        }
-      }
     }
   }
 }
