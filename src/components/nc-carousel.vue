@@ -1,20 +1,16 @@
 <template>
   <div :class="['nc-carousel', isMosaicType ? 'nc-carousel--mosaic' : 'nc-carousel--list' ]">
     <p class="nc-carousel__title">{{ title }}</p>
-    <nc-core-carousel :list-length="items.length" :buttons-position="buttonsPosition" class="nc-carousel__cards-container">
+    <nc-core-carousel :list-length="items.length" class="nc-carousel__cards-container">
       <template>
-        <ul
-          ref="carouselContent"
-          class="nc-carousel__list"
-        >
+        <ul class="nc-carousel__list">
           <li
-            v-for="(item, index) in items"
-            :key="`carousel-${index}`"
-            class="nc-carousel__list__item"
+              v-for="(item, index) in items"
+              :key="`carousel-${index}`"
+              class="nc-carousel__list__item"
           >
-            <div class="image-shadow"></div>
-            <a :href="item.url" @click="handleClick(item.url)" 
-            class="link">
+            <a :href="item.url" @click="handleClick($event, item.url)"
+               class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
               </div>
@@ -22,20 +18,20 @@
                 <div class="item-description">
                   {{ item.title }}
                 </div>
-                <span class="item-caption item-caption--first">{{ item.firstText }}</span>
-                <span class="item-caption item-caption--second">{{ item.secondText }}</span>
+                <div>
+                  <span class="item-caption item-caption--first">{{ item.firstText }}</span>
+                  <span class="item-caption item-caption--second">{{ item.secondText }}</span>
+                </div>
               </div>
             </a>
           </li>
         </ul>
       </template>
     </nc-core-carousel>
-    <div class="nc-carousel__secondary-content">
-      <template v-if="hasSecondaryText">
-        <p v-if="secondaryText" class="nc-carousel__secondary-content__text">{{ secondaryText }}</p>
-        <a v-else :href="url" @click="handleClick(url)" class="nc-carousel__secondary-content__text nc-carousel__secondary-content__text--link">{{ url }}</a>
-      </template>
-    </div>
+    <template v-if="secondaryText">
+      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url)" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
+      <p v-else class="nc-carousel__secondary-content">{{ secondaryText }}</p>
+    </template>
   </div>
 </template>
 
@@ -69,85 +65,64 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      buttonsPosition: ''
-    }
-  },
   computed: {
-    hasSecondaryText() {
-      return this.url || this.secondaryText
+    hasSubtitleLink() {
+      return this.secondaryText !== '' && this.url !== ''
     }
-  },
-  mounted() {
-    window.addEventListener('resize', this.initializeValues)
-    this.initializeValues()
   },
   methods: {
     handleClick(url) {
       this.$emit('on-analytics', { destination: url })
     },
-    initializeValues() {
-      if (this.$refs.carouselImage && this.$refs.carouselImage.length > 0) {
-        this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight * 0.44}px`
-      }
+    goToProduct(item) {
+      this.$emit('on-analytics', { destination: item.url })
+      this.$emit('on-item-click', { id: item.id, url: item.url })
     }
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.initializeValues)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .nc-carousel {
+  $ncCarousel: &;
   background: white;
   box-sizing: border-box;
   padding: 16px;
   width: 100%;
-  $ncCarousel: &;
-  @media (min-width: $breakpoint-tablet) {
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 8px;
-    padding: 24px 0 12px 22px;
-  }
 
-  @media (min-width: $breakpoint-desktop-s) {
-    padding: 24px 0 16px 20px;
-    box-sizing: border-box;
-  }
-
-  @media (min-width: $breakpoint-desktop-m) {
-    padding: 24px 0 24px 32px;
-  }
   &__title {
     $font-size: 20px;
     $line-height: 1.25;
-    font-size: $font-size;
-    color: #272727;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    color: #272727;
+    display: -webkit-box;
+    font-size: $font-size;
     max-height: 2 * $line-height * $font-size;
-    margin-bottom: 12px;
-    @media (min-width: $breakpoint-tablet) {
-      margin-right: 0;
+    margin: 0 0 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__secondary-content {
+    margin: 0;
+
+    color: #272727;
+    font-size: 13px;
+    line-height: 1;
+    overflow: hidden;
+    padding-top: 16px;
+    text-overflow: ellipsis;
+    width: 180px;
+    white-space: nowrap;
+
+    &--link {
+      color: #fa5a5a;
       display: block;
-      -webkit-line-clamp: unset;
-      -webkit-box-orient: unset;
-      white-space: nowrap;
-      max-width: 411px;
+      text-decoration: none;
     }
   }
-  &__cards-container {
-    @media (min-width: $breakpoint-desktop-s) {
-      order: 2;
-    }
-  }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -156,30 +131,14 @@ export default {
     list-style: none;
     margin: 0;
     padding: 0;
-    @media (min-width: $breakpoint-tablet) {
-      flex-direction: row;
-    }
+
     &__item {
       position: relative;
       display: flex;
       scroll-snap-align: start;
-      @media (min-width: $breakpoint-tablet) {
-        margin-bottom: 0;
-        .image-shadow {
-          position: absolute;
-          height: 2px;
-          width: 100%;
-          z-index: 8;
-          opacity: 0.1;
-          background-image: linear-gradient(
-            to bottom,
-            rgba(115, 115, 115, 0),
-            rgba(115, 115, 115, 0.98) 46%,
-            #737373 1%
-          );
-        }
-      }
-      .link {
+
+      &__content {
+        cursor: pointer;
         display: flex;
         text-decoration: none;
         color: #737373;
@@ -187,13 +146,7 @@ export default {
         &:hover {
           color: #737373;
         }
-        @media (min-width: $breakpoint-tablet) {
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: auto;
-          border-radius: 4px;
-        }
+
         .item-image-container {
           position: relative;
           display: flex;
@@ -206,163 +159,81 @@ export default {
             border-radius: 4px;
             height: 100%;
             width: auto;
-            @media (min-width: $breakpoint-tablet) {
-              max-height: 100%;
-            }
           }
         }
       }
     }
   }
-  &__secondary-content {
-    p {
-      margin: 0;
-    }
-    padding-top: 16px;
-    @media (min-width: $breakpoint-tablet) {
-      padding-top: 8px;
-      line-height: 16px;
-      width: 100%;
-      height: 16px;
-    }
 
-    @media (min-width: $breakpoint-desktop-s) {
-      height: 22px;
-      margin-top: 4px;
-      padding: 0 0 0 8px;
-      line-height: unset;
-      width: auto;
-    }
-
-    &__text {
-      font-size: 13px;
-      width: 180px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: #272727;
-      @media (min-width: $breakpoint-desktop-s) {
-        border-left: 1px solid #d8d8d8;
-        border-radius: 0.5px;
-        padding-left: 8px;
-        padding-top: 7px;
-      }
-      &--link {
-        color: #fa5a5a;
-        display: block;
-        text-decoration: none;
-        @media (min-width: $breakpoint-desktop-s) {
-          padding-left: 8px;
-          padding-top: 6px;
-        }
-      }
-    }
-  }
-
-  /* START CARROUSEL LIST */
   &--list {
     #{$ncCarousel}__list {
       &__item {
+        flex-shrink: 0;
         margin-bottom: 8px;
         &:nth-child(n + 4) {
           display: none;
-          @media (min-width: $breakpoint-tablet) {
-            display: block;
-          }
         }
         &:nth-child(3n) {
           margin-bottom: 0;
         }
-        @media (min-width: $breakpoint-tablet) {
-          margin-right: 20px;
-          &:last-child {
-            margin-right: 0;
-          }
-        }
-        @media (min-width: $breakpoint-desktop-m) {
-          margin-right: 32px;
-        }
-        .image-shadow {
-          top: 166px;
-          @media (min-width: $breakpoint-desktop-m) {
-            top: 170px;
-          }
-        }
+
         .item-image-container {
-          width: 118px;
-          min-width: 118px;
+          flex-shrink: 0;
           height: 80px;
           margin-right: 12px;
-          @media (min-width: $breakpoint-tablet) {
-            width: auto;
-            max-width: 188px;
-            min-width: 124px;
-            height: 168px;
-            margin-right: 0;
-          }
-          @media (min-width: $breakpoint-desktop-m) {
-            height: 172px;
-          }
+          width: 118px;
         }
+
         .item-extra-content {
-          width: 100%;
+          display: flex;
+          flex-direction: column;
+          flex-shrink: 0;
+          flex-wrap: wrap;
           padding-top: 12px;
+          width: 100%;
+
           .item-caption {
             font-size: 16px;
+
             &--first {
               padding-right: 4px;
               text-decoration: line-through;
               color: #272727;
             }
+
             &--second {
               padding-left: 4px;
               font-size: 16px;
               color: #fa5a5a;
             }
           }
-          .item-description {
-            $font-size: 13px;
-            $line-height: 1.25;
-            font-size: $font-size;
-            max-height: 2 * $line-height * $font-size;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            min-width: 198px;
-            padding-bottom: 4px;
-            @media (min-width: $breakpoint-tablet) {
-              display: none;
-            }
-          }
+        }
+
+        .item-description {
+          $font-size: 13px;
+          $line-height: 1.25;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          display: -webkit-box;
+          font-size: $font-size;
+          max-height: 2 * $line-height * $font-size;
+          overflow: hidden;
+          padding-bottom: 4px;
+          text-overflow: ellipsis;
         }
       }
     }
   }
-  /* END CARROUSEL LIST */
 
-
-  /* START CARROUSEL MOSAIC */
   &--mosaic {
-    @media (min-width: $breakpoint-tablet) {
-      padding: 24px 0 12px 20px;
-    }
-    @media (min-width: $breakpoint-desktop-s) {
-      padding: 24px 0 20px 32px;
-    }
-    @media (min-width: $breakpoint-desktop-m) {
-      padding: 24px 0 32px 32px;
-    }
     #{$ncCarousel}__list {
       flex-wrap: wrap;
       flex-direction: row;
-      @media (min-width: $breakpoint-tablet) {
-        flex-wrap: nowrap;
-      }
+      justify-content: center;
+
       &__item {
-        width: 27.6vw;
-        height: 27.6vw;
+        width: 28.88vw;
+        height: 28.88vw;
         margin: 4px 0;
         overflow: hidden;
         padding: 0;
@@ -373,39 +244,13 @@ export default {
         }
         &:nth-child(n + 10) {
           display: none;
-          @media (min-width: $breakpoint-tablet) {
-            display: block;
-          }
-        }
-        @media (min-width: $breakpoint-tablet) {
-          width:auto;
-          height: auto;
-          margin: 0 16px 0 0;
-          max-height: 189px;
-          max-width: 189px;
-          min-width: 189px;
-          &:last-child {
-            margin-right: 0;
-          }
-          &:nth-child(3n + 2) {
-            margin: 0 16px 0 0;
-          }
-        }
-        @media (min-width: $breakpoint-desktop-m) {
-          margin: 0 20px 0 0;
         }
 
-        .image-shadow {
-          top: 187px;
-        }
         .item-image-container {
           width: unset;
           height: unset;
           padding: 0;
-          @media (min-width: $breakpoint-tablet) {
-            height: 189px;
-            width: auto;
-          }
+
           .item-image {
             width: auto;
             height: 100%;
@@ -417,6 +262,227 @@ export default {
       }
     }
   }
-  /* END CARROUSEL MOSAIC */
+
+  @media (min-width: $breakpoint-tablet) {
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 24px 20px 12px;
+
+    &__title {
+      margin-right: 0;
+      display: block;
+      -webkit-line-clamp: unset;
+      -webkit-box-orient: unset;
+      white-space: nowrap;
+      max-width: 411px;
+    }
+
+    &__list {
+      align-items: flex-start;
+      flex-direction: row;
+
+      &__item {
+        margin-bottom: 0;
+        margin-right: 0;
+        padding: 0 10px;
+        &:first-child {
+          padding-left: 20px;
+        }
+        &:last-child {
+          padding-right: 20px;
+        }
+
+        &__content {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: auto;
+          border-radius: 4px;
+
+          .item-image-container {
+            .item-image {
+              max-height: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &__secondary-content {
+      padding-top: 8px;
+      line-height: 16px;
+      width: 100%;
+      height: 16px;
+    }
+
+    &__cards-container {
+      /deep/ {
+        .nc-core-carousel {
+          &__container {
+            margin: 0 -20px;
+            flex-grow: 1;
+          }
+        }
+      }
+    }
+
+    &--list {
+      $itemHeight: 168px;
+      /deep/ {
+        .nc-core-carousel {
+          &__button {
+            top: $itemHeight/2;
+            bottom: unset;
+            margin: 0;
+            transform: translateY(-50%);
+          }
+        }
+      }
+      #{$ncCarousel}__list {
+        &__item {
+          &:last-child {
+            // margin-right: 0;
+          }
+
+          &:nth-child(n + 4) {
+            display: block;
+          }
+
+          .item-image-container {
+            width: auto;
+            max-width: 188px;
+            min-width: 124px;
+            height: $itemHeight;
+            margin-right: 0;
+          }
+
+          .item-description {
+            display: none;
+          }
+
+          .item-extra-content {
+            position: relative;
+            max-width: 188px;
+            min-width: 124px;
+
+            &:before {
+              background-image: linear-gradient(
+                to bottom,
+                rgba(115, 115, 115, 0),
+                rgba(115, 115, 115, 0.98) 46%,
+                #737373 1%
+              );
+              content: '';
+              height: 2px;
+              opacity: 0.1;
+              position: absolute;
+              top: 0;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &--mosaic {
+      #{$ncCarousel}__list {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
+        &__item {
+          width: auto;
+          height: auto;
+          max-height: 189px;
+          max-width: 189px;
+          min-width: 189px;
+
+          &:nth-child(n + 10) {
+            display: block;
+          }
+
+          .item-image-container {
+            height: 189px;
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-desktop-s) {
+    padding: 24px 32px 16px;
+    box-sizing: border-box;
+
+    &__cards-container {
+      order: 2;
+    }
+
+    &__secondary-content {
+      border-left: 1px solid #d8d8d8;
+      border-radius: 0.5px;
+      margin-top: 4px;
+      margin-left: 8px;
+      line-height: unset;
+      padding: 6px 0 0 8px;
+      width: auto;
+    }
+
+    &__cards-container {
+      /deep/ {
+        .nc-core-carousel {
+          &__container {
+            margin: 0 -32px;
+            flex-grow: 1;
+          }
+        }
+      }
+    }
+
+    &__list {
+      &__item {
+        padding: 0 16px;
+        &:first-child {
+          padding-left: 32px;
+        }
+        &:last-child {
+          padding-right: 32px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-desktop-m) {
+    padding: 24px 32px 24px;
+
+    &--list {
+      $itemHeight: 172px;
+      /deep/ {
+        .nc-core-carousel {
+          &__button {
+            top: $itemHeight/2;
+          }
+        }
+      }
+      #{$ncCarousel}__list {
+        &__item {
+          .item-image-container {
+            height: $itemHeight;
+          }
+        }
+      }
+    }
+
+    &--mosaic {
+      padding: 24px 0 32px 32px;
+
+      #{$ncCarousel}__list {
+        &__item {
+          margin: 0 20px 0 0;
+        }
+      }
+    }
+  }
 }
 </style>
