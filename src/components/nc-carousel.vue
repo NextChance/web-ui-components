@@ -189,7 +189,6 @@ export default {
         .item-extra-content {
           display: flex;
           flex-direction: column;
-          flex-shrink: 0;
           flex-wrap: wrap;
           padding-top: 12px;
           width: 100%;
@@ -361,9 +360,10 @@ export default {
           }
 
           .item-extra-content {
-            position: relative;
+            flex-shrink: 0;
             max-width: 188px;
             min-width: 124px;
+            position: relative;
 
             &:before {
               background-image: linear-gradient(
