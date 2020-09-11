@@ -1,7 +1,7 @@
 <template>
   <div :class="['nc-carousel', isMosaicType ? 'nc-carousel--mosaic' : 'nc-carousel--list' ]">
     <p class="nc-carousel__title">{{ title }}</p>
-    <nc-core-carousel :list-length="items.length" :buttons-position="buttonsPosition" class="nc-carousel__cards-container">
+    <nc-core-carousel :list-length="items.length" class="nc-carousel__cards-container">
       <template>
         <ul class="nc-carousel__list">
           <li
@@ -65,37 +65,19 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      buttonsPosition: ''
-    }
-  },
   computed: {
     hasSubtitleLink() {
       return this.secondaryText !== '' && this.url !== ''
     }
   },
-  mounted() {
-    window.addEventListener('resize', this.initializeValues)
-    this.initializeValues()
-  },
   methods: {
     handleClick(url) {
       this.$emit('on-analytics', { destination: url })
-    },
-    initializeValues() {
-      if (this.$refs.carouselImage && this.$refs.carouselImage.length > 0) {
-        this.buttonsPosition = `${this.$refs.carouselImage[0].offsetHeight *
-          0.44}px`
-      }
     },
     goToProduct(item) {
       this.$emit('on-analytics', { destination: item.url })
       this.$emit('on-item-click', { id: item.id, url: item.url })
     }
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.initializeValues)
   }
 }
 </script>
@@ -122,6 +104,25 @@ export default {
     text-overflow: ellipsis;
   }
 
+  &__secondary-content {
+    margin: 0;
+
+    color: #272727;
+    font-size: 13px;
+    line-height: 1;
+    overflow: hidden;
+    padding-top: 16px;
+    text-overflow: ellipsis;
+    width: 180px;
+    white-space: nowrap;
+
+    &--link {
+      color: #fa5a5a;
+      display: block;
+      text-decoration: none;
+    }
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
@@ -135,7 +136,6 @@ export default {
       position: relative;
       display: flex;
       scroll-snap-align: start;
-
 
       &__content {
         cursor: pointer;
@@ -164,27 +164,6 @@ export default {
       }
     }
   }
-
-
-  &__secondary-content {
-    margin: 0;
-
-    color: #272727;
-    font-size: 13px;
-    line-height: 1;
-    overflow: hidden;
-    padding-top: 16px;
-    text-overflow: ellipsis;
-    width: 180px;
-    white-space: nowrap;
-
-    &--link {
-      color: #fa5a5a;
-      display: block;
-      text-decoration: none;
-    }
-  }
-
 
   &--list {
     #{$ncCarousel}__list {
@@ -243,7 +222,6 @@ export default {
           text-overflow: ellipsis;
         }
       }
-
     }
   }
 
@@ -285,13 +263,12 @@ export default {
     }
   }
 
-
   @media (min-width: $breakpoint-tablet) {
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     border-radius: 8px;
-    padding: 24px 0 12px 22px;
+    padding: 24px 20px 12px;
 
     &__title {
       margin-right: 0;
@@ -308,6 +285,14 @@ export default {
 
       &__item {
         margin-bottom: 0;
+        margin-right: 0;
+        padding: 0 10px;
+        &:first-child {
+          padding-left: 20px;
+        }
+        &:last-child {
+          padding-right: 20px;
+        }
 
         &__content {
           flex-direction: column;
@@ -332,21 +317,31 @@ export default {
       height: 16px;
     }
 
-    &--list {
-      padding-left: 20px;
-      padding-right: 20px;
+    &__cards-container {
+      /deep/ {
+        .nc-core-carousel {
+          &__container {
+            margin: 0 -20px;
+            flex-grow: 1;
+          }
+        }
+      }
+    }
 
+    &--list {
+      $itemHeight: 168px;
+      /deep/ {
+        .nc-core-carousel {
+          &__button {
+            top: $itemHeight/2;
+            bottom: unset;
+            margin: 0;
+            transform: translateY(-50%);
+          }
+        }
+      }
       #{$ncCarousel}__list {
         &__item {
-          margin-right: 0;
-          padding: 0 10px;
-          &:first-child {
-            padding-left: 0;
-          }
-          &:last-child {
-            padding-right: 0;
-          }
-
           &:last-child {
             // margin-right: 0;
           }
@@ -359,7 +354,7 @@ export default {
             width: auto;
             max-width: 188px;
             min-width: 124px;
-            height: 168px;
+            height: $itemHeight;
             margin-right: 0;
           }
 
@@ -374,10 +369,10 @@ export default {
 
             &:before {
               background-image: linear-gradient(
-                      to bottom,
-                      rgba(115, 115, 115, 0),
-                      rgba(115, 115, 115, 0.98) 46%,
-                      #737373 1%
+                to bottom,
+                rgba(115, 115, 115, 0),
+                rgba(115, 115, 115, 0.98) 46%,
+                #737373 1%
               );
               content: '';
               height: 2px;
@@ -392,26 +387,16 @@ export default {
     }
 
     &--mosaic {
-      padding: 24px 0 12px 20px;
-
       #{$ncCarousel}__list {
         flex-wrap: nowrap;
+        justify-content: flex-start;
 
         &__item {
           width: auto;
           height: auto;
-          margin: 0 16px 0 0;
           max-height: 189px;
           max-width: 189px;
           min-width: 189px;
-
-          &:last-child {
-            margin-right: 0;
-          }
-
-          &:nth-child(3n + 2) {
-            margin: 0 16px 0 0;
-          }
 
           &:nth-child(n + 10) {
             display: block;
@@ -427,7 +412,7 @@ export default {
   }
 
   @media (min-width: $breakpoint-desktop-s) {
-    padding: 24px 0 16px;
+    padding: 24px 32px 16px;
     box-sizing: border-box;
 
     &__cards-container {
@@ -444,30 +429,46 @@ export default {
       width: auto;
     }
 
-    &--list {
-      padding-left: 32px;
-      padding-right: 32px;
-
-      #{$ncCarousel}__list {
-        &__item {
-          padding: 0 16px;
+    &__cards-container {
+      /deep/ {
+        .nc-core-carousel {
+          &__container {
+            margin: 0 -32px;
+            flex-grow: 1;
+          }
         }
       }
     }
 
-    &--mosaic {
-      padding: 24px 0 20px 32px;
+    &__list {
+      &__item {
+        padding: 0 16px;
+        &:first-child {
+          padding-left: 32px;
+        }
+        &:last-child {
+          padding-right: 32px;
+        }
+      }
     }
   }
 
   @media (min-width: $breakpoint-desktop-m) {
-    padding: 24px 0 24px 32px;
+    padding: 24px 32px 24px;
 
     &--list {
+      $itemHeight: 172px;
+      /deep/ {
+        .nc-core-carousel {
+          &__button {
+            top: $itemHeight/2;
+          }
+        }
+      }
       #{$ncCarousel}__list {
         &__item {
           .item-image-container {
-            height: 172px;
+            height: $itemHeight;
           }
         }
       }
