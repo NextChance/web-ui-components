@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.21
+### Changed
+- Logic to animate nc-core-carousel
+### Fixed
+- Styles and remove logic in component nc-carousel
+- Styles in nc-core-carousel
+
 ## v1.14.20
 ### Fixed
 - Update components nc-product-detail and nc-carousel
