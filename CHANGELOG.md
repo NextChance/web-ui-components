@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Fixed
+- Image styling on mosaic carousel
+
 ## v1.14.21
 ### Changed
 - Logic to animate nc-core-carousel
