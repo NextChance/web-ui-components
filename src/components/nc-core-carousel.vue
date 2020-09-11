@@ -1,26 +1,26 @@
 <template>
-  <div class="nc-product-carousel__scroll">
-    <div class="nc-product-carousel__scroll__container" ref="carousel">
+  <div class="nc-core-carousel">
+    <div class="nc-core-carousel__container" ref="carousel">
       <slot/>
     </div>
     <template v-if="hasSlideNavigation">
-      <button  v-if="!isMinScroll" :style="{ 'top': buttonsPosition }" class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--left" @click="moveToLeft">
+      <button  v-if="!isMinScroll" class="nc-core-carousel__button nc-core-carousel__button--left" @click="moveToLeft">
         <slot v-if="$slots['button_left']"></slot>
-        <div v-else>
+        <template v-else>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
             <title>Anterior</title>
             <path d="M7.822 10.667l8.178 7.886 8.178-7.886 2.489 2.4-10.667 10.286-10.667-10.286z"></path>
           </svg>
-        </div>
+        </template>
       </button>
-      <button v-if="!isMaxScroll" :style="{ 'top': buttonsPosition }" class="nc-product-carousel__scroll__button nc-product-carousel__scroll__button--right" @click="moveToRight">
+      <button v-if="!isMaxScroll" class="nc-core-carousel__button nc-core-carousel__button--right" @click="moveToRight">
         <slot v-if="$slots['button_right']"></slot>
-        <div v-else>
+        <template v-else>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
             <title>Siguiente</title>
             <path d="M7.822 10.667l8.178 7.886 8.178-7.886 2.489 2.4-10.667 10.286-10.667-10.286z"></path>
           </svg>
-        </div>
+        </template>
       </button>
     </template>
   </div>
@@ -29,71 +29,91 @@
 <script>
 export default {
   name: 'NcCoreCarousel',
-  props: {
-    listLength: {
-      type: Number,
-      default: 0
-    },
-    buttonsPosition: {
-      type: String,
-      default: '43%'
-    }
-  },
   data() {
     return {
       carousel: null,
       maxTranslation: 0,
-      width: 124, // min image width
       isMaxScroll: false,
       isMinScroll: false,
       hasSlideNavigation: false
     }
   },
   computed: {
-    translate() {
-      return this.width * (this.listLength / 2)
-    },
     hasSecondaryText() {
       return this.url || this.secondaryText
     }
   },
   mounted() {
     this.carousel = this.$refs.carousel
+    const { maxTranslation, hasSlideNavigation } = this.getCarouselSizing()
     window.addEventListener('resize', this.onWindowResize)
-    this.carousel.addEventListener('scroll', this.setScrollStatus)
-    this.onWindowResize()
+    this.setScrollStatus(
+      maxTranslation,
+      hasSlideNavigation,
+      this.carousel.scrollLeft
+    )
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onWindowResize)
   },
   methods: {
     onWindowResize() {
-      this.containerWidth = this.carousel && this.carousel.offsetWidth
-      this.maxTranslation = this.carousel ? this.carousel.scrollWidth - this.containerWidth : 0
-      this.hasSlideNavigation = this.maxTranslation > 0
-      this.width = this.containerWidth / this.listLength
-      this.setScrollStatus()
+      const { maxTranslation, hasSlideNavigation } = this.getCarouselSizing()
+      this.setScrollStatus(
+        maxTranslation,
+        hasSlideNavigation,
+        this.carousel.scrollLeft
+      )
+    },
+    getCarouselSizing() {
+      const containerWidth = this.carousel && this.carousel.offsetWidth
+      const maxTranslation = this.carousel
+        ? this.carousel.scrollWidth - containerWidth
+        : 0
+      const hasSlideNavigation = maxTranslation > 0
+
+      return {
+        containerWidth,
+        maxTranslation,
+        hasSlideNavigation
+      }
     },
     moveToRight() {
-      let position = this.carousel.scrollLeft + this.translate
-      position = position > this.maxTranslation ? this.maxTranslation : position
-      this.carousel.scrollLeft = position
+      let scrollPosition
+      const {
+        containerWidth,
+        maxTranslation,
+        hasSlideNavigation
+      } = this.getCarouselSizing()
+      scrollPosition = this.carousel.scrollLeft + containerWidth
+      scrollPosition =
+        scrollPosition > maxTranslation ? maxTranslation : scrollPosition
+      this.carousel.scrollLeft = scrollPosition
+      this.setScrollStatus(maxTranslation, hasSlideNavigation, scrollPosition)
     },
     moveToLeft() {
-      let position = this.carousel.scrollLeft - this.translate
-      position = position < 0 ? 0 : position
-      this.carousel.scrollLeft = position
+      let scrollPosition
+      const {
+        containerWidth,
+        maxTranslation,
+        hasSlideNavigation
+      } = this.getCarouselSizing()
+      scrollPosition = this.carousel.scrollLeft - containerWidth
+      scrollPosition = scrollPosition < 0 ? 0 : scrollPosition
+      this.carousel.scrollLeft = scrollPosition
+      this.setScrollStatus(maxTranslation, hasSlideNavigation, scrollPosition)
     },
-    setScrollStatus() {
-      this.isMaxScroll = this.carousel && this.carousel.scrollLeft === this.maxTranslation
-      this.isMinScroll = !this.carousel || this.carousel.scrollLeft === 0
+    setScrollStatus(maxTranslation, hasSlideNavigation, scrollPosition) {
+      this.hasSlideNavigation = hasSlideNavigation
+      this.isMaxScroll = scrollPosition === maxTranslation
+      this.isMinScroll = scrollPosition === 0
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.nc-product-carousel__scroll {
+.nc-core-carousel {
   width: 100%;
   height: auto;
   position: relative;
@@ -124,6 +144,9 @@ export default {
     background-color: white;
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
     padding: 5px;
+    top: 0;
+    bottom: 0;
+    margin: 0 auto;
     @media (min-width: $breakpoint-desktop-s) {
       display: block;
       position: absolute;
@@ -134,13 +157,17 @@ export default {
       }
       &--left {
         left: 0;
-        transform: rotate(90deg);
         margin-left: 20px;
+        svg {
+          transform: rotate(90deg);
+        }
       }
       &--right {
         right: 0;
-        transform: rotate(-90deg);
         margin-right: 20px;
+        svg {
+          transform: rotate(-90deg);
+        }
       }
     }
   }
