@@ -289,7 +289,6 @@
         & &__item {
           margin-bottom: 0;
           margin-right: 0;
-          padding: 0 $componentPadding / 2;
 
           &:first-child {
             padding-left: $componentPadding;
@@ -341,6 +340,8 @@
         }
         #{$ncCarousel}__list {
           &__item {
+            padding: 0 10px;
+
             &:nth-child(n + 4) {
               display: block;
             }
@@ -389,6 +390,7 @@
           justify-content: flex-start;
 
           &__item {
+            padding: 0 8px;
             flex-shrink: 0;
             height: auto;
             margin: 0 !important;
@@ -438,8 +440,6 @@
 
       &__list {
         & &__item {
-          padding: 0 $componentPadding / 2;
-
           &:first-child {
             padding-left: $componentPadding;
           }
@@ -464,9 +464,19 @@
         }
         #{$ncCarousel}__list {
           &__item {
+            padding: 0 16px;
+
             .item-image-container {
               height: $itemHeight;
             }
+          }
+        }
+      }
+
+      &--mosaic {
+        #{$ncCarousel}__list {
+          &__item {
+            padding: 0 10px;
           }
         }
       }
