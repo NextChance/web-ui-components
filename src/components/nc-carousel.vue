@@ -138,27 +138,26 @@
         scroll-snap-align: start;
 
         &__content {
+          color: #737373;
           cursor: pointer;
           display: flex;
           text-decoration: none;
-          color: #737373;
+
           &:visited,
           &:hover {
             color: #737373;
           }
 
           .item-image-container {
-            position: relative;
             display: flex;
-            align-items: center;
             justify-content: center;
-            flex-direction: row;
             border-radius: 4px;
             overflow: hidden;
           }
 
           .item-image {
             border-radius: 4px;
+            display: block;
             flex-shrink: 0;
             height: 100%;
             width: auto;
@@ -247,16 +246,18 @@
             display: none;
           }
 
-          .item-image-container {
-            width: unset;
-            height: unset;
-            padding: 0;
-
-            .item-image {
-              height: 100%;
-              width: auto;
-            }
+          &__content {
+            display: block;
+            height: 100%;
+            width: 100%;
           }
+
+          .item-image-container {
+            height: 100%;
+            padding: 0;
+            width: 100%;
+          }
+
           .item-extra-content {
             display: none;
           }
@@ -304,12 +305,6 @@
             align-items: center;
             width: auto;
             border-radius: 4px;
-
-            .item-image-container {
-              .item-image {
-                max-height: 100%;
-              }
-            }
           }
         }
       }
@@ -351,11 +346,11 @@
             }
 
             .item-image-container {
-              width: auto;
-              max-width: 188px;
-              min-width: 124px;
               height: $itemHeight;
+              min-width: 124px;
               margin-right: 0;
+              max-width: 188px;
+              width: auto;
             }
 
             .item-description {
@@ -394,12 +389,10 @@
           justify-content: flex-start;
 
           &__item {
-            width: auto;
+            flex-shrink: 0;
             height: auto;
             margin: 0 !important;
-            max-height: $imageSize;
-            max-width: $imageSize;
-            min-width: $imageSize;
+            width: auto;
 
             &:nth-child(n + 10) {
               display: block;
@@ -407,8 +400,7 @@
 
             .item-image-container {
               height: $imageSize;
-              max-width: $imageSize;
-              width: auto;
+              width: $imageSize;
             }
           }
         }
