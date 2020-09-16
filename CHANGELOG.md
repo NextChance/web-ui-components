@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 -->
+## [UNRELEASED]
+### Fixed
+- nc-slider-v3 accept as valid position 0 [BH-4103] [BH-4106]
 
 ## v1.14.23
 ### Fixed
