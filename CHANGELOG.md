@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.25
+### Fixed
+- Navigation event handled properly [BH-4498]
+
 ## v1.14.24
 ### Fixed
 - Styling issues with ncCarousel [BH-4456][BH-4457]
