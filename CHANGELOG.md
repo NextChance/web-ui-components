@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - nc-slider-v3 accept as valid position 0 [BH-4103] [BH-4106]
 
+## v1.14.24
+### Fixed
+- Styling issues with ncCarousel [BH-4456][BH-4457]
+
+
 ## v1.14.23
 ### Fixed
 - Extra content length on list when user is on mobile

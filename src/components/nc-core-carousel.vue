@@ -157,14 +157,14 @@ export default {
       }
       &--left {
         left: 0;
-        margin-left: 20px;
+        margin-left: -8px;
         svg {
           transform: rotate(90deg);
         }
       }
       &--right {
         right: 0;
-        margin-right: 20px;
+        margin-right: -8px;
         svg {
           transform: rotate(-90deg);
         }
