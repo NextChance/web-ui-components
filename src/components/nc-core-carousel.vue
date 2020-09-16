@@ -146,7 +146,7 @@ export default {
     padding: 5px;
     top: 0;
     bottom: 0;
-    margin: 0 auto;
+    margin: auto;
     @media (min-width: $breakpoint-desktop-s) {
       display: block;
       position: absolute;
@@ -157,14 +157,14 @@ export default {
       }
       &--left {
         left: 0;
-        margin-left: 20px;
+        margin-left: -8px;
         svg {
           transform: rotate(90deg);
         }
       }
       &--right {
         right: 0;
-        margin-right: 20px;
+        margin-right: -8px;
         svg {
           transform: rotate(-90deg);
         }
