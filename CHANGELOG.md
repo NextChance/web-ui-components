@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.14.24
+### Fixed
+- Styling issues with ncCarousel [BH-4456][BH-4457]
+
+
 ## v1.14.23
 ### Fixed
 - Extra content length on list when user is on mobile
