@@ -140,7 +140,7 @@
         let validStep = 0
         for (let i = 0; i < group.length; i++) {
           const _diff = Math.abs(group[i] - value)
-          if (diff && _diff > diff) {
+          if (typeof diff !== 'undefined' && _diff > diff) {
             i = group.length
           } else {
             diff = _diff
