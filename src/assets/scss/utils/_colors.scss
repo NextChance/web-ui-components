@@ -1,7 +1,36 @@
-$color-coral: #fa5a5a;
+$color-dark-overlay: rgba(0, 0, 0, .38);
+
+$color-primary-1: #fa5a5a;
+$color-primary-1-light: #fdbfbf;
+$color-primary-1-dark: #d00606;
+$color-primary-2: #1f2d51;
+$color-secondary: #379aaf;
 $color-gray-1: #272727;
 $color-gray-2: #737373;
 $color-gray-3: #aaaaaa;
 $color-gray-4: #d8d8d8;
 $color-gray-5: #ebebeb;
 $color-white: #ffffff;
+$color-rating: #ffba12;
+
+$colors: (
+        billionhands: (
+                'primary-1': $color-primary-1,
+                'primary-1-light': $color-primary-1-light,
+                'primary-1-dark': $color-primary-1-dark,
+                'primary-2': $color-primary-2,
+                'secondary': $color-secondary,
+                'gray-1': $color-gray-1,
+                'gray-2': $color-gray-2,
+                'gray-3': $color-gray-3,
+                'gray-4': $color-gray-4,
+                'gray-5': $color-gray-5,
+                'rating': $color-rating,
+                'white': $color-white,
+                'black': #000000
+        )
+);
+
+@function get-color($color, $value) {
+  @return map-get(map-get($colors, $color), $value);
+}
