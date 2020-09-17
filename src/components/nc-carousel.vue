@@ -9,7 +9,7 @@
               :key="`carousel-${index}`"
               class="nc-carousel__list__item"
           >
-            <a :href="item.url" @click="handleClick($event, item.url)"
+            <a :href="item.url" @click="handleClick($event, item)"
                class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
@@ -29,7 +29,7 @@
       </template>
     </nc-core-carousel>
     <template v-if="secondaryText">
-      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url)" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
+      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, {url})" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
       <p v-else class="nc-carousel__secondary-content">{{ secondaryText }}</p>
     </template>
   </div>
@@ -71,12 +71,11 @@
       }
     },
     methods: {
-      handleClick(url) {
-        this.$emit('on-analytics', { destination: url })
-      },
-      goToProduct(item) {
-        this.$emit('on-analytics', { destination: item.url })
-        this.$emit('on-item-click', { id: item.id, url: item.url })
+      handleClick($event, item) {
+        $event.preventDefault()
+        const payload = { url: item.url, productId: item.id }
+        this.$emit('on-analytics', { destination: payload.url || payload.productId })
+        this.$emit('on-navigate', payload)
       }
     }
   }
