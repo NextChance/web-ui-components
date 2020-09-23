@@ -27,9 +27,10 @@ export const regular = () => ({
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-product-detail  @on-analytics="action" @on-image-click="openProductDetail"  :title="title" :subtitle="subtitle" :url="url" :product="product"></nc-product-detail>  </div> ',
+    '<div class="nc-story-container"> <nc-product-detail  @on-navigate="actionNavigate" @on-analytics="actionAnalytics" @on-image-click="openProductDetail"  :title="title" :subtitle="subtitle" :url="url" :product="product"></nc-product-detail>  </div> ',
   methods: {
-    action: action('clicked on-analytics'),
+    actionAnalytics: action('clicked on-analytics'),
+    actionNavigate: action('clicked on-navigate'),
     openProductDetail: action('clicked on-image-click')
   }
 })

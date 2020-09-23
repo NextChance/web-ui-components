@@ -3,18 +3,19 @@
     <p class="nc-featured-grid__title">{{title}}</p>
     <ul class="nc-featured-grid__content">
       <li v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
-        <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url)" class="nc-featured-grid__content__item__link">
+        <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)" class="nc-featured-grid__content__item__link">
           <img :src="item.image.src" :alt="item.image.alt">
         </a>
         <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
       </li>
     </ul>
     <p v-if="!hasSubtitleLink" class="nc-featured-grid__subtitle">{{subtitle}}</p>
-    <a v-else :href="url" @click="handleClick($event, url)" class="nc-featured-grid__subtitle nc-featured-grid__subtitle--link">{{subtitle}}</a>
+    <a v-else :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-grid__subtitle nc-featured-grid__subtitle--link">{{subtitle}}</a>
   </div>
 </template>
 
 <script>
+  import CONSTANTS from '../../tools/constants'
   export default {
     name: 'nc-featured-grid',
     props: {
@@ -40,10 +41,15 @@
         return this.subtitle !== '' && this.url !== ''
       }
     },
+    data() {
+      return {
+        CONSTANTS
+      }
+    },
     methods: {
-      handleClick($event, url) {
+      handleClick($event, url, position) {
         $event.preventDefault()
-        this.$emit('on-analytics', { destination: url })
+        this.$emit('on-analytics', { position })
         this.$emit('on-navigate', url)
       }
     }
