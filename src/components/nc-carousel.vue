@@ -77,10 +77,10 @@
       }
     },
     methods: {
-      handleClick($event, item, position) {
+      handleClick($event, item, trigger) {
         $event.preventDefault()
         const payload = { url: item.url, productId: item.id }
-        this.$emit('on-analytics', { position })
+        this.$emit('on-analytics', { trigger })
         this.$emit('on-navigate', payload)
       }
     }

@@ -47,9 +47,9 @@
       }
     },
     methods: {
-      handleClick($event, url, position) {
+      handleClick($event, url, trigger) {
         $event.preventDefault()
-        this.$emit('on-analytics', { position })
+        this.$emit('on-analytics', { trigger })
         this.$emit('on-navigate', url)
       }
     }
