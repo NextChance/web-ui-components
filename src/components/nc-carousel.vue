@@ -9,7 +9,7 @@
               :key="`carousel-${index}`"
               class="nc-carousel__list__item"
           >
-            <a :href="item.url" @click="handleClick($event, item)"
+            <a :href="item.url" @click="handleClick($event, item, index + 1)"
                class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
@@ -29,7 +29,7 @@
       </template>
     </nc-core-carousel>
     <template v-if="secondaryText">
-      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, {url})" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
+      <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, {url}, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-carousel__secondary-content nc-carousel__secondary-content--link">{{ secondaryText }}</a>
       <p v-else class="nc-carousel__secondary-content">{{ secondaryText }}</p>
     </template>
   </div>
@@ -37,6 +37,7 @@
 
 <script>
   import ncCoreCarousel from './nc-core-carousel'
+  import CONSTANTS from '../../tools/constants'
 
   export default {
     name: 'NcCarousel',
@@ -65,16 +66,21 @@
         default: false
       }
     },
+    data() {
+      return {
+        CONSTANTS
+      }
+    },
     computed: {
       hasSubtitleLink() {
         return this.secondaryText !== '' && this.url !== ''
       }
     },
     methods: {
-      handleClick($event, item) {
+      handleClick($event, item, trigger) {
         $event.preventDefault()
         const payload = { url: item.url, productId: item.id }
-        this.$emit('on-analytics', { destination: payload.url || payload.productId })
+        this.$emit('on-analytics', { trigger })
         this.$emit('on-navigate', payload)
       }
     }
