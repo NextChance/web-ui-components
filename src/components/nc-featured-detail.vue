@@ -4,12 +4,13 @@
     <a class="nc-featured-detail__link" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
-    <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
+    <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
     <p v-else class="nc-featured-detail__subtitle">{{subtitle}}</p>
   </div>
 </template>
 
 <script>
+import CONSTANTS from '../../tools/constants'
 export default {
   name: 'nc-featured-detail',
   props: {
@@ -36,6 +37,11 @@ export default {
     itemUrl: {
       type: String,
       default: ''
+    }
+  },
+  data() {
+    return {
+      CONSTANTS
     }
   },
   computed: {
