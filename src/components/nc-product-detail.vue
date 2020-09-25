@@ -1,7 +1,7 @@
 <template>
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
-    <a :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url)">
+    <a :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1)">
       <img :src="product.image" :alt="product.name">
     </a>
     <p class="nc-product-detail__description">{{product.name}}</p>
@@ -10,11 +10,12 @@
       <span class="nc-product-detail__price--sale-price">{{product.salePrice}}</span>
     </p>
     <p class="nc-product-detail__subtitle" v-if="!hasLink">{{subtitle}}</p>
-    <a class="nc-product-detail__subtitle nc-product-detail__subtitle--link" v-else :href="url" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, url)">{{subtitle}}</a>
+    <a class="nc-product-detail__subtitle nc-product-detail__subtitle--link" v-else :href="url" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)">{{subtitle}}</a>
   </div>
 </template>
 
 <script>
+import CONSTANTS from '../../tools/constants'
 export default {
   name: 'nc-product-detail',
   props: {
@@ -39,17 +40,20 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      CONSTANTS
+    }
+  },
   computed: {
     hasLink() {
       return !!this.url
     }
   },
   methods: {
-    handleClick($event, url) {
+    handleClick($event, url, trigger) {
       $event.preventDefault()
-      this.$emit('on-analytics', {
-        destination: url || 'productDetail - ' + this.product.id
-      })
+      this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', { url, productId: this.product.id })
     }
   }

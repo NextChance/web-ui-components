@@ -1,7 +1,7 @@
 <template>
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl)">
+    <a class="nc-featured-detail__link" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
     <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
@@ -44,9 +44,9 @@ export default {
     }
   },
   methods: {
-    handleClick($event, url) {
+    handleClick($event, url, trigger) {
       $event.preventDefault()
-      this.$emit('on-analytics', { destination: url })
+      this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', url)
     }
   }
