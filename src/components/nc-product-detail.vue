@@ -100,11 +100,10 @@ export default {
   &__description {
     $font-size: 15px;
     $line-height: 1.25;
-
     font-size: $font-size;
     color: $color-gray-2;
     margin: $space-xs 0 0;
-    max-height: 2 * $line-height * $font-size;
+    height: 2 * $line-height * $font-size;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
@@ -112,7 +111,6 @@ export default {
     display: -webkit-box;
     @media (min-width: $breakpoint-tablet) {
       margin: $space-xxs 0 0;
-      max-height: 2 * $line-height * $font-size;
     }
   }
 
@@ -131,7 +129,7 @@ export default {
   &__subtitle {
     display: block;
     color: $color-gray-1;
-    margin: $space-unit 0 0;
+    margin: $space-xs 0 0;
     font-size: 13px;
     &--link {
       text-decoration: none;
