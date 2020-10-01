@@ -9,7 +9,8 @@ export const defaultProps = {
   rightLinkStyle: undefined,
   ariaText: { ariaTextDots: 'Slide' },
   defaultImage: undefined,
-  images: []
+  images: [],
+  srcSets: []
 }
 
 export const propsWithButtons = {
@@ -23,7 +24,8 @@ export const propsWithButtons = {
   rightLinkStyle: undefined,
   ariaText: { ariaTextDots: 'Slide' },
   defaultImage: undefined,
-  images: []
+  images: [],
+  srcSets: []
 }
 
 export const propsWithImages = {
@@ -41,5 +43,22 @@ export const propsWithImages = {
     'http://via.placeholder.com/640x360',
     'http://via.placeholder.com/640x360',
     'http://via.placeholder.com/640x360'
+  ],
+  srcSets: [
+    {
+      smallest: 'https://via.placeholder.com/160',
+      srcSet: `"https://via.placeholder.com/160 160w, https://via.placeholder.com/320 320w, https://via.placeholder.com/480 480w,
+      https://via.placeholder.com/640 640w, https://via.placeholder.com/960 960w, https://via.placeholder.com/1440 1440w"`
+    },
+    {
+      smallest: 'https://via.placeholder.com/160',
+      srcSet: `"https://via.placeholder.com/160 160w, https://via.placeholder.com/320 320w, https://via.placeholder.com/480 480w,
+      https://via.placeholder.com/640 640w, https://via.placeholder.com/960 960w, https://via.placeholder.com/1440 1440w"`
+    },
+    {
+      smallest: 'https://via.placeholder.com/160',
+      srcSet: `"https://via.placeholder.com/160 160w, https://via.placeholder.com/320 320w, https://via.placeholder.com/480 480w,
+      https://via.placeholder.com/640 640w, https://via.placeholder.com/960 960w, https://via.placeholder.com/1440 1440w"`
+    }
   ]
 }
