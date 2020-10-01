@@ -2,9 +2,9 @@
   <div class="nc-slideshow">
     <div class="nc-slideshow__content" :style="{'width': `${width}px`}">
       <ul class="list"
-        v-touch:swipe.right="previousSlide"
-        v-touch:swipe.left="nextSlide"
-        :style="{
+          v-touch:swipe.right="previousSlide"
+          v-touch:swipe.left="nextSlide"
+          :style="{
           width: `${width * slideLength}px`,
           transform: `translate3d(-${slideIndex * width}px, 0, 0)`,
           transition: 'transform 500ms ease'
@@ -46,7 +46,7 @@
           :style="leftLinkStyle"
           role="button"
       >
-       <slot name="imageButtonIconLeft" />
+        <slot name="imageButtonIconLeft" />
         {{ leftLinkText }}
       </button>
       <button
@@ -57,7 +57,7 @@
           :style="rightLinkStyle"
           role="button"
       >
-       <slot name="imageButtonIconRight" />
+        <slot name="imageButtonIconRight" />
         {{ rightLinkText }}
       </button>
     </template>
@@ -65,231 +65,239 @@
 </template>
 
 <script>
-/**
- * Code based on https://github.com/myliang/fish-ui/blob/master/src/components/Carousel.vue
- */
-export default {
-  name: 'nc-slideshow',
-  props: {
-    paginationActiveClass: {
-      type: String,
-      default: 'active'
-    },
-    paginationStyle: {
-      type: Object
-    },
-    leftLinkText: {
-      type: String,
-      default: 'Previous'
-    },
-    rightLinkText: {
-      type: String,
-      default: 'Next'
-    },
-    linksDefaultAction: {
-      type: Boolean,
-      default: false
-    },
-    leftLinkStyle: {
-      type: Object
-    },
-    rightLinkStyle: {
-      type: Object
-    },
-    ariaText: {
-      type: Object,
-      default: function() {
-        return {
-          ariaTextDots: 'Slide'
-        }
-      }
-    },
-    images: {
-      type: Array,
-      default: () => []
-    },
-    defaultImage: String,
-    hideButtons: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    hasLinkLeft() {
-      return this.slideIndex > 0
-    },
-    hasLinkRight() {
-      return this.slideIndex < this.slideLength - 1
-    }
-  },
-  data() {
-    return {
-      slideIndex: 0,
-      slideLength: 0,
-      width: 0,
-      ariaObject: {
-        itemIndex: 'slide',
-        tabPanel: 'tabpanel-0-'
+  /**
+   * Code based on https://github.com/myliang/fish-ui/blob/master/src/components/Carousel.vue
+   */
+  export default {
+    name: 'nc-slideshow',
+    props: {
+      paginationActiveClass: {
+        type: String,
+        default: 'active'
       },
-      slideList: ''
+      paginationStyle: {
+        type: Object
+      },
+      leftLinkText: {
+        type: String,
+        default: 'Previous'
+      },
+      rightLinkText: {
+        type: String,
+        default: 'Next'
+      },
+      linksDefaultAction: {
+        type: Boolean,
+        default: false
+      },
+      leftLinkStyle: {
+        type: Object
+      },
+      rightLinkStyle: {
+        type: Object
+      },
+      ariaText: {
+        type: Object,
+        default: function() {
+          return {
+            ariaTextDots: 'Slide'
+          }
+        }
+      },
+      images: {
+        type: Array,
+        default: () => []
+      },
+      defaultImage: String,
+      hideButtons: {
+        type: Boolean,
+        default: false
+      }
+    },
+    computed: {
+      hasLinkLeft() {
+        return this.slideIndex > 0
+      },
+      hasLinkRight() {
+        return this.slideIndex < this.slideLength - 1
+      }
+    },
+    data() {
+      return {
+        slideIndex: 0,
+        slideLength: 0,
+        width: 0,
+        ariaObject: {
+          itemIndex: 'slide',
+          tabPanel: 'tabpanel-0-'
+        },
+        slideList: ''
+      }
+    },
+    methods: {
+      selectSlide(index) {
+        this.slideIndex = index
+      },
+      leftLinkHandler(ev) {
+        if (this.linksDefaultAction) {
+          this.previousSlide()
+        }
+        if (this.slideIndex === 0) {
+          this.$emit('slideshow-first-slide', ev)
+        } else {
+          this.$emit('slideshow-click-left-link', ev)
+        }
+      },
+      rightLinkHandler(ev) {
+        if (this.linksDefaultAction) {
+          this.nextSlide()
+        }
+        if (this.slideIndex === this.slideLength - 1) {
+          this.$emit('slideshow-last-slide', ev)
+        } else {
+          this.$emit('slideshow-click-right-link', ev)
+        }
+      },
+      nextSlide() {
+        let nextSlideIndex = this.slideIndex
+        if (this.slideIndex < this.slideLength - 1) {
+          ++nextSlideIndex
+        }
+        this.slideIndex = nextSlideIndex
+      },
+      previousSlide() {
+        let nextSlideIndex = this.slideIndex
+        if (this.slideIndex > 0) {
+          --nextSlideIndex
+        }
+        this.slideIndex = nextSlideIndex
+      },
+      resizeSlide() {
+        this.width = this.$el.offsetWidth
+        this.slideList.forEach(element => {
+          element.style.width = this.width + 'px'
+        })
+      },
+      setDefaultImage(ev) {
+        ev.target.src = this.defaultImage
+      }
+    },
+    mounted() {
+      window.addEventListener('resize', this.resizeSlide)
+      this.slideList = document.querySelectorAll('.list li')
+      this.slideLength = this.slideList.length || 0
+      setTimeout(this.resizeSlide, 0)
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.resizeSlidel)
     }
-  },
-  methods: {
-    selectSlide(index) {
-      this.slideIndex = index
-    },
-    leftLinkHandler(ev) {
-      if (this.linksDefaultAction) {
-        this.previousSlide()
-      }
-      if (this.slideIndex === 0) {
-        this.$emit('slideshow-first-slide', ev)
-      } else {
-        this.$emit('slideshow-click-left-link', ev)
-      }
-    },
-    rightLinkHandler(ev) {
-      if (this.linksDefaultAction) {
-        this.nextSlide()
-      }
-      if (this.slideIndex === this.slideLength - 1) {
-        this.$emit('slideshow-last-slide', ev)
-      } else {
-        this.$emit('slideshow-click-right-link', ev)
-      }
-    },
-    nextSlide() {
-      let nextSlideIndex = this.slideIndex
-      if (this.slideIndex < this.slideLength - 1) {
-        ++nextSlideIndex
-      }
-      this.slideIndex = nextSlideIndex
-    },
-    previousSlide() {
-      let nextSlideIndex = this.slideIndex
-      if (this.slideIndex > 0) {
-        --nextSlideIndex
-      }
-      this.slideIndex = nextSlideIndex
-    },
-    resizeSlide() {
-      this.width = this.$el.offsetWidth
-      this.slideList.forEach(element => {
-        element.style.width = this.width + 'px'
-      })
-    },
-    setDefaultImage(ev) {
-      ev.target.src = this.defaultImage
-    }
-  },
-  mounted() {
-    window.addEventListener('resize', this.resizeSlide)
-    this.slideList = document.querySelectorAll('.list li')
-    this.slideLength = this.slideList.length || 0
-    this.resizeSlide()
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.resizeSlidel)
   }
-}
 </script>
 
 <style scoped lang="scss">
-$dotBackgrounColor: #d8d8d8;
-$dotBackgrounColorActive: #ff7f3f;
-.nc-slideshow {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  height: 100%;
-
-  &__content {
+  $dotBackgrounColor: #d8d8d8;
+  $dotBackgrounColorActive: #ff7f3f;
+  .nc-slideshow {
     position: relative;
-    overflow: hidden;
     display: block;
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box;
     height: 100%;
-    .list {
-      height: 100%;
+
+    &__content {
       position: relative;
-      left: 0;
-      top: 0;
+      overflow: hidden;
       display: block;
-      list-style: none;
       margin: 0;
       padding: 0;
+      height: 100%;
 
-      &__item {
-        float: left;
+      .list {
         height: 100%;
-        min-height: 1px;
-        .image {
+        position: relative;
+        left: 0;
+        top: 0;
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        &__item {
+          float: left;
           height: 100%;
-          width: 100%;
-          object-fit: cover;
-          display: block;
-          @media all and (-ms-high-contrast: none) {
-            width: auto;
+          min-height: 1px;
+          display: flex;
+          align-items: center;
+
+          .image {
+            display: block;
+            width: 100%;
+
+            @media all and (-ms-high-contrast: none) {
+              width: auto;
+            }
           }
         }
       }
     }
-  }
 
-  &__pagination {
-    height: 20px;
-    .dots {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      li {
-        height: 8px;
-        width: 8px;
-        margin: 0 4px;
-        display: inline-block;
-        & .dots__button {
-          cursor: pointer;
+    &__pagination {
+      height: 20px;
+
+      .dots {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
           height: 8px;
           width: 8px;
-          background-color: $dotBackgrounColor;
-          border-radius: 50%;
-          padding: 0;
-          border: none;
-          &.active {
-            background-color: $dotBackgrounColorActive;
+          margin: 0 4px;
+          display: inline-block;
+
+          & .dots__button {
+            cursor: pointer;
+            height: 8px;
+            width: 8px;
+            background-color: $dotBackgrounColor;
+            border-radius: 50%;
+            padding: 0;
+            border: none;
+
+            &.active {
+              background-color: $dotBackgrounColorActive;
+            }
           }
-        }
-        & .dots__text {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0, 0, 0, 0);
-          border: 0;
+
+          & .dots__text {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+          }
         }
       }
     }
-  }
 
-  &__link--left,
-  &__link--right {
-    border: none;
-    background: none;
-    position: absolute;
-    margin-left: 13px;
-    bottom: 0;
-  }
+    &__link--left,
+    &__link--right {
+      border: none;
+      background: none;
+      position: absolute;
+      margin-left: 13px;
+      bottom: 0;
+    }
 
-  &__link--left {
-    left: 0;
-  }
+    &__link--left {
+      left: 0;
+    }
 
-  &__link--right {
-    right: 0;
+    &__link--right {
+      right: 0;
+    }
   }
-}
 </style>
