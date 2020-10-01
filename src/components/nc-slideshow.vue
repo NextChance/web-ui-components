@@ -10,8 +10,8 @@
           transition: 'transform 500ms ease'
         }">
         <template v-if="images.length">
-          <li v-for="(image, index) in images" :key="index" class="list__item">
-            <img class="image" :src="image" @error="setDefaultImage">
+          <li v-for="(image, index) in srcSets" :key="index" class="list__item">
+            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setDefaultImage">
           </li>
         </template>
         <template v-else>
@@ -105,6 +105,10 @@
         }
       },
       images: {
+        type: Array,
+        default: () => []
+      },
+      srcSets:  {
         type: Array,
         default: () => []
       },
