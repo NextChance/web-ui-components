@@ -58,3 +58,15 @@ export const oneImg = () => ({
     '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action"></nc-slideshow> </div>',
   methods: { action: action('clicked') }
 })
+
+export const activeNavigationDots = () => ({
+  components: { NcSlideshow },
+  data() {
+    return {
+      images: imagesMock
+    }
+  },
+  template:
+    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" has-dot-navigation @on-analytics="action"></nc-slideshow> </div>',
+  methods: { action: action('clicked') }
+})
