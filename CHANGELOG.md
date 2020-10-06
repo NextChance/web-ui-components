@@ -15,9 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## v1.15.1
+## v1.15.2
 ### Added
 - New property in nc-slideshow "srcSets" [BH-4795]
+
+## v1.15.1  >> invalid
 
 ## v1.15.0
 ### Added
