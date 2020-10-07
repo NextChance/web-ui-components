@@ -15,8 +15,7 @@
           </li>
         </template>
         <template v-else>
-          <li class="item">
-            <div class="list__image" :style="{ 'background-image': `url(${defaultImage})` }"/>
+          <li class="list__item list__item--placeholder" :style="{ 'background-image': `url(${defaultImage})` }">
           </li>
         </template>
       </ul>
@@ -231,6 +230,11 @@
           min-height: 1px;
           display: flex;
           align-items: center;
+          &--placeholder {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+          }
 
           .image {
             display: block;
