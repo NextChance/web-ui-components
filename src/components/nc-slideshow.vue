@@ -183,6 +183,7 @@
       },
       setDefaultImage(ev) {
         ev.target.src = this.defaultImage
+        ev.target.srcset = this.defaultImage
       }
     },
     mounted() {
