@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Fixed
+- Fix border-radius in nc-slideshow-v2 for iOS: Add transform:translateX(0) [BH-4955]
 
 ## v1.15.3
 ### Fixed
