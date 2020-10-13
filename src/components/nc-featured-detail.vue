@@ -1,5 +1,5 @@
 <template>
-  <div class="nc-featured-detail">
+  <div class="nc-featured-detail" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()">
     <p class="nc-featured-detail__title">{{title}}</p>
     <a class="nc-featured-detail__link" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
@@ -37,6 +37,10 @@ export default {
     itemUrl: {
       type: String,
       default: ''
+    },
+    elementId: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -54,6 +58,9 @@ export default {
       $event.preventDefault()
       this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', url)
+    },
+    handleImpression() {
+      this.$emit('on-impression-child', this.elementId)
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="nc-featured-grid">
     <p class="nc-featured-grid__title">{{title}}</p>
     <ul class="nc-featured-grid__content">
-      <li v-observe-visibility="viewabilityConfig" @viewability-done="sendImpressionEvent(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
+      <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
         <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)" class="nc-featured-grid__content__item__link">
           <img :src="item.image.src" :alt="item.image.alt">
         </a>
@@ -55,8 +55,8 @@ export default {
       this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', url)
     },
-    sendImpressionEvent(item) {
-      console.log(item)
+    handleImpression(item) {
+      this.$emit('on-impression-child', item.id)
     }
   }
 }
