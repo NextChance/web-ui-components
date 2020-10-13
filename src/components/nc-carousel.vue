@@ -234,12 +234,12 @@
       width: 100%;
       #{$ncCarousel}__list {
         display: grid;
-        grid-template-columns: repeat(3, 28.88vw);
+        grid-template-rows: repeat(3, 28.88vw);
+        grid-template-columns: repeat(3, minmax(28%, 28.88vw));
         grid-gap: 8px;
 
         &__item {
-          width: 28.88vw;
-          height: 28.88vw;
+          width: auto;
           overflow: hidden;
           padding: 0;
           border-radius: 4px;
@@ -261,13 +261,6 @@
 
           .item-extra-content {
             display: none;
-          }
-
-          .item-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateY(-50%) translateX(-50%);
           }
         }
       }
@@ -420,13 +413,6 @@
             .item-image-container {
               height: $imageSize;
               width: $imageSize;
-            }
-
-            .item-image {
-              position: relative;
-              top: 0;
-              left: 0;
-              transform: unset;
             }
           }
         }
