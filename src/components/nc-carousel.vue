@@ -231,22 +231,18 @@
     }
 
     &--mosaic {
+      width: 100%;
       #{$ncCarousel}__list {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: center;
+        display: grid;
+        grid-template-rows: repeat(3, 28.88vw);
+        grid-template-columns: repeat(3, minmax(28%, 28.88vw));
+        grid-gap: 8px;
 
         &__item {
-          width: 28.88vw;
-          height: 28.88vw;
-          margin: 4px 0;
+          width: auto;
           overflow: hidden;
           padding: 0;
-          justify-content: center;
           border-radius: 4px;
-          &:nth-child(3n + 2) {
-            margin: 4px 8px;
-          }
           &:nth-child(n + 10) {
             display: none;
           }
@@ -291,7 +287,7 @@
         align-items: flex-start;
         flex-direction: row;
 
-        & &__item {
+        &__item {
           margin-bottom: 0;
           margin-right: 0;
 
@@ -391,15 +387,24 @@
       &--mosaic {
         $imageSize: 189px;
         #{$ncCarousel}__list {
+          grid: unset;
+          grid-gap: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
           flex-wrap: nowrap;
           justify-content: flex-start;
 
           &__item {
             padding: 0 8px;
             flex-shrink: 0;
+            justify-content: center;
             height: auto;
             margin: 0 !important;
             width: auto;
+            &:first-child {
+              padding-left: $componentPadding;
+            }
 
             &:nth-child(n + 10) {
               display: block;
