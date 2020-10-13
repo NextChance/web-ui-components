@@ -188,6 +188,7 @@ export default {
   overflow: hidden;
   @media (min-width: $breakpoint-desktop-s) {
     border-radius: 8px;
+    transform: translateZ(0);
   }
   &__content {
     height: 100%;
