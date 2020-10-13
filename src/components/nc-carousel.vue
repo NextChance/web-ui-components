@@ -233,6 +233,8 @@
     &--mosaic {
       width: 100%;
       #{$ncCarousel}__list {
+        width: fit-content;
+        margin: auto;
         display: grid;
         grid-template-rows: repeat(3, 28.88vw);
         grid-template-columns: repeat(3, minmax(28%, 28.88vw));
