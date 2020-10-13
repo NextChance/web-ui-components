@@ -18,9 +18,7 @@ export default {
   methods: {
     visibilityChanged(isVisible, IOEntry) {
       if (isVisible) {
-        this.applyDemoStyles(IOEntry.target) // color change, just for demo purposes
         const isVueComponent = IOEntry.target.__vue__
-
         if (isVueComponent) {
           // directive was binded to VUE component
           IOEntry.target.__vue__.$emit(eventName)
@@ -30,10 +28,6 @@ export default {
           IOEntry.target.dispatchEvent(event)
         }
       }
-    },
-    applyDemoStyles(el) {
-      el.style.transition = 'background-color 0.5s ease'
-      el.style.backgroundColor = 'green'
     }
   }
 }
