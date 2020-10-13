@@ -1,7 +1,7 @@
 <template>
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
-    <a :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1)">
+    <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1)">
       <img :src="product.image" :alt="product.name">
     </a>
     <p class="nc-product-detail__description">{{product.name}}</p>
@@ -16,8 +16,11 @@
 
 <script>
 import CONSTANTS from '../../tools/constants'
+import viewabilityMixin from '../../mixins/viewabilityMixin'
+
 export default {
   name: 'nc-product-detail',
+  mixins: [viewabilityMixin],
   props: {
     title: {
       type: String,
@@ -55,6 +58,9 @@ export default {
       $event.preventDefault()
       this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', { url, productId: this.product.id })
+    },
+    handleImpression() {
+      this.$emit('on-impression-child', this.product.__id)
     }
   }
 }

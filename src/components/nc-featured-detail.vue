@@ -1,7 +1,7 @@
 <template>
-  <div class="nc-featured-detail" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()">
+  <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
+    <a class="nc-featured-detail__link" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
     <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
@@ -11,8 +11,11 @@
 
 <script>
 import CONSTANTS from '../../tools/constants'
+import viewabilityMixin from '../../mixins/viewabilityMixin'
+
 export default {
   name: 'nc-featured-detail',
+  mixins: [viewabilityMixin],
   props: {
     title: {
       type: String,
