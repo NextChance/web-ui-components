@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 -->
 
 
-## [UNRELEASED]
+## v1.15.3
 ### Fixed
 - Fix height for placeholder on nc-slideshow when images.length === 0 [BH-4864]
 - Fix border-radius in nc-slideshow-v2 for iOS: Add transform:translateX(0) [BH-4955]
