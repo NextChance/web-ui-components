@@ -161,7 +161,7 @@ export default {
       this.$emit('on-navigate', url)
     },
     handleImpression(image) {
-      this.$emit('on-impression-child', image.id)
+      this.$emit('on-child-impression', image.id)
     }
   },
   mounted() {

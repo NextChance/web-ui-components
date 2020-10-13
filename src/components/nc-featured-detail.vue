@@ -63,7 +63,7 @@ export default {
       this.$emit('on-navigate', url)
     },
     handleImpression() {
-      this.$emit('on-impression-child', this.elementId)
+      this.$emit('on-child-impression', this.elementId)
     }
   }
 }

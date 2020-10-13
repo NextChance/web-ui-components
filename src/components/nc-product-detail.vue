@@ -60,7 +60,7 @@ export default {
       this.$emit('on-navigate', { url, productId: this.product.id })
     },
     handleImpression() {
-      this.$emit('on-impression-child', this.product.__id)
+      this.$emit('on-child-impression', this.product.__id)
     }
   }
 }

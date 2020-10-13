@@ -56,7 +56,7 @@ export default {
       this.$emit('on-navigate', url)
     },
     handleImpression(item) {
-      this.$emit('on-impression-child', item.id)
+      this.$emit('on-child-impression', item.id)
     }
   }
 }
