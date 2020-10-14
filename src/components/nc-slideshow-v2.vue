@@ -7,7 +7,7 @@
         ref="nc-slideshow-list"
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
-        <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
+        <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
           <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
@@ -47,8 +47,11 @@
 </template>
 
 <script>
+import viewabilityMixin from '../../mixins/viewabilityMixin'
+
 export default {
   name: 'nc-slideshow-v2',
+  mixins: [viewabilityMixin],
   props: {
     images: {
       type: Array,
@@ -160,6 +163,9 @@ export default {
       $event.preventDefault()
       this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', url)
+    },
+    handleImpression(image) {
+      this.$emit('on-child-impression', image.id)
     }
   },
   mounted() {
