@@ -38,7 +38,7 @@
             v-for="(dot, indexDot) in images"
             :key="`dot-${indexDot}`"
             class="nc-slideshow__dots__item"
-            :class="[currentIndex === indexDot || (currentIndex === virtualImages.length -1 && indexDot === 0 ) ? 'nc-slideshow__dots__item--active' : 'nc-slideshow__dots__item--regular']"
+            :class="[currentIndex === indexDot || (currentIndex === virtualImages.length -1 && indexDot === 0 ) ? 'nc-slideshow__dots__item--active' : 'nc-slideshow__dots__item--regular', {'nc-slideshow__dots__item--disabled': !hasDotNavigation}]"
             @click="goToIndex(indexDot)">
         </span>
       </div>
@@ -60,6 +60,10 @@ export default {
     autoplayTime: {
       type: Number,
       default: 0
+    },
+    hasDotNavigation: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -93,7 +97,7 @@ export default {
   },
   methods: {
     goToIndex(index) {
-      if (this.currentIndex !== index) {
+      if (this.hasDotNavigation && this.currentIndex !== index) {
         this.prevIndex = this.currentIndex
         this.currentIndex = index
         this.animationRateHandler = window.requestAnimationFrame(
@@ -268,12 +272,19 @@ export default {
     }
     &__item {
       cursor: pointer;
-      height: 10px;
-      width: 10px;
+      height: 6px;
+      width: 6px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       opacity: 0.5;
+      @media (min-width: $breakpoint-tablet) {
+        height: 10px;
+        width: 10px;
+      }
+      &--disabled {
+        cursor: inherit;
+      }
       &:nth-child(n + 2) {
         margin-left: 8px;
       }
