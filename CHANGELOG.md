@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.15.4
+### Fixed
+- Fix border-radius in nc-slideshow-v2 for iOS: Add transform:translateX(0) [BH-4955]
+- Fix nc-carousel mosaic fit correctly with browser zoom [BH-4951]
+
+## v1.15.3
+### Fixed
+- Fix height for placeholder on nc-slideshow when images.length === 0 [BH-4864]
+
 ## v1.15.2
 ### Added
 - New property in nc-slideshow "srcSets" [BH-4795]
