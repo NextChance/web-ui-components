@@ -271,6 +271,10 @@ export default {
       border-radius: 50%;
       display: inline-block;
       opacity: 0.5;
+      @media (min-width: $breakpoint-tablet) {
+        height: 10px;
+        width: 10px;
+      }
       &--disabled {
         cursor: inherit;
       }
