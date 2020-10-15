@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v1.16.0
 ### Changed
 - nc-slideshow-v2: reduce size dots and updated dots behaviour (now navigation using dots is optional) [BH-4809]
 ### Added
