@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.16.0
+### Changed
+- nc-slideshow-v2: reduce size dots and updated dots behaviour (now navigation using dots is optional) [BH-4809]
+### Added
+- Add viewability mixin in 'nc-carousel', 'nc-featured-detail', 'nc-product-detail', 'nc-featured-grid' and 'nc-slideshow-v2'. Add method to emit event [BH-4948]
+
 ## v1.15.4
 ### Fixed
 - Fix border-radius in nc-slideshow-v2 for iOS: Add transform:translateX(0) [BH-4955]
