@@ -2,7 +2,7 @@
   <div class="nc-featured-grid">
     <p class="nc-featured-grid__title">{{title}}</p>
     <ul class="nc-featured-grid__content">
-      <li v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
+      <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
         <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)" class="nc-featured-grid__content__item__link">
           <img :src="item.image.src" :alt="item.image.alt">
         </a>
@@ -15,45 +15,51 @@
 </template>
 
 <script>
-  import CONSTANTS from '../../tools/constants'
-  export default {
-    name: 'nc-featured-grid',
-    props: {
-      title: {
-        type: String,
-        default: ''
-      },
-      subtitle: {
-        type: String,
-        default: ''
-      },
-      url: {
-        type: String,
-        default: ''
-      },
-      items: {
-        type: Array,
-        default: () => []
-      }
+import CONSTANTS from '../../tools/constants'
+import viewabilityMixin from '../../mixins/viewabilityMixin'
+
+export default {
+  name: 'nc-featured-grid',
+  mixins: [viewabilityMixin],
+  props: {
+    title: {
+      type: String,
+      default: ''
     },
-    computed: {
-      hasSubtitleLink() {
-        return this.subtitle !== '' && this.url !== ''
-      }
+    subtitle: {
+      type: String,
+      default: ''
     },
-    data() {
-      return {
-        CONSTANTS
-      }
+    url: {
+      type: String,
+      default: ''
     },
-    methods: {
-      handleClick($event, url, trigger) {
-        $event.preventDefault()
-        this.$emit('on-analytics', { trigger })
-        this.$emit('on-navigate', url)
-      }
+    items: {
+      type: Array,
+      default: () => []
+    }
+  },
+  computed: {
+    hasSubtitleLink() {
+      return this.subtitle !== '' && this.url !== ''
+    }
+  },
+  data() {
+    return {
+      CONSTANTS
+    }
+  },
+  methods: {
+    handleClick($event, url, trigger) {
+      $event.preventDefault()
+      this.$emit('on-analytics', { trigger })
+      this.$emit('on-navigate', url)
+    },
+    handleImpression(item) {
+      this.$emit('on-child-impression', item.id)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

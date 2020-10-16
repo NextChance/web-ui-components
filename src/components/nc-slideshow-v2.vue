@@ -7,7 +7,7 @@
         ref="nc-slideshow-list"
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
-        <li v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
+        <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
           <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
@@ -38,7 +38,7 @@
             v-for="(dot, indexDot) in images"
             :key="`dot-${indexDot}`"
             class="nc-slideshow__dots__item"
-            :class="[currentIndex === indexDot || (currentIndex === virtualImages.length -1 && indexDot === 0 ) ? 'nc-slideshow__dots__item--active' : 'nc-slideshow__dots__item--regular']"
+            :class="[currentIndex === indexDot || (currentIndex === virtualImages.length -1 && indexDot === 0 ) ? 'nc-slideshow__dots__item--active' : 'nc-slideshow__dots__item--regular', {'nc-slideshow__dots__item--disabled': !hasDotNavigation}]"
             @click="goToIndex(indexDot)">
         </span>
       </div>
@@ -47,8 +47,11 @@
 </template>
 
 <script>
+import viewabilityMixin from '../../mixins/viewabilityMixin'
+
 export default {
   name: 'nc-slideshow-v2',
+  mixins: [viewabilityMixin],
   props: {
     images: {
       type: Array,
@@ -57,6 +60,10 @@ export default {
     autoplayTime: {
       type: Number,
       default: 0
+    },
+    hasDotNavigation: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -90,7 +97,7 @@ export default {
   },
   methods: {
     goToIndex(index) {
-      if (this.currentIndex !== index) {
+      if (this.hasDotNavigation && this.currentIndex !== index) {
         this.prevIndex = this.currentIndex
         this.currentIndex = index
         this.animationRateHandler = window.requestAnimationFrame(
@@ -156,6 +163,9 @@ export default {
       $event.preventDefault()
       this.$emit('on-analytics', { trigger })
       this.$emit('on-navigate', url)
+    },
+    handleImpression(image) {
+      this.$emit('on-child-impression', image.id)
     }
   },
   mounted() {
@@ -262,12 +272,19 @@ export default {
     }
     &__item {
       cursor: pointer;
-      height: 10px;
-      width: 10px;
+      height: 6px;
+      width: 6px;
       background-color: white;
       border-radius: 50%;
       display: inline-block;
       opacity: 0.5;
+      @media (min-width: $breakpoint-tablet) {
+        height: 10px;
+        width: 10px;
+      }
+      &--disabled {
+        cursor: inherit;
+      }
       &:nth-child(n + 2) {
         margin-left: 8px;
       }
