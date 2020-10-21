@@ -1,7 +1,7 @@
 <template>
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
-    <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1)">
+    <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1, product.__id)">
       <img :src="product.image" :alt="product.name">
     </a>
     <p class="nc-product-detail__description">{{product.name}}</p>
@@ -54,9 +54,9 @@ export default {
     }
   },
   methods: {
-    handleClick($event, url, trigger) {
+    handleClick($event, url, trigger, id = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger })
+      this.$emit('on-analytics', { trigger, id })
       this.$emit('on-navigate', { url, productId: this.product.id })
     },
     handleImpression() {

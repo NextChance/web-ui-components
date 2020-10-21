@@ -10,7 +10,7 @@
               class="nc-carousel__list__item"
               v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)"
           >
-            <a :href="item.url" @click="handleClick($event, item, index + 1)"
+            <a :href="item.url" @click="handleClick($event, item, index + 1, item.__id || item.id)"
                class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
@@ -81,10 +81,10 @@ export default {
     }
   },
   methods: {
-    handleClick($event, item, trigger) {
+    handleClick($event, item, trigger, id = null) {
       $event.preventDefault()
       const payload = { url: item.url, productId: item.id }
-      this.$emit('on-analytics', { trigger })
+      this.$emit('on-analytics', { trigger, id })
       this.$emit('on-navigate', payload)
     },
     handleImpression(item) {

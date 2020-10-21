@@ -3,7 +3,7 @@
     <p class="nc-featured-grid__title">{{title}}</p>
     <ul class="nc-featured-grid__content">
       <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
-        <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)" class="nc-featured-grid__content__item__link">
+        <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)" class="nc-featured-grid__content__item__link">
           <img :src="item.image.src" :alt="item.image.alt">
         </a>
         <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
@@ -50,9 +50,9 @@ export default {
     }
   },
   methods: {
-    handleClick($event, url, trigger) {
+    handleClick($event, url, trigger, elementId = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger })
+      this.$emit('on-analytics', { trigger, id: elementId })
       this.$emit('on-navigate', url)
     },
     handleImpression(item) {
