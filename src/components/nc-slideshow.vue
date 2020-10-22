@@ -11,7 +11,7 @@
         }">
         <template v-if="src.length">
           <li v-for="(image, index) in src" :key="index" class="list__item">
-            <img class="image" :src="image.url" @error="setDefaultImage">
+            <img class="image" :src="image" @error="setDefaultImage">
           </li>
         </template>
         <template v-else>
