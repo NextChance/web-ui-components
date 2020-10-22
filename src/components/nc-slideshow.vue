@@ -9,8 +9,8 @@
           transform: `translate3d(-${slideIndex * width}px, 0, 0)`,
           transition: 'transform 500ms ease'
         }">
-        <template v-if="srcSets.length">
-          <li v-for="(image, index) in srcSets" :key="index" class="list__item">
+        <template v-if="src.length">
+          <li v-for="(image, index) in src" :key="index" class="list__item">
             <img class="image" :src="image.url" @error="setDefaultImage">
           </li>
         </template>
@@ -20,7 +20,7 @@
         </template>
       </ul>
     </div>
-    <template v-if="srcSets.length > 1" >
+    <template v-if="src.length > 1" >
       <div class="nc-slideshow__pagination">
         <ul class="dots" aria-label="Pagination Slideshow" role="navigation">
           <li
@@ -107,7 +107,7 @@
         type: Array,
         default: () => []
       },
-      srcSets:  {
+      src:  {
         type: Array,
         default: () => []
       },
