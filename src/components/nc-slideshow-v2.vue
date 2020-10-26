@@ -161,7 +161,7 @@ export default {
     },
     handleClick($event, url, trigger, id = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger, id })
+      this.$emit('on-analytics', { trigger, id, url })
       this.$emit('on-navigate', url)
     },
     handleImpression(image) {

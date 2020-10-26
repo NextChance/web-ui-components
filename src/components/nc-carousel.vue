@@ -84,7 +84,7 @@ export default {
     handleClick($event, item, trigger, id = null) {
       $event.preventDefault()
       const payload = { url: item.url, productId: item.id }
-      this.$emit('on-analytics', { trigger, id })
+      this.$emit('on-analytics', { trigger, id, ...payload })
       this.$emit('on-navigate', payload)
     },
     handleImpression(item) {
