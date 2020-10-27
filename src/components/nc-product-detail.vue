@@ -1,14 +1,14 @@
 <template>
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
-    <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__image" @click="handleClick($event, product.url, 1, product.__id)">
-      <img :src="product.image" :alt="product.name">
+    <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__content" @click="handleClick($event, product.url, 1, product.__id)">
+      <img class="nc-product-detail__image" :src="product.image" :alt="product.name">
+      <p class="nc-product-detail__description">{{product.name}}</p>
+      <p class="nc-product-detail__price">
+        <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
+        <span class="nc-product-detail__price--sale-price">{{product.salePrice}}</span>
+      </p>
     </a>
-    <p class="nc-product-detail__description">{{product.name}}</p>
-    <p class="nc-product-detail__price">
-      <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
-      <span class="nc-product-detail__price--sale-price">{{product.salePrice}}</span>
-    </p>
     <p class="nc-product-detail__subtitle" v-if="!hasLink">{{subtitle}}</p>
     <a class="nc-product-detail__subtitle nc-product-detail__subtitle--link" v-else :href="url" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)">{{subtitle}}</a>
   </div>
@@ -118,6 +118,11 @@ export default {
     @media (min-width: $breakpoint-tablet) {
       margin: $space-xxs 0 0;
     }
+  }
+
+  &__content {
+    cursor: pointer;
+    text-decoration: none;
   }
 
   &__price {
