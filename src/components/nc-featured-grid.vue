@@ -52,7 +52,7 @@ export default {
   methods: {
     handleClick($event, url, trigger, elementId = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger, id: elementId })
+      this.$emit('on-analytics', { trigger, id: elementId, url })
       this.$emit('on-navigate', url)
     },
     handleImpression(item) {
