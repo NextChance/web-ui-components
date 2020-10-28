@@ -1,7 +1,7 @@
 <template>
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
-    <a class="nc-featured-detail__link" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1)">
+    <a class="nc-featured-detail__link" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1, elementId)">
       <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
     </a>
     <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
@@ -57,9 +57,9 @@ export default {
     }
   },
   methods: {
-    handleClick($event, url, trigger) {
+    handleClick($event, url, trigger, elementId = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger })
+      this.$emit('on-analytics', { trigger, id: elementId, url })
       this.$emit('on-navigate', url)
     },
     handleImpression() {

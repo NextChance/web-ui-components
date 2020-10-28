@@ -8,7 +8,7 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1)"><img :src="item.image" :alt="item.alt"></a>
+          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)"><img :src="item.image" :alt="item.alt"></a>
         </li>
       </template>
     </ul>
@@ -159,9 +159,9 @@ export default {
         : 0
       this.slidePosition = this.currentIndex * this.offsetSlides
     },
-    handleClick($event, url, trigger) {
+    handleClick($event, url, trigger, id = null) {
       $event.preventDefault()
-      this.$emit('on-analytics', { trigger })
+      this.$emit('on-analytics', { trigger, id, url })
       this.$emit('on-navigate', url)
     },
     handleImpression(image) {
