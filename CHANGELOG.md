@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.17.0
+### Added
+- send id into evento for click event on cms components [BH-4823] 
+- lead generation into cms components [BH-4621] 
+
 ## v1.16.0
 ### Changed
 - nc-slideshow-v2: reduce size dots and updated dots behaviour (now navigation using dots is optional) [BH-4809]
