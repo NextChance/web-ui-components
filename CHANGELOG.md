@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## [UNRELEASED]
+## v1.17.0
 ### Added
 - send id into evento for click event on cms components [BH-4823] 
 - lead generation into cms components [BH-4621] 
