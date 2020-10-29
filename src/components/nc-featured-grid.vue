@@ -4,9 +4,11 @@
     <ul class="nc-featured-grid__content">
       <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
         <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)" class="nc-featured-grid__content__item__link">
-          <img :src="item.image.src" :alt="item.image.alt">
+          <div class="nc-featured-grid__content__item__detail">
+            <img :src="item.image.src" :alt="item.image.alt">
+          </div>
+          <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
         </a>
-        <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
       </li>
     </ul>
     <p v-if="!hasSubtitleLink" class="nc-featured-grid__subtitle">{{subtitle}}</p>
@@ -148,7 +150,10 @@ export default {
       }
 
       &__link {
-        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      &__detail {
         display: block;
         height: 120px;
         margin: auto;
@@ -161,6 +166,7 @@ export default {
         }
 
         img {
+          border-radius: 4px;
           display: block;
           height: 100%;
           left: 50%;
