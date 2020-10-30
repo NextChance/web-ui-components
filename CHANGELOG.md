@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.18.0
+### Changed
+- Include caption 
+
 ## v1.17.0
 ### Added
 - send id into evento for click event on cms components [BH-4823] 
