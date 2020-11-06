@@ -12,9 +12,7 @@
           >
             <a :href="item.url" @click="handleClick($event, item, index + 1, item.__id || item.id)"
                class="nc-carousel__list__item__content">
-              <div class="item-image-container" ref="carouselImage">
-                <img :src="item.image.src" :alt="item.image.alt" class="item-image">
-              </div>
+              <nc-lazy-image :src="item.image.src" :alt="item.image.alt" class="item-image-container" ref="carouselImage"/>
               <div class="item-extra-content">
                 <div class="item-description">
                   {{ item.title }}
@@ -41,12 +39,14 @@ import ncCoreCarousel from './nc-core-carousel'
 import CONSTANTS from '../../tools/constants'
 
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'NcCarousel',
   mixins: [viewabilityMixin],
   components: {
-    ncCoreCarousel
+    ncCoreCarousel,
+    NcLazyImage
   },
   props: {
     title: {
@@ -95,6 +95,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/ {
+  .nc-lazy-image__image {
+    border-radius: 4px;
+    display: block;
+    flex-shrink: 0;
+    height: 100%;
+    width: auto;
+  }
+}
 .nc-carousel {
   $ncCarousel: &;
   background: white;
@@ -165,14 +174,6 @@ export default {
           justify-content: center;
           border-radius: 4px;
           overflow: hidden;
-        }
-
-        .item-image {
-          border-radius: 4px;
-          display: block;
-          flex-shrink: 0;
-          height: 100%;
-          width: auto;
         }
       }
     }

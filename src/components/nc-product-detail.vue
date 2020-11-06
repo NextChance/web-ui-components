@@ -2,7 +2,7 @@
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
     <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__content" @click="handleClick($event, product.url, 1, product.__id)">
-      <img class="nc-product-detail__image" :src="product.image" :alt="product.name">
+      <nc-lazy-image :src="product.image" :alt="product.name" class="nc-product-detail__image"/>
       <p class="nc-product-detail__description">{{product.name}}</p>
       <p class="nc-product-detail__price">
         <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
@@ -17,10 +17,14 @@
 <script>
 import CONSTANTS from '../../tools/constants'
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-product-detail',
   mixins: [viewabilityMixin],
+  components: {
+    NcLazyImage
+  },
   props: {
     title: {
       type: String,
@@ -68,6 +72,15 @@ export default {
 
 <style lang="scss" scoped>
 .nc-product-detail {
+  /deep/ {
+    .nc-lazy-image__image {
+      object-fit: unset;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
+  }
   background: white;
   box-sizing: border-box;
   padding: 16px;
@@ -160,14 +173,6 @@ export default {
     cursor: pointer;
     @media (min-width: $breakpoint-tablet) {
       height: 260px;
-    }
-
-    img {
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translateY(-50%) translateX(-50%);
     }
   }
 }

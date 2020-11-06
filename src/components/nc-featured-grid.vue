@@ -5,7 +5,7 @@
       <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
         <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)" class="nc-featured-grid__content__item__link">
           <div class="nc-featured-grid__content__item__detail">
-            <img :src="item.image.src" :alt="item.image.alt">
+            <nc-lazy-image :src="item.image.src" :alt="item.image.alt" />
           </div>
           <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
         </a>
@@ -19,10 +19,14 @@
 <script>
 import CONSTANTS from '../../tools/constants'
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-featured-grid',
   mixins: [viewabilityMixin],
+  components: {
+    NcLazyImage
+  },
   props: {
     title: {
       type: String,
@@ -65,6 +69,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/ {
+  .nc-lazy-image__image {
+    width: unset;
+    border-radius: 4px;
+    display: block;
+    height: 100%;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    object-fit: unset;
+  }
+}
 .nc-featured-grid {
   background: white;
   box-sizing: border-box;
@@ -160,19 +177,10 @@ export default {
         max-width: 12.75rem;
         overflow: hidden;
         position: relative;
+        border-radius: 4px;
 
         @media (min-width: $breakpoint-desktop-m) {
           height: 124px;
-        }
-
-        img {
-          border-radius: 4px;
-          display: block;
-          height: 100%;
-          left: 50%;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%) translateX(-50%);
         }
       }
 
