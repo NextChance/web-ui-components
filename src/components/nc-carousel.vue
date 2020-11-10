@@ -12,7 +12,15 @@
           >
             <a :href="item.url" @click="handleClick($event, item, index + 1, item.__id || item.id)"
                class="nc-carousel__list__item__content">
-              <nc-lazy-image :src="item.image.src" :alt="item.image.alt" class="item-image-container" ref="carouselImage"/>
+              <nc-lazy-image 
+                class="item-image-container" 
+                ref="carouselImage"
+                :src="item.image.src" 
+                :alt="item.image.alt" 
+                :placeholder="placeholderImage" 
+                :error="errorImage" 
+                :src-sets="srcSets"
+              />
               <div class="item-extra-content">
                 <div class="item-description">
                   {{ item.title }}
@@ -68,6 +76,18 @@ export default {
     isMosaicType: {
       type: Boolean,
       default: false
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {

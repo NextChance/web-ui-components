@@ -52,6 +52,7 @@ export default {
   width: 100%;
   height: 100%;
   align-self: center;
+  background-color: $color-white;
 
   &__image {
     width: 100%;

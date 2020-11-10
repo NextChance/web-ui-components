@@ -2,7 +2,14 @@
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
     <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__content" @click="handleClick($event, product.url, 1, product.__id)">
-      <nc-lazy-image :src="product.image" :alt="product.name" class="nc-product-detail__image"/>
+      <nc-lazy-image 
+        class="nc-product-detail__image"
+        :src="product.image" 
+        :alt="product.name" 
+        :placeholder="placeholderImage" 
+        :error="errorImage" 
+        :srcSets="srcSets"
+      />
       <p class="nc-product-detail__description">{{product.name}}</p>
       <p class="nc-product-detail__price">
         <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
@@ -45,6 +52,18 @@ export default {
     isExternalUrl: {
       type: Boolean,
       default: false
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {

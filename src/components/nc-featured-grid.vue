@@ -5,7 +5,13 @@
       <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in items" :key="`grid-item-${index}`" class="nc-featured-grid__content__item">
         <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)" class="nc-featured-grid__content__item__link">
           <div class="nc-featured-grid__content__item__detail">
-            <nc-lazy-image :src="item.image.src" :alt="item.image.alt" />
+            <nc-lazy-image 
+              :src="item.image.src" 
+              :alt="item.image.alt" 
+              :placeholder="placeholderImage" 
+              :error="errorImage" 
+              :srcSets="srcSets"
+            />
           </div>
           <p class="nc-featured-grid__content__item__caption">{{item.caption}}</p>
         </a>
@@ -43,6 +49,18 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   computed: {

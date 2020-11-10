@@ -8,7 +8,15 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)"><nc-lazy-image :src="item.image" :alt="item.alt"/></a>
+          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)">
+            <nc-lazy-image 
+              :src="item.image" 
+              :alt="item.alt"
+              :placeholder="placeholderImage" 
+              :error="errorImage" 
+              :srcSets="srcSets"
+            />
+          </a>
         </li>
       </template>
     </ul>
@@ -68,6 +76,18 @@ export default {
     hasDotNavigation: {
       type: Boolean,
       default: false
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {

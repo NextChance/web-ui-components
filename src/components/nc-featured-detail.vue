@@ -2,7 +2,13 @@
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
     <a class="nc-featured-detail__link" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1, elementId)">
-      <nc-lazy-image class="nc-featured-detail__link__image" :src="image.src" :alt="image.alt" />
+      <nc-lazy-image 
+        class="nc-featured-detail__link__image" 
+        :src="image.src" 
+        :alt="image.alt" 
+        :placeholder="placeholderImage" 
+        :error="errorImage" 
+        :src-sets="srcSets" />
     </a>
     <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
     <p v-else class="nc-featured-detail__subtitle">{{subtitle}}</p>
@@ -48,6 +54,18 @@ export default {
     elementId: {
       type: Number,
       default: null
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {
