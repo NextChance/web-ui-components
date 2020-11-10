@@ -147,8 +147,8 @@ export const carousel = () => ({
     return {
       title: 'Título de 45 carácteres',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -164,8 +164,8 @@ export const carouselWithUrl = () => ({
       url: 'Enlace',
       secondaryText: '',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -181,8 +181,8 @@ export const carouselWithSecondaryText = () => ({
       url: '',
       secondaryText: 'Text',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -198,8 +198,8 @@ export const carouselWithSecondaryLink = () => ({
       url: 'www.marca.com',
       secondaryText: 'Text',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -214,8 +214,8 @@ export const mosaicCarousel = () => ({
       title: 'Título de 45 carácteres',
       items: itemsMock,
       isMosaicType: true,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -231,8 +231,8 @@ export const mosaicCarouselWithUrl = () => ({
       items: itemsMock,
       isMosaicType: true,
       url: 'enlace',
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -248,8 +248,8 @@ export const mosaicCarouselWithSecondaryText = () => ({
       items: itemsMock,
       isMosaicType: true,
       secondaryText: 'secondary text 30 caracteres 30',
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
 
     }
   },

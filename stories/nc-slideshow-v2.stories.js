@@ -40,8 +40,8 @@ export const regular = () => ({
   data() {
     return {
       images: imagesMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -54,8 +54,8 @@ export const oneImg = () => ({
   data() {
     return {
       images: oneImages,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -68,8 +68,8 @@ export const activeNavigationDots = () => ({
   data() {
     return {
       images: imagesMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:

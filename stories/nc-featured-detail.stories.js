@@ -18,8 +18,8 @@ export const regular = () => ({
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
       },
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -39,8 +39,8 @@ export const titleTwoLines = () => ({
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
       },
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -60,8 +60,8 @@ export const withSubtitle = () => ({
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
       },
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -82,8 +82,8 @@ export const withSubtitleLink = () => ({
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
       },
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:

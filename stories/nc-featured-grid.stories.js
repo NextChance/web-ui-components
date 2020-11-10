@@ -52,8 +52,8 @@ export const Grid = () => ({
       subtitle: '',
       url: '',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/icon.png'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -68,8 +68,8 @@ export const GridWithoutUrl = () => ({
       title: 'Lorem ipsum',
       subtitle: 'Nulla quis',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -85,8 +85,8 @@ export const GridWithUrl = () => ({
       subtitle: 'Nulla quis',
       url: 'http://localhost:6006/test',
       items: itemsMock,
-      placeholderImage: require('../src/assets/svg/placeholder.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:

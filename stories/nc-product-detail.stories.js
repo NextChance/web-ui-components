@@ -25,7 +25,7 @@ export const regular = () => ({
       },
       isExternalUrl: true,
       placeholderImage: require('../src/assets/svg/default-vertical.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
@@ -55,7 +55,7 @@ export const withLink = () => ({
       },
       isExternalUrl: true,
       placeholderImage: require('../src/assets/svg/default-vertical.svg'),
-      errorImage: require('../src/assets/svg/error.svg')
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
