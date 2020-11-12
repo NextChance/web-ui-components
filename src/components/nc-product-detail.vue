@@ -186,7 +186,7 @@ export default {
     border-radius: 4px;
     overflow: hidden;
     height: 296px;
-    width: 100%;
+    width: auto;
     max-width: 36.25rem;
     margin: auto;
     cursor: pointer;
