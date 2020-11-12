@@ -15,9 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Changed
+- fix cms product detail component [BH-4642]
+
 ## v1.18.0
 ### Changed
-- Include caption 
+- Include caption [BH-4642]
 
 ## v1.17.0
 ### Added
