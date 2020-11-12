@@ -130,7 +130,7 @@ const itemsMock = [
     url: 'https://www.marca.com',
     image: {
       src:
-        'https://peces.paradais-sphynx.com/wp-content/uploads/2019/05/peces.jpg',
+        'https://peces.paradais-sphynx.com/wp-content/uploads/2019/05/pecs.jpg',
       alt: 'image2'
     }
   }
@@ -146,11 +146,13 @@ export const carousel = () => ({
   data() {
     return {
       title: 'Título de 45 carácteres',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -161,11 +163,13 @@ export const carouselWithUrl = () => ({
       title: 'Lorem ipsum dolor sit amet, consectetur adipa',
       url: 'Enlace',
       secondaryText: '',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -176,11 +180,13 @@ export const carouselWithSecondaryText = () => ({
       title: 'Título de 45 ',
       url: '',
       secondaryText: 'Text',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -191,11 +197,13 @@ export const carouselWithSecondaryLink = () => ({
       title: 'Título de 45 ',
       url: 'www.marca.com',
       secondaryText: 'Text',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items"></nc-carousel></div>',
+    '<div class="nc-story-container-2"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -206,10 +214,12 @@ export const mosaicCarousel = () => ({
       title: 'Título de 45 carácteres',
       items: itemsMock,
       isMosaicType: true,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :items="items" is-mosaic-type :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -220,11 +230,13 @@ export const mosaicCarouselWithUrl = () => ({
       title: 'Título de 45 carácteres',
       items: itemsMock,
       isMosaicType: true,
-      url: 'enlace'
+      url: 'enlace',
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })
 
@@ -235,11 +247,13 @@ export const mosaicCarouselWithSecondaryText = () => ({
       title: 'Lorem ipsum dolor sit amet, consectetur adipa',
       items: itemsMock,
       isMosaicType: true,
-      secondaryText: 'secondary text 30 caracteres 30'
+      secondaryText: 'secondary text 30 caracteres 30',
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
 
     }
   },
   template:
-    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type></nc-carousel></div>',
+    '<div class="nc-story-container-3"> <nc-carousel @on-analytics="action" :title="title" :url="url" :secondary-text="secondaryText" :items="items" is-mosaic-type :placeholder-image="placeholderImage" :error-image="errorImage"></nc-carousel></div>',
   methods: { action: action('clicked') }
 })

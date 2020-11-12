@@ -8,7 +8,15 @@
         :style="{transform: `translate3d(-${slidePosition}px, 0, 0)`}">
       <template>
         <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
-          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)"><img :src="item.image" :alt="item.alt"></a>
+          <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)">
+            <nc-lazy-image 
+              :src="item.image" 
+              :alt="item.alt"
+              :placeholder="placeholderImage" 
+              :error="errorImage" 
+              :srcSets="srcSets"
+            />
+          </a>
         </li>
       </template>
     </ul>
@@ -48,10 +56,14 @@
 
 <script>
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-slideshow-v2',
   mixins: [viewabilityMixin],
+  components: {
+    NcLazyImage
+  },
   props: {
     images: {
       type: Array,
@@ -64,6 +76,18 @@ export default {
     hasDotNavigation: {
       type: Boolean,
       default: false
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -184,6 +208,16 @@ export default {
 
 <style lang="scss" scoped>
 .nc-slideshow {
+  /deep/ {
+    .nc-lazy-image__image {
+      object-fit: unset;
+      position: absolute;
+      height: 100%;
+      width: unset;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
   background-color: $color-white;
   box-sizing: border-box;
   max-width: 100%;
@@ -209,12 +243,6 @@ export default {
         height: 100%;
         display: block;
         position: relative;
-      }
-      img {
-        position: absolute;
-        height: 100%;
-        left: 50%;
-        transform: translateX(-50%);
       }
     }
   }

@@ -51,11 +51,13 @@ export const Grid = () => ({
       title: 'Lorem ipsum',
       subtitle: '',
       url: '',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-featured-grid> </div>',
   methods: { action: action('clicked') }
 })
 
@@ -65,11 +67,13 @@ export const GridWithoutUrl = () => ({
     return {
       title: 'Lorem ipsum',
       subtitle: 'Nulla quis',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :subtitle="subtitle" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-featured-grid> </div>',
   methods: { action: action('clicked') }
 })
 
@@ -80,10 +84,12 @@ export const GridWithUrl = () => ({
       title: 'Lorem ipsum',
       subtitle: 'Nulla quis',
       url: 'http://localhost:6006/test',
-      items: itemsMock
+      items: itemsMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items"></nc-featured-grid> </div>',
+    '<div class="nc-story-container"> <nc-featured-grid @on-analytics="action" :title="title" :url="url" :subtitle="subtitle" :items="items" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-featured-grid> </div>',
   methods: { action: action('clicked') }
 })
