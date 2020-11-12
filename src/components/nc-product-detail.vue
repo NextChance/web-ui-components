@@ -97,6 +97,7 @@ export default {
       position: absolute;
       top: 50%;
       left: 50%;
+      width: auto;
       transform: translateY(-50%) translateX(-50%);
     }
   }
