@@ -21,7 +21,8 @@ export const regular = () => ({
         salePrice: '536 €',
         url: null,
         image:
-          'https://s3.eu-west-1.amazonaws.com/chatme-media/development/users/5c9193ff-2d87-488f-9868-c5a38af905ac/products/f05e0b78-7f92-479d-9a28-5bb81c0be087/2bb44b28-8e1f-4c37-a243-87fb3b40c796.jpg'
+          'https://www.hola.com/imagenes/viajes/20171024101019/jardin-monstruos-bomarzo-italia/0-499-829/Parco-dei-Mostri-Bomarzo-a.jpg',
+        highlighted: true
       },
       isExternalUrl: true
     }
@@ -49,7 +50,8 @@ export const withLink = () => ({
         salePrice: '536 €',
         url: '',
         image:
-          'https://s3.eu-west-1.amazonaws.com/chatme-media/development/users/5c9193ff-2d87-488f-9868-c5a38af905ac/products/f05e0b78-7f92-479d-9a28-5bb81c0be087/2bb44b28-8e1f-4c37-a243-87fb3b40c796.jpg'
+          'https://s3.eu-west-1.amazonaws.com/chatme-media/development/users/5c9193ff-2d87-488f-9868-c5a38af905ac/products/f05e0b78-7f92-479d-9a28-5bb81c0be087/2bb44b28-8e1f-4c37-a243-87fb3b40c796.jpg',
+        highlighted: false
       },
       isExternalUrl: true
     }
