@@ -3,6 +3,7 @@
     <p class="nc-product-detail__title">{{title}}</p>
     <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__content" @click="handleClick($event, product.url, 1, product.__id)">
       <img class="nc-product-detail__image" :src="product.image" :alt="product.name">
+      <nc-highlighted v-if="product.highlighted"/>
       <p class="nc-product-detail__description">{{product.name}}</p>
       <p class="nc-product-detail__price">
         <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
@@ -17,9 +18,13 @@
 <script>
 import CONSTANTS from '../../tools/constants'
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcHighlighted from './nc-highlighted'
 
 export default {
   name: 'nc-product-detail',
+  components: {
+    NcHighlighted
+  },
   mixins: [viewabilityMixin],
   props: {
     title: {
@@ -121,6 +126,9 @@ export default {
   }
 
   &__content {
+    display: block;
+    overflow: hidden;
+    position: relative;
     cursor: pointer;
     text-decoration: none;
   }

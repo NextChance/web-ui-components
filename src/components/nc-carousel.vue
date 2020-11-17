@@ -15,6 +15,7 @@
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
               </div>
+              <nc-highlighted v-if="item.highlighted" />
               <div class="item-extra-content">
                 <div class="item-description">
                   {{ item.title }}
@@ -38,6 +39,8 @@
 
 <script>
 import ncCoreCarousel from './nc-core-carousel'
+import NcHighlighted from './nc-highlighted'
+
 import CONSTANTS from '../../tools/constants'
 
 import viewabilityMixin from '../../mixins/viewabilityMixin'
@@ -46,7 +49,8 @@ export default {
   name: 'NcCarousel',
   mixins: [viewabilityMixin],
   components: {
-    ncCoreCarousel
+    ncCoreCarousel,
+    NcHighlighted
   },
   props: {
     title: {
@@ -154,6 +158,7 @@ export default {
         cursor: pointer;
         display: flex;
         text-decoration: none;
+        position: relative;
 
         &:visited,
         &:hover {

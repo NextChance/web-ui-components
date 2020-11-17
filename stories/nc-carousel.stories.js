@@ -12,7 +12,8 @@ const itemsMock = [
       src:
         'https://images-eu.ssl-images-amazon.com/images/I/51o9u5TmOgL._AC_SY400_.jpg',
       alt: 'image1'
-    }
+    },
+    isHighlighted: true
   },
   {
     title: 'Titulo producto',
@@ -23,7 +24,8 @@ const itemsMock = [
       src:
         'https://cdn.pixabay.com/photo/2020/01/09/14/35/fish-4752920_960_720.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto largo largo de mas de una linea porque tengo tiempo',
@@ -34,7 +36,8 @@ const itemsMock = [
       src:
         'https://theoutpostlife.com/images/bass150.png',
       alt: 'image1'
-    }
+    },
+    isHighlighted: true
   },
   {
     title: 'Titulo producto',
@@ -45,7 +48,8 @@ const itemsMock = [
       src:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Pez_Escalar_Red_Devil.jpg/576px-Pez_Escalar_Red_Devil.jpg',
       alt: 'image1'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -56,7 +60,8 @@ const itemsMock = [
       src:
         'https://blog.laminasyaceros.com/hs-fs/hubfs/Rolando%20Sarabia/Peces/laminas%20y%20aceros%20pez%20angel%20de%20cara%20azul.jpg?width=542&name=laminas%20y%20aceros%20pez%20angel%20de%20cara%20azul.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -67,7 +72,8 @@ const itemsMock = [
       src:
         'https://blog.laminasyaceros.com/hs-fs/hubfs/Rolando%20Sarabia/Peces/laminas%20y%20aceros%20pez%20loro.jpg?width=546&name=laminas%20y%20aceros%20pez%20loro.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -78,7 +84,8 @@ const itemsMock = [
       src:
         'https://s3.eu-west-1.amazonaws.com/strapi.billionhands.com/strapi.billionhands.com/204x120_12_be5a2b1591_4809b87bd8.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -89,7 +96,8 @@ const itemsMock = [
       src:
         'https://www.aquariumcostadealmeria.com/wp-content/uploads/2018/03/destacada-2.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -100,7 +108,8 @@ const itemsMock = [
       src:
         'https://sertv.gob.pa/crisolfm/wp-content/uploads/sites/2/2019/09/peces-de-agua-dulce.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -110,7 +119,8 @@ const itemsMock = [
     image: {
       src: 'https://img2.rtve.es/i/?w=1600&i=1562502992232.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -121,7 +131,8 @@ const itemsMock = [
       src:
         'https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/gallery/592c05a35bafe806a33c9872/pez-guppy_0.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   },
   {
     title: 'Titulo producto',
@@ -132,7 +143,8 @@ const itemsMock = [
       src:
         'https://peces.paradais-sphynx.com/wp-content/uploads/2019/05/peces.jpg',
       alt: 'image2'
-    }
+    },
+    isHighlighted: false
   }
 ]
 
