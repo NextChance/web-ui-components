@@ -15,7 +15,7 @@
               <div class="item-image-container" ref="carouselImage">
                 <img :src="item.image.src" :alt="item.image.alt" class="item-image">
               </div>
-              <nc-highlighted :is-highlighted="item.highlighted" />
+              <nc-highlighted v-if="item.highlighted" />
               <div class="item-extra-content">
                 <div class="item-description">
                   {{ item.title }}
