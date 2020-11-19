@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.18.2
+### Added
+- Create new label for product-detail and product-carousel to use when a product is  highlighted (example BlackFriday's product) [BH-5216]
+
 ## v1.18.1
 ### Changed
 - fix cms product detail component [BH-4642]
