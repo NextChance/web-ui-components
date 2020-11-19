@@ -39,11 +39,13 @@ export const regular = () => ({
   components: { NcSlideshow },
   data() {
     return {
-      images: imagesMock
+      images: imagesMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action"></nc-slideshow> </div>',
+    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-slideshow> </div>',
   methods: { action: action('clicked') }
 })
 
@@ -51,11 +53,13 @@ export const oneImg = () => ({
   components: { NcSlideshow },
   data() {
     return {
-      images: oneImages
+      images: oneImages,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action"></nc-slideshow> </div>',
+    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" @on-analytics="action" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-slideshow> </div>',
   methods: { action: action('clicked') }
 })
 
@@ -63,10 +67,12 @@ export const activeNavigationDots = () => ({
   components: { NcSlideshow },
   data() {
     return {
-      images: imagesMock
+      images: imagesMock,
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" has-dot-navigation @on-analytics="action"></nc-slideshow> </div>',
+    '<div class="nc-slides-container" style="height: 250px;max-width: 906px"> <nc-slideshow :images="images" :autoplay-time="4000" has-dot-navigation @on-analytics="action" :placeholder-image="placeholderImage" :error-image="errorImage"></nc-slideshow> </div>',
   methods: { action: action('clicked') }
 })

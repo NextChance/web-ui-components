@@ -2,7 +2,13 @@
   <div class="nc-featured-detail">
     <p class="nc-featured-detail__title">{{title}}</p>
     <a class="nc-featured-detail__link" v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="itemUrl" :target="isExternalUrl ? '_blank': '_self'" @click="handleClick($event, itemUrl, 1, elementId)">
-      <img :src="image.src" class="nc-featured-detail__link__image" :alt="image.alt">
+      <nc-lazy-image 
+        class="nc-featured-detail__link__image" 
+        :src="image.src" 
+        :alt="image.alt" 
+        :placeholder="placeholderImage" 
+        :error="errorImage" 
+        :src-sets="srcSets" />
     </a>
     <a v-if="hasSubtitleLink" :href="url" @click="handleClick($event, url, CONSTANTS.CMS_SUBTITLE_ANALYTICS_NAME)" class="nc-featured-detail__subtitle nc-featured-detail__subtitle--link">{{subtitle}}</a>
     <p v-else class="nc-featured-detail__subtitle">{{subtitle}}</p>
@@ -12,10 +18,14 @@
 <script>
 import CONSTANTS from '../../tools/constants'
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-featured-detail',
   mixins: [viewabilityMixin],
+  components: {
+    NcLazyImage
+  },
   props: {
     title: {
       type: String,
@@ -44,6 +54,18 @@ export default {
     elementId: {
       type: Number,
       default: null
+    },
+    placeholderImage: {
+      type: String,
+      default: ''
+    },
+    errorImage: {
+      type: String,
+      default: ''
+    },
+    srcSets: {
+      type: String,
+      default: ''
     }
   },
   data() {
