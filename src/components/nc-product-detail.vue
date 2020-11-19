@@ -10,6 +10,7 @@
         :error="errorImage" 
         :srcSets="srcSets"
       />
+      <nc-highlighted v-if="product.highlighted"/>
       <p class="nc-product-detail__description">{{product.name}}</p>
       <p class="nc-product-detail__price">
         <span class="nc-product-detail__price--full-price">{{product.fullPrice}}</span>
@@ -24,14 +25,16 @@
 <script>
 import CONSTANTS from '../../tools/constants'
 import viewabilityMixin from '../../mixins/viewabilityMixin'
+import NcHighlighted from './nc-highlighted'
 import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-product-detail',
-  mixins: [viewabilityMixin],
   components: {
-    NcLazyImage
+    NcLazyImage,
+    NcHighlighted
   },
+  mixins: [viewabilityMixin],
   props: {
     title: {
       type: String,
@@ -154,6 +157,9 @@ export default {
   }
 
   &__content {
+    display: block;
+    overflow: hidden;
+    position: relative;
     cursor: pointer;
     text-decoration: none;
   }
