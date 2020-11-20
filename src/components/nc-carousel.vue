@@ -13,7 +13,11 @@
             <a :href="item.url" @click="handleClick($event, item, index + 1, item.__id || item.id)"
                class="nc-carousel__list__item__content">
               <div class="item-image-container" ref="carouselImage">
-                <img :src="item.image.src" :alt="item.image.alt" class="item-image">
+                <img
+                    :src="item.image.src"
+                    :alt="item.image.alt"
+                    class="item-image"
+                    @error="handleImageError">
               </div>
               <nc-highlighted v-if="item.highlighted" />
               <div class="item-extra-content">
@@ -93,6 +97,9 @@ export default {
     },
     handleImpression(item) {
       this.$emit('on-child-impression', item.__id || item.id)
+    },
+    handleImageError(e) {
+      e.currentTarget.src = 'https://billionhands.com/error-loading-picture.svg'
     }
   }
 }

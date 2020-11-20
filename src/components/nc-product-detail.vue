@@ -2,7 +2,11 @@
   <div class="nc-product-detail">
     <p class="nc-product-detail__title">{{title}}</p>
     <a v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression()" :href="product.url" class="nc-product-detail__content" @click="handleClick($event, product.url, 1, product.__id)">
-      <img class="nc-product-detail__image" :src="product.image" :alt="product.name">
+      <img
+          class="nc-product-detail__image"
+          :src="product.image"
+          :alt="product.name"
+          @error="handleImageError">
       <nc-highlighted v-if="product.highlighted"/>
       <p class="nc-product-detail__description">{{product.name}}</p>
       <p class="nc-product-detail__price">
@@ -66,6 +70,9 @@ export default {
     },
     handleImpression() {
       this.$emit('on-child-impression', this.product.__id)
+    },
+    handleImageError(e) {
+      e.currentTarget.src = 'https://billionhands.com/error-loading-picture.svg'
     }
   }
 }
