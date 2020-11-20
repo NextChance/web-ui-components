@@ -109,7 +109,7 @@ export default {
       $event.preventDefault()
       const payload = { url: item.url, productId: item.id }
       this.$emit('on-analytics', { trigger, id, ...payload })
-      this.$emit('on-navigate', payload)
+      this.$emit('on-navigate', this.isMosaicType ? item.url : payload)
     },
     handleImpression(item) {
       this.$emit('on-child-impression', item.__id || item.id)
