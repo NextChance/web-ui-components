@@ -252,7 +252,8 @@ export default {
     outline: none;
     cursor: pointer;
     position: absolute;
-    width: 24px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: none;
     background-color: white;
@@ -260,7 +261,6 @@ export default {
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
     top: 50%;
     transform: translateY(-50%);
-    height: 24px;
     padding: 5px;
 
     @media (min-width: $breakpoint-desktop-s) {
@@ -268,6 +268,8 @@ export default {
     }
 
     svg {
+      opacity: 0.6;
+      margin: auto;
       display: block;
       width: 14px;
       height: 14px;
