@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## ## v1.19.0
+### Added
+- Create component nc-lazy-load
+### Changed
+- Update cms-components to use new lazy-load component
+### Fixed
+- Send different payload depending on the type on nc-carousel
+
+
 ## v1.18.2
 ### Added
 - Create new label for product-detail and product-carousel to use when a product is  highlighted (example BlackFriday's product) [BH-5216]
