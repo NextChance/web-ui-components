@@ -17,11 +17,13 @@ export const regular = () => ({
         src:
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
-      }
+      },
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :item-url="itemUrl" :image="image">Hello Button</nc-featured-detail> </div> ',
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :item-url="itemUrl" :image="image" :placeholder-image="placeholderImage" :error-image="errorImage">Hello Button</nc-featured-detail> </div> ',
   methods: { action: action('clicked') }
 })
 
@@ -36,11 +38,13 @@ export const titleTwoLines = () => ({
         src:
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
-      }
+      },
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action"  :title="title" :item-url="itemUrl" :image="image">Hello Button</nc-featured-detail> </div> ',
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action"  :title="title" :item-url="itemUrl" :image="image" :placeholder-image="placeholderImage" :error-image="errorImage">Hello Button</nc-featured-detail> </div> ',
   methods: { action: action('clicked') }
 })
 
@@ -55,11 +59,13 @@ export const withSubtitle = () => ({
         src:
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
-      }
+      },
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :subtitle="subtitle" :item-url="itemUrl" :image="image">Hello Button</nc-featured-detail> </div> ',
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :subtitle="subtitle" :item-url="itemUrl" :image="image" :placeholder-image="placeholderImage" :error-image="errorImage">Hello Button</nc-featured-detail> </div> ',
   methods: { action: action('clicked') }
 })
 
@@ -75,10 +81,12 @@ export const withSubtitleLink = () => ({
         src:
           'https://leadsfac.com/wp-content/uploads/2019/10/Lorem-Ipsum-alternatives.png',
         alt: 'alt de la imagen'
-      }
+      },
+      placeholderImage: require('../src/assets/svg/default-vertical.svg'),
+      errorImage: require('../src/assets/svg/error-loading-picture.svg')
     }
   },
   template:
-    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :subtitle="subtitle" :url="url" :item-url="itemUrl" :image="image">Hello Button</nc-featured-detail> </div> ',
+    '<div class="nc-story-container"> <nc-featured-detail  @on-analytics="action" :title="title" :subtitle="subtitle" :url="url" :item-url="itemUrl" :image="image" :placeholder-image="placeholderImage" :error-image="errorImage">Hello Button</nc-featured-detail> </div> ',
   methods: { action: action('clicked') }
 })
