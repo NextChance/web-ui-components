@@ -9,13 +9,11 @@
       <template>
         <li v-observe-visibility="viewabilityConfig" @viewability-done="handleImpression(item)" v-for="(item, index) in virtualImages" :key="index" class="nc-slideshow__content__item">
           <a :href="item.url" :target="item.isExternalUrl ? '_blank': '_self'" @click="handleClick($event, item.url, index+1, item.id)">
-            <nc-lazy-image 
-              :src="item.image" 
+            <img
+              :src="item.image"
               :alt="item.alt"
-              :placeholder="placeholderImage" 
-              :error="errorImage" 
-              :srcSets="srcSets"
-            />
+              @error="setErrorImage"
+            >
           </a>
         </li>
       </template>
@@ -56,14 +54,10 @@
 
 <script>
 import viewabilityMixin from '../../mixins/viewabilityMixin'
-import NcLazyImage from './nc-lazy-image'
 
 export default {
   name: 'nc-slideshow-v2',
   mixins: [viewabilityMixin],
-  components: {
-    NcLazyImage
-  },
   props: {
     images: {
       type: Array,
@@ -100,7 +94,8 @@ export default {
       slidePosition: 0,
       prevIndex: 0,
       offsetSlides: 0,
-      handleInterval: null
+      handleInterval: null,
+      loadedImages: [0, 1]
     }
   },
   watch: {
@@ -113,7 +108,16 @@ export default {
   },
   computed: {
     virtualImages() {
-      return [...this.images, this.images[0]]
+      let images = this.images.map((item, index) => {
+        let images = this.loadedImages.includes(index)
+          ? item
+          : {
+              ...item,
+              image: this.placeholderImage
+            }
+        return images
+      })
+      return [...images, images[0]]
     },
     hasSlideNavigation() {
       return this.images.length > 1
@@ -127,6 +131,15 @@ export default {
         this.animationRateHandler = window.requestAnimationFrame(
           this.slideAnimation
         )
+        const totalImages = this.images.length -1
+        this.addIndexToLoadedImages(index)
+        this.addIndexToLoadedImages(index === 0 ? totalImages : index - 1)
+        this.addIndexToLoadedImages(index === totalImages ? 0 : index + 1)
+      }
+    },
+    addIndexToLoadedImages(index) {
+      if (!this.loadedImages.includes(index)) {
+        this.loadedImages.push(index)
       }
     },
     nextSlide() {
@@ -136,6 +149,9 @@ export default {
       ) {
         this.prevIndex = this.currentIndex
         ++this.currentIndex
+        this.addIndexToLoadedImages(
+          this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0
+        )
         this.animationRateHandler = window.requestAnimationFrame(
           this.slideAnimation
         )
@@ -149,6 +165,11 @@ export default {
         }
         this.prevIndex = this.currentIndex
         --this.currentIndex
+        this.addIndexToLoadedImages(
+          this.currentIndex === 0
+            ? this.images.length - 1
+            : this.currentIndex - 1
+        )
         this.animationRateHandler = window.requestAnimationFrame(
           this.slideAnimation
         )
@@ -190,6 +211,9 @@ export default {
     },
     handleImpression(image) {
       this.$emit('on-child-impression', image.id)
+    },
+    setErrorImage(ev) {
+      ev.target.src = this.errorImage
     }
   },
   mounted() {
@@ -198,6 +222,7 @@ export default {
     if (!!this.autoplayTime && this.images.length > 1) {
       this.handleInterval = setTimeout(this.nextSlide, this.autoplayTime)
     }
+    this.addIndexToLoadedImages(this.images.length - 1)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeSlideshow)
@@ -208,16 +233,6 @@ export default {
 
 <style lang="scss" scoped>
 .nc-slideshow {
-  /deep/ {
-    .nc-lazy-image__image {
-      object-fit: unset;
-      position: absolute;
-      height: 100%;
-      width: unset;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
   background-color: $color-white;
   box-sizing: border-box;
   max-width: 100%;
@@ -243,6 +258,13 @@ export default {
         height: 100%;
         display: block;
         position: relative;
+      }
+
+      img {
+        position: absolute;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }
