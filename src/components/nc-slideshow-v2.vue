@@ -233,16 +233,6 @@ export default {
 
 <style lang="scss" scoped>
 .nc-slideshow {
-  /deep/ {
-    .nc-lazy-image__image {
-      object-fit: unset;
-      position: absolute;
-      height: 100%;
-      width: unset;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
   background-color: $color-white;
   box-sizing: border-box;
   max-width: 100%;
@@ -268,6 +258,13 @@ export default {
         height: 100%;
         display: block;
         position: relative;
+      }
+
+      img {
+        position: absolute;
+        height: 100%;
+        left: 50%;
+        transform: translateX(-50%);
       }
     }
   }
