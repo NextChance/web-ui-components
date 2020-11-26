@@ -12,13 +12,13 @@
           >
             <a :href="item.url" @click="handleClick($event, item, index + 1, item.__id || item.id)"
                class="nc-carousel__list__item__content">
-              <nc-lazy-image 
-                class="item-image-container" 
+              <nc-lazy-image
+                class="item-image-container"
                 ref="carouselImage"
-                :src="item.image.src" 
-                :alt="item.image.alt" 
-                :placeholder="placeholderImage" 
-                :error="errorImage" 
+                :src="item.image.src"
+                :alt="item.image.alt"
+                :placeholder="placeholderImage"
+                :error="errorImage"
                 :src-sets="srcSets"
               />
               <nc-highlighted v-if="item.highlighted" />
@@ -355,7 +355,7 @@ export default {
       /deep/ {
         .nc-core-carousel {
           &__container {
-            margin: 0 -20px;
+            margin: 0;
             flex-grow: 1;
           }
         }
@@ -456,12 +456,8 @@ export default {
 
   @media (min-width: $breakpoint-desktop-s) {
     $componentPadding: 32px;
-    padding: 24px $componentPadding 16px;
+    padding: 24px $componentPadding 4px;
     box-sizing: border-box;
-
-    &__cards-container {
-      order: 2;
-    }
 
     &__secondary-content {
       border-left: 1px solid #d8d8d8;
@@ -473,10 +469,12 @@ export default {
     }
 
     &__cards-container {
+      order: 2;
+      padding: 0;
       /deep/ {
         .nc-core-carousel {
           &__container {
-            margin: 0 -1 * $componentPadding;
+            margin-right: -#{$componentPadding};
             flex-grow: 1;
           }
         }
@@ -486,17 +484,27 @@ export default {
     &__list {
       & &__item {
         &:first-child {
-          padding-left: $componentPadding;
+          padding-left: 0;
         }
         &:last-child {
           padding-right: $componentPadding;
         }
       }
     }
+
+    &--mosaic {
+      #{$ncCarousel}__list {
+        padding-bottom: 10px;
+      }
+    }
   }
 
   @media (min-width: $breakpoint-desktop-m) {
-    padding: 24px 32px 24px;
+    padding: 24px 32px 8px;
+    &__cards-container {
+      padding: 0;
+      margin-right: -32px;
+    }
 
     &--list {
       $itemHeight: 172px;
@@ -510,6 +518,9 @@ export default {
       #{$ncCarousel}__list {
         &__item {
           padding: 0 16px;
+          &:first-child {
+            padding-left: 0;
+          }
 
           .item-image-container {
             height: $itemHeight;
@@ -520,8 +531,12 @@ export default {
 
     &--mosaic {
       #{$ncCarousel}__list {
+        padding-bottom: 19px;
         &__item {
           padding: 0 10px;
+          &:first-child {
+            padding-left: 0;
+          }
         }
       }
     }
