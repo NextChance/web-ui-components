@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.19.2
+### Changed
+- Replace lazy-load by a custom lazy-load in nc-slideshow-v2 [BH-5757]
+
+## v1.19.1  >> invalid
+
 ## ## v1.19.0
 ### Added
 - Create component nc-lazy-load
