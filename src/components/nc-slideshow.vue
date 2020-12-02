@@ -10,8 +10,8 @@
           transition: 'transform 500ms ease'
         }">
         <template v-if="srcSets.length">
-          <li v-for="(image, index) in srcSets" :key="index" class="list__item" :style="defaultImage ? `background-image: url(${defaultImage})` : ''">
-            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setErrorImage">
+          <li v-for="(image, index) in srcSets" :key="index" class="list__item" :style="defaultImage && !loadedImages[index] ? `background-image: url(${defaultImage})` : ''">
+            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setErrorImage" @load="setImageLoaded(index)">
           </li>
         </template>
         <template v-else>
@@ -69,6 +69,19 @@
    */
   export default {
     name: 'nc-slideshow',
+    data() {
+      return {
+        slideIndex: 0,
+        slideLength: 0,
+        width: 0,
+        ariaObject: {
+          itemIndex: 'slide',
+          tabPanel: 'tabpanel-0-'
+        },
+        slideList: '',
+        loadedImages: []
+      }
+    },
     props: {
       paginationActiveClass: {
         type: String,
@@ -132,18 +145,6 @@
         return this.slideIndex < this.slideLength - 1
       }
     },
-    data() {
-      return {
-        slideIndex: 0,
-        slideLength: 0,
-        width: 0,
-        ariaObject: {
-          itemIndex: 'slide',
-          tabPanel: 'tabpanel-0-'
-        },
-        slideList: ''
-      }
-    },
     methods: {
       selectSlide(index) {
         this.slideIndex = index
@@ -191,6 +192,9 @@
       setErrorImage(ev) {
         ev.target.src = this.errorImage
         ev.target.srcset = this.errorImage
+      },
+      setImageLoaded(imageIndex) {
+        this.$set(this.loadedImages, imageIndex, true)
       }
     },
     mounted() {
@@ -236,6 +240,7 @@
           align-items: center;
           background-repeat: no-repeat;
           background-position: center;
+          background-size: cover;
           display: flex;
           float: left;
           height: 100%;
