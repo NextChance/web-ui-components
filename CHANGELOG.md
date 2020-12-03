@@ -15,9 +15,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
-## v1.20.1
-- Add loading state on nc-slideshow image [BH-5944]
-
 ## v1.20.0
 ### Changed
 - Update style for nc-carousel [BH-5419]
