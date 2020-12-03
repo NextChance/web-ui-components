@@ -47,6 +47,7 @@ export default {
     this.carousel = this.$refs.carousel
     const { maxTranslation, hasSlideNavigation } = this.getCarouselSizing()
     window.addEventListener('resize', this.onWindowResize)
+    this.carousel.addEventListener('scroll', this.setArrowStatus)
     this.setScrollStatus(
       maxTranslation,
       hasSlideNavigation,
@@ -55,6 +56,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onWindowResize)
+    this.carousel.removeEventListener('scroll', this.setArrowStatus)
   },
   methods: {
     onWindowResize() {
@@ -107,6 +109,14 @@ export default {
       this.hasSlideNavigation = hasSlideNavigation
       this.isMaxScroll = scrollPosition === maxTranslation
       this.isMinScroll = scrollPosition === 0
+    },
+    setArrowStatus() {
+      const { maxTranslation, hasSlideNavigation } = this.getCarouselSizing()
+      this.setScrollStatus(
+        maxTranslation,
+        hasSlideNavigation,
+        this.carousel.scrollLeft
+      )
     }
   }
 }
@@ -117,6 +127,7 @@ export default {
   width: 100%;
   height: auto;
   position: relative;
+  $ncCoreCarousel: &;
 
   &__container {
     position: relative;
@@ -132,13 +143,24 @@ export default {
         display: none;
       }
     }
+    @media (min-width: $breakpoint-desktop-s) {
+      &::-webkit-scrollbar {
+        display: block;
+        height: 6px;
+        padding: 3px 50px 0 0;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: transparent;
+      }
+    }
   }
   &__button {
     display: none;
     cursor: pointer;
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: none;
     background-color: white;
@@ -149,10 +171,15 @@ export default {
     margin: auto;
     @media (min-width: $breakpoint-desktop-s) {
       display: block;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.3s, opacity 0.3s ease-in;
       position: absolute;
       svg {
+        margin: auto;
         display: block;
         width: 14px;
+        fill: #aaaaaa;
         height: 14px;
       }
       &--left {
@@ -169,6 +196,22 @@ export default {
           transform: rotate(-90deg);
         }
       }
+    }
+  }
+  &:hover,
+  &:focus {
+    @media (min-width: $breakpoint-desktop-s) {
+      #{$ncCoreCarousel} {
+        &__button {
+          visibility: visible;
+          opacity: 1;
+        }
+        &__container {
+          &::-webkit-scrollbar-thumb {
+            background-color: #ebebeb;
+          }
+        }
+    }
     }
   }
 }

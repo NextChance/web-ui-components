@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.20.0
+### Changed
+- Update style for nc-carousel [BH-5419]
+- Add image on error for nc-slideshow [BH-5743]
+
 ## v1.19.2
 ### Changed
 - Replace lazy-load by a custom lazy-load in nc-slideshow-v2 [BH-5757]

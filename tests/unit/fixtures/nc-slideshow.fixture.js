@@ -10,7 +10,8 @@ export const defaultProps = {
   ariaText: { ariaTextDots: 'Slide' },
   defaultImage: undefined,
   images: [],
-  srcSets: []
+  srcSets: [],
+  errorImage: ''
 }
 
 export const propsWithButtons = {
@@ -25,7 +26,8 @@ export const propsWithButtons = {
   ariaText: { ariaTextDots: 'Slide' },
   defaultImage: undefined,
   images: [],
-  srcSets: []
+  srcSets: [],
+  errorImage: ''
 }
 
 export const propsWithImages = {
