@@ -10,12 +10,12 @@
           transition: 'transform 500ms ease'
         }">
         <template v-if="srcSets.length">
-          <li v-for="(image, index) in srcSets" :key="index" class="list__item">
-            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setDefaultErrorImage">
+          <li v-for="(image, index) in srcSets" :key="index" class="list__item" :style="defaultImage && !loadedImages[index] ? `background-image: url(${defaultImage})` : ''">
+            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setErrorImage" @load="setImageLoaded(index)">
           </li>
         </template>
         <template v-else>
-          <li class="list__item list__item--placeholder" :style="{ 'background-image': `url(${defaultImage})` }">
+          <li class="list__item list__item--placeholder" :style="defaultImage ? `background-image: url(${defaultImage})` : ''">
           </li>
         </template>
       </ul>
@@ -69,6 +69,19 @@
    */
   export default {
     name: 'nc-slideshow',
+    data() {
+      return {
+        slideIndex: 0,
+        slideLength: 0,
+        width: 0,
+        ariaObject: {
+          itemIndex: 'slide',
+          tabPanel: 'tabpanel-0-'
+        },
+        slideList: '',
+        loadedImages: []
+      }
+    },
     props: {
       paginationActiveClass: {
         type: String,
@@ -111,14 +124,17 @@
         type: Array,
         default: () => []
       },
-      defaultImage: String,
-      hideButtons: {
-        type: Boolean,
-        default: false
+      defaultImage: {
+        type: String,
+        default: ''
       },
       errorImage: {
         type: String,
         default: ''
+      },
+      hideButtons: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -127,18 +143,6 @@
       },
       hasLinkRight() {
         return this.slideIndex < this.slideLength - 1
-      }
-    },
-    data() {
-      return {
-        slideIndex: 0,
-        slideLength: 0,
-        width: 0,
-        ariaObject: {
-          itemIndex: 'slide',
-          tabPanel: 'tabpanel-0-'
-        },
-        slideList: ''
       }
     },
     methods: {
@@ -185,9 +189,12 @@
           element.style.width = this.width + 'px'
         })
       },
-      setDefaultErrorImage(ev) {
+      setErrorImage(ev) {
         ev.target.src = this.errorImage
         ev.target.srcset = this.errorImage
+      },
+      setImageLoaded(imageIndex) {
+        this.$set(this.loadedImages, imageIndex, true)
       }
     },
     mounted() {
@@ -230,11 +237,15 @@
         padding: 0;
 
         &__item {
+          align-items: center;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          display: flex;
           float: left;
           height: 100%;
           min-height: 1px;
-          display: flex;
-          align-items: center;
+
           &--placeholder {
             width: 100%;
             height: 100%;
