@@ -107,9 +107,16 @@ export default {
   methods: {
     handleClick($event, item, trigger, id = null) {
       $event.preventDefault()
+      const formattedItem = {
+        url: item.url,
+        product: {
+          ...item,
+          image: item.image.src
+        }
+      }
       const payload = { url: item.url, productId: item.id }
       this.$emit('on-analytics', { trigger, id, ...payload })
-      this.$emit('on-navigate', this.isMosaicType ? item.url : payload)
+      this.$emit('on-navigate', this.isMosaicType ? item.url : formattedItem)
     },
     handleImpression(item) {
       this.$emit('on-child-impression', item.__id || item.id)
