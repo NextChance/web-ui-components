@@ -83,7 +83,7 @@ export default {
     handleClick($event, url, trigger, id = null) {
       $event.preventDefault()
       this.$emit('on-analytics', { trigger, id, url })
-      this.$emit('on-navigate', { url, productId: this.product.id })
+      this.$emit('on-navigate', { url, product: this.product })
     },
     handleImpression() {
       this.$emit('on-child-impression', this.product.__id)
