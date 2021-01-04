@@ -15,8 +15,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+
+## v1.21.0
+### Changed
+- Payload info sent with on-navigate events on NcCarousel and NcProductDetail components
+
 ## v1.20.1
-- Add loading state on nc-slideshow image [BH-5944]
+### Added
+- Loading state on nc-slideshow image [BH-5944]
 
 ## v1.20.0
 ### Changed
