@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## [UNRELEASED]
+### Changed
+- Modify web-ui-components to send new params: Modify nc-carousel and nc-product-detail to send full product [BH-6200]
+- Add baseAlt property for nc-slideshow to build alt [BH-6314]
 
 ## v1.21.0
 ### Changed
