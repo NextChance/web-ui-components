@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Security
 -->
 
+## v1.22.0
+### Changed
+- Add baseAlt property for nc-slideshow to build alt [BH-6314]
 
 ## v1.21.0
 ### Changed
