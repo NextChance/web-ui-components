@@ -11,7 +11,7 @@
         }">
         <template v-if="srcSets.length">
           <li v-for="(image, index) in srcSets" :key="index" class="list__item" :style="defaultImage && !loadedImages[index] ? `background-image: url(${defaultImage})` : ''">
-            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setErrorImage" @load="setImageLoaded(index)" :alt="alt">
+            <img class="image" :src="image.smallest" :srcset="image.srcSet" @error="setErrorImage" @load="setImageLoaded(index)" :alt="`${baseAlt} ${index+1}`">
           </li>
         </template>
         <template v-else>
@@ -136,7 +136,7 @@
         type: Boolean,
         default: false
       },
-      alt: {
+      baseAlt: {
         type: String,
         default: ''
       }
