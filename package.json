@@ -17,7 +17,7 @@
     "@vue/babel-preset-app": "^4.2.2",
     "country-code-emoji": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "libphonenumber-js": "^1.7.15",
+    "libphonenumber-js": "^1.10.28",
     "postcss-nested": "^4.1.1",
     "vue": "^2.5.21",
     "vue-i18n": "^8.9.0",
